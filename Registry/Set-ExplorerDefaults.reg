@@ -1,0 +1,30 @@
+Windows Registry Editor Version 5.00
+
+; Configure Explorer Defaults
+; Author: C-Man | Date: 2026-02-28
+;
+; - Show file extensions
+; - Show hidden files
+; - Show full path in title bar
+; - Disable recent files in Quick Access
+; - Launch Explorer to "This PC" instead of Quick Access
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+; Show file extensions (0 = show, 1 = hide)
+"HideFileExt"=dword:00000000
+; Show hidden files (1 = show, 2 = hide)
+"Hidden"=dword:00000001
+; Show full path in title bar (1 = yes, 0 = no)
+"FullPath"=dword:00000001
+; Show status bar (1 = yes, 0 = no)
+"ShowStatusBar"=dword:00000001
+; Always show menus (1 = yes, 0 = no)
+"AlwaysShowMenus"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer]
+; Launch to This PC (1 = This PC, 2 = Quick Access)
+"LaunchTo"=dword:00000001
+; Disable recent files in Quick Access
+"ShowRecent"=dword:00000000
+; Disable frequent folders in Quick Access
+"ShowFrequent"=dword:00000000
