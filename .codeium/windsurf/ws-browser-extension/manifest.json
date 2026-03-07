@@ -1,0 +1,66 @@
+{
+  "name": "Windsurf Browser Extension",
+  "description": "Windsurf Browser Connection",
+  "version": "1.0.1",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAykkcxU3UK1BifpGXY4WvBNK+94JFzgmV1qHQGKNVittn2Zn0adPa7r9I7SwjLn3BymTogkRzsNI7JDM/FNpYRD7DNOnsm3442cY5SOllld3LYewTKaRt//5qcEyXAnBfA89JBfN6r2pvmZbbNXFodPCjxrR17SVe/7MvCjTwf8ZBtK9OO+M38gN2khhZAZPhBO3hqEdk6m55a5ohwXFDMV9/M+Tj9iXP9yqSvM44q0ZKmUITTATVxqyF36sBqTty7bIj9SMmUWoFuoAAGGQLYIXzUf/LFl8gf0WbFi4ul8HEDq4n+0YENRxT5WD+qU0M/MgDYEwoIBwHs//jG7vgsQIDAQAB",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "serviceWorker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "contentScript.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "externally_connectable": {
+    "matches": [
+      "<all_urls>"
+    ]
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "parent_injection.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "icons/16x16.png",
+    "32": "icons/32x32.png",
+    "48": "icons/48x48.png",
+    "128": "icons/128x128.png"
+  },
+  "performance": {
+    "enable_caching": true,
+    "cache_ttl": 3600,
+    "max_cache_size": 1000,
+    "enable_background_processing": true,
+    "max_background_jobs": 10,
+    "enable_async_operations": true,
+    "optimization_level": "advanced"
+  },
+  "async": {
+    "max_concurrent_operations": 10,
+    "operation_timeout": 30,
+    "enable_progress_tracking": true,
+    "batch_size": 4
+  }
+}
