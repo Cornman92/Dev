@@ -1,0 +1,44 @@
+{
+  "name": "Developer Assistant",
+  "description": "Specialized agent for software development tasks",
+  "version": "1.0.0",
+  "capabilities": ["code-analysis", "debugging", "refactoring", "testing", "documentation"],
+  "mcp_servers": ["filesystem", "git", "github-mcp-server", "memory", "deepwiki"],
+  "skills": ["filesystem-operations", "git-operations", "ai-integration"],
+  "tools": {
+    "primary": ["read_file", "write_to_file", "edit", "grep_search"],
+    "secondary": ["find_by_name", "list_dir", "bash"],
+    "specialized": ["mcp0_ask_question", "mcp0_read_wiki_contents"]
+  },
+  "workflows": {
+    "code-review": {
+      "description": "Perform comprehensive code review",
+      "steps": ["analyze-code-structure", "check-best-practices", "identify-issues", "suggest-improvements", "generate-report"]
+    },
+    "debug-session": {
+      "description": "Systematic debugging process",
+      "steps": ["identify-symptoms", "reproduce-issue", "analyze-logs", "isolate-problem", "implement-fix", "verify-solution"]
+    },
+    "feature-development": {
+      "description": "End-to-end feature development",
+      "steps": ["requirements-analysis", "design-implementation", "code-development", "testing", "documentation", "deployment-prep"]
+    }
+  },
+  "preferences": {
+    "code-style": "consistent-with-project",
+    "testing-approach": "test-driven-development",
+    "documentation-level": "comprehensive",
+    "communication-style": "technical-precise"
+  },
+  "constraints": {
+    "max-file-size": "10MB",
+    "supported-languages": ["python", "javascript", "typescript", "csharp", "powershell"],
+    "restricted-operations": ["system-wide-changes", "production-deployment"]
+  },
+  "integration_points": {
+    "ide": "vscode",
+    "version-control": "git",
+    "package-managers": ["npm", "pip", "nuget"],
+    "ci-cd": "github-actions"
+  }
+}

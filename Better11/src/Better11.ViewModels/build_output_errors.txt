@@ -1,0 +1,29 @@
+  Determining projects to restore...
+  Restored D:\Dev\Better11\src\Better11.Models\Better11.Models.csproj (in 374 ms).
+  Restored d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj (in 449 ms).
+  Restored D:\Dev\Better11\src\Better11.Services\Better11.Services.csproj (in 449 ms).
+  1 of 4 projects are up-to-date for restore.
+  Better11.Core -> d:\Dev\Better11\src\Better11.Core\bin\Debug\net8.0-windows10.0.22621.0\Better11.Core.dll
+  Better11.Models -> D:\Dev\Better11\src\Better11.Models\bin\Debug\net8.0-windows10.0.22621.0\Better11.Models.dll
+  Better11.Services -> d:\Dev\Better11\src\Better11.Services\bin\Debug\net8.0-windows10.0.22621.0\Better11.Services.dll
+d:\Dev\Better11\src\Better11.ViewModels\Wizard\FirstRunWizardViewModel.cs(193,9): error CS0122: 'Logger' is inaccessible due to its protection level [d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj]
+d:\Dev\Better11\src\Better11.ViewModels\Wizard\FirstRunWizardViewModel.cs(249,13): error CS0122: 'Logger' is inaccessible due to its protection level [d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj]
+d:\Dev\Better11\src\Better11.ViewModels\Wizard\FirstRunWizardViewModel.cs(257,13): error CS0103: The name 'SetError' does not exist in the current context [d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj]
+d:\Dev\Better11\src\Better11.ViewModels\Wizard\FirstRunWizardViewModel.cs(258,13): error CS0122: 'Logger' is inaccessible due to its protection level [d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj]
+d:\Dev\Better11\src\Better11.ViewModels\Wizard\FirstRunWizardViewModel.cs(329,13): error CS0122: 'Logger' is inaccessible due to its protection level [d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj]
+d:\Dev\Better11\src\Better11.ViewModels\Wizard\FirstRunWizardViewModel.cs(337,13): error CS0103: The name 'SetError' does not exist in the current context [d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj]
+d:\Dev\Better11\src\Better11.ViewModels\Wizard\FirstRunWizardViewModel.cs(338,13): error CS0122: 'Logger' is inaccessible due to its protection level [d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj]
+
+Build FAILED.
+
+d:\Dev\Better11\src\Better11.ViewModels\Wizard\FirstRunWizardViewModel.cs(193,9): error CS0122: 'Logger' is inaccessible due to its protection level [d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj]
+d:\Dev\Better11\src\Better11.ViewModels\Wizard\FirstRunWizardViewModel.cs(249,13): error CS0122: 'Logger' is inaccessible due to its protection level [d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj]
+d:\Dev\Better11\src\Better11.ViewModels\Wizard\FirstRunWizardViewModel.cs(257,13): error CS0103: The name 'SetError' does not exist in the current context [d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj]
+d:\Dev\Better11\src\Better11.ViewModels\Wizard\FirstRunWizardViewModel.cs(258,13): error CS0122: 'Logger' is inaccessible due to its protection level [d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj]
+d:\Dev\Better11\src\Better11.ViewModels\Wizard\FirstRunWizardViewModel.cs(329,13): error CS0122: 'Logger' is inaccessible due to its protection level [d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj]
+d:\Dev\Better11\src\Better11.ViewModels\Wizard\FirstRunWizardViewModel.cs(337,13): error CS0103: The name 'SetError' does not exist in the current context [d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj]
+d:\Dev\Better11\src\Better11.ViewModels\Wizard\FirstRunWizardViewModel.cs(338,13): error CS0122: 'Logger' is inaccessible due to its protection level [d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj]
+    0 Warning(s)
+    7 Error(s)
+
+Time Elapsed 00:00:07.98

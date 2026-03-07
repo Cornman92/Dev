@@ -1,0 +1,1851 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml" xmlns="http://msh">
+  <!-- Cmdlet: Get-DesktopMonitor -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Get-DesktopMonitor</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>DesktopMonitor</command:noun>
+      <maml:description>
+        <maml:para>Gets the desktop monitors information.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Gets the desktop monitors information.</maml:para>
+      <maml:para>Retrieves information about the desktop monitors connected to the system. You can filter the monitors by index, device ID, device name, connection status, or primary monitor status.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Get-DesktopMonitor</maml:name>
+        <!-- Parameter: Index -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+          <maml:name>Index</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: DeviceId -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="1">
+          <maml:name>DeviceId</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: DeviceName -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="2">
+          <maml:name>DeviceName</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: ConnectedOnly -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="3">
+          <maml:name>ConnectedOnly</maml:name>
+          <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: PrimaryOnly -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="4">
+          <maml:name>PrimaryOnly</maml:name>
+          <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Index -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+        <maml:name>Index</maml:name>
+        <maml:description>
+          <maml:para>The index of the monitor to get information for.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: DeviceId -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="1">
+        <maml:name>DeviceId</maml:name>
+        <maml:description>
+          <maml:para>The device ID of the monitor to get information for.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: DeviceName -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="2">
+        <maml:name>DeviceName</maml:name>
+        <maml:description>
+          <maml:para>The device name of the monitor to get information for.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: ConnectedOnly -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="3">
+        <maml:name>ConnectedOnly</maml:name>
+        <maml:description>
+          <maml:para>Get information for connected monitors only.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: PrimaryOnly -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="4">
+        <maml:name>PrimaryOnly</maml:name>
+        <maml:description>
+          <maml:para>Get information for the primary monitor only.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <command:examples>
+      <command:example>
+        <maml:title>----------  Example 1  ----------</maml:title>
+        <dev:code>Get-DesktopMonitor</dev:code>
+        <dev:remarks>
+          <maml:para>Get information for all monitors</maml:para>
+          <maml:para>Retrieves information for all connected desktop monitors.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  Example 2  ----------</maml:title>
+        <dev:code>Get-DesktopMonitor -Index 1</dev:code>
+        <dev:remarks>
+          <maml:para>Get information for a specific monitor by index</maml:para>
+          <maml:para>Retrieves information for the monitor specified by the index.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  Example 3  ----------</maml:title>
+        <dev:code>Get-DesktopMonitor -ConnectedOnly</dev:code>
+        <dev:remarks>
+          <maml:para>Get information for connected monitors only</maml:para>
+          <maml:para>Retrieves information for all connected monitors only.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  Example 4  ----------</maml:title>
+        <dev:code>Get-DesktopMonitor -PrimaryOnly</dev:code>
+        <dev:remarks>
+          <maml:para>Get information for the primary monitor only</maml:para>
+          <maml:para>Retrieves information for the primary monitor only.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Register-DesktopMonitorEvent -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Register-DesktopMonitorEvent</command:name>
+      <command:verb>Register</command:verb>
+      <command:noun>DesktopMonitorEvent</command:noun>
+      <maml:description>
+        <maml:para>Registers for desktop monitor change events.</maml:para>
+      </maml:description>
+    </command:details>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Register-DesktopMonitorEvent</maml:name>
+        <!-- Parameter: Action -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Action</maml:name>
+          <command:parameterValue required="true">ScriptBlock</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.ScriptBlock</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Duration -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Duration</maml:name>
+          <command:parameterValue required="true">TimeSpan</command:parameterValue>
+          <dev:type>
+            <maml:name>System.TimeSpan</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>00:00:00</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Action -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Action</maml:name>
+        <maml:description>
+          <maml:para>The script block to run when the event is raised.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">ScriptBlock</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.ScriptBlock</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Duration -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Duration</maml:name>
+        <maml:description>
+          <maml:para>The duration to monitor before automatically unregistering.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">TimeSpan</command:parameterValue>
+        <dev:type>
+          <maml:name>System.TimeSpan</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>00:00:00</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+  </command:command>
+  <!-- Cmdlet: Set-DesktopPosition -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Set-DesktopPosition</command:name>
+      <command:verb>Set</command:verb>
+      <command:noun>DesktopPosition</command:noun>
+      <maml:description>
+        <maml:para>Sets the position of the desktop for one or more monitors.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Sets the position of the desktop for one or more monitors.</maml:para>
+      <maml:para>Sets the position of the desktop for one or more monitors. You can specify the monitor by index, device ID, or device name. You can also set the position for all monitors or only the primary monitor.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: Index -->
+      <command:syntaxItem>
+        <maml:name>Set-DesktopPosition</maml:name>
+        <!-- Parameter: Index -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+          <maml:name>Index</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Left -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="4">
+          <maml:name>Left</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Top -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="5">
+          <maml:name>Top</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Right -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="6">
+          <maml:name>Right</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Bottom -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="7">
+          <maml:name>Bottom</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <!-- Parameter set: DeviceID -->
+      <command:syntaxItem>
+        <maml:name>Set-DesktopPosition</maml:name>
+        <!-- Parameter: DeviceId -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="1" aliases="MonitorID">
+          <maml:name>DeviceId</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Left -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="4">
+          <maml:name>Left</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Top -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="5">
+          <maml:name>Top</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Right -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="6">
+          <maml:name>Right</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Bottom -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="7">
+          <maml:name>Bottom</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <!-- Parameter set: DeviceName -->
+      <command:syntaxItem>
+        <maml:name>Set-DesktopPosition</maml:name>
+        <!-- Parameter: DeviceName -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="2">
+          <maml:name>DeviceName</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Left -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="4">
+          <maml:name>Left</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Top -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="5">
+          <maml:name>Top</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Right -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="6">
+          <maml:name>Right</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Bottom -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="7">
+          <maml:name>Bottom</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <!-- Parameter set: PrimaryOnly -->
+      <command:syntaxItem>
+        <maml:name>Set-DesktopPosition</maml:name>
+        <!-- Parameter: PrimaryOnly -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="3">
+          <maml:name>PrimaryOnly</maml:name>
+          <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Left -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="4">
+          <maml:name>Left</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Top -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="5">
+          <maml:name>Top</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Right -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="6">
+          <maml:name>Right</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Bottom -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="7">
+          <maml:name>Bottom</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Index -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+        <maml:name>Index</maml:name>
+        <maml:description>
+          <maml:para>The index of the monitor to set the position for.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: DeviceId -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="1" aliases="MonitorID">
+        <maml:name>DeviceId</maml:name>
+        <maml:description>
+          <maml:para>The device ID of the monitor to set the position for.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: DeviceName -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="2">
+        <maml:name>DeviceName</maml:name>
+        <maml:description>
+          <maml:para>The device name of the monitor to set the position for.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: PrimaryOnly -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="3">
+        <maml:name>PrimaryOnly</maml:name>
+        <maml:description>
+          <maml:para>Set the position for the primary monitor only.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Left -->
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="4">
+        <maml:name>Left</maml:name>
+        <maml:description>
+          <maml:para>The left position of the monitor.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: Top -->
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="5">
+        <maml:name>Top</maml:name>
+        <maml:description>
+          <maml:para>The top position of the monitor.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: Right -->
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="6">
+        <maml:name>Right</maml:name>
+        <maml:description>
+          <maml:para>The right position of the monitor.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: Bottom -->
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="7">
+        <maml:name>Bottom</maml:name>
+        <maml:description>
+          <maml:para>The bottom position of the monitor.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <command:examples>
+      <command:example>
+        <maml:title>----------  Example 1  ----------</maml:title>
+        <dev:code>Set the position for a specific monitor by index
+
+Set-DesktopPosition -Index 1 -Left 0 -Top 0 -Right 1920 -Bottom 1080</dev:code>
+      </command:example>
+      <command:example>
+        <maml:title>----------  Example 2  ----------</maml:title>
+        <dev:code>Set the position for the primary monitor only
+
+Set-DesktopPosition -PrimaryOnly -Left 0 -Top 0 -Right 1920 -Bottom 1080</dev:code>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Set-DesktopResolution -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Set-DesktopResolution</command:name>
+      <command:verb>Set</command:verb>
+      <command:noun>DesktopResolution</command:noun>
+      <maml:description>
+        <maml:para>Sets the resolution of a desktop monitor.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Sets the resolution of a desktop monitor.</maml:para>
+      <maml:para>Allows changing the resolution and orientation of a monitor identified by index or device ID.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: Index -->
+      <command:syntaxItem>
+        <maml:name>Set-DesktopResolution</maml:name>
+        <!-- Parameter: Index -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+          <maml:name>Index</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Width -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="4">
+          <maml:name>Width</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Height -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="5">
+          <maml:name>Height</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Orientation -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="6">
+          <maml:name>Orientation</maml:name>
+          <command:parameterValue required="true">DisplayOrientation</command:parameterValue>
+          <dev:type>
+            <maml:name>DesktopManager.DisplayOrientation</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+      <!-- Parameter set: DeviceID -->
+      <command:syntaxItem>
+        <maml:name>Set-DesktopResolution</maml:name>
+        <!-- Parameter: DeviceId -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="1" aliases="MonitorID">
+          <maml:name>DeviceId</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Width -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="4">
+          <maml:name>Width</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Height -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="5">
+          <maml:name>Height</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Orientation -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="6">
+          <maml:name>Orientation</maml:name>
+          <command:parameterValue required="true">DisplayOrientation</command:parameterValue>
+          <dev:type>
+            <maml:name>DesktopManager.DisplayOrientation</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+      <!-- Parameter set: DeviceName -->
+      <command:syntaxItem>
+        <maml:name>Set-DesktopResolution</maml:name>
+        <!-- Parameter: DeviceName -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="2">
+          <maml:name>DeviceName</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Width -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="4">
+          <maml:name>Width</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Height -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="5">
+          <maml:name>Height</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Orientation -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="6">
+          <maml:name>Orientation</maml:name>
+          <command:parameterValue required="true">DisplayOrientation</command:parameterValue>
+          <dev:type>
+            <maml:name>DesktopManager.DisplayOrientation</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+      <!-- Parameter set: PrimaryOnly -->
+      <command:syntaxItem>
+        <maml:name>Set-DesktopResolution</maml:name>
+        <!-- Parameter: PrimaryOnly -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="3">
+          <maml:name>PrimaryOnly</maml:name>
+          <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Width -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="4">
+          <maml:name>Width</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Height -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="5">
+          <maml:name>Height</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Orientation -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="6">
+          <maml:name>Orientation</maml:name>
+          <command:parameterValue required="true">DisplayOrientation</command:parameterValue>
+          <dev:type>
+            <maml:name>DesktopManager.DisplayOrientation</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Index -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+        <maml:name>Index</maml:name>
+        <maml:description>
+          <maml:para>The index of the monitor.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: DeviceId -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="1" aliases="MonitorID">
+        <maml:name>DeviceId</maml:name>
+        <maml:description>
+          <maml:para>The device ID of the monitor.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: DeviceName -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="2">
+        <maml:name>DeviceName</maml:name>
+        <maml:description>
+          <maml:para>The device name of the monitor.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: PrimaryOnly -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="3">
+        <maml:name>PrimaryOnly</maml:name>
+        <maml:description>
+          <maml:para>Set resolution for the primary monitor only.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Width -->
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="4">
+        <maml:name>Width</maml:name>
+        <maml:description>
+          <maml:para>Resolution width.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: Height -->
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="5">
+        <maml:name>Height</maml:name>
+        <maml:description>
+          <maml:para>Resolution height.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: Orientation -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="6">
+        <maml:name>Orientation</maml:name>
+        <maml:description>
+          <maml:para>Optional display orientation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">DisplayOrientation</command:parameterValue>
+        <dev:type>
+          <maml:name>DesktopManager.DisplayOrientation</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+  </command:command>
+  <!-- Cmdlet: Invoke-DesktopScreenshot -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Invoke-DesktopScreenshot</command:name>
+      <command:verb>Invoke</command:verb>
+      <command:noun>DesktopScreenshot</command:noun>
+      <maml:description>
+        <maml:para>Takes a screenshot of the desktop.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Captures a screenshot of the desktop.</maml:para>
+      <maml:para>Captures the current desktop image. When a path is provided the image is saved as PNG; otherwise a Bitmap object is returned. The screenshot can target a specific monitor or any region.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Invoke-DesktopScreenshot</maml:name>
+        <!-- Parameter: Path -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+          <maml:name>Path</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: DeviceId -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named" aliases="MonitorID">
+          <maml:name>DeviceId</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: DeviceName -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>DeviceName</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Height -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named" aliases="Bottom">
+          <maml:name>Height</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Index -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Index</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Left -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Left</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: PrimaryOnly -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>PrimaryOnly</maml:name>
+          <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Top -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Top</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Width -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named" aliases="Right">
+          <maml:name>Width</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Path -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+        <maml:name>Path</maml:name>
+        <maml:description>
+          <maml:para>Optional path to save the screenshot as a PNG file.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Index -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Index</maml:name>
+        <maml:description>
+          <maml:para>Index of the monitor to capture. Defaults to the entire virtual screen.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: DeviceId -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named" aliases="MonitorID">
+        <maml:name>DeviceId</maml:name>
+        <maml:description>
+          <maml:para>Identifier of the monitor to capture.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: DeviceName -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>DeviceName</maml:name>
+        <maml:description>
+          <maml:para>Name of the monitor to capture.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: PrimaryOnly -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>PrimaryOnly</maml:name>
+        <maml:description>
+          <maml:para>Capture the primary monitor only.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Left -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Left</maml:name>
+        <maml:description>
+          <maml:para>Left coordinate of the region to capture.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Top -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Top</maml:name>
+        <maml:description>
+          <maml:para>Top coordinate of the region to capture.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Width -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named" aliases="Right">
+        <maml:name>Width</maml:name>
+        <maml:description>
+          <maml:para>Width of the region to capture.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Height -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named" aliases="Bottom">
+        <maml:name>Height</maml:name>
+        <maml:description>
+          <maml:para>Height of the region to capture.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+  </command:command>
+  <!-- Cmdlet: Get-DesktopWallpaper -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Get-DesktopWallpaper</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>DesktopWallpaper</command:noun>
+      <maml:description>
+        <maml:para>Gets the current desktop wallpaper for one or more monitors.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Gets the current desktop wallpaper for one or more monitors.</maml:para>
+      <maml:para>Retrieves the current desktop wallpaper for one or more monitors. You can specify the monitor by index, device ID, or device name. You can also get the wallpaper for all monitors or only the primary monitor.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Get-DesktopWallpaper</maml:name>
+        <!-- Parameter: Index -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+          <maml:name>Index</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: DeviceId -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="1">
+          <maml:name>DeviceId</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: DeviceName -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="2">
+          <maml:name>DeviceName</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: ConnectedOnly -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="3">
+          <maml:name>ConnectedOnly</maml:name>
+          <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: PrimaryOnly -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="4">
+          <maml:name>PrimaryOnly</maml:name>
+          <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Index -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+        <maml:name>Index</maml:name>
+        <maml:description>
+          <maml:para>The index of the monitor to get the wallpaper for.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: DeviceId -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="1">
+        <maml:name>DeviceId</maml:name>
+        <maml:description>
+          <maml:para>The device ID of the monitor to get the wallpaper for.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: DeviceName -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="2">
+        <maml:name>DeviceName</maml:name>
+        <maml:description>
+          <maml:para>The device name of the monitor to get the wallpaper for.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: ConnectedOnly -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="3">
+        <maml:name>ConnectedOnly</maml:name>
+        <maml:description>
+          <maml:para>Get the wallpaper for connected monitors only.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: PrimaryOnly -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="4">
+        <maml:name>PrimaryOnly</maml:name>
+        <maml:description>
+          <maml:para>Get the wallpaper for the primary monitor only.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <command:examples>
+      <command:example>
+        <maml:title>----------  Example 1  ----------</maml:title>
+        <dev:code>Get-DesktopWallpaper</dev:code>
+        <dev:remarks>
+          <maml:para>Get the wallpaper for all monitors</maml:para>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  Example 2  ----------</maml:title>
+        <dev:code>Get-DesktopWallpaper -Index 1</dev:code>
+        <dev:remarks>
+          <maml:para>Get the wallpaper for a specific monitor by index</maml:para>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  Example 3  ----------</maml:title>
+        <dev:code>Get-DesktopWallpaper -PrimaryOnly</dev:code>
+        <dev:remarks>
+          <maml:para>Get the wallpaper for the primary monitor only</maml:para>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Set-DesktopWallpaper -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Set-DesktopWallpaper</command:name>
+      <command:verb>Set</command:verb>
+      <command:noun>DesktopWallpaper</command:noun>
+      <maml:description>
+        <maml:para>Sets the desktop wallpaper for one or more monitors.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Sets the desktop wallpaper for one or more monitors.</maml:para>
+      <maml:para>Sets the desktop wallpaper for one or more monitors. You can specify the monitor by index, device ID, or device name. You can also set the wallpaper for all monitors or only the primary monitor. Optionally, you can specify the wallpaper position.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: Index -->
+      <command:syntaxItem>
+        <maml:name>Set-DesktopWallpaper</maml:name>
+        <!-- Parameter: Index -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+          <maml:name>Index</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: ConnectedOnly -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="3">
+          <maml:name>ConnectedOnly</maml:name>
+          <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: PrimaryOnly -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="4">
+          <maml:name>PrimaryOnly</maml:name>
+          <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: WallpaperPosition -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="6" aliases="Position">
+          <maml:name>WallpaperPosition</maml:name>
+          <command:parameterValue required="true">DesktopWallpaperPosition</command:parameterValue>
+          <dev:type>
+            <maml:name>DesktopManager.DesktopWallpaperPosition</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: WallpaperPath -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="7" aliases="FilePath,Path">
+          <maml:name>WallpaperPath</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+      <!-- Parameter set: DeviceId -->
+      <command:syntaxItem>
+        <maml:name>Set-DesktopWallpaper</maml:name>
+        <!-- Parameter: DeviceId -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="1" aliases="MonitorID">
+          <maml:name>DeviceId</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: WallpaperPosition -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="6" aliases="Position">
+          <maml:name>WallpaperPosition</maml:name>
+          <command:parameterValue required="true">DesktopWallpaperPosition</command:parameterValue>
+          <dev:type>
+            <maml:name>DesktopManager.DesktopWallpaperPosition</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: WallpaperPath -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="7" aliases="FilePath,Path">
+          <maml:name>WallpaperPath</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+      <!-- Parameter set: DeviceName -->
+      <command:syntaxItem>
+        <maml:name>Set-DesktopWallpaper</maml:name>
+        <!-- Parameter: DeviceName -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="2">
+          <maml:name>DeviceName</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: WallpaperPosition -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="6" aliases="Position">
+          <maml:name>WallpaperPosition</maml:name>
+          <command:parameterValue required="true">DesktopWallpaperPosition</command:parameterValue>
+          <dev:type>
+            <maml:name>DesktopManager.DesktopWallpaperPosition</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: WallpaperPath -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="7" aliases="FilePath,Path">
+          <maml:name>WallpaperPath</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+      <!-- Parameter set: All -->
+      <command:syntaxItem>
+        <maml:name>Set-DesktopWallpaper</maml:name>
+        <!-- Parameter: All -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="5">
+          <maml:name>All</maml:name>
+          <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: WallpaperPosition -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="6" aliases="Position">
+          <maml:name>WallpaperPosition</maml:name>
+          <command:parameterValue required="true">DesktopWallpaperPosition</command:parameterValue>
+          <dev:type>
+            <maml:name>DesktopManager.DesktopWallpaperPosition</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: WallpaperPath -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="7" aliases="FilePath,Path">
+          <maml:name>WallpaperPath</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Index -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+        <maml:name>Index</maml:name>
+        <maml:description>
+          <maml:para>The index of the monitor to set the wallpaper for.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: DeviceId -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="1" aliases="MonitorID">
+        <maml:name>DeviceId</maml:name>
+        <maml:description>
+          <maml:para>The device ID of the monitor to set the wallpaper for.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: DeviceName -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="2">
+        <maml:name>DeviceName</maml:name>
+        <maml:description>
+          <maml:para>The device name of the monitor to set the wallpaper for.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: ConnectedOnly -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="3">
+        <maml:name>ConnectedOnly</maml:name>
+        <maml:description>
+          <maml:para>Set the wallpaper for connected monitors only.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: PrimaryOnly -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="4">
+        <maml:name>PrimaryOnly</maml:name>
+        <maml:description>
+          <maml:para>Set the wallpaper for the primary monitor only.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: All -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="5">
+        <maml:name>All</maml:name>
+        <maml:description>
+          <maml:para>Set the wallpaper for all monitors.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: WallpaperPosition -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="6" aliases="Position">
+        <maml:name>WallpaperPosition</maml:name>
+        <maml:description>
+          <maml:para>The position of the wallpaper on the monitor.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">DesktopWallpaperPosition</command:parameterValue>
+        <dev:type>
+          <maml:name>DesktopManager.DesktopWallpaperPosition</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: WallpaperPath -->
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="7" aliases="FilePath,Path">
+        <maml:name>WallpaperPath</maml:name>
+        <maml:description>
+          <maml:para>The file path of the wallpaper image.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <command:examples>
+      <command:example>
+        <maml:title>----------  Example 1  ----------</maml:title>
+        <dev:code>Set-DesktopWallpaper -All -WallpaperPath "C:\Path\To\Wallpaper.jpg"</dev:code>
+        <dev:remarks>
+          <maml:para>Set the wallpaper for all monitors</maml:para>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  Example 2  ----------</maml:title>
+        <dev:code>Set-DesktopWallpaper -Index 1 -WallpaperPath "C:\Path\To\Wallpaper.jpg"</dev:code>
+        <dev:remarks>
+          <maml:para>Set the wallpaper for a specific monitor by index</maml:para>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  Example 3  ----------</maml:title>
+        <dev:code>Set-DesktopWallpaper -PrimaryOnly -WallpaperPath "C:\Path\To\Wallpaper.jpg"</dev:code>
+        <dev:remarks>
+          <maml:para>Set the wallpaper for the primary monitor only</maml:para>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Get-DesktopWindow -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Get-DesktopWindow</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>DesktopWindow</command:noun>
+      <maml:description>
+        <maml:para>Gets information about desktop windows.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Gets information about desktop windows.</maml:para>
+      <maml:para>Retrieves information about visible windows on the desktop. You can filter windows by name using wildcards.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Get-DesktopWindow</maml:name>
+        <!-- Parameter: Name -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+          <maml:name>Name</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>*</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Name -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Filter windows by title. Supports wildcards.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>*</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <command:examples>
+      <command:example>
+        <maml:title>----------  Example 1  ----------</maml:title>
+        <dev:code>Get-DesktopWindow</dev:code>
+        <dev:remarks>
+          <maml:para>Get all visible windows</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  Example 2  ----------</maml:title>
+        <dev:code>Get-DesktopWindow -Name "*Notepad*"</dev:code>
+        <dev:remarks>
+          <maml:para>Get windows with "Notepad" in the title</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Set-DesktopWindow -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Set-DesktopWindow</command:name>
+      <command:verb>Set</command:verb>
+      <command:noun>DesktopWindow</command:noun>
+      <maml:description>
+        <maml:para>Sets the position, size and state of a desktop window.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Sets the position, size and state of a desktop window.</maml:para>
+      <maml:para>Sets the position, size and state of a window on the desktop. You can identify the window by its title (supports wildcards).</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Set-DesktopWindow</maml:name>
+        <!-- Parameter: Name -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="0">
+          <maml:name>Name</maml:name>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Activate -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Activate</maml:name>
+          <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Height -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Height</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>-1</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Left -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Left</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>-1</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: MonitorIndex -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>MonitorIndex</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: State -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>State</maml:name>
+          <command:parameterValue required="true">WindowState</command:parameterValue>
+          <dev:type>
+            <maml:name>DesktopManager.WindowState</maml:name>
+            <maml:uri />
+          </dev:type>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" variableLength="false">Normal</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Minimize</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Maximize</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Close</command:parameterValue>
+          </command:parameterValueGroup>
+        </command:parameter>
+        <!-- Parameter: Top -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Top</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>-1</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: TopMost -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>TopMost</maml:name>
+          <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: Width -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Width</maml:name>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>-1</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Name -->
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="0">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>The title of the window to move. Supports wildcards.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Left -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Left</maml:name>
+        <maml:description>
+          <maml:para>The left position of the window.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>-1</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: Top -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Top</maml:name>
+        <maml:description>
+          <maml:para>The top position of the window.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>-1</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: Width -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Width</maml:name>
+        <maml:description>
+          <maml:para>The width of the window. If not specified, current width is maintained.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>-1</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: Height -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Height</maml:name>
+        <maml:description>
+          <maml:para>The height of the window. If not specified, current height is maintained.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>-1</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: MonitorIndex -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>MonitorIndex</maml:name>
+        <maml:description>
+          <maml:para>Target monitor index to move the window to.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: State -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>State</maml:name>
+        <maml:description>
+          <maml:para>The desired window state (Normal, Minimize, Maximize, or Close).</maml:para>
+          <maml:para>Possible values: Normal, Minimize, Maximize, Close</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">WindowState</command:parameterValue>
+        <dev:type>
+          <maml:name>DesktopManager.WindowState</maml:name>
+          <maml:uri />
+        </dev:type>
+        <command:parameterValueGroup>
+          <command:parameterValue required="false" variableLength="false">Normal</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Minimize</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Maximize</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Close</command:parameterValue>
+        </command:parameterValueGroup>
+      </command:parameter>
+      <!-- Parameter: TopMost -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>TopMost</maml:name>
+        <maml:description>
+          <maml:para>Set the window as top-most.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: Activate -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Activate</maml:name>
+        <maml:description>
+          <maml:para>Activate the window.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <command:examples>
+      <command:example>
+        <maml:title>----------  Example 1  ----------</maml:title>
+        <dev:code>Set-DesktopWindowPosition -Name "Calculator" -Left 100 -Top 100</dev:code>
+        <dev:remarks>
+          <maml:para>Move a specific window to coordinates (100,100)</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  Example 2  ----------</maml:title>
+        <dev:code>Set-DesktopWindowPosition -Name "Notepad" -Left 100 -Top 100 -Width 800 -Height 600</dev:code>
+        <dev:remarks>
+          <maml:para>Set window position and size</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  Example 3  ----------</maml:title>
+        <dev:code>Set-DesktopWindowPosition -Name "Calculator" -State Minimize</dev:code>
+        <dev:remarks>
+          <maml:para>Minimize a window</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+</helpItems>

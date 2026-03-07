@@ -1,0 +1,14 @@
+---
+description: Apply when contributing to or building Better11 (Create phase)
+globs: "**/*.cs","**/*.csproj","**/*.xaml","**/*.ps1","**/*.psm1","**/*.psd1"
+alwaysApply: false
+---
+
+# Better11 — Create Phase
+
+When editing C#, XAML, or PowerShell in this project:
+
+- Follow **CLAUDE.md** and **CURSOR.md** (Result pattern, BaseViewModel, service pattern).
+- Use **better11_create_build** and **better11_create_test** MCP tools to verify changes.
+- Check **PLAN.md** for work stream status (WS1–WS6 complete, WS7 active).
+- Reference **STYLE-GUIDE.md** for UI (B11 tokens, dense layout).

@@ -1,0 +1,88 @@
+name: Better11 CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: Better11/Better11
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore Better11.sln
+
+      - name: Build
+        run: dotnet build Better11.sln -c Release --no-restore -warnaserror
+
+      - name: Test (xUnit)
+        run: dotnet test Better11.sln -c Release --no-build --verbosity normal --collect:"XPlat Code Coverage"
+
+      - name: Install PSScriptAnalyzer
+        shell: pwsh
+        run: Install-Module PSScriptAnalyzer -Force -Scope CurrentUser
+
+      - name: Run PSScriptAnalyzer
+        shell: pwsh
+        working-directory: ..
+        run: |
+          $paths = @('./PowerShell', './modules'); $settings = './config/PSScriptAnalyzerSettings.psd1'
+          if (-not (Test-Path $settings)) { $settings = $null }
+          foreach ($p in $paths) {
+            if (Test-Path $p) {
+              $results = Invoke-ScriptAnalyzer -Path $p -Recurse -Settings $settings -ErrorAction SilentlyContinue
+              if ($results) { $results | Format-Table; exit 1 }
+            }
+          }
+
+      - name: Install Pester
+        shell: pwsh
+        run: Install-Module Pester -Force -Scope CurrentUser -MinimumVersion 5.5.0
+
+      - name: Run Pester
+        shell: pwsh
+        working-directory: ..
+        run: |
+          $modulePaths = @('./PowerShell/Modules', './modules')
+          foreach ($mp in $modulePaths) {
+            if (Test-Path $mp) {
+              $config = New-PesterConfiguration
+              $config.Run.Path = $mp
+              $config.Run.Passthru = $true
+              $result = Invoke-Pester -Configuration $config
+              if ($result.FailedCount -gt 0) { exit 1 }
+            }
+          }
+
+  package:
+    runs-on: windows-latest
+    needs: build
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/release')
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Restore and Build
+        working-directory: Better11/Better11
+        run: dotnet restore Better11.sln; dotnet build Better11.sln -c Release --no-restore -warnaserror
+      - name: Create MSIX package
+        working-directory: Better11/Better11
+        run: |
+          dotnet publish src/Better11.App/Better11.App.csproj -c Release -p:Platform=x64 -p:GenerateAppxPackageOnBuild=true --output artifacts
+      - name: Upload MSIX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Better11-msix
+          path: Better11/Better11/artifacts/*.msix

@@ -1,0 +1,83 @@
+<!-- Copyright (c) Better11. All rights reserved. -->
+<!-- Better11 System Enhancement Suite - ConsoleOutputPanel Control -->
+<!-- Monospace scrolling output panel for PowerShell/command output display -->
+<UserControl
+    x:Class="Better11.App.Controls.ConsoleOutputPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Border Style="{StaticResource B11DenseCardStyle}"
+            Background="{StaticResource B11CardBackgroundBrush}"
+            MinHeight="120"
+            MaxHeight="300">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Console Header -->
+            <Grid Grid.Row="0" Padding="8,4,8,4"
+                  Background="#1A1A1A">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="6">
+                    <FontIcon Glyph="&#xE756;" FontSize="12" Foreground="{StaticResource B11AccentBrush}"/>
+                    <TextBlock x:Name="TitleText" Text="Output"
+                               FontSize="11" FontWeight="SemiBold"
+                               Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4">
+                    <Button x:Name="CopyButton" ToolTipService.ToolTip="Copy output"
+                            Click="Copy_Click"
+                            Height="20" Width="20" Padding="0"
+                            Background="Transparent" BorderThickness="0">
+                        <FontIcon Glyph="&#xE8C8;" FontSize="11" Foreground="{StaticResource B11TextTertiaryBrush}"/>
+                    </Button>
+                    <Button x:Name="ClearButton" ToolTipService.ToolTip="Clear output"
+                            Click="Clear_Click"
+                            Height="20" Width="20" Padding="0"
+                            Background="Transparent" BorderThickness="0">
+                        <FontIcon Glyph="&#xE74D;" FontSize="11" Foreground="{StaticResource B11TextTertiaryBrush}"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <!-- Console Output -->
+            <ScrollViewer x:Name="OutputScroller" Grid.Row="1"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Auto"
+                          Padding="8,4,8,4">
+                <TextBlock x:Name="OutputText"
+                           FontFamily="Cascadia Code, Consolas, monospace"
+                           FontSize="12"
+                           Foreground="#CCCCCC"
+                           TextWrapping="NoWrap"
+                           IsTextSelectionEnabled="True"/>
+            </ScrollViewer>
+
+            <!-- Status Bar -->
+            <Grid Grid.Row="2" Padding="8,2,8,2"
+                  Background="#0F0F0F">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="StatusText" Grid.Column="0"
+                           FontSize="10" Foreground="#666666"
+                           Text="Ready"/>
+                <TextBlock x:Name="LineCountText" Grid.Column="1"
+                           FontSize="10" Foreground="#666666"/>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

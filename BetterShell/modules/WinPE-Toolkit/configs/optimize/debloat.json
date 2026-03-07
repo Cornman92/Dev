@@ -1,0 +1,105 @@
+[
+  {
+    "_comment": "Debloat profiles remove Windows built-in apps and consumer features",
+    "_comment2": "Light profile: Removes only obvious consumer apps, safe for most users",
+    "id": "light",
+    "name": "Light debloat",
+    "description": "Remove most consumer apps but keep core system functionality. Safe for most users.",
+    "removeAppxNames": [
+      "Microsoft.XboxApp",
+      "Microsoft.XboxGamingOverlay",
+      "Microsoft.ZuneMusic",
+      "Microsoft.ZuneVideo",
+      "Microsoft.Microsoft3DViewer",
+      "Microsoft.MicrosoftOfficeHub",
+      "Microsoft.MicrosoftSolitaireCollection",
+      "Microsoft.BingNews",
+      "Microsoft.BingWeather",
+      "Microsoft.GetHelp",
+      "Microsoft.Getstarted",
+      "Microsoft.Messaging",
+      "Microsoft.MicrosoftStickyNotes",
+      "Microsoft.Office.OneNote",
+      "Microsoft.People",
+      "Microsoft.SkypeApp",
+      "Microsoft.StorePurchaseApp",
+      "Microsoft.Todos",
+      "Microsoft.WindowsAlarms",
+      "Microsoft.WindowsCamera",
+      "Microsoft.windowscommunicationsapps",
+      "Microsoft.WindowsFeedbackHub",
+      "Microsoft.WindowsMaps",
+      "Microsoft.WindowsSoundRecorder",
+      "Microsoft.Xbox.TCUI",
+      "Microsoft.XboxGameOverlay",
+      "Microsoft.XboxGamingOverlay",
+      "Microsoft.XboxIdentityProvider",
+      "Microsoft.XboxSpeechToTextOverlay"
+    ],
+    "registryTweaks": [
+      {
+        "hive": "HKLM",
+        "path": "SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+        "name": "DisableConsumerFeatures",
+        "valueType": "DWord",
+        "value": 1
+      }
+    ]
+  },
+  {
+    "_comment": "Aggressive profile: Removes many built-in apps including some that may be useful",
+    "_comment2": "Use with caution - may remove apps that some users want to keep",
+    "id": "aggressive",
+    "name": "Aggressive debloat",
+    "description": "Remove a wide range of built-in consumer apps. May be too aggressive for some users. Use with caution.",
+    "removeAppxNames": [
+      "Microsoft.XboxApp",
+      "Microsoft.XboxGamingOverlay",
+      "Microsoft.ZuneMusic",
+      "Microsoft.ZuneVideo",
+      "Microsoft.Microsoft3DViewer",
+      "Microsoft.MicrosoftOfficeHub",
+      "Microsoft.MicrosoftSolitaireCollection",
+      "Microsoft.BingNews",
+      "Microsoft.BingWeather",
+      "Microsoft.GetHelp",
+      "Microsoft.Getstarted",
+      "Microsoft.Messaging",
+      "Microsoft.MicrosoftStickyNotes",
+      "Microsoft.Office.OneNote",
+      "Microsoft.People",
+      "Microsoft.SkypeApp",
+      "Microsoft.StorePurchaseApp",
+      "Microsoft.Todos",
+      "Microsoft.WindowsAlarms",
+      "Microsoft.WindowsCamera",
+      "Microsoft.windowscommunicationsapps",
+      "Microsoft.WindowsFeedbackHub",
+      "Microsoft.WindowsMaps",
+      "Microsoft.WindowsSoundRecorder",
+      "Microsoft.Xbox.TCUI",
+      "Microsoft.XboxGameOverlay",
+      "Microsoft.XboxGamingOverlay",
+      "Microsoft.XboxIdentityProvider",
+      "Microsoft.XboxSpeechToTextOverlay",
+      "Microsoft.MicrosoftEdge",
+      "Microsoft.MicrosoftEdgeDevToolsClient",
+      "Microsoft.MicrosoftEdgeUpdate",
+      "Microsoft.YourPhone",
+      "Microsoft.WindowsStore",
+      "Microsoft.WindowsCalculator",
+      "Microsoft.WindowsPhotos",
+      "Microsoft.WindowsTerminal"
+    ],
+    "registryTweaks": [
+      {
+        "hive": "HKLM",
+        "path": "SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+        "name": "DisableConsumerFeatures",
+        "valueType": "DWord",
+        "value": 1
+      }
+    ]
+  }
+]
+

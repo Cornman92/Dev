@@ -1,0 +1,105 @@
+name: Documentation
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+      - '**.md'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+      - '**.md'
+
+jobs:
+  # Check documentation quality
+  docs-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install markdownlint
+        run: npm install -g markdownlint-cli markdown-link-check
+
+      - name: Lint Markdown files
+        run: |
+          markdownlint "docs/**/*.md" "**/*.md" \
+            --config .markdownlint.yml \
+            --ignore node_modules
+
+      - name: Check links in documentation
+        run: |
+          find docs -name "*.md" -exec markdown-link-check {} \; || true
+
+  # Generate documentation metrics
+  docs-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Generate documentation metrics
+        id: metrics
+        run: |
+          # Count documentation files
+          DOC_FILES=$(find docs -name "*.md" | wc -l)
+          README_FILES=$(find . -name "README.md" | wc -l)
+          TOTAL_MD=$(find . -name "*.md" | wc -l)
+          
+          echo "doc-files=$DOC_FILES" >> $GITHUB_OUTPUT
+          echo "readme-files=$README_FILES" >> $GITHUB_OUTPUT
+          echo "total-md=$TOTAL_MD" >> $GITHUB_OUTPUT
+          
+          echo "Documentation files: $DOC_FILES"
+          echo "README files: $README_FILES"
+          echo "Total Markdown files: $TOTAL_MD"
+
+      - name: Create documentation summary
+        run: |
+          echo "# Documentation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Count |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Documentation files | ${{ steps.metrics.outputs.doc-files }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| README files | ${{ steps.metrics.outputs.readme-files }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Total Markdown files | ${{ steps.metrics.outputs.total-md }} |" >> $GITHUB_STEP_SUMMARY
+
+  # Update project index
+  update-index:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    needs: docs-quality
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Update PROJECT-INDEX.md
+        run: |
+          # Generate updated project index
+          node scripts/update-index.js
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add PROJECT-INDEX.md
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "docs: update project index [skip ci]"
+            git push
+          fi

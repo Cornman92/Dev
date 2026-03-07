@@ -1,0 +1,122 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  CONFIGURATION: Release
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Full history for better analysis
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v1
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build solution
+      run: dotnet build --configuration ${{ env.CONFIGURATION }} --no-restore
+    
+    - name: Run tests
+      run: dotnet test --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+    
+    - name: Generate coverage report
+      uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
+      with:
+        reports: 'coverage/**/coverage.cobertura.xml'
+        targetdir: 'coveragereport'
+        reporttypes: 'HtmlInline;Cobertura;Badges'
+    
+    - name: Upload coverage reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: coveragereport
+    
+    - name: Check code coverage threshold
+      run: |
+        $coverage = [xml](Get-Content coveragereport/Cobertura.xml)
+        $lineRate = [double]$coverage.coverage.'line-rate'
+        $coveragePercent = $lineRate * 100
+        Write-Host "Code coverage: $coveragePercent%"
+        if ($coveragePercent -lt 90) {
+          Write-Error "Code coverage ($coveragePercent%) is below threshold (90%)"
+          exit 1
+        }
+      shell: powershell
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-artifacts
+        path: |
+          **/bin/${{ env.CONFIGURATION }}/**
+          !**/obj/**
+        retention-days: 7
+
+  lint:
+    name: Code Quality
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    
+    - name: Install dotnet format
+      run: dotnet tool install -g dotnet-format
+    
+    - name: Run dotnet format
+      run: dotnet format --verify-no-changes --verbosity diagnostic
+    
+    - name: Run EditorConfig check
+      run: dotnet format --verify-no-changes
+
+  powershell-tests:
+    name: PowerShell Module Tests
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Run Pester tests
+      shell: powershell
+      run: |
+        Install-Module -Name Pester -Force -SkipPublisherCheck
+        $config = New-PesterConfiguration
+        $config.Run.Path = './modules/powershell'
+        $config.TestResult.Enabled = $true
+        $config.TestResult.OutputPath = './TestResults.xml'
+        $config.CodeCoverage.Enabled = $true
+        $config.CodeCoverage.OutputPath = './coverage.xml'
+        Invoke-Pester -Configuration $config
+    
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: powershell-test-results
+        path: TestResults.xml

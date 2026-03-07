@@ -1,0 +1,42 @@
+{
+  "blockedCommands": [],
+  "defaultShell": "powershell.exe",
+  "allowedDirectories": [],
+  "telemetryEnabled": true,
+  "fileWriteLineLimit": 200,
+  "fileReadLineLimit": 2000,
+  "pendingWelcomeOnboarding": false,
+  "version": "0.2.33",
+  "clientId": "d4c590a4-7970-4a2d-972a-0401a917dc39",
+  "abTest_OnboardingPreTool": "showOnboardingPage",
+  "sawOnboardingPage": true,
+  "usageStats": {
+    "filesystemOperations": 181,
+    "terminalOperations": 0,
+    "editOperations": 0,
+    "searchOperations": 18,
+    "configOperations": 7,
+    "processOperations": 0,
+    "totalToolCalls": 239,
+    "successfulCalls": 236,
+    "failedCalls": 3,
+    "toolCounts": {
+      "get_config": 4,
+      "create_directory": 3,
+      "write_file": 8,
+      "read_file": 60,
+      "set_config_value": 3,
+      "list_directory": 90,
+      "start_search": 13,
+      "get_more_search_results": 5,
+      "start_process": 28,
+      "read_process_output": 4,
+      "get_file_info": 20,
+      "interact_with_process": 1
+    },
+    "firstUsed": 1770141420324,
+    "lastUsed": 1770338118324,
+    "totalSessions": 8,
+    "lastFeedbackPrompt": 0
+  }
+}

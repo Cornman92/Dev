@@ -1,0 +1,41 @@
+{
+  "mcpServers": {
+    "windows-mcp": {
+      "command": "uvx",
+      "args": ["windows-mcp"],
+      "env": {}
+    },
+    "filesystem-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "D:\\Dev",
+        "<USER_HOME>\\Desktop",
+        "<USER_HOME>\\Documents",
+        "<USER_HOME>\\Downloads"
+      ],
+      "env": {}
+    },
+    "desktopcommander-mcp": {
+      "command": "npx",
+      "args": ["-y", "@wonderwhy-er/desktop-commander"],
+      "env": {}
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_GITHUB_PAT_HERE>"
+      }
+    },
+    "notion-mcp": {
+      "command": "npx",
+      "args": ["-y", "@makenotion/mcp-server"],
+      "env": {
+        "NOTION_TOKEN": "<YOUR_NOTION_TOKEN_HERE>",
+        "NOTION_API_VERSION": "2022-06-28"
+      }
+    }
+  }
+}

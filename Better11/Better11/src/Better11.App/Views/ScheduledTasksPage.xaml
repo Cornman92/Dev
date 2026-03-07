@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Better11. All rights reserved. -->
+<!-- Better11 System Enhancement Suite - ScheduledTasksPage.xaml -->
+<!-- Dense WinUtil-inspired scheduled tasks manager with filtering, status, and bulk actions -->
+<Page
+    x:Class="Better11.App.Views.ScheduledTasksPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{StaticResource B11PrimaryBackgroundBrush}"
+    NavigationCacheMode="Enabled">
+
+    <Grid Padding="{StaticResource B11PageMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- PAGE HEADER                                                    -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Grid Grid.Row="0" Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                <FontIcon Glyph="&#xE787;" FontSize="20"
+                          Foreground="{StaticResource B11AccentBrush}"/>
+                <TextBlock Text="{x:Bind ViewModel.PageTitle}"
+                           FontSize="{StaticResource B11FontSizeTitle}"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextPrimaryBrush}"/>
+            </StackPanel>
+
+            <!-- Filter + Actions -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="6">
+                <ComboBox SelectedItem="{x:Bind ViewModel.SelectedFilter, Mode=TwoWay}"
+                          ItemsSource="{x:Bind ViewModel.FilterOptions}"
+                          Width="160" Height="28"
+                          FontSize="{StaticResource B11FontSizeBody}"
+                          Background="{StaticResource B11SurfaceBackgroundBrush}"
+                          Foreground="{StaticResource B11TextPrimaryBrush}"
+                          BorderBrush="{StaticResource B11BorderDefaultBrush}"/>
+                <TextBox PlaceholderText="Search tasks..."
+                         Text="{x:Bind ViewModel.SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Width="180" Height="28"
+                         FontSize="{StaticResource B11FontSizeBody}"
+                         Padding="8,4,8,4"
+                         Background="{StaticResource B11SurfaceBackgroundBrush}"
+                         Foreground="{StaticResource B11TextPrimaryBrush}"
+                         BorderBrush="{StaticResource B11BorderDefaultBrush}"/>
+                <Button Content="Refresh"
+                        Style="{StaticResource B11CompactButtonStyle}"
+                        Command="{x:Bind ViewModel.RefreshCommand}"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- STATUS BAR                                                     -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <StackPanel Grid.Row="1" Spacing="4" Margin="0,0,0,6">
+            <ProgressBar IsIndeterminate="True"
+                         Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
+                         Height="2"/>
+            <InfoBar IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+                     Severity="Error" Title="Error"
+                     Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+                     IsClosable="True"/>
+            <InfoBar IsOpen="{x:Bind ViewModel.HasSuccess, Mode=OneWay}"
+                     Severity="Success" Title="Success"
+                     Message="{x:Bind ViewModel.SuccessMessage, Mode=OneWay}"
+                     IsClosable="True"/>
+        </StackPanel>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- COLUMN HEADERS                                                 -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Border Grid.Row="2" Style="{StaticResource B11DenseCardStyle}"
+                Margin="0,0,0,2" Padding="8,4,8,4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="32"/>
+                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Column="0"
+                          IsChecked="{x:Bind ViewModel.IsAllSelected, Mode=TwoWay}"
+                          MinWidth="0" MinHeight="0" Padding="0"
+                          ToolTipService.ToolTip="Select All"/>
+                <TextBlock Grid.Column="1" Text="Task Name"
+                           FontSize="{StaticResource B11FontSizeCaption}" FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                <TextBlock Grid.Column="2" Text="Status"
+                           FontSize="{StaticResource B11FontSizeCaption}" FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                <TextBlock Grid.Column="3" Text="Last Run"
+                           FontSize="{StaticResource B11FontSizeCaption}" FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                <TextBlock Grid.Column="4" Text="Next Run"
+                           FontSize="{StaticResource B11FontSizeCaption}" FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                <TextBlock Grid.Column="5" Text="Trigger"
+                           FontSize="{StaticResource B11FontSizeCaption}" FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+            </Grid>
+        </Border>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- TASKS LIST                                                     -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <ListView Grid.Row="3"
+                  ItemsSource="{x:Bind ViewModel.FilteredTasks, Mode=OneWay}"
+                  SelectionMode="None"
+                  Background="Transparent">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" BasedOn="{StaticResource B11DenseListViewItemStyle}">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="Transparent"
+                            BorderBrush="{StaticResource B11BorderSubtleBrush}"
+                            BorderThickness="0,0,0,1"
+                            Padding="0,2,0,2">
+                        <Grid MinHeight="{StaticResource B11RowHeight}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32"/>
+                                <ColumnDefinition Width="2.5*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Column="0"
+                                      IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                      MinWidth="0" MinHeight="0" Padding="0"/>
+
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="0">
+                                <TextBlock Text="{Binding Name}"
+                                           FontSize="{StaticResource B11FontSizeBody}"
+                                           Foreground="{StaticResource B11TextPrimaryBrush}"
+                                           TextTrimming="CharacterEllipsis"/>
+                                <TextBlock Text="{Binding TaskPath}"
+                                           FontSize="{StaticResource B11FontSizeCaption}"
+                                           Foreground="{StaticResource B11TextTertiaryBrush}"
+                                           TextTrimming="CharacterEllipsis"
+                                           FontFamily="{StaticResource B11FontFamilyMono}"/>
+                            </StackPanel>
+
+                            <!-- Status with color-coded dot -->
+                            <StackPanel Grid.Column="2" Orientation="Horizontal"
+                                        VerticalAlignment="Center" Spacing="4">
+                                <Ellipse Width="8" Height="8"
+                                         Fill="{Binding StatusColor}"
+                                         Style="{StaticResource B11StatusDotStyle}"/>
+                                <TextBlock Text="{Binding Status}"
+                                           FontSize="{StaticResource B11FontSizeCaption}"
+                                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Column="3" Text="{Binding LastRun}"
+                                       FontSize="{StaticResource B11FontSizeCaption}"
+                                       Foreground="{StaticResource B11TextTertiaryBrush}"
+                                       FontFamily="{StaticResource B11FontFamilyMono}"
+                                       VerticalAlignment="Center"/>
+
+                            <TextBlock Grid.Column="4" Text="{Binding NextRun}"
+                                       FontSize="{StaticResource B11FontSizeCaption}"
+                                       Foreground="{StaticResource B11TextSecondaryBrush}"
+                                       FontFamily="{StaticResource B11FontFamilyMono}"
+                                       VerticalAlignment="Center"/>
+
+                            <Border Grid.Column="5" VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Background="{StaticResource B11SurfaceBackgroundBrush}"
+                                    CornerRadius="2" Padding="6,1,6,1">
+                                <TextBlock Text="{Binding Trigger}"
+                                           FontSize="{StaticResource B11FontSizeCaption}"
+                                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- BOTTOM ACTION BAR                                              -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Border Grid.Row="4" Style="{StaticResource B11DenseCardStyle}"
+                Margin="0,6,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal"
+                            VerticalAlignment="Center" Spacing="8">
+                    <TextBlock Text="{x:Bind ViewModel.SelectedCount, Mode=OneWay}"
+                               FontSize="{StaticResource B11FontSizeBody}"
+                               Foreground="{StaticResource B11AccentBrush}"
+                               FontWeight="SemiBold"/>
+                    <TextBlock Text="tasks selected"
+                               FontSize="{StaticResource B11FontSizeBody}"
+                               Foreground="{StaticResource B11TextTertiaryBrush}"/>
+                    <TextBlock Text="|"
+                               Foreground="{StaticResource B11TextTertiaryBrush}"/>
+                    <TextBlock Text="{x:Bind ViewModel.TotalCount, Mode=OneWay}"
+                               FontSize="{StaticResource B11FontSizeBody}"
+                               Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                    <TextBlock Text="total"
+                               FontSize="{StaticResource B11FontSizeBody}"
+                               Foreground="{StaticResource B11TextTertiaryBrush}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                    <Button Style="{StaticResource B11AccentButtonStyle}"
+                            Command="{x:Bind ViewModel.EnableSelectedCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <FontIcon Glyph="&#xE73E;" FontSize="12"/>
+                            <TextBlock Text="Enable"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource B11CompactButtonStyle}"
+                            Command="{x:Bind ViewModel.DisableSelectedCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <FontIcon Glyph="&#xE711;" FontSize="12"/>
+                            <TextBlock Text="Disable"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource B11CompactButtonStyle}"
+                            Command="{x:Bind ViewModel.RunNowCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <FontIcon Glyph="&#xE768;" FontSize="12"/>
+                            <TextBlock Text="Run Now"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource B11CompactButtonStyle}"
+                            Command="{x:Bind ViewModel.DeleteSelectedCommand}"
+                            Foreground="{StaticResource B11ErrorBrush}">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <FontIcon Glyph="&#xE74D;" FontSize="12"
+                                      Foreground="{StaticResource B11ErrorBrush}"/>
+                            <TextBlock Text="Delete"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

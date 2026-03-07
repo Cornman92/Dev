@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Better11. All rights reserved. -->
+<!-- Better11 System Enhancement Suite - StartupManagerPage.xaml -->
+<!-- Dense WinUtil-inspired startup manager with enable/disable toggles and impact ratings -->
+<Page
+    x:Class="Better11.App.Views.StartupManagerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{StaticResource B11PrimaryBackgroundBrush}"
+    NavigationCacheMode="Enabled">
+
+    <Grid Padding="{StaticResource B11PageMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- PAGE HEADER                                                    -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Grid Grid.Row="0" Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                <FontIcon Glyph="&#xE916;" FontSize="20"
+                          Foreground="{StaticResource B11AccentBrush}"/>
+                <TextBlock Text="{x:Bind ViewModel.PageTitle}"
+                           FontSize="{StaticResource B11FontSizeTitle}"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextPrimaryBrush}"/>
+            </StackPanel>
+
+            <Button Grid.Column="1" Content="Refresh"
+                    Style="{StaticResource B11AccentButtonStyle}"
+                    Command="{x:Bind ViewModel.RefreshCommand}"/>
+        </Grid>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- STATUS BAR                                                     -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <StackPanel Grid.Row="1" Spacing="4" Margin="0,0,0,6">
+            <ProgressBar IsIndeterminate="True"
+                         Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
+                         Height="2"/>
+            <InfoBar IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+                     Severity="Error" Title="Error"
+                     Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+                     IsClosable="True"/>
+            <InfoBar IsOpen="{x:Bind ViewModel.HasSuccess, Mode=OneWay}"
+                     Severity="Success" Title="Success"
+                     Message="{x:Bind ViewModel.SuccessMessage, Mode=OneWay}"
+                     IsClosable="True"/>
+        </StackPanel>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- SUMMARY CARDS                                                  -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Grid Grid.Row="2" Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource B11DenseCardStyle}" Margin="0,0,4,0">
+                <StackPanel Spacing="2">
+                    <TextBlock Text="Total Items" FontSize="{StaticResource B11FontSizeCaption}"
+                               Foreground="{StaticResource B11TextTertiaryBrush}"/>
+                    <TextBlock Text="{x:Bind ViewModel.TotalItems, Mode=OneWay}"
+                               FontSize="18" FontWeight="Bold"
+                               Foreground="{StaticResource B11TextPrimaryBrush}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1" Style="{StaticResource B11DenseCardStyle}" Margin="2,0,2,0">
+                <StackPanel Spacing="2">
+                    <TextBlock Text="Enabled" FontSize="{StaticResource B11FontSizeCaption}"
+                               Foreground="{StaticResource B11TextTertiaryBrush}"/>
+                    <TextBlock Text="{x:Bind ViewModel.EnabledCount, Mode=OneWay}"
+                               FontSize="18" FontWeight="Bold"
+                               Foreground="{StaticResource B11SuccessBrush}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource B11DenseCardStyle}" Margin="4,0,0,0">
+                <StackPanel Spacing="2">
+                    <TextBlock Text="Disabled" FontSize="{StaticResource B11FontSizeCaption}"
+                               Foreground="{StaticResource B11TextTertiaryBrush}"/>
+                    <TextBlock Text="{x:Bind ViewModel.DisabledCount, Mode=OneWay}"
+                               FontSize="18" FontWeight="Bold"
+                               Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- COLUMN HEADERS                                                 -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Border Grid.Row="3" Style="{StaticResource B11DenseCardStyle}"
+                Margin="0,0,0,2" Padding="8,4,8,4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="32"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Column="0"
+                          IsChecked="{x:Bind ViewModel.IsAllSelected, Mode=TwoWay}"
+                          MinWidth="0" MinHeight="0" Padding="0"
+                          ToolTipService.ToolTip="Select All"/>
+                <TextBlock Grid.Column="1" Text="Name"
+                           FontSize="{StaticResource B11FontSizeCaption}" FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                <TextBlock Grid.Column="2" Text="Publisher"
+                           FontSize="{StaticResource B11FontSizeCaption}" FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                <TextBlock Grid.Column="3" Text="Status"
+                           FontSize="{StaticResource B11FontSizeCaption}" FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                <TextBlock Grid.Column="4" Text="Impact"
+                           FontSize="{StaticResource B11FontSizeCaption}" FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+            </Grid>
+        </Border>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- STARTUP ITEMS LIST                                             -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <ListView Grid.Row="4"
+                  ItemsSource="{x:Bind ViewModel.StartupItems, Mode=OneWay}"
+                  SelectionMode="None"
+                  Background="Transparent">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" BasedOn="{StaticResource B11DenseListViewItemStyle}">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="Transparent"
+                            BorderBrush="{StaticResource B11BorderSubtleBrush}"
+                            BorderThickness="0,0,0,1"
+                            Padding="0,2,0,2">
+                        <Grid MinHeight="{StaticResource B11RowHeight}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1.5*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Column="0"
+                                      IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                      MinWidth="0" MinHeight="0" Padding="0"/>
+
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="0">
+                                <TextBlock Text="{Binding Name}"
+                                           FontSize="{StaticResource B11FontSizeBody}"
+                                           Foreground="{StaticResource B11TextPrimaryBrush}"
+                                           TextTrimming="CharacterEllipsis"/>
+                                <TextBlock Text="{Binding Path}"
+                                           FontSize="{StaticResource B11FontSizeCaption}"
+                                           Foreground="{StaticResource B11TextTertiaryBrush}"
+                                           TextTrimming="CharacterEllipsis"
+                                           FontFamily="{StaticResource B11FontFamilyMono}"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Column="2" Text="{Binding Publisher}"
+                                       FontSize="{StaticResource B11FontSizeBody}"
+                                       Foreground="{StaticResource B11TextSecondaryBrush}"
+                                       VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis"/>
+
+                            <!-- Status: Enabled/Disabled with color-coded indicator -->
+                            <StackPanel Grid.Column="3" Orientation="Horizontal"
+                                        VerticalAlignment="Center" Spacing="4">
+                                <Ellipse Width="8" Height="8"
+                                         Fill="{Binding StatusColor}"
+                                         Style="{StaticResource B11StatusDotStyle}"/>
+                                <TextBlock Text="{Binding Status}"
+                                           FontSize="{StaticResource B11FontSizeCaption}"
+                                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                            </StackPanel>
+
+                            <!-- Impact: Low/Medium/High with color-coded badge -->
+                            <Border Grid.Column="4" VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Background="{Binding ImpactBackground}"
+                                    CornerRadius="2" Padding="6,1,6,1">
+                                <TextBlock Text="{Binding Impact}"
+                                           FontSize="{StaticResource B11FontSizeCaption}"
+                                           Foreground="{Binding ImpactForeground}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- BOTTOM ACTION BAR                                              -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Border Grid.Row="5" Style="{StaticResource B11DenseCardStyle}"
+                Margin="0,6,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal"
+                            VerticalAlignment="Center" Spacing="8">
+                    <TextBlock Text="{x:Bind ViewModel.SelectedCount, Mode=OneWay}"
+                               FontSize="{StaticResource B11FontSizeBody}"
+                               Foreground="{StaticResource B11AccentBrush}"
+                               FontWeight="SemiBold"/>
+                    <TextBlock Text="items selected"
+                               FontSize="{StaticResource B11FontSizeBody}"
+                               Foreground="{StaticResource B11TextTertiaryBrush}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                    <Button Style="{StaticResource B11AccentButtonStyle}"
+                            Command="{x:Bind ViewModel.EnableSelectedCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <FontIcon Glyph="&#xE73E;" FontSize="12"/>
+                            <TextBlock Text="Enable Selected"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource B11CompactButtonStyle}"
+                            Command="{x:Bind ViewModel.DisableSelectedCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <FontIcon Glyph="&#xE711;" FontSize="12"/>
+                            <TextBlock Text="Disable Selected"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Better11. All rights reserved. -->
+<!-- Better11 System Enhancement Suite - PrivacyPage.xaml -->
+<!-- Dense WinUtil-inspired privacy controls with status indicators and categorized toggles -->
+<Page
+    x:Class="Better11.App.Views.PrivacyPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    NavigationCacheMode="Enabled"
+    Background="{StaticResource B11PrimaryBackgroundBrush}">
+
+    <Grid Padding="{StaticResource B11PageMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- PAGE HEADER                                                    -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Grid Grid.Row="0" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                <FontIcon Glyph="&#xE72E;" FontSize="20" Foreground="{StaticResource B11AccentBrush}"/>
+                <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+                           FontSize="{StaticResource B11FontSizeTitle}"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextPrimaryBrush}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                <Button Content="Apply All"
+                        Style="{StaticResource B11AccentButtonStyle}"
+                        Command="{x:Bind ViewModel.ApplyProfileCommand}"
+                        CommandParameter="Maximum"/>
+                <Button Content="Reset"
+                        Style="{StaticResource B11CompactButtonStyle}"
+                        Command="{x:Bind ViewModel.LoadAuditCommand}"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- STATUS BAR                                                     -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <StackPanel Grid.Row="1" Spacing="4" Margin="0,0,0,8">
+            <ProgressBar IsIndeterminate="True"
+                         Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
+                         Height="2"/>
+            <InfoBar IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+                     Severity="Error" Title="Error"
+                     Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+                     IsClosable="True"/>
+            <InfoBar IsOpen="{x:Bind ViewModel.HasSuccess, Mode=OneWay}"
+                     Severity="Success" Title="Success"
+                     Message="{x:Bind ViewModel.SuccessMessage, Mode=OneWay}"
+                     IsClosable="True"/>
+        </StackPanel>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- MAIN CONTENT                                                   -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="{StaticResource B11SectionSpacing}">
+
+                <!-- ─── Privacy Score + Profile Bar ─── -->
+                <Border Style="{StaticResource B11DenseCardStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Spacing="2">
+                            <TextBlock Text="Privacy Score"
+                                       FontSize="{StaticResource B11FontSizeCaption}"
+                                       Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <TextBlock Text="{x:Bind ViewModel.PrivacyScore, Mode=OneWay}"
+                                           FontSize="24" FontWeight="Bold"
+                                           Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="/100" FontSize="14"
+                                           Foreground="{StaticResource B11TextTertiaryBrush}"
+                                           VerticalAlignment="Bottom" Margin="0,0,0,3"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4"
+                                    VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Text="Profile:"
+                                       FontSize="{StaticResource B11FontSizeCaption}"
+                                       Foreground="{StaticResource B11TextTertiaryBrush}"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Text="{x:Bind ViewModel.CurrentProfile, Mode=OneWay}"
+                                       FontSize="{StaticResource B11FontSizeBody}"
+                                       Foreground="{StaticResource B11TextPrimaryBrush}"
+                                       FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4">
+                            <Button Content="Balanced"
+                                    Style="{StaticResource B11CompactButtonStyle}"
+                                    Command="{x:Bind ViewModel.ApplyProfileCommand}"
+                                    CommandParameter="Balanced"/>
+                            <Button Content="Strict"
+                                    Style="{StaticResource B11CompactButtonStyle}"
+                                    Command="{x:Bind ViewModel.ApplyProfileCommand}"
+                                    CommandParameter="Strict"/>
+                            <Button Content="Maximum"
+                                    Style="{StaticResource B11AccentButtonStyle}"
+                                    Command="{x:Bind ViewModel.ApplyProfileCommand}"
+                                    CommandParameter="Maximum"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- ─── Privacy Sections — 2 column layout ─── -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- ─── Telemetry ─── -->
+                    <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource B11DenseCardStyle}" Margin="0,0,4,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+                                <FontIcon Glyph="&#xE9D9;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="Telemetry" Style="{StaticResource B11SectionHeaderStyle}" Margin="0"/>
+                            </StackPanel>
+
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11SuccessBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable diagnostic data collection"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11ErrorBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable app telemetry"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11SuccessBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable feedback frequency"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11ErrorBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable handwriting data sharing"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11ErrorBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable CEIP participation"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ─── Tracking ─── -->
+                    <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource B11DenseCardStyle}" Margin="4,0,0,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+                                <FontIcon Glyph="&#xE7B3;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="Tracking" Style="{StaticResource B11SectionHeaderStyle}" Margin="0"/>
+                            </StackPanel>
+
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11SuccessBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable activity history"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11ErrorBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable timeline"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11ErrorBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable clipboard history sync"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11SuccessBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable typing insights"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11ErrorBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable inking personalization"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ─── Cortana ─── -->
+                    <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource B11DenseCardStyle}" Margin="0,0,4,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+                                <FontIcon Glyph="&#xE799;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="Cortana" Style="{StaticResource B11SectionHeaderStyle}" Margin="0"/>
+                            </StackPanel>
+
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11SuccessBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable Cortana"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11ErrorBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable Cortana on lock screen"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11ErrorBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable web search in Start"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11SuccessBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable Bing search suggestions"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ─── Advertising ─── -->
+                    <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource B11DenseCardStyle}" Margin="4,0,0,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+                                <FontIcon Glyph="&#xE7BA;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="Advertising" Style="{StaticResource B11SectionHeaderStyle}" Margin="0"/>
+                            </StackPanel>
+
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11ErrorBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable advertising ID"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11ErrorBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable suggested content in Settings"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11SuccessBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable Start menu suggestions"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                            <Grid Margin="{StaticResource B11ItemMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource B11ErrorBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Disable tailored experiences"
+                                          Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ─── Location ─── -->
+                    <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource B11DenseCardStyle}">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+                                <FontIcon Glyph="&#xE81D;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="Location" Style="{StaticResource B11SectionHeaderStyle}" Margin="0"/>
+                            </StackPanel>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <Grid Margin="{StaticResource B11ItemMargin}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse Width="8" Height="8" Fill="{StaticResource B11SuccessBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                        <CheckBox Grid.Column="1" Content="Disable location tracking"
+                                                  Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                                    </Grid>
+                                    <Grid Margin="{StaticResource B11ItemMargin}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse Width="8" Height="8" Fill="{StaticResource B11ErrorBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                        <CheckBox Grid.Column="1" Content="Disable location scripting"
+                                                  Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1">
+                                    <Grid Margin="{StaticResource B11ItemMargin}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse Width="8" Height="8" Fill="{StaticResource B11ErrorBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                        <CheckBox Grid.Column="1" Content="Disable sensors"
+                                                  Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                                    </Grid>
+                                    <Grid Margin="{StaticResource B11ItemMargin}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse Width="8" Height="8" Fill="{StaticResource B11SuccessBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                        <CheckBox Grid.Column="1" Content="Disable geofencing"
+                                                  Style="{StaticResource B11DenseCheckBoxStyle}"/>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

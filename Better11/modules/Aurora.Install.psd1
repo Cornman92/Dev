@@ -1,0 +1,1 @@
+@{RootModule='Aurora.Install.psm1';ModuleVersion='1.0.0'}

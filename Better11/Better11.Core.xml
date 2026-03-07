@@ -1,0 +1,1617 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Better11.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Better11.Core.Common.ErrorInfo">
+            <summary>
+            Provides structured error information for failed operations.
+            </summary>
+        </member>
+        <member name="P:Better11.Core.Common.ErrorInfo.Code">
+            <summary>Gets the error code.</summary>
+        </member>
+        <member name="P:Better11.Core.Common.ErrorInfo.Message">
+            <summary>Gets the error message.</summary>
+        </member>
+        <member name="P:Better11.Core.Common.ErrorInfo.Exception">
+            <summary>Gets the exception that caused the error, if any.</summary>
+        </member>
+        <member name="P:Better11.Core.Common.ErrorInfo.Timestamp">
+            <summary>Gets the timestamp when the error occurred.</summary>
+        </member>
+        <member name="P:Better11.Core.Common.ErrorInfo.Metadata">
+            <summary>Gets optional metadata associated with the error.</summary>
+        </member>
+        <member name="M:Better11.Core.Common.ErrorInfo.#ctor(System.String,System.String,System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Core.Common.ErrorInfo"/> class.
+            </summary>
+            <param name="code">The error code.</param>
+            <param name="message">The error message.</param>
+            <param name="exception">The exception that caused the error.</param>
+            <param name="metadata">Optional metadata.</param>
+        </member>
+        <member name="M:Better11.Core.Common.ErrorInfo.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Core.Common.ResultSeverity">
+            <summary>
+            Severity levels for result outcomes.
+            </summary>
+        </member>
+        <member name="F:Better11.Core.Common.ResultSeverity.None">
+            <summary>No severity (success).</summary>
+        </member>
+        <member name="F:Better11.Core.Common.ResultSeverity.Info">
+            <summary>Informational message.</summary>
+        </member>
+        <member name="F:Better11.Core.Common.ResultSeverity.Warning">
+            <summary>Warning — operation succeeded with caveats.</summary>
+        </member>
+        <member name="F:Better11.Core.Common.ResultSeverity.Error">
+            <summary>Error — operation failed.</summary>
+        </member>
+        <member name="F:Better11.Core.Common.ResultSeverity.Critical">
+            <summary>Critical — operation failed with severe consequences.</summary>
+        </member>
+        <member name="T:Better11.Core.Common.Result">
+            <summary>
+            Non-generic result for void operations.
+            </summary>
+        </member>
+        <member name="P:Better11.Core.Common.Result.IsSuccess">
+            <summary>Gets a value indicating whether the operation succeeded.</summary>
+        </member>
+        <member name="P:Better11.Core.Common.Result.IsFailure">
+            <summary>Gets a value indicating whether the operation failed.</summary>
+        </member>
+        <member name="P:Better11.Core.Common.Result.Error">
+            <summary>Gets the error information, if any.</summary>
+        </member>
+        <member name="P:Better11.Core.Common.Result.Severity">
+            <summary>Gets the severity of the result.</summary>
+        </member>
+        <member name="M:Better11.Core.Common.Result.Success">
+            <summary>Creates a successful result.</summary>
+            <returns>A successful <see cref="T:Better11.Core.Common.Result"/>.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result.Warning(System.String)">
+            <summary>Creates a warning result (success with caveats).</summary>
+            <param name="message">The warning message.</param>
+            <returns>A warning <see cref="T:Better11.Core.Common.Result"/>.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result.Failure(System.String)">
+            <summary>Creates a failed result.</summary>
+            <param name="error">The error message.</param>
+            <returns>A failed <see cref="T:Better11.Core.Common.Result"/>.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result.Failure(System.String,System.String)">
+            <summary>Creates a failed result with an error code.</summary>
+            <param name="code">The error code.</param>
+            <param name="error">The error message.</param>
+            <returns>A failed <see cref="T:Better11.Core.Common.Result"/>.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result.Failure(System.Exception)">
+            <summary>Creates a failed result from an exception.</summary>
+            <param name="exception">The exception.</param>
+            <returns>A failed <see cref="T:Better11.Core.Common.Result"/>.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result.Failure(Better11.Core.Common.ErrorInfo)">
+            <summary>Creates a failed result from an <see cref="T:Better11.Core.Common.ErrorInfo"/>.</summary>
+            <param name="error">The error information.</param>
+            <returns>A failed <see cref="T:Better11.Core.Common.Result"/>.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result.Combine(Better11.Core.Common.Result[])">
+            <summary>Combines multiple results, returning failure if any failed.</summary>
+            <param name="results">The results to combine.</param>
+            <returns>A combined <see cref="T:Better11.Core.Common.Result"/>.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result.Tap(System.Action)">
+            <summary>Executes an action if the result is successful.</summary>
+            <param name="action">The action to execute.</param>
+            <returns>The current result.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result.Match``1(System.Func{``0},System.Func{Better11.Core.Common.ErrorInfo,``0})">
+            <summary>Matches the result to a value.</summary>
+            <typeparam name="TOut">The output type.</typeparam>
+            <param name="onSuccess">Function to execute on success.</param>
+            <param name="onFailure">Function to execute on failure.</param>
+            <returns>The matched value.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Core.Common.Result`1">
+            <summary>
+            Generic result wrapping a value or error.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+        </member>
+        <member name="P:Better11.Core.Common.Result`1.IsSuccess">
+            <summary>Gets a value indicating whether the operation succeeded.</summary>
+        </member>
+        <member name="P:Better11.Core.Common.Result`1.IsFailure">
+            <summary>Gets a value indicating whether the operation failed.</summary>
+        </member>
+        <member name="P:Better11.Core.Common.Result`1.Value">
+            <summary>Gets the value if successful.</summary>
+        </member>
+        <member name="P:Better11.Core.Common.Result`1.Error">
+            <summary>Gets the error information if failed.</summary>
+        </member>
+        <member name="P:Better11.Core.Common.Result`1.Severity">
+            <summary>Gets the severity of the result.</summary>
+        </member>
+        <member name="M:Better11.Core.Common.Result`1.Success(`0)">
+            <summary>Creates a successful result with a value.</summary>
+            <param name="value">The value.</param>
+            <returns>A successful result.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result`1.Warning(`0,System.String)">
+            <summary>Creates a warning result (success with caveats).</summary>
+            <param name="value">The value.</param>
+            <param name="message">The warning message.</param>
+            <returns>A warning result.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result`1.Failure(System.String)">
+            <summary>Creates a failed result.</summary>
+            <param name="error">The error message.</param>
+            <returns>A failed result.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result`1.Failure(System.String,System.String)">
+            <summary>Creates a failed result with an error code.</summary>
+            <param name="code">The error code.</param>
+            <param name="error">The error message.</param>
+            <returns>A failed result.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result`1.Failure(System.Exception)">
+            <summary>Creates a failed result from an exception.</summary>
+            <param name="exception">The exception.</param>
+            <returns>A failed result.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result`1.Failure(Better11.Core.Common.ErrorInfo)">
+            <summary>Creates a failed result from an <see cref="T:Better11.Core.Common.ErrorInfo"/>.</summary>
+            <param name="error">The error information.</param>
+            <returns>A failed result.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result`1.op_Implicit(`0)~Better11.Core.Common.Result{`0}">
+            <summary>Implicit conversion from value to success result.</summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Better11.Core.Common.Result`1.Map``1(System.Func{`0,``0})">
+            <summary>Maps the value to a new type.</summary>
+            <typeparam name="TOut">The output type.</typeparam>
+            <param name="mapper">The mapping function.</param>
+            <returns>A mapped result.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result`1.Bind``1(System.Func{`0,Better11.Core.Common.Result{``0}})">
+            <summary>Flat-maps the value to a new result.</summary>
+            <typeparam name="TOut">The output type.</typeparam>
+            <param name="binder">The binding function.</param>
+            <returns>A bound result.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result`1.Match``1(System.Func{`0,``0},System.Func{Better11.Core.Common.ErrorInfo,``0})">
+            <summary>Matches the result to a value.</summary>
+            <typeparam name="TOut">The output type.</typeparam>
+            <param name="onSuccess">Function to execute on success.</param>
+            <param name="onFailure">Function to execute on failure.</param>
+            <returns>The matched value.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result`1.Tap(System.Action{`0})">
+            <summary>Executes an action on the value if successful.</summary>
+            <param name="action">The action.</param>
+            <returns>The current result.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result`1.Ensure(System.Func{`0,System.Boolean},System.String)">
+            <summary>Validates the value against a predicate.</summary>
+            <param name="predicate">The validation predicate.</param>
+            <param name="error">The error message if validation fails.</param>
+            <returns>The validated result.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result`1.GetValueOrDefault(`0)">
+            <summary>Returns the value or a default.</summary>
+            <param name="fallback">The fallback value.</param>
+            <returns>The value or fallback.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result`1.ToResult">
+            <summary>Converts to a non-generic result.</summary>
+            <returns>A non-generic result.</returns>
+        </member>
+        <member name="M:Better11.Core.Common.Result`1.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Core.Common.ErrorCodes">
+            <summary>
+            Well-known error codes used throughout Better11.
+            </summary>
+        </member>
+        <member name="F:Better11.Core.Common.ErrorCodes.General">
+            <summary>General error.</summary>
+        </member>
+        <member name="F:Better11.Core.Common.ErrorCodes.Exception">
+            <summary>Exception-based error.</summary>
+        </member>
+        <member name="F:Better11.Core.Common.ErrorCodes.Validation">
+            <summary>Validation error.</summary>
+        </member>
+        <member name="F:Better11.Core.Common.ErrorCodes.Warning">
+            <summary>Warning (non-fatal).</summary>
+        </member>
+        <member name="F:Better11.Core.Common.ErrorCodes.Aggregate">
+            <summary>Aggregate of multiple errors.</summary>
+        </member>
+        <member name="F:Better11.Core.Common.ErrorCodes.Cancelled">
+            <summary>Operation was cancelled.</summary>
+        </member>
+        <member name="F:Better11.Core.Common.ErrorCodes.Timeout">
+            <summary>Operation timed out.</summary>
+        </member>
+        <member name="F:Better11.Core.Common.ErrorCodes.NotFound">
+            <summary>Resource not found.</summary>
+        </member>
+        <member name="F:Better11.Core.Common.ErrorCodes.AccessDenied">
+            <summary>Access denied.</summary>
+        </member>
+        <member name="F:Better11.Core.Common.ErrorCodes.PowerShell">
+            <summary>PowerShell execution error.</summary>
+        </member>
+        <member name="F:Better11.Core.Common.ErrorCodes.Configuration">
+            <summary>Configuration error.</summary>
+        </member>
+        <member name="T:Better11.Core.Constants.AppConstants">
+            <summary>
+            Application-wide constants.
+            </summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.AppName">
+            <summary>The application name.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.AppDisplayName">
+            <summary>The application display name.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.AppVersion">
+            <summary>The application version.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Copyright">
+            <summary>The copyright notice.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.UpdateManifestUrl">
+            <summary>URL to the application version manifest (JSON) for update checks.</summary>
+        </member>
+        <member name="T:Better11.Core.Constants.AppConstants.Modules">
+            <summary>
+            PowerShell module name mappings.
+            </summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Modules.Packages">
+            <summary>Package management module.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Modules.Drivers">
+            <summary>Driver management module.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Modules.Startup">
+            <summary>Startup management module.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Modules.Tasks">
+            <summary>Scheduled tasks module.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Modules.Network">
+            <summary>Network management module.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Modules.DiskCleanup">
+            <summary>Disk cleanup module.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Modules.SystemInfo">
+            <summary>System information module.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Modules.Optimization">
+            <summary>Optimization module.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Modules.Privacy">
+            <summary>Privacy module.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Modules.Security">
+            <summary>Security module.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Modules.Update">
+            <summary>Windows Update module.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Modules.BetterPE">
+            <summary>BetterPE imaging module.</summary>
+        </member>
+        <member name="T:Better11.Core.Constants.AppConstants.Pages">
+            <summary>
+            Navigation page keys.
+            </summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Pages.Dashboard">
+            <summary>Dashboard page key.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Pages.Packages">
+            <summary>Package manager page key.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Pages.Drivers">
+            <summary>Driver manager page key.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Pages.Startup">
+            <summary>Startup manager page key.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Pages.Tasks">
+            <summary>Scheduled tasks page key.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Pages.Network">
+            <summary>Network manager page key.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Pages.DiskCleanup">
+            <summary>Disk cleanup page key.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Pages.SystemInfo">
+            <summary>System info page key.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Pages.Optimization">
+            <summary>Optimization page key.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Pages.Privacy">
+            <summary>Privacy page key.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Pages.Security">
+            <summary>Security page key.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Pages.Updates">
+            <summary>Updates page key.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Pages.Settings">
+            <summary>Settings page key.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Pages.About">
+            <summary>About page key.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.AppConstants.Pages.FirstRunWizard">
+            <summary>First Run Wizard page key.</summary>
+        </member>
+        <member name="T:Better11.Core.Constants.SettingsConstants">
+            <summary>
+            Constants for application settings keys used with <see cref="T:Better11.Core.Interfaces.ISettingsService"/>.
+            </summary>
+        </member>
+        <member name="F:Better11.Core.Constants.SettingsConstants.FirstRunCompleted">
+            <summary>Key indicating whether the first-run wizard has been completed.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.SettingsConstants.SelectedTheme">
+            <summary>Key for the user-selected application theme (Dark, Light, or System).</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.SettingsConstants.AutoRefreshEnabled">
+            <summary>Key indicating whether automatic data refresh is enabled.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.SettingsConstants.AutoRefreshIntervalSeconds">
+            <summary>Key for the automatic refresh interval in seconds.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.SettingsConstants.LastScanDate">
+            <summary>Key for the date/time of the last system scan.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.SettingsConstants.SelectedPreset">
+            <summary>Key for the currently selected optimization preset.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.SettingsConstants.AppliedModules">
+            <summary>Key for the list of applied optimization modules.</summary>
+        </member>
+        <member name="F:Better11.Core.Constants.SettingsConstants.Telemetry">
+            <summary>Key indicating whether anonymous usage telemetry is enabled (opt-in).</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.AutoLoginDto">
+            <summary>Auto-login configuration.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.AutoLoginDto.Enabled">
+            <summary>Gets or sets a value indicating whether auto-login is enabled.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.AutoLoginDto.Username">
+            <summary>Gets or sets the auto-login username.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.AutoLoginDto.Domain">
+            <summary>Gets or sets the domain.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.BackupScheduleDto">
+            <summary>Backup schedule DTO.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.BackupScheduleDto.Name">
+            <summary>Gets or sets the schedule name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.BackupScheduleDto.SourcePath">
+            <summary>Gets or sets the source path.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.BackupScheduleDto.DestinationPath">
+            <summary>Gets or sets the destination path.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.BackupScheduleDto.Frequency">
+            <summary>Gets or sets the frequency (e.g. Daily, Weekly).</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.BackupScheduleDto.RetentionDays">
+            <summary>Gets or sets the retention in days.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.BackupScheduleDto.NextRun">
+            <summary>Gets or sets the next run time.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.BackupScheduleDto.Enabled">
+            <summary>Gets or sets a value indicating whether the schedule is enabled.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.FileBackupDto">
+            <summary>File backup entry DTO.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.FileBackupDto.Name">
+            <summary>Gets or sets the backup name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.FileBackupDto.SourcePath">
+            <summary>Gets or sets the source path.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.FileBackupDto.DestinationPath">
+            <summary>Gets or sets the destination path.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.FileBackupDto.Created">
+            <summary>Gets or sets the creation time.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.FileBackupDto.SizeMb">
+            <summary>Gets or sets the size in MB.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.FileBackupDto.Compressed">
+            <summary>Gets or sets a value indicating whether the backup is compressed.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.FileBackupDto.Encrypted">
+            <summary>Gets or sets a value indicating whether the backup is encrypted.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.FileBackupDto.FileCount">
+            <summary>Gets or sets the file count.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.GroupMemberDto">
+            <summary>Group membership entry.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.GroupMemberDto.Name">
+            <summary>Gets or sets the member name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.GroupMemberDto.Sid">
+            <summary>Gets or sets the SID.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.GroupMemberDto.ObjectClass">
+            <summary>Gets or sets the object class.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.GroupMemberDto.PrincipalSource">
+            <summary>Gets or sets the principal source.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.IBackupRestoreService">
+            <summary>
+            Service interface for backup and restore (restore points, registry, file backup, schedules).
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IBackupRestoreService.GetRestorePointsAsync(System.Threading.CancellationToken)">
+            <summary>Gets the list of system restore points.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IBackupRestoreService.CreateRestorePointAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Creates a system restore point with the given description.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IBackupRestoreService.DeleteRestorePointAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Deletes a restore point by sequence number.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IBackupRestoreService.GetRegistryBackupsAsync(System.Threading.CancellationToken)">
+            <summary>Gets the list of registry backups.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IBackupRestoreService.ExportRegistryKeyAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>Exports a registry key to a backup file.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IBackupRestoreService.ImportRegistryBackupAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Imports a registry backup from the given file path.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IBackupRestoreService.GetFileBackupsAsync(System.Threading.CancellationToken)">
+            <summary>Gets the list of file backups.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IBackupRestoreService.CreateFileBackupAsync(System.String,System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>Creates a file backup from source to destination.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IBackupRestoreService.RestoreFileBackupAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>Restores a file backup to the given path.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IBackupRestoreService.GetSchedulesAsync(System.Threading.CancellationToken)">
+            <summary>Gets the list of backup schedules.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IBackupRestoreService.CreateScheduleAsync(System.String,System.String,System.String,System.String,System.Int32,System.Threading.CancellationToken)">
+            <summary>Creates a backup schedule.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IBackupRestoreService.DeleteScheduleAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Deletes a backup schedule by name.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.PowerShellOutput">
+            <summary>
+            Output model for PowerShell script execution results.
+            </summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PowerShellOutput.Output">
+            <summary>Gets the standard output lines.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PowerShellOutput.Errors">
+            <summary>Gets the error output lines.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PowerShellOutput.Warnings">
+            <summary>Gets the warning output lines.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PowerShellOutput.Verbose">
+            <summary>Gets the verbose output lines.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PowerShellOutput.HasErrors">
+            <summary>Gets a value indicating whether there were errors.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PowerShellOutput.FirstOutput">
+            <summary>Gets the first output line or empty string.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PowerShellOutput.ErrorMessage">
+            <summary>Gets the combined error message.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PowerShellOutput.Duration">
+            <summary>Gets the execution duration.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.IPowerShellService">
+            <summary>
+            Defines the contract for executing PowerShell commands and scripts.
+            Thread-safe. All methods support cancellation.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IPowerShellService.InvokeCommandAsync``1(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.CancellationToken)">
+            <summary>
+            Invokes a PowerShell command and deserializes the result to a single object.
+            </summary>
+            <typeparam name="T">The target deserialization type.</typeparam>
+            <param name="moduleName">The module containing the command.</param>
+            <param name="commandName">The command to invoke.</param>
+            <param name="parameters">Optional parameters.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>A result containing the deserialized object.</returns>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IPowerShellService.InvokeCommandListAsync``1(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.CancellationToken)">
+            <summary>
+            Invokes a PowerShell command and deserializes results to a list.
+            </summary>
+            <typeparam name="T">The target deserialization type.</typeparam>
+            <param name="moduleName">The module containing the command.</param>
+            <param name="commandName">The command to invoke.</param>
+            <param name="parameters">Optional parameters.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>A result containing the deserialized list.</returns>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IPowerShellService.InvokeCommandVoidAsync(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.CancellationToken)">
+            <summary>
+            Invokes a PowerShell command that returns no value.
+            </summary>
+            <param name="moduleName">The module containing the command.</param>
+            <param name="commandName">The command to invoke.</param>
+            <param name="parameters">Optional parameters.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>A result indicating success or failure.</returns>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IPowerShellService.ExecuteScriptAsync(System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.CancellationToken)">
+            <summary>
+            Executes a raw PowerShell script.
+            </summary>
+            <param name="script">The script to execute.</param>
+            <param name="parameters">Optional script parameters.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>A result containing the script output.</returns>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IPowerShellService.TestModuleAvailableAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Tests whether a PowerShell module is available.
+            </summary>
+            <param name="moduleName">The module to check.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>True if the module is importable.</returns>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IPowerShellService.GetDiagnostics">
+            <summary>
+            Gets diagnostic information about the PowerShell service.
+            </summary>
+            <returns>Diagnostic key-value pairs.</returns>
+        </member>
+        <member name="T:Better11.Core.Interfaces.INavigationService">
+            <summary>
+            Defines navigation operations for the application shell.
+            </summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.INavigationService.CurrentPage">
+            <summary>Gets the current page type.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.INavigationService.CanGoBack">
+            <summary>Gets a value indicating whether back navigation is possible.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.INavigationService.NavigateTo(System.Type,System.Object)">
+            <summary>Navigates to a page.</summary>
+            <param name="pageType">The page type.</param>
+            <param name="parameter">Optional navigation parameter.</param>
+            <returns>True if navigation succeeded.</returns>
+        </member>
+        <member name="M:Better11.Core.Interfaces.INavigationService.NavigateTo(System.String,System.Object)">
+            <summary>Navigates to a page by key.</summary>
+            <param name="pageKey">The page key.</param>
+            <param name="parameter">Optional navigation parameter.</param>
+            <returns>True if navigation succeeded.</returns>
+        </member>
+        <member name="M:Better11.Core.Interfaces.INavigationService.GoBack">
+            <summary>Navigates back.</summary>
+        </member>
+        <member name="E:Better11.Core.Interfaces.INavigationService.Navigated">
+            <summary>Raised when navigation occurs.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.IDialogService">
+            <summary>
+            Defines dialog and notification operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IDialogService.ShowInfoAsync(System.String,System.String)">
+            <summary>Shows an information dialog.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IDialogService.ShowWarningAsync(System.String,System.String)">
+            <summary>Shows a warning dialog.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IDialogService.ShowErrorAsync(System.String,System.String)">
+            <summary>Shows an error dialog.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IDialogService.ShowConfirmAsync(System.String,System.String)">
+            <summary>Shows a confirmation dialog.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.ISettingsService">
+            <summary>
+            Defines application settings persistence.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISettingsService.GetValue``1(System.String,``0)">
+            <summary>Gets a setting value.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISettingsService.SetValue``1(System.String,``0)">
+            <summary>Sets a setting value.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISettingsService.SaveAsync(System.Threading.CancellationToken)">
+            <summary>Saves all settings to disk.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISettingsService.LoadAsync(System.Threading.CancellationToken)">
+            <summary>Loads all settings from disk.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.IPackageService">
+            <summary>
+            Defines package management operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IPackageService.GetInstalledPackagesAsync(System.Threading.CancellationToken)">
+            <summary>Gets all installed packages.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IPackageService.GetAvailableUpdatesAsync(System.Threading.CancellationToken)">
+            <summary>Gets available package updates.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IPackageService.InstallPackageAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>Installs a package.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IPackageService.UninstallPackageAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Uninstalls a package.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IPackageService.UpdatePackageAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Updates a package.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IPackageService.SearchPackagesAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Searches for packages.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.PackageDto">
+            <summary>Package data transfer object.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PackageDto.Id">
+            <summary>Gets or sets the package identifier.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PackageDto.Name">
+            <summary>Gets or sets the display name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PackageDto.Version">
+            <summary>Gets or sets the installed version.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PackageDto.AvailableVersion">
+            <summary>Gets or sets the available version.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PackageDto.Source">
+            <summary>Gets or sets the package source.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PackageDto.Publisher">
+            <summary>Gets or sets the publisher.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PackageDto.HasUpdate">
+            <summary>Gets a value indicating whether an update is available.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.IDriverService">
+            <summary>
+            Defines driver management operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IDriverService.GetInstalledDriversAsync(System.Threading.CancellationToken)">
+            <summary>Gets all installed drivers.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IDriverService.ScanForUpdatesAsync(System.Threading.CancellationToken)">
+            <summary>Scans for driver updates.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IDriverService.UpdateDriverAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Updates a driver.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IDriverService.BackupDriverAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>Creates a driver backup.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IDriverService.RollbackDriverAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Rolls back a driver.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.DriverDto">
+            <summary>Driver data transfer object.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DriverDto.DeviceId">
+            <summary>Gets or sets the device ID.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DriverDto.DeviceName">
+            <summary>Gets or sets the device name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DriverDto.DriverVersion">
+            <summary>Gets or sets the driver version.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DriverDto.DriverDate">
+            <summary>Gets or sets the driver date.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DriverDto.Manufacturer">
+            <summary>Gets or sets the manufacturer.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DriverDto.Category">
+            <summary>Gets or sets the device category.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DriverDto.Status">
+            <summary>Gets or sets the driver status.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DriverDto.HasUpdate">
+            <summary>Gets or sets a value indicating whether an update is available.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.IStartupService">
+            <summary>
+            Defines startup item management.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IStartupService.GetStartupItemsAsync(System.Threading.CancellationToken)">
+            <summary>Gets all startup items.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IStartupService.EnableStartupItemAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Enables a startup item.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IStartupService.DisableStartupItemAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Disables a startup item.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IStartupService.RemoveStartupItemAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Removes a startup item.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.StartupItemDto">
+            <summary>Startup item data transfer object.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.StartupItemDto.Id">
+            <summary>Gets or sets the item identifier.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.StartupItemDto.Name">
+            <summary>Gets or sets the display name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.StartupItemDto.Publisher">
+            <summary>Gets or sets the publisher.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.StartupItemDto.Command">
+            <summary>Gets or sets the command.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.StartupItemDto.Location">
+            <summary>Gets or sets the location (Registry/Folder).</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.StartupItemDto.Impact">
+            <summary>Gets or sets the startup impact.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.StartupItemDto.IsEnabled">
+            <summary>Gets or sets a value indicating whether the item is enabled.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.IScheduledTaskService">
+            <summary>
+            Defines scheduled task management.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IScheduledTaskService.GetScheduledTasksAsync(System.Threading.CancellationToken)">
+            <summary>Gets all scheduled tasks.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IScheduledTaskService.EnableTaskAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Enables a scheduled task.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IScheduledTaskService.DisableTaskAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Disables a scheduled task.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IScheduledTaskService.RunTaskAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Runs a scheduled task immediately.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.ScheduledTaskDto">
+            <summary>Scheduled task data transfer object.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.ScheduledTaskDto.TaskPath">
+            <summary>Gets or sets the task path.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.ScheduledTaskDto.TaskName">
+            <summary>Gets or sets the task name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.ScheduledTaskDto.State">
+            <summary>Gets or sets the state.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.ScheduledTaskDto.LastRunTime">
+            <summary>Gets or sets the last run time.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.ScheduledTaskDto.NextRunTime">
+            <summary>Gets or sets the next run time.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.ScheduledTaskDto.Author">
+            <summary>Gets or sets the author.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.ScheduledTaskDto.Description">
+            <summary>Gets or sets the description.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.INetworkService">
+            <summary>
+            Defines network management operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.INetworkService.GetAdaptersAsync(System.Threading.CancellationToken)">
+            <summary>Gets all network adapters.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.INetworkService.GetDnsConfigAsync(System.Threading.CancellationToken)">
+            <summary>Gets DNS configuration.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.INetworkService.SetDnsServersAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>Sets DNS servers.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.INetworkService.FlushDnsCacheAsync(System.Threading.CancellationToken)">
+            <summary>Flushes the DNS cache.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.INetworkService.RunDiagnosticsAsync(System.Threading.CancellationToken)">
+            <summary>Runs a network connectivity test.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.NetworkAdapterDto">
+            <summary>Network adapter data transfer object.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.NetworkAdapterDto.Id">
+            <summary>Gets or sets the adapter ID.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.NetworkAdapterDto.Name">
+            <summary>Gets or sets the name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.NetworkAdapterDto.Status">
+            <summary>Gets or sets the status.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.NetworkAdapterDto.IpAddress">
+            <summary>Gets or sets the IP address.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.NetworkAdapterDto.MacAddress">
+            <summary>Gets or sets the MAC address.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.NetworkAdapterDto.SpeedMbps">
+            <summary>Gets or sets the speed in Mbps.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.NetworkAdapterDto.AdapterType">
+            <summary>Gets or sets the adapter type.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.DnsConfigDto">
+            <summary>DNS configuration data transfer object.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DnsConfigDto.PrimaryDns">
+            <summary>Gets or sets the primary DNS server.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DnsConfigDto.SecondaryDns">
+            <summary>Gets or sets the secondary DNS server.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DnsConfigDto.DnsSuffix">
+            <summary>Gets or sets the DNS suffix.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.NetworkDiagnosticsDto">
+            <summary>Network diagnostics data transfer object.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.NetworkDiagnosticsDto.IsConnected">
+            <summary>Gets or sets the internet connectivity status.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.NetworkDiagnosticsDto.LatencyMs">
+            <summary>Gets or sets the latency in ms.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.NetworkDiagnosticsDto.DownloadSpeedMbps">
+            <summary>Gets or sets the download speed in Mbps.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.NetworkDiagnosticsDto.UploadSpeedMbps">
+            <summary>Gets or sets the upload speed in Mbps.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.NetworkDiagnosticsDto.DnsResolutionMs">
+            <summary>Gets or sets the DNS resolution time in ms.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.IDiskCleanupService">
+            <summary>
+            Defines disk cleanup operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IDiskCleanupService.ScanAsync(System.Threading.CancellationToken)">
+            <summary>Scans for cleanable items.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IDiskCleanupService.CleanAsync(System.Collections.Generic.IReadOnlyList{System.String},System.Threading.CancellationToken)">
+            <summary>Cleans selected categories.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IDiskCleanupService.GetDiskSpaceAsync(System.Threading.CancellationToken)">
+            <summary>Gets disk space information.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.DiskScanResultDto">
+            <summary>Disk scan result.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DiskScanResultDto.Categories">
+            <summary>Gets or sets the cleanable categories.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DiskScanResultDto.TotalReclaimableBytes">
+            <summary>Gets or sets the total reclaimable bytes.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.CleanupCategoryDto">
+            <summary>Cleanup category.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.CleanupCategoryDto.Name">
+            <summary>Gets or sets the category name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.CleanupCategoryDto.Description">
+            <summary>Gets or sets the description.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.CleanupCategoryDto.ReclaimableBytes">
+            <summary>Gets or sets the reclaimable bytes.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.CleanupCategoryDto.FileCount">
+            <summary>Gets or sets the file count.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.CleanupCategoryDto.IsSelectedByDefault">
+            <summary>Gets or sets a value indicating whether it is selected by default.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.CleanupResultDto">
+            <summary>Cleanup result.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.CleanupResultDto.BytesFreed">
+            <summary>Gets or sets the bytes freed.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.CleanupResultDto.FilesRemoved">
+            <summary>Gets or sets the files removed.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.CleanupResultDto.Errors">
+            <summary>Gets or sets the errors encountered.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.DiskSpaceDto">
+            <summary>Disk space information.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DiskSpaceDto.DriveLetter">
+            <summary>Gets or sets the drive letter.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DiskSpaceDto.VolumeLabel">
+            <summary>Gets or sets the volume label.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DiskSpaceDto.TotalBytes">
+            <summary>Gets or sets the total size in bytes.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DiskSpaceDto.FreeBytes">
+            <summary>Gets or sets the free space in bytes.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DiskSpaceDto.UsedBytes">
+            <summary>Gets the used space in bytes.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.DiskSpaceDto.UsagePercent">
+            <summary>Gets the usage percentage.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.ISystemInfoService">
+            <summary>
+            Defines system information retrieval operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISystemInfoService.GetSystemInfoAsync(System.Threading.CancellationToken)">
+            <summary>Gets comprehensive system information.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISystemInfoService.GetPerformanceMetricsAsync(System.Threading.CancellationToken)">
+            <summary>Gets current performance metrics.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.SystemInfoDto">
+            <summary>System information data transfer object.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SystemInfoDto.ComputerName">
+            <summary>Gets or sets the computer name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SystemInfoDto.OsName">
+            <summary>Gets or sets the OS name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SystemInfoDto.OsVersion">
+            <summary>Gets or sets the OS version.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SystemInfoDto.OsBuild">
+            <summary>Gets or sets the OS build.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SystemInfoDto.CpuName">
+            <summary>Gets or sets the CPU name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SystemInfoDto.CpuCores">
+            <summary>Gets or sets the CPU cores.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SystemInfoDto.TotalRamGb">
+            <summary>Gets or sets the total RAM in GB.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SystemInfoDto.GpuName">
+            <summary>Gets or sets the GPU name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SystemInfoDto.Uptime">
+            <summary>Gets or sets the system uptime.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SystemInfoDto.ActivationStatus">
+            <summary>Gets or sets the Windows activation status.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SystemInfoDto.BiosVersion">
+            <summary>Gets or sets the BIOS version.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SystemInfoDto.Motherboard">
+            <summary>Gets or sets the motherboard model.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.PerformanceMetricsDto">
+            <summary>Performance metrics data transfer object.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PerformanceMetricsDto.CpuUsagePercent">
+            <summary>Gets or sets the CPU usage percentage.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PerformanceMetricsDto.MemoryUsagePercent">
+            <summary>Gets or sets the memory usage percentage.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PerformanceMetricsDto.AvailableMemoryGb">
+            <summary>Gets or sets the available memory in GB.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PerformanceMetricsDto.DiskReadMbps">
+            <summary>Gets or sets the disk read speed in MB/s.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PerformanceMetricsDto.DiskWriteMbps">
+            <summary>Gets or sets the disk write speed in MB/s.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PerformanceMetricsDto.NetworkSendKbps">
+            <summary>Gets or sets the network send in KB/s.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PerformanceMetricsDto.NetworkReceiveKbps">
+            <summary>Gets or sets the network receive in KB/s.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PerformanceMetricsDto.GpuUsagePercent">
+            <summary>Gets or sets the GPU usage percentage.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PerformanceMetricsDto.ProcessCount">
+            <summary>Gets or sets the process count.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.IOptimizationService">
+            <summary>
+            Defines system optimization operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IOptimizationService.GetCategoriesAsync(System.Threading.CancellationToken)">
+            <summary>Gets available optimization categories.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IOptimizationService.ApplyOptimizationsAsync(System.Collections.Generic.IReadOnlyList{System.String},System.Threading.CancellationToken)">
+            <summary>Applies optimizations.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IOptimizationService.CreateRestorePointAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Creates a restore point before optimization.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.OptimizationCategoryDto">
+            <summary>Optimization category.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.OptimizationCategoryDto.Name">
+            <summary>Gets or sets the category name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.OptimizationCategoryDto.Description">
+            <summary>Gets or sets the description.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.OptimizationCategoryDto.Tweaks">
+            <summary>Gets or sets the tweaks in this category.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.TweakDto">
+            <summary>Individual tweak.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.TweakDto.Id">
+            <summary>Gets or sets the tweak identifier.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.TweakDto.Name">
+            <summary>Gets or sets the display name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.TweakDto.Description">
+            <summary>Gets or sets the description.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.TweakDto.IsApplied">
+            <summary>Gets or sets a value indicating whether it is currently applied.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.TweakDto.RiskLevel">
+            <summary>Gets or sets the risk level.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.OptimizationResultDto">
+            <summary>Optimization result.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.OptimizationResultDto.TweaksApplied">
+            <summary>Gets or sets the number of tweaks applied.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.OptimizationResultDto.FailedTweaks">
+            <summary>Gets or sets tweaks that failed.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.OptimizationResultDto.RebootRequired">
+            <summary>Gets or sets whether a reboot is required.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.IPrivacyService">
+            <summary>
+            Defines privacy management operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IPrivacyService.GetPrivacyAuditAsync(System.Threading.CancellationToken)">
+            <summary>Gets the current privacy audit.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IPrivacyService.ApplyPrivacyProfileAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Applies a privacy profile.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IPrivacyService.SetPrivacySettingAsync(System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>Sets a specific privacy setting.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.PrivacyAuditDto">
+            <summary>Privacy audit result.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PrivacyAuditDto.Score">
+            <summary>Gets or sets the privacy score (0-100).</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PrivacyAuditDto.CurrentProfile">
+            <summary>Gets or sets the current profile name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PrivacyAuditDto.Settings">
+            <summary>Gets or sets privacy settings.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.PrivacySettingDto">
+            <summary>Individual privacy setting.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PrivacySettingDto.Id">
+            <summary>Gets or sets the setting ID.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PrivacySettingDto.Name">
+            <summary>Gets or sets the display name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PrivacySettingDto.Category">
+            <summary>Gets or sets the category.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PrivacySettingDto.Description">
+            <summary>Gets or sets the description.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PrivacySettingDto.IsEnabled">
+            <summary>Gets or sets a value indicating whether it is enabled.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PrivacySettingDto.RecommendedState">
+            <summary>Gets or sets the recommended state.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.ISecurityService">
+            <summary>
+            Defines security management operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISecurityService.GetSecurityStatusAsync(System.Threading.CancellationToken)">
+            <summary>Gets the security status.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISecurityService.RunSecurityScanAsync(System.Threading.CancellationToken)">
+            <summary>Runs a security scan.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISecurityService.ApplyHardeningAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Applies a security hardening action.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.SecurityStatusDto">
+            <summary>Security status.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityStatusDto.Score">
+            <summary>Gets or sets the overall security score.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityStatusDto.FirewallStatus">
+            <summary>Gets or sets the firewall status.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityStatusDto.AntivirusStatus">
+            <summary>Gets or sets the antivirus status.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityStatusDto.UpdateStatus">
+            <summary>Gets or sets the Windows Update status.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityStatusDto.UacLevel">
+            <summary>Gets or sets UAC level.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityStatusDto.BitLockerStatus">
+            <summary>Gets or sets the BitLocker status.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.SecurityScanDto">
+            <summary>Security scan result.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityScanDto.Issues">
+            <summary>Gets or sets the issues found.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityScanDto.TotalIssues">
+            <summary>Gets or sets the total issues count.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.SecurityIssueDto">
+            <summary>Individual security issue.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityIssueDto.Id">
+            <summary>Gets or sets the issue ID.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityIssueDto.Title">
+            <summary>Gets or sets the issue title.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityIssueDto.Severity">
+            <summary>Gets or sets the severity.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityIssueDto.Description">
+            <summary>Gets or sets the description.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityIssueDto.RemediationActionId">
+            <summary>Gets or sets the remediation action ID.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.IUpdateService">
+            <summary>
+            Defines Windows Update management operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUpdateService.CheckForUpdatesAsync(System.Threading.CancellationToken)">
+            <summary>Checks for available updates.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUpdateService.InstallUpdatesAsync(System.Collections.Generic.IReadOnlyList{System.String},System.Threading.CancellationToken)">
+            <summary>Installs selected updates.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUpdateService.GetUpdateHistoryAsync(System.Threading.CancellationToken)">
+            <summary>Gets update history.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.WindowsUpdateDto">
+            <summary>Windows Update data transfer object.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.WindowsUpdateDto.Id">
+            <summary>Gets or sets the update ID.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.WindowsUpdateDto.Title">
+            <summary>Gets or sets the title.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.WindowsUpdateDto.Description">
+            <summary>Gets or sets the description.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.WindowsUpdateDto.KbNumber">
+            <summary>Gets or sets the KB number.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.WindowsUpdateDto.SizeBytes">
+            <summary>Gets or sets the size in bytes.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.WindowsUpdateDto.Category">
+            <summary>Gets or sets the category.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.WindowsUpdateDto.IsInstalled">
+            <summary>Gets or sets a value indicating whether it is installed.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.WindowsUpdateDto.InstalledDate">
+            <summary>Gets or sets the install date.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.IAppUpdateService">
+            <summary>
+            Defines application (Better11) update check, download, and install operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IAppUpdateService.CheckForUpdatesAsync(System.Threading.CancellationToken)">
+            <summary>Checks for a newer application version; returns update info if available.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IAppUpdateService.DownloadUpdateAsync(Better11.Core.Interfaces.AppUpdateInfo,System.Threading.CancellationToken)">
+            <summary>Downloads the update package to a temporary file and returns its path.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IAppUpdateService.InstallUpdateAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Installs the update from the downloaded package path (e.g. launches MSIX installer).</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.AppUpdateInfo">
+            <summary>Application update information from the version manifest.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.AppUpdateInfo.Version">
+            <summary>Gets or sets the available version string (e.g. "1.1.0").</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.AppUpdateInfo.DownloadUrl">
+            <summary>Gets or sets the download URL for the update package (e.g. MSIX).</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.AppUpdateInfo.ReleaseNotes">
+            <summary>Gets or sets optional release notes or description.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.AppUpdateInfo.PublishDate">
+            <summary>Gets or sets the published date of the release.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.IAnalyticsService">
+            <summary>
+            Defines analytics and telemetry tracking capabilities.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IAnalyticsService.TrackEventAsync(System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <summary>Tracks a custom event.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IAnalyticsService.TrackExceptionAsync(System.Exception,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <summary>Tracks an exception.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IAnalyticsService.TrackPageViewAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Tracks a page view.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.ISystemTrayService">
+            <summary>
+            Provides system tray integration for Better11 with notification and quick action capabilities.
+            </summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.ISystemTrayService.IsVisible">
+            <summary>Gets a value indicating whether the system tray is visible.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.ISystemTrayService.Tooltip">
+            <summary>Gets the current tooltip text.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISystemTrayService.ShowAsync(System.String,System.String)">
+            <summary>Shows the system tray icon.</summary>
+            <param name="iconPath">Path to the icon file.</param>
+            <param name="tooltip">Tooltip text to display.</param>
+            <returns>A task representing the operation.</returns>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISystemTrayService.HideAsync">
+            <summary>Hides the system tray icon.</summary>
+            <returns>A task representing the operation.</returns>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISystemTrayService.ShowNotificationAsync(System.String,System.String,System.Int32)">
+            <summary>Shows a notification balloon.</summary>
+            <param name="title">The notification title.</param>
+            <param name="message">The notification message.</param>
+            <param name="timeout">Optional timeout in milliseconds.</param>
+            <returns>A task representing the operation.</returns>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISystemTrayService.AddContextMenuItemAsync(System.String,System.Windows.Input.ICommand)">
+            <summary>Adds a context menu item.</summary>
+            <param name="text">The menu item text.</param>
+            <param name="command">The command to execute when clicked.</param>
+            <returns>A task representing the operation.</returns>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISystemTrayService.AddContextMenuSeparatorAsync">
+            <summary>Adds a context menu separator.</summary>
+            <returns>A task representing the operation.</returns>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISystemTrayService.AddContextMenuSubmenuAsync(System.String,System.ValueTuple{System.String,System.Windows.Input.ICommand}[])">
+            <summary>Adds a submenu to the context menu.</summary>
+            <param name="text">The submenu text.</param>
+            <param name="items">The submenu items.</param>
+            <returns>A task representing the operation.</returns>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISystemTrayService.UpdateTooltipAsync(System.String)">
+            <summary>Updates the tooltip text.</summary>
+            <param name="tooltip">The new tooltip text.</param>
+            <returns>A task representing the operation.</returns>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISystemTrayService.UpdateIconAsync(System.String)">
+            <summary>Updates the system tray icon.</summary>
+            <param name="iconPath">Path to the new icon file.</param>
+            <returns>A task representing the operation.</returns>
+        </member>
+        <member name="M:Better11.Core.Interfaces.ISystemTrayService.ShowContextMenuAsync">
+            <summary>Shows the context menu at the current cursor position.</summary>
+            <returns>A task representing the operation.</returns>
+        </member>
+        <member name="E:Better11.Core.Interfaces.ISystemTrayService.DoubleClicked">
+            <summary>Event raised when the system tray icon is double-clicked.</summary>
+        </member>
+        <member name="E:Better11.Core.Interfaces.ISystemTrayService.RightClicked">
+            <summary>Event raised when the system tray icon is right-clicked.</summary>
+        </member>
+        <member name="E:Better11.Core.Interfaces.ISystemTrayService.Disposed">
+            <summary>Event raised when the system tray service is disposed.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.IUserAccountService">
+            <summary>
+            Service interface for the User Account Manager feature.
+            </summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.GetLocalAccountsAsync(System.Threading.CancellationToken)">
+            <summary>Gets the list of local user accounts.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.CreateAccountAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>Creates a local account with the given username, password, and full name.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.DeleteAccountAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Deletes a local account by username.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.SetAccountEnabledAsync(System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>Enables or disables a local account.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.GetLocalGroupsAsync(System.Threading.CancellationToken)">
+            <summary>Gets the list of local groups.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.GetGroupMembersAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Gets the members of a local group.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.AddGroupMemberAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>Adds a user to a local group.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.RemoveGroupMemberAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>Removes a user from a local group.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.GetPasswordPolicyAsync(System.Threading.CancellationToken)">
+            <summary>Gets the current password policy.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.SetPasswordPolicyAsync(System.Int32,System.Boolean,System.Int32,System.Threading.CancellationToken)">
+            <summary>Sets the password policy (min length, complexity, max age).</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.GetAutoLoginAsync(System.Threading.CancellationToken)">
+            <summary>Gets the current auto-login configuration.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.SetAutoLoginAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>Enables auto-login for the given user and password.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.DisableAutoLoginAsync(System.Threading.CancellationToken)">
+            <summary>Disables auto-login.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.GetUserProfilesAsync(System.Threading.CancellationToken)">
+            <summary>Gets the list of user profiles.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.GetSecurityAuditAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets recent security audit events.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.GetUserSessionsAsync(System.Threading.CancellationToken)">
+            <summary>Gets active user sessions.</summary>
+        </member>
+        <member name="M:Better11.Core.Interfaces.IUserAccountService.LogoffSessionAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Logs off the session with the given ID.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.LocalAccountDto">
+            <summary>Local user account information.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.LocalAccountDto.Username">
+            <summary>Gets or sets the username.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.LocalAccountDto.FullName">
+            <summary>Gets or sets the full name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.LocalAccountDto.Sid">
+            <summary>Gets or sets the SID.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.LocalAccountDto.Enabled">
+            <summary>Gets or sets a value indicating whether the account is enabled.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.LocalAccountDto.IsAdmin">
+            <summary>Gets or sets a value indicating whether the account is an administrator.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.LocalAccountDto.Description">
+            <summary>Gets or sets the description.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.LocalAccountDto.LastLogin">
+            <summary>Gets or sets the last login time.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.LocalAccountDto.PasswordNeverExpires">
+            <summary>Gets or sets a value indicating whether the password never expires.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.LocalAccountDto.IsLockedOut">
+            <summary>Gets or sets a value indicating whether the account is locked out.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.LocalGroupDto">
+            <summary>Local group information.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.LocalGroupDto.Name">
+            <summary>Gets or sets the group name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.LocalGroupDto.Sid">
+            <summary>Gets or sets the SID.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.LocalGroupDto.Description">
+            <summary>Gets or sets the description.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.LocalGroupDto.MemberCount">
+            <summary>Gets or sets the member count.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.PasswordPolicyDto">
+            <summary>Password policy settings.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PasswordPolicyDto.MinLength">
+            <summary>Gets or sets the minimum password length.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PasswordPolicyDto.ComplexityEnabled">
+            <summary>Gets or sets a value indicating whether complexity is required.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PasswordPolicyDto.MaxAgeDays">
+            <summary>Gets or sets the maximum password age in days.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PasswordPolicyDto.MinAgeDays">
+            <summary>Gets or sets the minimum password age in days.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PasswordPolicyDto.HistoryCount">
+            <summary>Gets or sets the password history count.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PasswordPolicyDto.LockoutThreshold">
+            <summary>Gets or sets the lockout threshold.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.PasswordPolicyDto.LockoutDurationMinutes">
+            <summary>Gets or sets the lockout duration in minutes.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.RegistryBackupDto">
+            <summary>Registry backup entry DTO.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.RegistryBackupDto.Name">
+            <summary>Gets or sets the backup name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.RegistryBackupDto.KeyPath">
+            <summary>Gets or sets the registry key path.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.RegistryBackupDto.FilePath">
+            <summary>Gets or sets the backup file path.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.RegistryBackupDto.Created">
+            <summary>Gets or sets the creation time.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.RegistryBackupDto.SizeKb">
+            <summary>Gets or sets the size in KB.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.RestorePointDto">
+            <summary>System restore point DTO.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.RestorePointDto.SequenceNumber">
+            <summary>Gets or sets the sequence number.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.RestorePointDto.Description">
+            <summary>Gets or sets the description.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.RestorePointDto.CreationTime">
+            <summary>Gets or sets the creation time.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.RestorePointDto.RestorePointType">
+            <summary>Gets or sets the restore point type.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.SecurityAuditDto">
+            <summary>Security audit event.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityAuditDto.Timestamp">
+            <summary>Gets or sets the event timestamp.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityAuditDto.EventType">
+            <summary>Gets or sets the event type.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityAuditDto.AccountName">
+            <summary>Gets or sets the account name.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityAuditDto.Source">
+            <summary>Gets or sets the event source.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityAuditDto.EventId">
+            <summary>Gets or sets the event ID.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.SecurityAuditDto.Result">
+            <summary>Gets or sets the result.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.UserProfileDto">
+            <summary>User profile information.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.UserProfileDto.Username">
+            <summary>Gets or sets the username.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.UserProfileDto.ProfilePath">
+            <summary>Gets or sets the profile path.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.UserProfileDto.SizeMb">
+            <summary>Gets or sets the profile size in MB.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.UserProfileDto.Sid">
+            <summary>Gets or sets the SID.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.UserProfileDto.LastUseTime">
+            <summary>Gets or sets the last use time.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.UserProfileDto.IsLoaded">
+            <summary>Gets or sets a value indicating whether the profile is loaded.</summary>
+        </member>
+        <member name="T:Better11.Core.Interfaces.UserSessionDto">
+            <summary>Active user session information.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.UserSessionDto.SessionId">
+            <summary>Gets or sets the session ID.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.UserSessionDto.Username">
+            <summary>Gets or sets the username.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.UserSessionDto.State">
+            <summary>Gets or sets the session state.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.UserSessionDto.SessionType">
+            <summary>Gets or sets the session type.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.UserSessionDto.LogonTime">
+            <summary>Gets or sets the logon time.</summary>
+        </member>
+        <member name="P:Better11.Core.Interfaces.UserSessionDto.IdleTime">
+            <summary>Gets or sets the idle time.</summary>
+        </member>
+    </members>
+</doc>

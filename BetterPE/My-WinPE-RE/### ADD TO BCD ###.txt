@@ -1,0 +1,6 @@
+### ADD TO BCD ###
+
+bcdedit /store BCD /create /d "WinPE Deployment" /application osloader
+bcdedit /store BCD /create /d "WinRE Advanced Recovery" /application osloader
+bcdedit /store BCD /create /d "Hybrid Ultimate Environment" /application osloader
+``

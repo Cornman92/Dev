@@ -1,0 +1,29 @@
+version: 2
+updates:
+  # PowerShell modules
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+
+  # .NET dependencies (Better11)
+  - package-ecosystem: "nuget"
+    directory: "/active-projects/Better11"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
+  # Node.js dependencies (Development Dashboard)
+  - package-ecosystem: "npm"
+    directory: "/active-projects/development-dashboard"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
+  # Python dependencies (Better11 Python)
+  - package-ecosystem: "pip"
+    directory: "/Better11/Better11"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5

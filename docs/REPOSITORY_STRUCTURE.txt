@@ -1,0 +1,175 @@
+better11/
+├── .github/
+│   ├── workflows/
+│   │   ├── ci.yml
+│   │   ├── release.yml
+│   │   ├── code-quality.yml
+│   │   └── tests.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   ├── feature_request.md
+│   │   └── question.md
+│   ├── pull_request_template.md
+│   └── dependabot.yml
+│
+├── docs/
+│   ├── README.md
+│   ├── ARCHITECTURE.md
+│   ├── CONTRIBUTING.md
+│   ├── CODE_OF_CONDUCT.md
+│   ├── getting-started/
+│   │   ├── installation.md
+│   │   ├── quick-start.md
+│   │   └── system-requirements.md
+│   ├── user-guides/
+│   │   ├── package-management.md
+│   │   ├── system-optimization.md
+│   │   └── driver-management.md
+│   ├── developer/
+│   │   ├── setup-environment.md
+│   │   ├── building-from-source.md
+│   │   ├── coding-standards.md
+│   │   └── testing-guide.md
+│   ├── api/
+│   │   ├── core-services.md
+│   │   └── package-management-api.md
+│   ├── enterprise/
+│   │   ├── deployment-guide.md
+│   │   ├── group-policy.md
+│   │   └── configuration-management.md
+│   ├── architecture/
+│   │   ├── decisions/
+│   │   └── diagrams/
+│   ├── migration/
+│   │   └── from-react-app.md
+│   └── examples/
+│       └── creating-module.md
+│
+├── src/
+│   ├── Better11.App/
+│   │   ├── Better11.App.csproj
+│   │   ├── App.xaml
+│   │   ├── App.xaml.cs
+│   │   ├── Package.appxmanifest
+│   │   ├── Assets/
+│   │   ├── ViewModels/
+│   │   ├── Views/
+│   │   ├── Controls/
+│   │   ├── Services/
+│   │   ├── Helpers/
+│   │   ├── Converters/
+│   │   ├── Styles/
+│   │   └── Themes/
+│   │
+│   ├── Better11.Core/
+│   │   ├── Better11.Core.csproj
+│   │   ├── Interfaces/
+│   │   ├── Services/
+│   │   ├── Models/
+│   │   ├── Data/
+│   │   ├── ViewModels/
+│   │   ├── Helpers/
+│   │   ├── Extensions/
+│   │   └── Constants/
+│   │
+│   ├── Better11.PackageManagement/
+│   │   ├── Better11.PackageManagement.csproj
+│   │   ├── Interfaces/
+│   │   ├── Services/
+│   │   ├── Models/
+│   │   ├── Repositories/
+│   │   ├── ViewModels/
+│   │   └── Helpers/
+│   │
+│   ├── Better11.SystemOptimization/
+│   │   ├── Better11.SystemOptimization.csproj
+│   │   ├── Interfaces/
+│   │   ├── Services/
+│   │   ├── Models/
+│   │   ├── Data/
+│   │   └── ViewModels/
+│   │
+│   ├── Better11.DriverManagement/
+│   │   ├── Better11.DriverManagement.csproj
+│   │   ├── Interfaces/
+│   │   ├── Services/
+│   │   ├── Models/
+│   │   └── ViewModels/
+│   │
+│   ├── Better11.EnterpriseDeployment/
+│   │   ├── Better11.EnterpriseDeployment.csproj
+│   │   ├── Interfaces/
+│   │   ├── Services/
+│   │   ├── Models/
+│   │   ├── Templates/
+│   │   │   ├── admx/
+│   │   │   └── msi/
+│   │   └── ViewModels/
+│   │
+│   ├── Better11.CLI/
+│   │   ├── Better11.CLI.csproj
+│   │   ├── Program.cs
+│   │   ├── Commands/
+│   │   ├── Helpers/
+│   │   └── Options/
+│   │
+│   └── Better11.TUI/
+│       ├── Better11.TUI.csproj
+│       ├── Program.cs
+│       ├── Screens/
+│       ├── Components/
+│       └── Helpers/
+│
+├── modules/
+│   └── powershell/
+│       ├── Better11.AppInstaller/
+│       │   ├── Better11.AppInstaller.psd1
+│       │   ├── Better11.AppInstaller.psm1
+│       │   ├── Public/
+│       │   ├── Private/
+│       │   └── en-US/
+│       ├── Better11.SystemOptimizer/
+│       │   ├── Better11.SystemOptimizer.psd1
+│       │   ├── Better11.SystemOptimizer.psm1
+│       │   └── Public/
+│       └── Better11.EnterpriseTools/
+│           ├── Better11.EnterpriseTools.psd1
+│           ├── Better11.EnterpriseTools.psm1
+│           └── Public/
+│
+├── tests/
+│   ├── Better11.Core.Tests/
+│   ├── Better11.PackageManagement.Tests/
+│   ├── Better11.SystemOptimization.Tests/
+│   ├── Better11.App.Tests/
+│   ├── Integration.Tests/
+│   └── TestUtilities/
+│
+├── scripts/
+│   ├── build/
+│   │   ├── build.ps1
+│   │   ├── clean.ps1
+│   │   └── restore.ps1
+│   ├── deployment/
+│   │   ├── create-msi.ps1
+│   │   ├── create-msix.ps1
+│   │   └── sign-package.ps1
+│   ├── development/
+│   │   ├── setup-dev-environment.ps1
+│   │   └── generate-docs.ps1
+│   └── migration/
+│       ├── extract-chat-code.ps1
+│       └── merge-repositories.ps1
+│
+├── tools/
+│   ├── dev-environment/
+│   │   └── install-prerequisites.ps1
+│   └── utilities/
+│
+├── .editorconfig
+├── .gitignore
+├── Directory.Build.props
+├── Better11.sln
+├── LICENSE
+├── README.md
+└── nuget.config

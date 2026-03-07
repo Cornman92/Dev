@@ -1,0 +1,18 @@
+  Determining projects to restore...
+  Restored d:\Dev\Better11\src\Better11.Services\Better11.Services.csproj (in 484 ms).
+  Restored D:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj (in 484 ms).
+  Restored D:\Dev\Better11\src\Better11.App\Better11.App.csproj (in 507 ms).
+  2 of 5 projects are up-to-date for restore.
+  Better11.Core -> D:\Dev\Better11\src\Better11.Core\bin\x64\Debug\net8.0-windows10.0.22621.0\Better11.Core.dll
+  Better11.Models -> d:\Dev\Better11\src\Better11.Models\bin\x64\Debug\net8.0-windows10.0.22621.0\Better11.Models.dll
+  Better11.Services -> D:\Dev\Better11\src\Better11.Services\bin\x64\Debug\net8.0-windows10.0.22621.0\Better11.Services.dll
+  Better11.ViewModels -> D:\Dev\Better11\src\Better11.ViewModels\bin\x64\Debug\net8.0-windows10.0.22621.0\Better11.ViewModels.dll
+C:\Users\C-Man\.nuget\packages\microsoft.windowsappsdk\1.6.250108002\buildTransitive\Microsoft.UI.Xaml.Markup.Compiler.interop.targets(760,9): error MSB3073: The command ""C:\Users\C-Man\.nuget\packages\microsoft.windowsappsdk\1.6.250108002\buildTransitive\..\tools\net6.0\..\net472\XamlCompiler.exe" "obj\x64\Debug\net8.0-windows10.0.22621.0\\input.json" "obj\x64\Debug\net8.0-windows10.0.22621.0\\output.json"" exited with code 1. [D:\Dev\Better11\src\Better11.App\Better11.App.csproj]
+
+Build FAILED.
+
+C:\Users\C-Man\.nuget\packages\microsoft.windowsappsdk\1.6.250108002\buildTransitive\Microsoft.UI.Xaml.Markup.Compiler.interop.targets(760,9): error MSB3073: The command ""C:\Users\C-Man\.nuget\packages\microsoft.windowsappsdk\1.6.250108002\buildTransitive\..\tools\net6.0\..\net472\XamlCompiler.exe" "obj\x64\Debug\net8.0-windows10.0.22621.0\\input.json" "obj\x64\Debug\net8.0-windows10.0.22621.0\\output.json"" exited with code 1. [D:\Dev\Better11\src\Better11.App\Better11.App.csproj]
+    0 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:23.00

@@ -1,0 +1,18 @@
+{
+  "default": {
+    "minFreeGB": 20,
+    "minMemoryGB": 8,
+    "categories": [
+      "core"
+    ]
+  },
+  "gamer": {
+    "minFreeGB": 40,
+    "minMemoryGB": 16,
+    "categories": [
+      "core",
+      "gaming",
+      "monitoring"
+    ]
+  }
+}

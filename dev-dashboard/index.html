@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dev Dashboard</title>
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="app" data-theme="dark">
+    <header class="header">
+        <div class="header-content">
+            <h1>Dev Dashboard</h1>
+            <div class="header-actions">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search projects..." />
+                <button type="button" id="themeToggle" class="icon-btn" aria-label="Toggle theme">☀️</button>
+                <button type="button" id="refreshBtn" class="icon-btn" aria-label="Refresh">🔄</button>
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        <section class="stats-bar">
+            <div class="stat"><span id="totalProjects">0</span> Projects</div>
+            <div class="stat"><span id="activeProjects">0</span> Active</div>
+            <div class="stat success"><span id="healthyCount">0</span> Healthy</div>
+            <div class="stat warning"><span id="warningCount">0</span> Warning</div>
+            <div class="stat"><span id="inProgressCount">0</span> In Progress</div>
+            <div class="stat muted">Updated: <span id="lastUpdate">—</span></div>
+        </section>
+        <div class="filter-chips">
+            <button type="button" class="chip active" data-filter="all">All</button>
+            <button type="button" class="chip" data-filter="powershell">PowerShell</button>
+            <button type="button" class="chip" data-filter="dotnet">.NET</button>
+            <button type="button" class="chip" data-filter="ai">AI</button>
+        </div>
+        <div id="workspacePanelContainer"></div>
+        <section class="projects-section">
+            <h2>Projects</h2>
+            <div id="projectsGrid" class="projects-grid"></div>
+        </section>
+        <section class="deployment-section">
+            <h2>Deployment Status</h2>
+            <div id="deploymentStatus"></div>
+        </section>
+    </main>
+    <script src="/script.js"></script>
+    <script src="/frontend/js/api.js"></script>
+    <script src="/frontend/js/websocket.js"></script>
+    <script src="/frontend/js/components/project-card.js"></script>
+    <script src="/frontend/js/components/coverage-chart.js"></script>
+    <script src="/frontend/js/components/deployment-status.js"></script>
+    <script src="/frontend/js/components/workspace-panel.js"></script>
+    <script src="/frontend/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,683 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Better11</name>
+    </assembly>
+    <members>
+        <member name="T:Better11.App.App">
+            <summary>
+            Application entry point with dependency injection.
+            </summary>
+        </member>
+        <member name="P:Better11.App.App.Current">
+            <summary>Gets the current app instance.</summary>
+        </member>
+        <member name="P:Better11.App.App.Services">
+            <summary>Gets the service provider.</summary>
+        </member>
+        <member name="P:Better11.App.App.MainDispatcherQueue">
+            <summary>Gets the main dispatcher queue for UI thread access.</summary>
+        </member>
+        <member name="M:Better11.App.App.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.App"/> class.
+            </summary>
+        </member>
+        <member name="M:Better11.App.App.GetService``1">
+            <summary>Gets a service from the DI container.</summary>
+            <typeparam name="T">The service type.</typeparam>
+            <returns>The service instance.</returns>
+        </member>
+        <member name="M:Better11.App.App.OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.App.ShowErrorDialog(System.String,System.String)">
+            <summary>
+            Shows an error dialog to the user.
+            </summary>
+        </member>
+        <member name="M:Better11.App.App.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Controls.CompactSettingsCard">
+            <summary>
+            A compact settings card with icon, title, description, and an action content slot.
+            Used for dense settings/configuration rows throughout the Better11 UI.
+            </summary>
+        </member>
+        <member name="F:Better11.App.Controls.CompactSettingsCard.TitleProperty">
+            <summary>
+            Dependency property for the card title.
+            </summary>
+        </member>
+        <member name="F:Better11.App.Controls.CompactSettingsCard.DescriptionProperty">
+            <summary>
+            Dependency property for the card description.
+            </summary>
+        </member>
+        <member name="F:Better11.App.Controls.CompactSettingsCard.GlyphProperty">
+            <summary>
+            Dependency property for the icon glyph.
+            </summary>
+        </member>
+        <member name="F:Better11.App.Controls.CompactSettingsCard.ActionContentProperty">
+            <summary>
+            Dependency property for the action content (e.g., ToggleSwitch, Button, ComboBox).
+            </summary>
+        </member>
+        <member name="M:Better11.App.Controls.CompactSettingsCard.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Controls.CompactSettingsCard"/> class.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Controls.CompactSettingsCard.Title">
+            <summary>
+            Gets or sets the card title.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Controls.CompactSettingsCard.Description">
+            <summary>
+            Gets or sets the card description.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Controls.CompactSettingsCard.Glyph">
+            <summary>
+            Gets or sets the icon glyph character.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Controls.CompactSettingsCard.ActionContent">
+            <summary>
+            Gets or sets the action content (ToggleSwitch, Button, ComboBox, etc.).
+            </summary>
+        </member>
+        <member name="M:Better11.App.Controls.CompactSettingsCard.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Controls.ConsoleOutputPanel">
+            <summary>
+            A console-style output panel with monospace text, auto-scroll, copy, and clear functionality.
+            Used throughout Better11 to display PowerShell command output.
+            </summary>
+        </member>
+        <member name="F:Better11.App.Controls.ConsoleOutputPanel.TitleProperty">
+            <summary>
+            Dependency property for the console title.
+            </summary>
+        </member>
+        <member name="F:Better11.App.Controls.ConsoleOutputPanel.OutputProperty">
+            <summary>
+            Dependency property for the output text content.
+            </summary>
+        </member>
+        <member name="F:Better11.App.Controls.ConsoleOutputPanel.StatusProperty">
+            <summary>
+            Dependency property for the status text.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Controls.ConsoleOutputPanel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Controls.ConsoleOutputPanel"/> class.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Controls.ConsoleOutputPanel.Title">
+            <summary>
+            Gets or sets the console panel title.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Controls.ConsoleOutputPanel.Output">
+            <summary>
+            Gets or sets the output text content.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Controls.ConsoleOutputPanel.Status">
+            <summary>
+            Gets or sets the status bar text.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Controls.ConsoleOutputPanel.AppendLine(System.String)">
+            <summary>
+            Appends a line to the output and auto-scrolls to the bottom.
+            </summary>
+            <param name="line">The line to append.</param>
+        </member>
+        <member name="M:Better11.App.Controls.ConsoleOutputPanel.ClearOutput">
+            <summary>
+            Clears all output text.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Controls.ConsoleOutputPanel.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Controls.DenseCheckboxGrid">
+            <summary>
+            A dense checkbox grid control for displaying toggleable items in a compact grid layout.
+            Inspired by WinUtil's checkbox-heavy interface for system tweaks.
+            </summary>
+        </member>
+        <member name="F:Better11.App.Controls.DenseCheckboxGrid.HeaderProperty">
+            <summary>
+            Dependency property for the section header text.
+            </summary>
+        </member>
+        <member name="F:Better11.App.Controls.DenseCheckboxGrid.ItemsSourceProperty">
+            <summary>
+            Dependency property for the items source.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Controls.DenseCheckboxGrid.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Controls.DenseCheckboxGrid"/> class.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Controls.DenseCheckboxGrid.Header">
+            <summary>
+            Gets or sets the section header text.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Controls.DenseCheckboxGrid.ItemsSource">
+            <summary>
+            Gets or sets the items source.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Controls.DenseCheckboxGrid.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Converters.BoolToVisibilityConverter">
+            <summary>
+            Converts a boolean value to a <see cref="T:Microsoft.UI.Xaml.Visibility"/> value.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Converters.BoolToVisibilityConverter.IsInverted">
+            <summary>
+            Gets or sets a value indicating whether the conversion is inverted.
+            When true, false maps to Visible and true maps to Collapsed.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Converters.BoolToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Converters.BoolToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.App.Converters.CountToVisibilityConverter">
+            <summary>
+            Converts a numeric count to <see cref="T:Microsoft.UI.Xaml.Visibility"/>. Visible when count > 0, Collapsed when 0.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Converters.CountToVisibilityConverter.IsInverted">
+            <summary>
+            Gets or sets a value indicating whether the conversion is inverted.
+            When true, 0 maps to Visible and non-zero maps to Collapsed.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Converters.CountToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Converters.CountToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.App.Converters.SeverityToColorConverter">
+            <summary>
+            Converts severity level strings to corresponding theme colors.
+            Supports: Success, Warning, Error, Info, Critical.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Converters.SeverityToColorConverter.Convert(System.Object,System.Type,System.Object,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Converters.SeverityToColorConverter.ConvertBack(System.Object,System.Type,System.Object,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.App.Converters.StringNotEmptyToVisibilityConverter">
+            <summary>
+            Converts a string to <see cref="T:Microsoft.UI.Xaml.Visibility"/>. Visible when non-empty, Collapsed when null or empty.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Converters.StringNotEmptyToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Converters.StringNotEmptyToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.App.DependencyInjection.ServiceCollectionExtensions">
+            <summary>
+            Registers all Better11 services, ViewModels, and navigation.
+            </summary>
+        </member>
+        <member name="M:Better11.App.DependencyInjection.ServiceCollectionExtensions.AddBetter11(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds all Better11 dependencies.
+            </summary>
+            <param name="services">The service collection.</param>
+            <returns>The service collection for chaining.</returns>
+        </member>
+        <member name="T:Better11.App.Extensions.ServiceCollectionExtensions">
+            <summary>
+            Extension methods for registering all Better11 services and ViewModels in the DI container.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Extensions.ServiceCollectionExtensions.AddBetter11Services(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Registers all Better11 services, ViewModels, navigation, and settings into the
+            <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+            <param name="services">The service collection to add registrations to.</param>
+            <returns>The same <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> for chaining.</returns>
+        </member>
+        <member name="T:Better11.App.MainWindow">
+            <summary>
+            The main application window with NavigationView shell.
+            </summary>
+        </member>
+        <member name="M:Better11.App.MainWindow.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.MainWindow"/> class.
+            </summary>
+        </member>
+        <member name="M:Better11.App.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Navigation.NavigationService">
+            <summary>
+            Implements frame-based navigation for the WinUI 3 shell.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Navigation.NavigationService.CurrentPage">
+            <inheritdoc/>
+        </member>
+        <member name="P:Better11.App.Navigation.NavigationService.CanGoBack">
+            <inheritdoc/>
+        </member>
+        <member name="E:Better11.App.Navigation.NavigationService.Navigated">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Navigation.NavigationService.SetFrame(Microsoft.UI.Xaml.Controls.Frame)">
+            <summary>Sets the navigation frame.</summary>
+            <param name="frame">The frame to navigate in.</param>
+        </member>
+        <member name="M:Better11.App.Navigation.NavigationService.RegisterPage(System.String,System.Type)">
+            <summary>Registers a page type with a key.</summary>
+            <param name="key">The page key.</param>
+            <param name="pageType">The page type.</param>
+        </member>
+        <member name="M:Better11.App.Navigation.NavigationService.NavigateTo(System.Type,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Navigation.NavigationService.NavigateTo(System.String,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Navigation.NavigationService.GoBack">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.App.Views.AboutPage">
+            <summary>
+            Code-behind for <see cref="T:Better11.App.Views.AboutPage"/>.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Views.AboutPage.ViewModel">
+            <summary>Gets the ViewModel.</summary>
+        </member>
+        <member name="M:Better11.App.Views.AboutPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.AboutPage"/> class.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.AboutPage.OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Views.AboutPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Views.BackupRestorePage">
+            <summary>
+            View for Backup and Restore page.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.BackupRestorePage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.BackupRestorePage"/> class.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.BackupRestorePage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Views.DashboardPage">
+            <summary>
+            Code-behind for <see cref="T:Better11.App.Views.DashboardPage"/>.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Views.DashboardPage.ViewModel">
+            <summary>Gets the ViewModel.</summary>
+        </member>
+        <member name="M:Better11.App.Views.DashboardPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.DashboardPage"/> class.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.DashboardPage.OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Views.DashboardPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Views.DiskCleanupPage">
+            <summary>
+            Code-behind for <see cref="T:Better11.App.Views.DiskCleanupPage"/>.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Views.DiskCleanupPage.ViewModel">
+            <summary>Gets the ViewModel.</summary>
+        </member>
+        <member name="M:Better11.App.Views.DiskCleanupPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.DiskCleanupPage"/> class.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.DiskCleanupPage.OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Views.DiskCleanupPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Views.DriverManagerPage">
+            <summary>
+            Code-behind for <see cref="T:Better11.App.Views.DriverManagerPage"/>.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Views.DriverManagerPage.ViewModel">
+            <summary>Gets the ViewModel.</summary>
+        </member>
+        <member name="M:Better11.App.Views.DriverManagerPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.DriverManagerPage"/> class.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.DriverManagerPage.OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Views.DriverManagerPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Views.FirstRunWizardPage">
+            <summary>
+            Code-behind for the First Run Wizard page.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.FirstRunWizardPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.FirstRunWizardPage"/> class.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Views.FirstRunWizardPage.ViewModel">
+            <summary>
+            Gets or sets the ViewModel for this page.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.FirstRunWizardPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Views.NetworkManagerPage">
+            <summary>
+            Code-behind for <see cref="T:Better11.App.Views.NetworkManagerPage"/>.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Views.NetworkManagerPage.ViewModel">
+            <summary>Gets the ViewModel.</summary>
+        </member>
+        <member name="M:Better11.App.Views.NetworkManagerPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.NetworkManagerPage"/> class.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.NetworkManagerPage.OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Views.NetworkManagerPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Views.OptimizationPage">
+            <summary>
+            Code-behind for the OptimizationPage.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.OptimizationPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.OptimizationPage"/> class.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Views.OptimizationPage.ViewModel">
+            <summary>Gets the ViewModel.</summary>
+        </member>
+        <member name="M:Better11.App.Views.OptimizationPage.OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Views.OptimizationPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Views.PackageManagerPage">
+            <summary>
+            Code-behind for <see cref="T:Better11.App.Views.PackageManagerPage"/>.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Views.PackageManagerPage.ViewModel">
+            <summary>Gets the ViewModel.</summary>
+        </member>
+        <member name="M:Better11.App.Views.PackageManagerPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.PackageManagerPage"/> class.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.PackageManagerPage.OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Views.PackageManagerPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Views.PrivacyPage">
+            <summary>
+            Code-behind for the PrivacyPage.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.PrivacyPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.PrivacyPage"/> class.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Views.PrivacyPage.ViewModel">
+            <summary>Gets the ViewModel.</summary>
+        </member>
+        <member name="M:Better11.App.Views.PrivacyPage.OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Views.PrivacyPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Views.ScheduledTasksPage">
+            <summary>
+            Code-behind for <see cref="T:Better11.App.Views.ScheduledTasksPage"/>.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Views.ScheduledTasksPage.ViewModel">
+            <summary>Gets the ViewModel.</summary>
+        </member>
+        <member name="M:Better11.App.Views.ScheduledTasksPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.ScheduledTasksPage"/> class.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.ScheduledTasksPage.OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Views.ScheduledTasksPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Views.SecurityPage">
+            <summary>
+            Code-behind for the SecurityPage.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.SecurityPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.SecurityPage"/> class.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Views.SecurityPage.ViewModel">
+            <summary>Gets the ViewModel.</summary>
+        </member>
+        <member name="M:Better11.App.Views.SecurityPage.OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Views.SecurityPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Views.SettingsPage">
+            <summary>
+            Code-behind for <see cref="T:Better11.App.Views.SettingsPage"/>.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Views.SettingsPage.ViewModel">
+            <summary>Gets the ViewModel.</summary>
+        </member>
+        <member name="M:Better11.App.Views.SettingsPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.SettingsPage"/> class.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.SettingsPage.OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Views.SettingsPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Views.StartupManagerPage">
+            <summary>
+            Code-behind for <see cref="T:Better11.App.Views.StartupManagerPage"/>.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Views.StartupManagerPage.ViewModel">
+            <summary>Gets the ViewModel.</summary>
+        </member>
+        <member name="M:Better11.App.Views.StartupManagerPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.StartupManagerPage"/> class.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.StartupManagerPage.OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Views.StartupManagerPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Views.SystemInfoPage">
+            <summary>
+            Code-behind for <see cref="T:Better11.App.Views.SystemInfoPage"/>.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Views.SystemInfoPage.ViewModel">
+            <summary>Gets the ViewModel.</summary>
+        </member>
+        <member name="M:Better11.App.Views.SystemInfoPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.SystemInfoPage"/> class.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.SystemInfoPage.OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Views.SystemInfoPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Views.UpdatesPage">
+            <summary>
+            Code-behind for the UpdatesPage.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.UpdatesPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.UpdatesPage"/> class.
+            </summary>
+        </member>
+        <member name="P:Better11.App.Views.UpdatesPage.ViewModel">
+            <summary>Gets the ViewModel.</summary>
+        </member>
+        <member name="M:Better11.App.Views.UpdatesPage.OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.App.Views.UpdatesPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Views.UserAccountPage">
+            <summary>
+            View for User Account Management.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.UserAccountPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.App.Views.UserAccountPage"/> class.
+            </summary>
+        </member>
+        <member name="M:Better11.App.Views.UserAccountPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="T:Better11.App.Program">
+            <summary>
+            Program class
+            </summary>
+        </member>
+        <member name="T:WinRT.RcwFallbackInitializer">
+            <summary>
+            Roots RCW types for assemblies referencing old projections.
+            It is recommended to update those, to get binary size savings.
+            </summary>
+        </member>
+        <member name="M:WinRT.RcwFallbackInitializer.InitializeRcwFallback">
+            <summary>
+            Roots all dependent RCW types.
+            </summary>
+        </member>
+    </members>
+</doc>

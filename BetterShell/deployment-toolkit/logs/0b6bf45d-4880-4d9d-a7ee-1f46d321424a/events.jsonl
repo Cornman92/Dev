@@ -1,0 +1,2 @@
+{"timestamp":"2025-12-15T21:46:52.4101299Z","runId":"0b6bf45d-4880-4d9d-a7ee-1f46d321424a","correlationId":"68b1a626-3db5-49ac-bad8-0d166a9a9f29","level":"Info","message":"Created deployment run context.","machine":"GAYMER-PC","isWinPE":false,"data":null}
+{"timestamp":"2025-12-15T21:46:52.4116828Z","runId":"0b6bf45d-4880-4d9d-a7ee-1f46d321424a","correlationId":"1d42451f-4574-4d02-95c1-fe8b57c9c432","level":"Info","message":"Test event","machine":"GAYMER-PC","isWinPE":false,"data":null}

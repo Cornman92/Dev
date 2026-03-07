@@ -1,0 +1,13 @@
+---
+description: Apply when helping user run or configure Better11 to optimize Windows (Use phase)
+globs: "**/configs/**","**/docs/**"
+alwaysApply: false
+---
+
+# Better11 — Use Phase
+
+When the user is **using Better11** to optimize their system:
+
+- Recommend a **preset** (Gaming, Developer, Privacy, Balanced, Minimal) from **better11_use_list_presets**.
+- Use **better11_use_system_info** and **better11_use_list_modules** to explain capabilities.
+- Point to Reporting and post-phase steps when they are done tweaking.

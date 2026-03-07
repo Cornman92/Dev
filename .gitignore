@@ -1,0 +1,25 @@
+# Build artifacts
+**/bin/
+**/obj/
+**/*.deps.json
+**/*.runtimeconfig.json
+**/input.json
+**/output.json
+**/*.csproj.nuget.dgspec.json
+**/project.assets.json
+
+# User-specific files
+**/powershell.config-*.json
+**/*_profile.ps1.bak.*
+
+# IDE files
+**/.vs/
+**/.vscode/settings.json
+
+# Logs
+**/*.log
+**/migration-output.log
+
+# Temporary files
+**/*.tmp
+**/*.temp

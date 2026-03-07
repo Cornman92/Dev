@@ -1,0 +1,396 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths-ignore:
+      - '**.md'
+      - '**.txt'
+      - 'docs/**'
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+      - '**.md'
+      - '**.txt'
+      - 'docs/**'
+
+env:
+  POWERSHELL_TELEMETRY_OPTOUT: 1
+
+jobs:
+  test-powershell:
+    name: Test PowerShell Modules
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        module:
+          - SharedFramework
+          - SharedLogging
+          - SharedConfiguration
+          - SharedErrorHandling
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup PowerShell
+        uses: azure/powershell@v1
+        with:
+          azPSVersion: latest
+          inlineScript: |
+            Write-Host "PowerShell Version: $($PSVersionTable.PSVersion)"
+            Write-Host "PowerShell Edition: $($PSVersionTable.PSEdition)"
+      
+      - name: Install Pester
+        run: |
+          Install-Module -Name Pester -Force -Scope CurrentUser
+          Import-Module Pester
+      
+      - name: Install ScriptAnalyzer
+        run: |
+          Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
+      
+      - name: Run Pester Tests
+        run: |
+          $testPath = if ($env:MODULE -eq "SharedFramework") {
+            "Shared/Framework/Tests"
+          } else {
+            "Shared/Framework/$($env:MODULE)/Tests"
+          }
+          
+          Write-Host "Running tests for module: $env:MODULE"
+          Write-Host "Test path: $testPath"
+          
+          $config = @{
+            Run = @{
+              Path = $testPath
+              OutputFormat = "NUnitXml"
+              OutputFile = "TestResults-$($env:MODULE).xml"
+              PassThru = $false
+            }
+            CodeCoverage = @{
+              Enabled = $true
+              OutputFormat = "JaCoCo"
+              OutputPath = "Coverage-$($env:MODULE)"
+              ExcludeTests = @("*[Tt]ests*", "*[Ii]ntegration*")
+            }
+            TestResult = @{
+              Enabled = $true
+              OutputFormat = "NUnitXml"
+              OutputPath = "TestResults-$($env:MODULE)"
+            }
+          }
+          
+          Invoke-Pester -Configuration $config
+        shell: pwsh
+      
+      - name: Run ScriptAnalyzer
+        run: |
+          $modulePath = if ($env:MODULE -eq "SharedFramework") {
+            "Shared/Framework"
+          } else {
+            "Shared/Framework/$($env:MODULE)"
+          }
+          
+          Write-Host "Running ScriptAnalyzer on module: $env:MODULE"
+          Write-Host "Module path: $modulePath"
+          
+          $settings = @{
+            Rules = @(
+              "PSUseApprovedVerbs",
+              "PSUseShouldProcessForStateChangingFunctions",
+              "PSUseOutputTypeCorrectly",
+              "PSAvoidUsingCmdletAliases",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingPositionalParameters",
+              "PSAvoidGlobalVars",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingWriteHost",
+              "PSUseDeclaredVarsMoreThanAssignments"
+            )
+            IncludeDefaultRules = $true
+            Severity = @("Error", "Warning")
+          }
+          
+          $results = Invoke-ScriptAnalyzer -Path $modulePath -Settings $settings
+          
+          if ($results) {
+            Write-Host "ScriptAnalyzer issues found:"
+            $results | ForEach-Object {
+              Write-Host "  $($_.Severity): $($_.Message) in $($_.ScriptName):$($_.Line)"
+            }
+          } else {
+            Write-Host "No ScriptAnalyzer issues found"
+          }
+        shell: pwsh
+      
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-results-${{ matrix.module }}
+          path: |
+            TestResults-${{ matrix.module }}.xml
+            Coverage-${{ matrix.module }}/
+      
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v3
+        if: matrix.module == 'SharedFramework'
+        with:
+          files: ./Coverage-SharedFramework/**
+          flags: ${{ matrix.module }}
+          name: codecov-${{ matrix.module }}
+
+  build-framework:
+    name: Build Shared Framework
+    runs-on: windows-latest
+    needs: test-powershell
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup PowerShell
+        uses: azure/powershell@v1
+        with:
+          azPSVersion: latest
+      
+      - name: Create Framework Package
+        run: |
+          Write-Host "Creating Shared Framework package..."
+          
+          # Create package directory
+          New-Item -ItemType Directory -Path "package" -Force | Out-Null
+          
+          # Copy framework files
+          Copy-Item -Path "Shared" -Destination "package\Shared" -Recurse -Force
+          
+          # Create version info
+          $versionInfo = @{
+            Version = "1.0.0"
+            BuildDate = Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ"
+            CommitSha = "${{ github.sha }}"
+            Branch = "${{ github.ref_name }}"
+          }
+          
+          $versionInfo | ConvertTo-Json -Depth 3 | Out-File -FilePath "package\version.json" -Encoding UTF8
+          
+          # Create README for package
+          $readmeContent = @"
+          # Shared Framework Package
+          
+          ## Version
+          $($versionInfo.Version)
+          
+          ## Build Information
+          - Build Date: $($versionInfo.BuildDate)
+          - Commit: $($versionInfo.CommitSha)
+          - Branch: $($versionInfo.Branch)
+          
+          ## Contents
+          - SharedFramework.psd1 - Main module manifest
+          - SharedFramework.psm1 - Main module file
+          - Framework/ - Core framework components
+            - Logging/ - Shared logging system
+            - Configuration/ - Configuration management
+            - ErrorHandling/ - Error handling framework
+          
+          ## Installation
+          ```powershell
+          # Copy to your modules directory
+          Copy-Item -Path "package\Shared" -Destination "$env:USERPROFILE\Documents\WindowsPowerShell\Modules\SharedFramework" -Recurse -Force
+          
+          # Import the module
+          Import-Module SharedFramework -Force
+          ```
+          
+          ## Usage
+          ```powershell
+          # Create a logger
+          $logger = New-SharedLogger -Name "MyModule" -Level Information
+          
+          # Load configuration
+          $config = Get-SharedConfiguration -Path "config.json"
+          
+          # Handle errors
+          try {
+              Invoke-MyOperation
+          } catch {
+              Write-SharedError -ErrorRecord $_ -Context "MyOperation"
+          }
+          ```
+          "@
+          
+          $readmeContent | Out-File -FilePath "package\README.md" -Encoding UTF8
+        shell: pwsh
+      
+      - name: Upload Package Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: shared-framework-package
+          path: package/
+
+  validate-integration:
+    name: Validate Integration
+    runs-on: windows-latest
+    needs: build-framework
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Download Package
+        uses: actions/download-artifact@v3
+        with:
+          name: shared-framework-package
+          path: package
+      
+      - name: Test Package Installation
+        run: |
+          Write-Host "Testing package installation..."
+          
+          # Test installation
+          $testPath = "TestModules\SharedFramework"
+          New-Item -ItemType Directory -Path $testPath -Force | Out-Null
+          Copy-Item -Path "package\Shared" -Destination $testPath -Recurse -Force
+          
+          # Test import
+          Import-Module "$testPath\SharedFramework.psd1" -Force
+          
+          # Test basic functionality
+          $logger = New-SharedLogger -Name "TestLogger" -Level Information
+          Write-SharedLog -Logger $logger -Level Information -Message "Integration test successful"
+          
+          # Test configuration
+          $testConfig = @{ TestSetting = "TestValue" }
+          $config = Get-SharedConfiguration -Path "nonexistent.json" -Sources @("Memory")
+          
+          # Test error handling
+          try {
+              throw "Test exception"
+          } catch {
+              Write-SharedError -ErrorRecord $_ -Context "IntegrationTest"
+          }
+          
+          Write-Host "Package integration test completed successfully"
+        shell: pwsh
+
+  security-scan:
+    name: Security Scan
+    runs-on: windows-latest
+    needs: build-framework
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Download Package
+        uses: actions/download-artifact@v3
+        with:
+          name: shared-framework-package
+          path: package
+      
+      - name: Run Security Scan
+        run: |
+          Write-Host "Running security scan..."
+          
+          # Check for hardcoded secrets
+          $secretsFound = @()
+          
+          # Scan for common secret patterns
+          $secretPatterns = @(
+            "(?i)(password|pwd|secret|key|token|api[_-]?key)\s*[:=]\s*['""]?[a-zA-Z0-9+/=]{20,}",
+            "(?i)(connection[_-]?string)\s*[:=]\s*['""]?[a-zA-Z0-9+/=]{20,}",
+            "(?i)(private[_-]?key)\s*[:=]\s*['""]?[a-zA-Z0-9+/=]{50,})"
+          )
+          
+          Get-ChildItem -Path "package" -Recurse -File | ForEach-Object {
+            $content = Get-Content $_.FullName -Raw
+            foreach ($pattern in $secretPatterns) {
+              if ($content -match $pattern) {
+                $secretsFound += @{
+                  File = $_.FullName
+                  Pattern = $pattern
+                  Match = $matches[0]
+                }
+              }
+            }
+          }
+          
+          if ($secretsFound.Count -gt 0) {
+            Write-Host "SECURITY ISSUES FOUND:"
+            $secretsFound | ForEach-Object {
+              Write-Host "  File: $($_.File)"
+              Write-Host "  Pattern: $($_.Pattern)"
+              Write-Host "  Match: $($_.Match)"
+            }
+            exit 1
+          } else {
+            Write-Host "No security issues found"
+          }
+        shell: pwsh
+
+  release:
+    name: Create Release
+    runs-on: windows-latest
+    needs: [build-framework, validate-integration, security-scan]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Download Package
+        uses: actions/download-artifact@v3
+        with:
+          name: shared-framework-package
+          path: package
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: package/*
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          name: Shared Framework v1.0.0
+          tag_name: v1.0.0
+          body: |
+            ## Shared Framework v1.0.0
+            
+            ### 🚀 Features
+            - Unified logging system with multiple output destinations
+            - Configuration management with validation and hot reload
+            - Comprehensive error handling with retry logic and circuit breakers
+            - PowerShell module template and development standards
+            - CI/CD pipeline with automated testing and security scanning
+            
+            ### 🛠️ Improvements
+            - Fixed all PowerShell ScriptAnalyzer warnings
+            - Added comprehensive test coverage
+            - Enhanced error handling and validation
+            - Improved documentation and examples
+            
+            ### 📦 Installation
+            ```powershell
+            # Install from PowerShell Gallery
+            Install-Module -Name SharedFramework -Scope CurrentUser -Force
+            
+            # Or download and install manually
+            Invoke-WebRequest -Uri "https://github.com/WindowsEnhancementSuite/SharedFramework/releases/download/v1.0.0/SharedFramework.zip" -OutFile "SharedFramework.zip"
+            Expand-Archive -Path "SharedFramework.zip" -DestinationPath "$env:USERPROFILE\Documents\WindowsPowerShell\Modules\"
+            ```
+            
+            ### 📚 Documentation
+            - Complete API documentation
+            - Usage examples and tutorials
+            - Development guidelines and best practices
+            
+            ### 🔧 Breaking Changes
+            None
+            
+            ### 🐛 Bug Fixes
+            - Fixed null comparison warnings in ScriptAnalyzer
+            - Resolved circuit breaker state management issues
+            - Improved error handling in configuration loading

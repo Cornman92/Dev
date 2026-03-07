@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Better11.Core</RootNamespace>
+    <AssemblyName>Better11.Core</AssemblyName>
+    <Platforms>x64</Platforms>
+    <!-- Suppress missing XML doc (CS1591) until DTOs/interfaces are documented; IDE0005 unnecessary using in same-asm -->
+    <NoWarn>$(NoWarn);CS1591;IDE0005</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="$(SolutionDir)stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+</Project>

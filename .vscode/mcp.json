@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "microsoft-docs": {
+      "command": "npx",
+      "args": ["-y", "@microsoft/mcp-docs-server"],
+      "enabled": true
+    },
+    "make-notion": {
+      "command": "npx",
+      "args": ["-y", "@makenotion/mcp-server"],
+      "enabled": true
+    },
+    "copilot-container": {
+      "command": "npx",
+      "args": ["-y", "@microsoft/mcp-copilot-conta-server"],
+      "enabled": true
+    }
+  }
+}

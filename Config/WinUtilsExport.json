@@ -1,0 +1,51 @@
+{
+  "ConnorOSProfile": {
+    "Install": [
+      "Google.Chrome","Microsoft.Edge",,"TheTorProject.TorBrowser",
+
+ "Valve.Steam","EpicGames.EpicGamesLauncher","Ubisoft.Connect","GOG.Galaxy","Mojang.MinecraftLauncher","Blizzard.BattleNet","ElectronicArts.EADesktop",
+      "VideoLAN.VLC","Gyan.FFmpeg","OBSProject.OBSStudio","Spotify.Spotify","Discord.Discord","Audacity.Audacity","HandBrake.HandBrake","BlenderFoundation.Blender","BlackmagicDesign.DaVinciResolve","GIMP.GIMP",
+      "Microsoft.VisualStudioCode","Microsoft.VisualStudio.2022.Community","JetBrains.PyCharm","JetBrains.IntelliJIDEA.Community","EclipseFoundation.Eclipse","Apache.NetBeans",
+      "Git.Git","OpenJS.NodeJS","Python.Python.3.12","Rustlang.Rustup","Oracle.JDK","Docker.DockerDesktop","Hashicorp.Terraform","Microsoft.PowerShell",
+      "7zip.7zip","M2Team.NanaZip","Rufus.Rufus","Microsoft.Sysinternals","voidtools.Everything","BleachBit.BleachBit","Imminent.CompactGUI","CPUID.CPU-Z","CPUID.HWMonitor","CrystalDewWorld.CrystalDiskInfo","CrystalDewWorld.CrystalDiskMark","WinDirStat.WinDirStat","HWiNFO.HWiNFO",
+      "KeePassXC.KeePassXC","Bitwarden.Bitwarden","WireGuard.WireGuard","OpenVPNTechnologies.OpenVPN","VeraCrypt.VeraCrypt","Gpg4win.Kleopatra","Malwarebytes.Malwarebytes","OO.OOSU10",
+      "Oracle.VirtualBox","VMware.WorkstationPlayer","Canonical.Ubuntu","Microsoft.WSL","Hashicorp.Vagrant","qemu.qemu",
+      "ParamountSoftware.MacriumReflect.Free","Acronis.TrueImage","Duplicati.Duplicati","Clonezilla.Live","Restic.Restic",
+      "CapFrameX.CapFrameX","NVIDIA.GeForceExperience","NVIDIA.CUDA"
+    ],
+    "WPFTweaks": [
+      "EnableTRIM","EnableIndexing","DisableHibernation","EnableFastStartup","DisableCompactOS","DisableSuperfetch","DisablePrefetch","DisableScheduledDefragOnSSDs","EnableWriteCaching",
+      "EnableGameMode","EnableFullscreenOptimizations","EnableGameBar","EnableXboxServices","EnableGPUScheduling","EnableLowLatencyAudio",
+      "EnableTelemetry","DisableCortana","DisableAds","DisableFeedbackRequests","EnableOneDriveAutoStart","DisableRemoteAssistance","DisableRemoteRegistry",
+      "EnableFirewallHardening","EnableDefenderExploitGuard","DisableBitLocker","EnableTLS13","DisableSMBv1","DisableLegacyTLS","DisableAutoplay","DisableGuestAccount",
+      "ShowHiddenFiles","ShowFileExtensions","DisableStartupDelay","EnableStorageSense","EnableLargeSystemCache","RemoveBloatwareApps","DisableConsumerExperiences","EnableLockScreenSpotlight",
+      "EnableLocationTracking","DisableAdvertisingId","EnableClipboardCloudSync"
+    ],
+    "WPFFeature": [
+      "Microsoft-Hyper-V-All","Containers-DisposableClientVM","VirtualMachinePlatform","Containers",
+      "NetFx3","RSAT","IIS-WebServerRole","IIS-ManagementConsole","IIS-ASPNET45","IIS-CGI",
+      "DirectPlay","LegacyComponents","XPS-Viewer","WIF-Services","TelnetClient",
+      "OpenSSH.Client","OpenSSH.Server","BitLocker","Microsoft.Windows.DefenderApplicationGuard","WindowsSubsystemForLinux",
+      "SimpleTCPIPServices","SMB1Protocol","SNMP","MSMQ-Server","PowerShell-ISE"
+    ],
+    "WPFInstall": [
+      "Chocolatey","Scoop","WingetCLI","npm",
+      "SteamCMD","Microsoft.DirectX","LunarG.VulkanSDK",
+      "OBSProject.OBSStudio","Gyan.FFmpeg","VideoLAN.VLC","Notepad++.Notepad++","Audacity.Audacity","HandBrake.HandBrake","BlenderFoundation.Blender","GIMP.GIMP",
+      "TheTorProject.TorBrowser","Discord.Discord","Spotify.Spotify","Telegram.TelegramDesktop","Signal.Signal"
+    ],
+    "PostInstallAutomation": [
+      { "name": "Disable BitLocker", "command": "Disable-BitLocker -MountPoint 'C:' -EncryptionMethod XtsAes256 -UsedSpaceOnly -RecoveryPasswordProtector" },
+      { "name": "Firewall Harden", "command": "netsh advfirewall set allprofiles state on" },
+      { "name": "Defender Exploit Guard", "command": "Set-MpPreference -EnableControlledFolderAccess Enabled -EnableNetworkProtection Enabled" },
+      { "name": "SSD Optimize Weekly", "command": "schtasks /create /tn 'SSDOptimize' /tr 'defrag C: /O' /sc weekly /d SUN /ru SYSTEM" },
+      { "name": "Profile Backup", "command": "Copy-Item C:\\Winutil\\winutils.json $env:OneDrive\\Backups\\winutils.json -Force" },
+      { "name": "Gaming Save Sync", "command": "schtasks /create /tn 'SaveSync' /tr 'powershell.exe -Command \"Copy-Item C:\\\\Users\\\\Connor\\\\SavedGames\\\\* $env:OneDrive\\\\GameSaves -Recurse -Force\"' /sc weekly /d SUN /ru Connor" },
+      { "name": "Repo Health Check", "command": "schtasks /create /tn 'RepoHealth' /tr 'powershell.exe -Command \"Get-ChildItem C:\\\\Repos -Directory | ForEach-Object { git -C $_.FullName status } | Out-File $env:OneDrive\\\\Reports\\\\RepoHealth.txt\"' /sc weekly /d SUN /ru Connor" },
+      { "name": "GPU Telemetry Streaming", "command": "schtasks /create /tn 'GPUStream' /tr 'powershell.exe -Command \"& nvidia-smi --query-gpu=temperature.gpu,utilization.gpu --format=csv,noheader | Out-File $env:OneDrive\\\\Reports\\\\GPU.csv\"' /sc hourly /ru SYSTEM" },
+      { "name": "Anomaly Detection", "command": "schtasks /create /tn 'AnomalyDetect' /tr 'powershell.exe -Command \"Get-Counter \\\\\\\"\\\\Processor(_Total)\\\\% Processor Time\\\\\\\" | Export-Csv $env:OneDrive\\\\Reports\\\\CPUTrend.csv\"' /sc hourly /ru SYSTEM" },
+      { "name": "Predictive Maintenance", "command": "schtasks /create /tn 'PredictiveMaint' /tr 'powershell.exe -Command \"Get-PhysicalDisk | Get-StorageReliabilityCounter | Export-Csv $env:OneDrive\\\\Reports\\\\DiskHealth.csv\"' /sc weekly /d SUN /ru SYSTEM" },
+      { "name": "Adaptive Firewall Policies", "command": "schtasks /create /tn 'AdaptiveFirewall' /tr 'powershell.exe -Command \"if ((Get-NetAdapter | Where-Object {$_.Status -eq \\\"Up\\\"}).Name -like \\\"Wi-Fi\\\") { netsh advfirewall firewall add rule name=BlockSMB dir=in action=block protocol=TCP localport=445 } else { netsh advfirewall firewall delete rule name=BlockSMB }\"' /sc hourly /ru SYSTEM" },
+      { "name": "Multi-Cloud Sync", "command": "schtasks /create /tn 'CloudSync' /tr 'powershell.exe -Command \"rclone copy C:\\\\Winutil\\\\winutils.json onedrive:/ConnorOS && rclone copy C:\\\\Winutil\\\\winutils.json gdrive:/ConnorOS && aws s3 cp C:\\\\Winutil\\\\winutils.json s3://connoros-backups/winutils.json\"' /sc daily /ru Connor" },
+      { "name": "Hybrid Sync", "command": "schtasks /create /tn 'HybridSync' /tr 'powershell.exe -Command \"git -C C:\\\\Winutil pull origin main\"' /sc hourly /ru Connor" },
+      { "name": "Containerized Deployment", "command": "schtasks /create /tn 'ContainerDeploy' /tr 'powershell.exe -Command \"docker build -t connoros:latest C:\\\\Winutil && docker push connoros:

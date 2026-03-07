@@ -1,0 +1,13 @@
+---
+description: Apply when user is done optimizing and needs report, backup, or imaging (Post phase)
+globs: "**/Reporting/**","**/BetterBoot/**","**/Better.Wim/**"
+alwaysApply: false
+---
+
+# Better11 — Post Phase
+
+When the user is **done (or mostly done) optimizing**:
+
+- Suggest **better11_post_export_report** and **better11_post_suggest_next_steps**.
+- Run **better11_post_health_check** before imaging or backup.
+- For deployment, reference BetterBoot pipeline and Better.Wim (capture, generalize, USB).

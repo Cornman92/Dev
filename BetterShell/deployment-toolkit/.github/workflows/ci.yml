@@ -1,0 +1,66 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup PowerShell
+      uses: actions/setup-powershell@v1
+      with:
+        pwsh-version: '7.2'
+    
+    - name: Install Pester
+      run: |
+        Install-Module -Name Pester -Force -Scope CurrentUser -SkipPublisherCheck
+        Import-Module Pester -MinimumVersion 5.0
+    
+    - name: Run Unit Tests
+      run: |
+        $modulePath = ".\src\Modules"
+        $env:PSModulePath = "$modulePath;$env:PSModulePath"
+        .\tests\Unit\Run-AllUnitTests.ps1 -CodeCoverage -OutputFormat NUnitXml -OutputFile test-results.xml
+    
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        files: test-results.xml
+    
+    - name: Validate Configuration Files
+      run: |
+        .\scripts\Test-ConfigurationFiles.ps1
+    
+    - name: Validate Catalogs
+      run: |
+        .\scripts\Validate-Catalogs.ps1
+
+  lint:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup PowerShell
+      uses: actions/setup-powershell@v1
+    
+    - name: Install PSScriptAnalyzer
+      run: |
+        Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
+    
+    - name: Run Script Analyzer
+      run: |
+        $results = Invoke-ScriptAnalyzer -Path .\src\Modules -Recurse -Severity Error,Warning
+        if ($results) {
+          $results | Format-Table
+          exit 1
+        }
+

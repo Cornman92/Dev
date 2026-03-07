@@ -1,0 +1,3 @@
+﻿"timestamp","runId","correlationId","level","message","machine","isWinPE","data"
+"2025-12-10T22:16:59.4831477Z","776f65b8-b074-4590-acfc-baeebaebb868","0159ed6b-1580-4be3-b588-9abbbff40592","Info","Created deployment run context.","GAYMER-PC","False",
+"2025-12-10T22:16:59.4899449Z","776f65b8-b074-4590-acfc-baeebaebb868","6816df82-5430-45b6-a6e8-910f5913cc63","Info","Test event","GAYMER-PC","False",

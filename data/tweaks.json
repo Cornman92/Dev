@@ -1,0 +1,31 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2024-12-29",
+  "categories": [
+    {
+      "name": "Performance",
+      "icon": "Lightning",
+      "description": "Optimize system performance",
+      "tweaks": []
+    },
+    {
+      "name": "Privacy",
+      "icon": "Lock",
+      "description": "Enhance privacy settings",
+      "tweaks": []
+    },
+    {
+      "name": "UI/UX",
+      "icon": "View",
+      "description": "Customize user interface",
+      "tweaks": []
+    },
+    {
+      "name": "Gaming",
+      "icon": "Game",
+      "description": "Optimize for gaming",
+      "tweaks": []
+    }
+  ],
+  "notes": "This is a placeholder. Full 20 tweaks will be defined in Week 7."
+}

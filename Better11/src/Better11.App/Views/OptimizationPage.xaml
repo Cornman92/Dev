@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Better11. All rights reserved. -->
+<!-- Better11 System Enhancement Suite - OptimizationPage.xaml -->
+<!-- Dense WinUtil-inspired optimization page with checkbox-grid sections and console output -->
+<Page
+    x:Class="Better11.App.Views.OptimizationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    NavigationCacheMode="Enabled"
+    Background="{StaticResource B11PrimaryBackgroundBrush}">
+
+    <Grid Padding="{StaticResource B11PageMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- PAGE HEADER                                                    -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Grid Grid.Row="0" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                <FontIcon Glyph="&#xE9D5;" FontSize="20" Foreground="{StaticResource B11AccentBrush}"/>
+                <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+                           FontSize="{StaticResource B11FontSizeTitle}"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextPrimaryBrush}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                <Button Content="Run All"
+                        Style="{StaticResource B11AccentButtonStyle}"
+                        Command="{x:Bind ViewModel.ApplyOptimizationsCommand}"/>
+                <Button Content="Restore Point"
+                        Style="{StaticResource B11CompactButtonStyle}"
+                        Command="{x:Bind ViewModel.CreateRestorePointCommand}"/>
+                <Button Content="Refresh"
+                        Style="{StaticResource B11CompactButtonStyle}"
+                        Command="{x:Bind ViewModel.LoadCategoriesCommand}"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- STATUS BAR                                                     -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <StackPanel Grid.Row="1" Spacing="4" Margin="0,0,0,8">
+            <ProgressBar IsIndeterminate="True"
+                         Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
+                         Height="2"/>
+            <InfoBar IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+                     Severity="Error" Title="Error"
+                     Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+                     IsClosable="True"/>
+            <InfoBar IsOpen="{x:Bind ViewModel.HasSuccess, Mode=OneWay}"
+                     Severity="Success" Title="Success"
+                     Message="{x:Bind ViewModel.SuccessMessage, Mode=OneWay}"
+                     IsClosable="True"/>
+            <InfoBar IsOpen="{x:Bind ViewModel.RebootRequired, Mode=OneWay}"
+                     Severity="Warning" Title="Reboot Required"
+                     Message="Some optimizations require a system reboot to take effect."
+                     IsClosable="False"/>
+        </StackPanel>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- MAIN CONTENT                                                   -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Tweak Categories — 2x2 Grid -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- ─── Performance Tweaks ─── -->
+                    <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource B11DenseCardStyle}" Margin="0,0,4,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+                                <FontIcon Glyph="&#xE9D5;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="Performance Tweaks" Style="{StaticResource B11SectionHeaderStyle}" Margin="0"/>
+                            </StackPanel>
+                            <TextBlock Text="CPU, memory, and I/O optimizations"
+                                       Style="{StaticResource B11SectionSubHeaderStyle}"/>
+
+                            <CheckBox Content="Disable SysMain (Superfetch)"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable Windows Search indexing"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Set power plan to High Performance"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable hibernation"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Optimize NTFS parameters"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable prefetch"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Optimize processor scheduling"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable paging executive"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ─── Visual Tweaks ─── -->
+                    <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource B11DenseCardStyle}" Margin="4,0,0,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+                                <FontIcon Glyph="&#xE771;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="Visual Tweaks" Style="{StaticResource B11SectionHeaderStyle}" Margin="0"/>
+                            </StackPanel>
+                            <TextBlock Text="UI effects and animation settings"
+                                       Style="{StaticResource B11SectionSubHeaderStyle}"/>
+
+                            <CheckBox Content="Disable transparency effects"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable animations"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable window shadows"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable smooth scrolling"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable peek at desktop"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable snap assist"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable window minimize animations"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Set visual effects to best performance"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ─── Service Tweaks ─── -->
+                    <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource B11DenseCardStyle}" Margin="0,0,4,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+                                <FontIcon Glyph="&#xE912;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="Service Tweaks" Style="{StaticResource B11SectionHeaderStyle}" Margin="0"/>
+                            </StackPanel>
+                            <TextBlock Text="Disable unnecessary background services"
+                                       Style="{StaticResource B11SectionSubHeaderStyle}"/>
+
+                            <CheckBox Content="Disable Diagnostic Tracking"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable WAP Push Service"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable Print Spooler"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable Fax service"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable Remote Registry"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable Xbox services"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable Windows Error Reporting"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable Connected User Experiences"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ─── Gaming Tweaks ─── -->
+                    <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource B11DenseCardStyle}" Margin="4,0,0,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+                                <FontIcon Glyph="&#xE7FC;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="Gaming Tweaks" Style="{StaticResource B11SectionHeaderStyle}" Margin="0"/>
+                            </StackPanel>
+                            <TextBlock Text="Low-latency and GPU optimizations"
+                                       Style="{StaticResource B11SectionSubHeaderStyle}"/>
+
+                            <CheckBox Content="Enable Game Mode"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable fullscreen optimizations"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable Game Bar"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable Game DVR"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Set GPU scheduling to hardware"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Disable Nagle's algorithm"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Set network throttling to disabled"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Set timer resolution to max"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" Margin="{StaticResource B11ItemMargin}"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- ─── Apply Button Bar ─── -->
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8"
+                            Margin="0,12,0,8" HorizontalAlignment="Left">
+                    <Button Style="{StaticResource B11AccentButtonStyle}"
+                            Command="{x:Bind ViewModel.ApplyOptimizationsCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE73E;" FontSize="12"/>
+                            <TextBlock Text="Apply Selected"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource B11CompactButtonStyle}"
+                            Command="{x:Bind ViewModel.LoadCategoriesCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE72C;" FontSize="12"/>
+                            <TextBlock Text="Reset All"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <!-- ─── Console Output ─── -->
+                <Border Grid.Row="2" Style="{StaticResource B11DenseCardStyle}"
+                        Background="{StaticResource B11PrimaryBackgroundBrush}"
+                        BorderBrush="{StaticResource B11BorderDefaultBrush}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+                            <FontIcon Glyph="&#xE756;" FontSize="12" Foreground="{StaticResource B11TextTertiaryBrush}"/>
+                            <TextBlock Text="Console Output"
+                                       FontSize="{StaticResource B11FontSizeCaption}"
+                                       Foreground="{StaticResource B11TextTertiaryBrush}"
+                                       FontWeight="SemiBold"/>
+                        </StackPanel>
+                        <ScrollViewer MaxHeight="160" VerticalScrollBarVisibility="Auto"
+                                      Background="{StaticResource B11PrimaryBackgroundBrush}">
+                            <StackPanel Spacing="1" Padding="4">
+                                <TextBlock Style="{StaticResource B11ConsoleTextStyle}"
+                                           Text="[Ready] Waiting for optimization commands..."/>
+                                <TextBlock Style="{StaticResource B11ConsoleTextStyle}"
+                                           Text="{x:Bind ViewModel.LoadingMessage, Mode=OneWay}"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

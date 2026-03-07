@@ -1,0 +1,44 @@
+name: "GaymerPC Security CodeQL Configuration"
+
+disable-default-queries: false
+
+queries:
+  - uses: security-and-quality
+  - uses: security-experimental
+
+paths-ignore:
+  - "**/*.md"
+  - "**/*.txt"
+  - "**/*.yml"
+  - "**/*.yaml"
+  - "**/*.json"
+  - "docs/**"
+  - "tests/**"
+  - "**/__pycache__/**"
+  - "**/*.pyc"
+
+paths:
+  - "GaymerPC"
+  - "file_manager"
+  - "Modules"
+
+rules:
+  # Custom rules for Python
+  - id: py/insecure-deserialization
+    severity: error
+
+  - id: py/hardcoded-credentials
+    severity: error
+
+  - id: py/sql-injection
+    severity: error
+
+  # Custom rules for PowerShell
+  - id: ps/execute-external-command
+    severity: warning
+
+  - id: ps/use-of-plaintext-password
+    severity: error
+
+  - id: ps/insecure-web-request
+    severity: warning

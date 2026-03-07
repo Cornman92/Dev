@@ -1,0 +1,74 @@
+[
+  {
+    "_comment": "Performance optimization profiles for desktop/workstation systems",
+    "id": "perf-desktop",
+    "name": "Performance desktop profile",
+    "description": "High-performance tuning for desktop/workstation. Optimizes power plan, services, and visual effects.",
+    "failOnError": false,
+    "actions": [
+      {
+        "_comment": "Set power plan to High Performance for maximum CPU/GPU performance",
+        "type": "PowerPlanSet",
+        "scheme": "High Performance"
+      },
+      {
+        "_comment": "Enable SysMain (Superfetch) for faster application startup",
+        "type": "ServiceConfig",
+        "serviceName": "SysMain",
+        "startType": "auto",
+        "ensureRunning": true
+      },
+      {
+        "_comment": "Disable DiagTrack (Connected User Experiences and Telemetry) to reduce background activity",
+        "type": "ServiceConfig",
+        "serviceName": "DiagTrack",
+        "startType": "demand",
+        "ensureStopped": true
+      },
+      {
+        "_comment": "Set SystemResponsiveness to 0 (maximum responsiveness, may increase CPU usage)",
+        "type": "RegistrySet",
+        "hive": "HKLM",
+        "path": "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+        "name": "SystemResponsiveness",
+        "valueType": "DWord",
+        "value": 0
+      },
+      {
+        "_comment": "Set visual effects to 'Adjust for best performance' (value 2)",
+        "type": "RegistrySet",
+        "hive": "HKCU",
+        "path": "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects",
+        "name": "VisualFXSetting",
+        "valueType": "DWord",
+        "value": 2
+      },
+      {
+        "_comment": "Disable Windows Search indexing for faster disk I/O (may slow file searches)",
+        "type": "ServiceConfig",
+        "serviceName": "WSearch",
+        "startType": "disabled",
+        "ensureStopped": true
+      },
+      {
+        "_comment": "Disable Windows Update automatic restart scheduling",
+        "type": "RegistrySet",
+        "hive": "HKLM",
+        "path": "SOFTWARE\\Microsoft\\WindowsUpdate\\UX\\Settings",
+        "name": "UxOption",
+        "valueType": "DWord",
+        "value": 1
+      },
+      {
+        "_comment": "Disable Windows Defender real-time scanning (use with caution - security risk)",
+        "type": "RegistrySet",
+        "hive": "HKLM",
+        "path": "SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
+        "name": "DisableRealtimeMonitoring",
+        "valueType": "DWord",
+        "value": 1
+      }
+    ]
+  }
+]
+

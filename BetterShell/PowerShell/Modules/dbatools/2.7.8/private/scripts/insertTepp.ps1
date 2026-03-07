@@ -1,0 +1,337 @@
+# this is just 143ms, worth it
+if ($ExecutionContext.SessionState.InvokeCommand.GetCommand('TabExpansionPlusPlus\Register-ArgumentCompleter','Function,Cmdlet')) {
+    $script:TEPP = $true
+} else {
+    $script:TEPP = $false
+}
+
+$functions = $executionContext.SessionState.InvokeCommand.GetCommands('*-Dba*', 'Function', $true) -as [Management.Automation.FunctionInfo[]]
+[Dataplat.Dbatools.TabExpansion.TabExpansionHost]::DbatoolsCommands = $functions
+$names = $functions.Name
+
+#region Automatic TEPP by parameter name
+Register-DbaTeppArgumentCompleter -Command $names -Parameter Alert -Name Alert -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter AlertCategory -Name AlertCategory -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter Audit -Name Audit -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter AuditSpecification -Name AuditSpecification -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter AvailabilityGroup -Name AvailabilityGroup -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter BackupDevice -Name BackupDevice -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ConfigName -Name ConfigName -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter Credential -Name Credential -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter CredentialIdentity -Name Credential -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter CustomError -Name CustomError -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter Database -Name Database -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter Endpoint -Name Endpoint -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeAlert -Name Alert -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeAlertCategory -Name AlertCategory -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeAudit -Name Audit -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeAuditSpecification -Name AuditSpecification -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeAvailabilityGroup -Name AvailabilityGroup -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeBackupDevice -Name BackupDevice -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeConfigName -Name ConfigName -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeCredential -Name Credential -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeCredentialIdentity -Name Credential -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeCustomError -Name CustomError -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeDatabase -Name Database -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeEndpoint -Name Endpoint -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeGroup -Name Group -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeJob -Name Job -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeJobCategory -Name JobCategory -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeLinkedServer -Name LinkedServer -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeLogin -Name Login -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeMailAccount -Name MailAccount -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeMailProfile -Name MailProfile -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeMailServer -Name MailServer -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeOperator -Name Operator -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeProxyAccount -Name ProxyAccount -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeResourcePool -Name ResourcePool -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeSchedule -Name Schedule -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeServerTrigger -Name ServerTrigger -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeSession -Name Session -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ExcludeSnapshot -Name Snapshot -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter Group -Name Group -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter Job -Name Job -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter JobCategory -Name JobCategory -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter LinkedServer -Name LinkedServer -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter Login -Name Login -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter MailAccount -Name MailAccount -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter MailProfile -Name MailProfile -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter MailServer -Name MailServer -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter Operator -Name Operator -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ProxyAccount -Name ProxyAccount -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ResourcePool -Name ResourcePool -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter Schedule -Name Schedule -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter ServerTrigger -Name ServerTrigger -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter Session -Name Session -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter Snapshot -Name Snapshot -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter SqlInstance -Name SqlInstance -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter InstanceProperty -Name InstanceProperty -All
+Register-DbaTeppArgumentCompleter -Command $names -Parameter PowerPlan -Name PowerPlan -All
+#endregion Automatic TEPP by parameter name
+
+#region Explicit TEPP
+Register-DbaTeppArgumentCompleter -Command "Import-DbaCsv" -Parameter Delimiter -Name delimiter
+Register-DbaTeppArgumentCompleter -Command "Find-DbaCommand" -Parameter Tag -Name tag
+Register-DbaTeppArgumentCompleter -Command "Get-DbatoolsConfig", "Get-DbatoolsConfigValue", "Register-DbatoolsConfig", "Set-DbatoolsConfig" -Parameter FullName -Name config
+Register-DbaTeppArgumentCompleter -Command "Get-DbatoolsConfig", "Register-DbatoolsConfig", "Set-DbatoolsConfig" -Parameter Module -Name configmodule
+Register-DbaTeppArgumentCompleter -Command "Get-DbatoolsConfig", "Register-DbatoolsConfig", "Set-DbatoolsConfig" -Parameter Name -Name config_name
+Register-DbaTeppArgumentCompleter -Command "Get-DbatoolsPath", "Set-DbatoolsPath" -Parameter Name -Name path
+Register-DbaTeppArgumentCompleter -Command "Get-DbaProcess", "Stop-DbaProcess" -Parameter ExcludeSpid -Name processSpid
+Register-DbaTeppArgumentCompleter -Command "Get-DbaProcess", "Stop-DbaProcess" -Parameter Hostname -Name processHostname
+Register-DbaTeppArgumentCompleter -Command "Get-DbaProcess", "Stop-DbaProcess" -Parameter Program -Name processProgram
+Register-DbaTeppArgumentCompleter -Command "Get-DbaProcess", "Stop-DbaProcess" -Parameter Spid -Name processSpid
+Register-DbaTeppArgumentCompleter -Command "Import-DbaXESessionTemplate", "Get-DbaXESessionTemplate", "Export-DbaXESessionTemplate" -Parameter Template -Name xesessiontemplate
+Register-DbaTeppArgumentCompleter -Command "Import-DbaPfDataCollectorSetTemplate", "Get-DbaPfDataCollectorSetTemplate", "Export-DbaPfDataCollectorSetTemplate" -Parameter Template -Name perfmontemplate
+Register-DbaTeppArgumentCompleter -Command "New-DbaAgentSchedule" -Parameter FrequencyInterval -Name newagentschedule
+Register-DbaTeppArgumentCompleter -Command "Set-DbaAgentSchedule" -Parameter FrequencyInterval -Name setagentschedule
+Register-DbaTeppArgumentCompleter -Command "Get-DbaSpConfigure", "Set-DbaSpConfigure" -Parameter Name -Name ConfigName
+Register-DbaTeppArgumentCompleter -Command "Copy-DbaSpConfigure" -Parameter ConfigName -Name ConfigName
+Register-DbaTeppArgumentCompleter -Command "Copy-DbaSpConfigure" -Parameter ExcludeConfigName -Name ConfigName
+#endregion Explicit TEPP
+# SIG # Begin signature block
+# MIIt3AYJKoZIhvcNAQcCoIItzTCCLckCAQMxDTALBglghkgBZQMEAgEwewYKKwYB
+# BAGCNwIBBKBtBGswaTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63JNLG
+# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCAPM2dwPDeqHDf5
+# EOn/utT8WHeCm8yKca8Gq8yY+xbuhqCCFdswggbXMIIEv6ADAgECAhMzAAVSjpHf
+# 5qC/N5S7AAAABVKOMA0GCSqGSIb3DQEBDAUAMFoxCzAJBgNVBAYTAlVTMR4wHAYD
+# VQQKExVNaWNyb3NvZnQgQ29ycG9yYXRpb24xKzApBgNVBAMTIk1pY3Jvc29mdCBJ
+# RCBWZXJpZmllZCBDUyBFT0MgQ0EgMDIwHhcNMjUxMTE4MDcxMjIyWhcNMjUxMTIx
+# MDcxMjIyWjBXMQswCQYDVQQGEwJVUzERMA8GA1UECBMIVmlyZ2luaWExDzANBgNV
+# BAcTBlZpZW5uYTERMA8GA1UEChMIZGJhdG9vbHMxETAPBgNVBAMTCGRiYXRvb2xz
+# MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEArXOa2W/nDIb0WvI3zL2i
+# rf2o5zIyG+7l6tlk1zyL+N/BeO3G0CQ8ytBFkLBZClDn3XsKnZ3H/tcTsh1jytiN
+# KXbaD7qGZJBymV1bCwpbHg1bhLCT+ZNJXuiISgFFtqX6kHX0C3p8g9dIn0YNxS/f
+# rRUMCJbwHx2nE1ddQvxClbfEopEW9VuO71D7ye0pMdn0Y+9XuaFY4otGlsKpS0xK
+# NdjSjYa8SOBMVgmhQ/JWyGb7GfGkyLslQONvs0+XmD4og3Be5eJmlT3dFYkg17b+
+# Yj/SEEi/jitx7i9ADK5UO5fZ4Sa7h/7O4LVRDOwghCGy+wWXtc51zVLJrFBOXc6u
+# m2Slga/i25HSMMQ2w06swKV17jupouRhpuloLUublyw57GEgIffI5y4EVULmfDdJ
+# s29nqNbREFT4nRgLgfV2HGnDedfGkOQouTVEfWPKC97rEiklqFXfv4N//DxFlbG4
+# 0l9OMXdCTqzC5zdr6/fsAGyo2Qvdxf3xlD4h2Ixyr5UlAgMBAAGjggIXMIICEzAM
+# BgNVHRMBAf8EAjAAMA4GA1UdDwEB/wQEAwIHgDA6BgNVHSUEMzAxBgorBgEEAYI3
+# YQEABggrBgEFBQcDAwYZKwYBBAGCN2H5+cEspPS4DoOuxLIcm56wGDAdBgNVHQ4E
+# FgQUssC0qEWAORSvDjXuLz8v7Dam0U8wHwYDVR0jBBgwFoAUZZ9RzoVofy+KRYiq
+# 3acxux4NAF4wZwYDVR0fBGAwXjBcoFqgWIZWaHR0cDovL3d3dy5taWNyb3NvZnQu
+# Y29tL3BraW9wcy9jcmwvTWljcm9zb2Z0JTIwSUQlMjBWZXJpZmllZCUyMENTJTIw
+# RU9DJTIwQ0ElMjAwMi5jcmwwgaUGCCsGAQUFBwEBBIGYMIGVMGQGCCsGAQUFBzAC
+# hlhodHRwOi8vd3d3Lm1pY3Jvc29mdC5jb20vcGtpb3BzL2NlcnRzL01pY3Jvc29m
+# dCUyMElEJTIwVmVyaWZpZWQlMjBDUyUyMEVPQyUyMENBJTIwMDIuY3J0MC0GCCsG
+# AQUFBzABhiFodHRwOi8vb25lb2NzcC5taWNyb3NvZnQuY29tL29jc3AwZgYDVR0g
+# BF8wXTBRBgwrBgEEAYI3TIN9AQEwQTA/BggrBgEFBQcCARYzaHR0cDovL3d3dy5t
+# aWNyb3NvZnQuY29tL3BraW9wcy9Eb2NzL1JlcG9zaXRvcnkuaHRtMAgGBmeBDAEE
+# ATANBgkqhkiG9w0BAQwFAAOCAgEAtS7vrfkEyaNonuEznmAtpTeffcrHOgm/3s/Q
+# sl6ApGDNcbtS8xkO5gBk1HIXwfBpsIOgp+MOnmXY2brzLOnNTXSgdVIF8R4JNhfv
+# rlEPdtpYTgHsggi+4jEjNTY7KrDSk+kDwcYZ3hg2nASFx0vjOG8t/VMCva6+WQLz
+# PxMRlgSN3UYbCoZiczrpbOldAS2rixNCjzWWEPPA+ScxoVWNxnRR1XPft61VPrG5
+# D+mm0OQhG/gJZLRwsRa/eZKWj99pSfqWa6KjkTu8J5n5xxisHNgr0cSCd9iS2hqP
+# XugvvHW4QI/I8v2G46csn29HfNzdSAmYRb1sXD9ZNzMga71c/4ENplDoacJOMEHd
+# G0Dmn0BNPxydXxUWz/kHxPeL+MAaE8zH2iM4MTdP6SZzfSOMqNpTbuV7of5Or9pL
+# ivAXZi3FGhC/CDug2mWPE39/ce9BFeG8It76K2IY/fRwMA5PqWTBdNKI3VAyzT16
+# Ln7yMmu+C/tF243B4bstBfCVH82uxO5jrC7ghzZPjS9WHtoFALIQpNacrhw6vjXn
+# C/iGi0RBBgalHcm1jRlZXnj77l9nGxSKUMshtB3qLv6DopsdRibRYC9qvurDOgUZ
+# ai6BeMy9WTmNJmwO16C7LZTP0M8rv4aMhZmnRt8lW1bGW+WzvX3mDCoeJtmx7F1w
+# qfSkuRowggdaMIIFQqADAgECAhMzAAAABft6XDITYd9dAAAAAAAFMA0GCSqGSIb3
+# DQEBDAUAMGMxCzAJBgNVBAYTAlVTMR4wHAYDVQQKExVNaWNyb3NvZnQgQ29ycG9y
+# YXRpb24xNDAyBgNVBAMTK01pY3Jvc29mdCBJRCBWZXJpZmllZCBDb2RlIFNpZ25p
+# bmcgUENBIDIwMjEwHhcNMjEwNDEzMTczMTUzWhcNMjYwNDEzMTczMTUzWjBaMQsw
+# CQYDVQQGEwJVUzEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMSswKQYD
+# VQQDEyJNaWNyb3NvZnQgSUQgVmVyaWZpZWQgQ1MgRU9DIENBIDAyMIICIjANBgkq
+# hkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA0hqZfD8ykKTA6CDbWvshmBpDoBf7Lv13
+# 2RVuSqVwQO3aALLkuRnnTIoRmMGo0fIMQrtwR6UHB06xdqOkAfqB6exubXTHu44+
+# duHUCdE4ngjELBQyluMuSOnHaEdveIbt31OhMEX/4nQkph4+Ah0eR4H2sTRrVKmK
+# rlOoQlhia73Qg2dHoitcX1uT1vW3Knpt9Mt76H7ZHbLNspMZLkWBabKMl6BdaWZX
+# YpPGdS+qY80gDaNCvFq0d10UMu7xHesIqXpTDT3Q3AeOxSylSTc/74P3og9j3Oue
+# mEFauFzL55t1MvpadEhQmD8uFMxFv/iZOjwvcdY1zhanVLLyplz13/NzSoU3QjhP
+# dqAGhRIwh/YDzo3jCdVJgWQRrW83P3qWFFkxNiME2iO4IuYgj7RwseGwv7I9cxOy
+# aHihKMdT9NeoSjpSNzVnKKGcYMtOdMtKFqoV7Cim2m84GmIYZTBorR/Po9iwlasT
+# YKFpGZqdWKyYnJO2FV8oMmWkIK1iagLLgEt6ZaR0rk/1jUYssyTiRqWr84Qs3XL/
+# V5KUBEtUEQfQ/4RtnI09uFFUIGJZV9mD/xOUksWodGrCQSem6Hy261xMJAHqTqMu
+# DKgwi8xk/mflr7yhXPL73SOULmu1Aqu4I7Gpe6QwNW2TtQBxM3vtSTmdPW6rK5y0
+# gED51RjsyK0CAwEAAaOCAg4wggIKMA4GA1UdDwEB/wQEAwIBhjAQBgkrBgEEAYI3
+# FQEEAwIBADAdBgNVHQ4EFgQUZZ9RzoVofy+KRYiq3acxux4NAF4wVAYDVR0gBE0w
+# SzBJBgRVHSAAMEEwPwYIKwYBBQUHAgEWM2h0dHA6Ly93d3cubWljcm9zb2Z0LmNv
+# bS9wa2lvcHMvRG9jcy9SZXBvc2l0b3J5Lmh0bTAZBgkrBgEEAYI3FAIEDB4KAFMA
+# dQBiAEMAQTASBgNVHRMBAf8ECDAGAQH/AgEAMB8GA1UdIwQYMBaAFNlBKbAPD2Ns
+# 72nX9c0pnqRIajDmMHAGA1UdHwRpMGcwZaBjoGGGX2h0dHA6Ly93d3cubWljcm9z
+# b2Z0LmNvbS9wa2lvcHMvY3JsL01pY3Jvc29mdCUyMElEJTIwVmVyaWZpZWQlMjBD
+# b2RlJTIwU2lnbmluZyUyMFBDQSUyMDIwMjEuY3JsMIGuBggrBgEFBQcBAQSBoTCB
+# njBtBggrBgEFBQcwAoZhaHR0cDovL3d3dy5taWNyb3NvZnQuY29tL3BraW9wcy9j
+# ZXJ0cy9NaWNyb3NvZnQlMjBJRCUyMFZlcmlmaWVkJTIwQ29kZSUyMFNpZ25pbmcl
+# MjBQQ0ElMjAyMDIxLmNydDAtBggrBgEFBQcwAYYhaHR0cDovL29uZW9jc3AubWlj
+# cm9zb2Z0LmNvbS9vY3NwMA0GCSqGSIb3DQEBDAUAA4ICAQBFSWDUd08X4g5HzvVf
+# rB1SiV8pk6XPHT9jPkCmvU/uvBzmZRAjYk2gKYR3pXoStRJaJ/lhjC5Dq/2R7P1Y
+# RZHCDYyK0zvSRMdE6YQtgGjmsdhzD0nCS6hVVcgfmNQscPJ1WHxbvG5EQgYQ0ZED
+# 1FN0MOPQzWe1zbH5Va0dSxtnodBVRjnyDYEm7sNEcvJHTG3eXzAyd00E5KDCsEl4
+# z5O0mvXqwaH2PS0200E6P4WqLwgs/NmUu5+Aa8Lw/2En2VkIW7Pkir4Un1jG6+tj
+# /ehuqgFyUPPCh6kbnvk48bisi/zPjAVkj7qErr7fSYICCzJ4s4YUNVVHgdoFn2xb
+# W7ZfBT3QA9zfhq9u4ExXbrVD5rxXSTFEUg2gzQq9JHxsdHyMfcCKLFQOXODSzcYe
+# LpCd+r6GcoDBToyPdKccjC6mAq6+/hiMDnpvKUIHpyYEzWUeattyKXtMf+QrJeQ+
+# ny5jBL+xqdOOPEz3dg7qn8/oprUrUbGLBv9fWm18fWXdAv1PCtLL/acMLtHoyeSV
+# MKQYqDHb3Qm0uQ+NQ0YE4kUxSQa+W/cCzYAI32uN0nb9M4Mr1pj4bJZidNkM4JyY
+# qezohILxYkgHbboJQISrQWrm5RYdyhKBpptJ9JJn0Z63LjdnzlOUxjlsAbQir2Wm
+# z/OJE703BbHmQZRwzPx1vu7S5zCCB54wggWGoAMCAQICEzMAAAAHh6M0o3uljhwA
+# AAAAAAcwDQYJKoZIhvcNAQEMBQAwdzELMAkGA1UEBhMCVVMxHjAcBgNVBAoTFU1p
+# Y3Jvc29mdCBDb3Jwb3JhdGlvbjFIMEYGA1UEAxM/TWljcm9zb2Z0IElkZW50aXR5
+# IFZlcmlmaWNhdGlvbiBSb290IENlcnRpZmljYXRlIEF1dGhvcml0eSAyMDIwMB4X
+# DTIxMDQwMTIwMDUyMFoXDTM2MDQwMTIwMTUyMFowYzELMAkGA1UEBhMCVVMxHjAc
+# BgNVBAoTFU1pY3Jvc29mdCBDb3Jwb3JhdGlvbjE0MDIGA1UEAxMrTWljcm9zb2Z0
+# IElEIFZlcmlmaWVkIENvZGUgU2lnbmluZyBQQ0EgMjAyMTCCAiIwDQYJKoZIhvcN
+# AQEBBQADggIPADCCAgoCggIBALLwwK8ZiCji3VR6TElsaQhVCbRS/3pK+MHrJSj3
+# Zxd3KU3rlfL3qrZilYKJNqztA9OQacr1AwoNcHbKBLbsQAhBnIB34zxf52bDpIO3
+# NJlfIaTE/xrweLoQ71lzCHkD7A4As1Bs076Iu+mA6cQzsYYH/Cbl1icwQ6C65rU4
+# V9NQhNUwgrx9rGQ//h890Q8JdjLLw0nV+ayQ2Fbkd242o9kH82RZsH3HEyqjAB5a
+# 8+Ae2nPIPc8sZU6ZE7iRrRZywRmrKDp5+TcmJX9MRff241UaOBs4NmHOyke8oU1T
+# Yrkxh+YeHgfWo5tTgkoSMoayqoDpHOLJs+qG8Tvh8SnifW2Jj3+ii11TS8/FGngE
+# aNAWrbyfNrC69oKpRQXY9bGH6jn9NEJv9weFxhTwyvx9OJLXmRGbAUXN1U9nf4lX
+# ezky6Uh/cgjkVd6CGUAf0K+Jw+GE/5VpIVbcNr9rNE50Sbmy/4RTCEGvOq3GhjIT
+# bCa4crCzTTHgYYjHs1NbOc6brH+eKpWLtr+bGecy9CrwQyx7S/BfYJ+ozst7+yZt
+# G2wR461uckFu0t+gCwLdN0A6cFtSRtR8bvxVFyWwTtgMMFRuBa3vmUOTnfKLsLef
+# RaQcVTgRnzeLzdpt32cdYKp+dhr2ogc+qM6K4CBI5/j4VFyC4QFeUP2YAidLtvpX
+# RRo3AgMBAAGjggI1MIICMTAOBgNVHQ8BAf8EBAMCAYYwEAYJKwYBBAGCNxUBBAMC
+# AQAwHQYDVR0OBBYEFNlBKbAPD2Ns72nX9c0pnqRIajDmMFQGA1UdIARNMEswSQYE
+# VR0gADBBMD8GCCsGAQUFBwIBFjNodHRwOi8vd3d3Lm1pY3Jvc29mdC5jb20vcGtp
+# b3BzL0RvY3MvUmVwb3NpdG9yeS5odG0wGQYJKwYBBAGCNxQCBAweCgBTAHUAYgBD
+# AEEwDwYDVR0TAQH/BAUwAwEB/zAfBgNVHSMEGDAWgBTIftJqhSobyhmYBAcnz1AQ
+# T2ioojCBhAYDVR0fBH0wezB5oHegdYZzaHR0cDovL3d3dy5taWNyb3NvZnQuY29t
+# L3BraW9wcy9jcmwvTWljcm9zb2Z0JTIwSWRlbnRpdHklMjBWZXJpZmljYXRpb24l
+# MjBSb290JTIwQ2VydGlmaWNhdGUlMjBBdXRob3JpdHklMjAyMDIwLmNybDCBwwYI
+# KwYBBQUHAQEEgbYwgbMwgYEGCCsGAQUFBzAChnVodHRwOi8vd3d3Lm1pY3Jvc29m
+# dC5jb20vcGtpb3BzL2NlcnRzL01pY3Jvc29mdCUyMElkZW50aXR5JTIwVmVyaWZp
+# Y2F0aW9uJTIwUm9vdCUyMENlcnRpZmljYXRlJTIwQXV0aG9yaXR5JTIwMjAyMC5j
+# cnQwLQYIKwYBBQUHMAGGIWh0dHA6Ly9vbmVvY3NwLm1pY3Jvc29mdC5jb20vb2Nz
+# cDANBgkqhkiG9w0BAQwFAAOCAgEAfyUqnv7Uq+rdZgrbVyNMul5skONbhls5fccP
+# lmIbzi+OwVdPQ4H55v7VOInnmezQEeW4LqK0wja+fBznANbXLB0KrdMCbHQpbLvG
+# 6UA/Xv2pfpVIE1CRFfNF4XKO8XYEa3oW8oVH+KZHgIQRIwAbyFKQ9iyj4aOWeAzw
+# k+f9E5StNp5T8FG7/VEURIVWArbAzPt9ThVN3w1fAZkF7+YU9kbq1bCR2YD+Mtun
+# SQ1Rft6XG7b4e0ejRA7mB2IoX5hNh3UEauY0byxNRG+fT2MCEhQl9g2i2fs6VOG1
+# 9CNep7SquKaBjhWmirYyANb0RJSLWjinMLXNOAga10n8i9jqeprzSMU5ODmrMCJE
+# 12xS/NWShg/tuLjAsKP6SzYZ+1Ry358ZTFcx0FS/mx2vSoU8s8HRvy+rnXqyUJ9H
+# BqS0DErVLjQwK8VtsBdekBmdTbQVoCgPCqr+PDPB3xajYnzevs7eidBsM71PINK2
+# BoE2UfMwxCCX3mccFgx6UsQeRSdVVVNSyALQe6PT12418xon2iDGE81OGCreLzDc
+# MAZnrUAx4XQLUz6ZTl65yPUiOh3k7Yww94lDf+8oG2oZmDh5O1Qe38E+M3vhKwmz
+# IeoB1dVLlz4i3IpaDcR+iuGjH2TdaC1ZOmBXiCRKJLj4DT2uhJ04ji+tHD6n58vh
+# avFIrmcxghdXMIIXUwIBATBxMFoxCzAJBgNVBAYTAlVTMR4wHAYDVQQKExVNaWNy
+# b3NvZnQgQ29ycG9yYXRpb24xKzApBgNVBAMTIk1pY3Jvc29mdCBJRCBWZXJpZmll
+# ZCBDUyBFT0MgQ0EgMDICEzMABVKOkd/moL83lLsAAAAFUo4wCwYJYIZIAWUDBAIB
+# oHwwEAYKKwYBBAGCNwIBDDECMAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQw
+# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwLwYJKoZIhvcNAQkEMSIEIM0W
+# Ce0nNU+h216jwIdg/pCQ9i9HdNGbc2UO4WMnLutJMAsGCSqGSIb3DQEBAQSCAYCe
+# XrLuLErCv88zwKRYmoiQ3I7A1pUb123o8Paj+P2n1Jq4uIDI48XzEasZ9BXsLPhm
+# KGXp/5IcpRQWz3qJSlBDeKakM+fxPzRGPa8LyGPnwfSNSmmISqfs6p18LpkgH7c6
+# 6n4ORCuAo+NhEDJGB9O8b1IZiyHlH+crRiIEhNUElDrpG7C0ZFKtygACQl1xbcB4
+# Gj0+v1F7Jwfgy/cAtYuWvf7sQb4U8Uis7I2O1ecCTpCe0mvW12nl5fYJQUyZdC3o
+# p4PO7EnXA7ETwayFzssc71WHTsw7DSr6brQwNrGgwJ0HUlF0aAyLLqiymqGVr9Eb
+# ZPeMLTO6+dbI1EpDX2NSbwmxS/Y1lfwIxQzQxBP0t87leIPDhOvXkVrn/XGUIPRd
+# wWZRSoNVrSgIwqSYK7Jvi6CL5mUvJKmt/QkW5lCE8fp5RaoJHOACEF/g1FffZfzQ
+# WH9Ib6V0Ux+mFcfDuDMXiYiz26Z5n+poDBiaxd7GS+vxUUJVitFRfTvXquk1+6ih
+# ghS9MIIUuQYKKwYBBAGCNwMDATGCFKkwghSlBgkqhkiG9w0BBwKgghSWMIIUkgIB
+# AzEPMA0GCWCGSAFlAwQCAQUAMIIBdQYLKoZIhvcNAQkQAQSgggFkBIIBYDCCAVwC
+# AQEGCisGAQQBhFkKAwEwMTANBglghkgBZQMEAgEFAAQgDIy9tXdt9RB0oOiHxG7j
+# 4nI0lud/mVYIJL/WKQme8WcCBmkD/6BCKBgTMjAyNTExMTkwMDI0MTIuOTg4WjAE
+# gAIB9AIJANMKNknN7zVZoIHppIHmMIHjMQswCQYDVQQGEwJVUzETMBEGA1UECBMK
+# V2FzaGluZ3RvbjEQMA4GA1UEBxMHUmVkbW9uZDEeMBwGA1UEChMVTWljcm9zb2Z0
+# IENvcnBvcmF0aW9uMS0wKwYDVQQLEyRNaWNyb3NvZnQgSXJlbGFuZCBPcGVyYXRp
+# b25zIExpbWl0ZWQxJzAlBgNVBAsTHm5TaGllbGQgVFNTIEVTTjo3QjFBLTA1RTAt
+# RDk0NzE1MDMGA1UEAxMsTWljcm9zb2Z0IFB1YmxpYyBSU0EgVGltZSBTdGFtcGlu
+# ZyBBdXRob3JpdHmggg8pMIIHgjCCBWqgAwIBAgITMwAAAAXlzw//Zi7JhwAAAAAA
+# BTANBgkqhkiG9w0BAQwFADB3MQswCQYDVQQGEwJVUzEeMBwGA1UEChMVTWljcm9z
+# b2Z0IENvcnBvcmF0aW9uMUgwRgYDVQQDEz9NaWNyb3NvZnQgSWRlbnRpdHkgVmVy
+# aWZpY2F0aW9uIFJvb3QgQ2VydGlmaWNhdGUgQXV0aG9yaXR5IDIwMjAwHhcNMjAx
+# MTE5MjAzMjMxWhcNMzUxMTE5MjA0MjMxWjBhMQswCQYDVQQGEwJVUzEeMBwGA1UE
+# ChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMTIwMAYDVQQDEylNaWNyb3NvZnQgUHVi
+# bGljIFJTQSBUaW1lc3RhbXBpbmcgQ0EgMjAyMDCCAiIwDQYJKoZIhvcNAQEBBQAD
+# ggIPADCCAgoCggIBAJ5851Jj/eDFnwV9Y7UGIqMcHtfnlzPREwW9ZUZHd5HBXXBv
+# f7KrQ5cMSqFSHGqg2/qJhYqOQxwuEQXG8kB41wsDJP5d0zmLYKAY8Zxv3lYkuLDs
+# fMuIEqvGYOPURAH+Ybl4SJEESnt0MbPEoKdNihwM5xGv0rGofJ1qOYSTNcc55EbB
+# T7uq3wx3mXhtVmtcCEr5ZKTkKKE1CxZvNPWdGWJUPC6e4uRfWHIhZcgCsJ+sozf5
+# EeH5KrlFnxpjKKTavwfFP6XaGZGWUG8TZaiTogRoAlqcevbiqioUz1Yt4FRK53P6
+# ovnUfANjIgM9JDdJ4e0qiDRm5sOTiEQtBLGd9Vhd1MadxoGcHrRCsS5rO9yhv2fj
+# JHrmlQ0EIXmp4DhDBieKUGR+eZ4CNE3ctW4uvSDQVeSp9h1SaPV8UWEfyTxgGjOs
+# RpeexIveR1MPTVf7gt8hY64XNPO6iyUGsEgt8c2PxF87E+CO7A28TpjNq5eLiiun
+# hKbq0XbjkNoU5JhtYUrlmAbpxRjb9tSreDdtACpm3rkpxp7AQndnI0Shu/fk1/rE
+# 3oWsDqMX3jjv40e8KN5YsJBnczyWB4JyeeFMW3JBfdeAKhzohFe8U5w9WuvcP1E8
+# cIxLoKSDzCCBOu0hWdjzKNu8Y5SwB1lt5dQhABYyzR3dxEO/T1K/BVF3rV69AgMB
+# AAGjggIbMIICFzAOBgNVHQ8BAf8EBAMCAYYwEAYJKwYBBAGCNxUBBAMCAQAwHQYD
+# VR0OBBYEFGtpKDo1L0hjQM972K9J6T7ZPdshMFQGA1UdIARNMEswSQYEVR0gADBB
+# MD8GCCsGAQUFBwIBFjNodHRwOi8vd3d3Lm1pY3Jvc29mdC5jb20vcGtpb3BzL0Rv
+# Y3MvUmVwb3NpdG9yeS5odG0wEwYDVR0lBAwwCgYIKwYBBQUHAwgwGQYJKwYBBAGC
+# NxQCBAweCgBTAHUAYgBDAEEwDwYDVR0TAQH/BAUwAwEB/zAfBgNVHSMEGDAWgBTI
+# ftJqhSobyhmYBAcnz1AQT2ioojCBhAYDVR0fBH0wezB5oHegdYZzaHR0cDovL3d3
+# dy5taWNyb3NvZnQuY29tL3BraW9wcy9jcmwvTWljcm9zb2Z0JTIwSWRlbnRpdHkl
+# MjBWZXJpZmljYXRpb24lMjBSb290JTIwQ2VydGlmaWNhdGUlMjBBdXRob3JpdHkl
+# MjAyMDIwLmNybDCBlAYIKwYBBQUHAQEEgYcwgYQwgYEGCCsGAQUFBzAChnVodHRw
+# Oi8vd3d3Lm1pY3Jvc29mdC5jb20vcGtpb3BzL2NlcnRzL01pY3Jvc29mdCUyMElk
+# ZW50aXR5JTIwVmVyaWZpY2F0aW9uJTIwUm9vdCUyMENlcnRpZmljYXRlJTIwQXV0
+# aG9yaXR5JTIwMjAyMC5jcnQwDQYJKoZIhvcNAQEMBQADggIBAF+Idsd+bbVaFXXn
+# THho+k7h2ESZJRWluLE0Oa/pO+4ge/XEizXvhs0Y7+KVYyb4nHlugBesnFqBGEdC
+# 2IWmtKMyS1OWIviwpnK3aL5JedwzbeBF7POyg6IGG/XhhJ3UqWeWTO+Czb1c2NP5
+# zyEh89F72u9UIw+IfvM9lzDmc2O2END7MPnrcjWdQnrLn1Ntday7JSyrDvBdmgbN
+# nCKNZPmhzoa8PccOiQljjTW6GePe5sGFuRHzdFt8y+bN2neF7Zu8hTO1I64XNGqs
+# t8S+w+RUdie8fXC1jKu3m9KGIqF4aldrYBamyh3g4nJPj/LR2CBaLyD+2BuGZCVm
+# oNR/dSpRCxlot0i79dKOChmoONqbMI8m04uLaEHAv4qwKHQ1vBzbV/nG89LDKbRS
+# SvijmwJwxRxLLpMQ/u4xXxFfR4f/gksSkbJp7oqLwliDm/h+w0aJ/U5ccnYhYb7v
+# PKNMN+SZDWycU5ODIRfyoGl59BsXR/HpRGtiJquOYGmvA/pk5vC1lcnbeMrcWD/2
+# 6ozePQ/TWfNXKBOmkFpvPE8CH+EeGGWzqTCjdAsno2jzTeNSxlx3glDGJgcdz5D/
+# AAxw9Sdgq/+rY7jjgs7X6fqPTXPmaCAJKVHAP19oEjJIBwD1LyHbaEgBxFCogYSO
+# iUIr0Xqcr1nJfiWG2GwYe6ZoAF1bMIIHnzCCBYegAwIBAgITMwAAAE80tQfBK5dU
+# /AAAAAAATzANBgkqhkiG9w0BAQwFADBhMQswCQYDVQQGEwJVUzEeMBwGA1UEChMV
+# TWljcm9zb2Z0IENvcnBvcmF0aW9uMTIwMAYDVQQDEylNaWNyb3NvZnQgUHVibGlj
+# IFJTQSBUaW1lc3RhbXBpbmcgQ0EgMjAyMDAeFw0yNTAyMjcxOTQwMTlaFw0yNjAy
+# MjYxOTQwMTlaMIHjMQswCQYDVQQGEwJVUzETMBEGA1UECBMKV2FzaGluZ3RvbjEQ
+# MA4GA1UEBxMHUmVkbW9uZDEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9u
+# MS0wKwYDVQQLEyRNaWNyb3NvZnQgSXJlbGFuZCBPcGVyYXRpb25zIExpbWl0ZWQx
+# JzAlBgNVBAsTHm5TaGllbGQgVFNTIEVTTjo3QjFBLTA1RTAtRDk0NzE1MDMGA1UE
+# AxMsTWljcm9zb2Z0IFB1YmxpYyBSU0EgVGltZSBTdGFtcGluZyBBdXRob3JpdHkw
+# ggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQDCYKZaxss6ELoz4nczZrnN
+# UBJW+LPR4egxY32dIkgwxkTt5RVcEuGjvnQFdpFszOmTD1LucQgh/7S1iEqVYq1h
+# zstMHD3njkyNTzDLsP4xhoKKM9TfCoVZIRg5EcM5lWpafHnP0kEs4rmOAp+j5cdo
+# 6fJtxDuHDUr9Z6r9WN/g5yc8Ip7GPnLVl5RCWt0c3ZUXA+nvh7gUVwVFP1ITIaTt
+# WFEDZRYTttgqjTcpbQqGFw6YswtT6dtX5PLjmGDDskQ1oCZVnBBv/DFhG0BeHRte
+# Nn6RSMlfnrA1jzJ9+XQdycGe24Gyb/+iOZzThrGI6o8zd17vxZAGLgS8/l2BF6Pc
+# r7a1ptX8pRJedhLu6W/HJiNrvPUz6iE9IEnavaPC9A2U+8QCzORKt5uq9e7pdp2v
+# IvFy2t4i3wMxD3ta4/6IN0h1WaHIh72xc0ZI3haC7Mrf0nRnDMBAXtfdr5VidTly
+# KP/wF0G4XFvmr4M+UzMjz1niRJ484Da2Y8uHKxCQax3PoNW7nUbwZo/NfsHhTAZL
+# Xi9PwJGc1Xqgh6SKlkOAXmJxukZ3OT/GnhUBA8IP8O3e4SFcGy06NS9ZkY/ncVYF
+# GL3APcTCeIasrI/gPSKLygd00OUdgCJw0WgkZDWMmphb/ARp76YDUPMOSYsu1PmB
+# zCtUikqOJ+Y3LEBqW0KlIQIDAQABo4IByzCCAccwHQYDVR0OBBYEFL+i07fs/Gae
+# ebZHSNHuh1RG6jcwMB8GA1UdIwQYMBaAFGtpKDo1L0hjQM972K9J6T7ZPdshMGwG
+# A1UdHwRlMGMwYaBfoF2GW2h0dHA6Ly93d3cubWljcm9zb2Z0LmNvbS9wa2lvcHMv
+# Y3JsL01pY3Jvc29mdCUyMFB1YmxpYyUyMFJTQSUyMFRpbWVzdGFtcGluZyUyMENB
+# JTIwMjAyMC5jcmwweQYIKwYBBQUHAQEEbTBrMGkGCCsGAQUFBzAChl1odHRwOi8v
+# d3d3Lm1pY3Jvc29mdC5jb20vcGtpb3BzL2NlcnRzL01pY3Jvc29mdCUyMFB1Ymxp
+# YyUyMFJTQSUyMFRpbWVzdGFtcGluZyUyMENBJTIwMjAyMC5jcnQwDAYDVR0TAQH/
+# BAIwADAWBgNVHSUBAf8EDDAKBggrBgEFBQcDCDAOBgNVHQ8BAf8EBAMCB4AwZgYD
+# VR0gBF8wXTBRBgwrBgEEAYI3TIN9AQEwQTA/BggrBgEFBQcCARYzaHR0cDovL3d3
+# dy5taWNyb3NvZnQuY29tL3BraW9wcy9Eb2NzL1JlcG9zaXRvcnkuaHRtMAgGBmeB
+# DAEEAjANBgkqhkiG9w0BAQwFAAOCAgEANrM2h1Q2JWFV0rnVZXYRveI/PZdbet/v
+# oLLbuSqf7TEaYg7mz/GDeXthJdoSis7wlegfKGEum36dAFOvLgiH2GlIYBcnMVCM
+# GE41UubjBOI7pu7wX7Ouh2Fis0wyISAWkMQLlaIqubtz01lh3OzTTpXuDWK1U9+3
+# 3wCcrGn8G+oGpfcEqW2dYFrAk3uMQDhrrYFW29vvLBjbnKBNyCMsMgB+RG3XzZHu
+# t3xQDqMflZD3dt6t8jGBZVFZd5BwTEpHpqVvyhpaDWJo4dxhEdY6w04MgParPXIl
+# JAPIXO5TbWYgceHY6TCcgP3C2jWzW1ErF2P+j1wXbxwT+jVpyooSQJToia9eDOKO
+# UkJEJ6UoRwcCHJ4i326EFZDuOYo/KvI9p6YMoxj9a8ZyW4foUIBIPVDQHKSreOJo
+# moSLkTsxwKJ6No+HDx+poSHqQhMxUWYhf1dzPakf5cdaNceL6UJxq2NR/XxRqU/p
+# AqihwxHb13QQM6+at6sijSHw5FHf4hPcjPqoKyrA68nHXlObRngcQftINF311RRp
+# okU8nWlBPxI3K+SwLOLt3eYrA3LtWEr8Pej7VrqmcaSzDkeGAnMzbLv3mAP1QHVo
+# m3BiCWxrUn94qJUCOsA2obEsRe85R1cgQg5tAmqBM9sxTRXmgTMbkXcqMEixYs5b
+# zpKXFnd38WQxggPUMIID0AIBATB4MGExCzAJBgNVBAYTAlVTMR4wHAYDVQQKExVN
+# aWNyb3NvZnQgQ29ycG9yYXRpb24xMjAwBgNVBAMTKU1pY3Jvc29mdCBQdWJsaWMg
+# UlNBIFRpbWVzdGFtcGluZyBDQSAyMDIwAhMzAAAATzS1B8Erl1T8AAAAAABPMA0G
+# CWCGSAFlAwQCAQUAoIIBLTAaBgkqhkiG9w0BCQMxDQYLKoZIhvcNAQkQAQQwLwYJ
+# KoZIhvcNAQkEMSIEIAnP0lB8oQex26kurzoI0xkvanT915takE0UIFa7XxHRMIHd
+# BgsqhkiG9w0BCRACLzGBzTCByjCBxzCBoAQgQWYrRg+SHrRyrR2i5H2xDXaCc4xX
+# INA2gLKS4C+C6g4wfDBlpGMwYTELMAkGA1UEBhMCVVMxHjAcBgNVBAoTFU1pY3Jv
+# c29mdCBDb3Jwb3JhdGlvbjEyMDAGA1UEAxMpTWljcm9zb2Z0IFB1YmxpYyBSU0Eg
+# VGltZXN0YW1waW5nIENBIDIwMjACEzMAAABPNLUHwSuXVPwAAAAAAE8wIgQgOpNz
+# +APWJJAy4iK/GLMXwcfHSSprDxo3ag/TNiFlro4wDQYJKoZIhvcNAQELBQAEggIA
+# P+SfrMMKjHKhXYqsWgn29uvJC/nLoX3V6E5d2tuLa3iEz9zTYiIzpyaIa0K870Ms
+# rzfQ6aDNqxbKW4iT6B1jtT0I43q694IwtGjVt3I2dIlUhh8ERqtmKaILmSyyN8M+
+# 4YDnpSAsAPjXsTa9oDWiJ9Sk7AHOywygUb8Bl+LrnkFrkxoEHKO2O4IVEG2C3P1j
+# iLWXLKPx1JnQ+obOaqbxPfzFHr1cLD7GTJO0ckDOOoWH0RpurWV2drlr7OAdTKrF
+# 6coYileDNZ3US9H7ZlMNJRZs2WqjWk0k2rwSIGFr1vATQitrqxYoO8ALNe97pFNQ
+# 6xIc+bKgKcufmo1MMMDzCLrN6+z/+5NfW1ktiErNI7OiXh6G2c1wmNLLfcIlObsf
+# 44BZinSIywx9o0PPEY247BJVZVqAYgKWPvi8l2i2kTJayfB6RfQj7+h8nw9tKAps
+# t/uag9wK9n1APVsxLEW7RyHfate9NhZDdY24sUj6qgV9X+r7fKH7KnRJpxle3pAo
+# uZ1wKebN+n59Wpu6F86J8d6F+i8k1Wx4YkYgwoWyxCbuad0wyrV3Kvz4TUFg9aoo
+# df7f3bB0ESPbwG7cBULsi5ajCAg1t/1kvKCEq+9ZlApOyeO1PAJVBCkisKJP54gZ
+# snV2ZTtJu35m9QMVFVFeMxPs307mEUY5GzlkpMj6xnI=
+# SIG # End signature block

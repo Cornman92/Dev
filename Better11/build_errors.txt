@@ -1,0 +1,7 @@
+d:\Dev\Better11\src\Better11.Models\Better11.Models.csproj : error NU1504: Warning As Error: Duplicate 'PackageReference' items found. Remove the duplicate items or use the Update functionality to ensure a consistent restore behavior. The duplicate 'PackageReference' items are: StyleCop.Analyzers 1.2.0-beta.556, StyleCop.Analyzers .
+
+Build FAILED.
+    0 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:17.37

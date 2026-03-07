@@ -1,0 +1,31 @@
+﻿{
+"agents": [
+{
+"agent_name": "UniversalContextBootstrapper",
+"version": "1.0.0",
+"purpose": "Initialize every conversation with a compact but rich summary of the {{PROJECT_NAME}} project context, user preferences, active modules, and current focus so downstream agents operate with correct assumptions.",
+"execution_order": {
+"runs_before_agent": "UniversalFeatureArchitect",
+"when_to_trigger": "At the very start of every new conversation, before any other agent runs.",
+"required_input": [
+"Long-term project memory / 'memory contract' describing {{PROJECT_NAME}} standards and preferences.",
+"Recent conversation snippets or the last known state of the roadmap, if available."
+]
+},
+"core_functions": [
+"Summarize project scope, tech stack, and current milestone.",
+"Highlight active or in-progress features/modules.",
+"Restate key engineering rules (PowerShell, tests, CI/CD, docs, security, offline).",
+"Emit a machine-readable context block for later agents to consume."
+],
+"output_format": {
+"message_type": "Universal_context_bootstrap",
+"fields": [
+"high_level_summary",
+"active_focus_areas",
+"engineering_rules_digest",
+"known_constraints",
+"recommended_focus_for_this_session"
+]
+}
+}

@@ -1,0 +1,310 @@
+{
+  "ProfileName": "Connor-ConnorOS-MegaProfile",
+  "Description": "ConnorOS mega rebuild kit: apps, tweaks, features, backup, security, automation, maintenance.",
+  "WinutilVersion": "auto",
+  "Created": "2025-11-28T00:00:00Z",
+
+  "Preferences": {
+    "CreateRestorePoint": true,
+    "SkipWinutilUpdateCheck": false,
+    "AutoCloseOnFinish": false,
+    "RebootAfterTweaks": true
+  },
+
+  "Install": [
+    { "winget": "7zip.7zip" },
+    { "winget": "Google.Chrome" },
+    { "winget": "Mozilla.Firefox" },
+    { "winget": "Brave.Brave" },
+    { "winget": "Microsoft.Edge" },
+    { "winget": "Opera.Opera" },
+
+    { "winget": "Valve.Steam" },
+    { "winget": "Ubisoft.Connect" },
+    { "winget": "EpicGames.EpicGamesLauncher" },
+    { "winget": "GOG.Galaxy" },
+    { "winget": "Mojang.MinecraftLauncher" },
+
+    { "winget": "Docker.DockerDesktop" },
+    { "winget": "JetBrains.PyCharm.Community.EAP" },
+    { "winget": "Microsoft.VisualStudio.2022.Community" },
+    { "winget": "Microsoft.VisualStudioCode" },
+    { "winget": "Git.Git" },
+
+    { "winget": "Python.Python.3.13" },
+    { "winget": "Python.Python.3.14" },
+    { "winget": "OpenJS.NodeJS" },
+    { "winget": "Canonical.Ubuntu" },
+
+    { "winget": "Intel.IntelDriverAndSupportAssistant" },
+    { "winget": "Nvidia.GeForceExperience" },
+
+    { "winget": "OBSProject.OBSStudio" },
+    { "winget": "VideoLAN.VLC" },
+    { "winget": "FFmpeg.FFmpeg" },
+    { "winget": "Notepad++.Notepad++" },
+
+    { "winget": "KeePassXC.KeePassXC" },
+    { "winget": "Bitwarden.Bitwarden" },
+    { "winget": "qBittorrent.qBittorrent" },
+    { "winget": "WireGuard.WireGuard" },
+    { "winget": "OpenVPNTechnologies.OpenVPN" },
+
+    { "winget": "Oracle.VirtualBox" },
+    { "winget": "VMware.WorkstationPlayer" },
+
+    { "winget": "SysinternalsSuite.SysinternalsSuite" },
+    { "winget": "BleachBit.BleachBit" },
+    { "winget": "voidtools.Everything" },
+    { "winget": "IridiumIO.CompactGUI" },
+
+    { "winget": "CPUID.CPU-Z" },
+    { "winget": "CPUID.HWMonitor" },
+    { "winget": "CXWorld.CapFrameX" },
+    { "winget": "Cemu.Cemu" },
+    { "winget": "Microsoft.WinDbg" },
+
+    { "winget": "Rufus.Rufus" },
+    { "winget": "Macrium.Reflect.Free" },
+    { "winget": "Chocolatey.Choco" },
+
+    { "winget": "Rustlang.Rust" },
+    { "winget": "GoLang.Go" },
+    { "winget": "Oracle.JavaRuntimeEnvironment" },
+    { "winget": "Microsoft.DotNet.SDK.8" },
+    { "winget": "Kubernetes.kubectl" },
+    { "winget": "Docker.Compose" },
+    { "winget": "Anaconda.Anaconda3" },
+
+    { "winget": "Postman.Postman" },
+    { "winget": "SlackTechnologies.Slack" },
+    { "winget": "Discord.Discord" },
+    { "winget": "Spotify.Spotify" },
+    { "winget": "Zoom.Zoom" },
+
+    { "winget": "Ollama.Ollama" },
+    { "winget": "LMStudio.LMStudio" }
+  ],
+
+  "WPFTweaks": [
+    "DisableTelemetry",
+    "DisableCortana",
+    "ShowFileExtensions",
+    "ShowHiddenFiles",
+    "DisableStartupDelay",
+    "EnableStorageSense",
+    "DisableGameBar",
+    "DisableBackgroundApps",
+    "EnableUltimatePerformancePlan",
+    "DisableIndexingOnSSD",
+    "EnableTRIM",
+    "DisableHibernation",
+    "DisableFastStartup",
+    "DisableOneDriveAutoStart",
+    "DisableAdsInExplorer",
+    "DisableLockScreenTips",
+    "DisableWindowsTips",
+    "DisableFeedbackRequests",
+    "DisableXboxServices",
+    "EnableGPUHardwareScheduling",
+    "EnableLowLatencyModeForAudio",
+    "EnableLargeSystemCache",
+    "EnableFirewallHardening",
+    "EnableDefenderExploitGuard",
+    "EnableBitLockerOnSystemDrive",
+    "DisableThirdPartyAVAutoStart",
+    "EnableControlledFolderAccess",
+    "EnableNetworkProtection",
+    "DisableRemoteAssistance",
+    "DisableRemoteRegistry",
+    "EnableGameMode",
+    "DisableFullscreenOptimizations",
+    "EnableTLS13",
+    "DisableSMBv1",
+    "DisableBloatwareApps",
+    "EnableCompactOS",
+    "DisableSuperfetchOnSSD"
+  ],
+
+  "WPFFeature": [
+    "Hyper-V",
+    "WindowsSubsystemForLinux",
+    "VirtualMachinePlatform",
+    "Containers",
+    "WindowsSandbox",
+    "DotNetFramework35",
+    "SMB1Protocol",
+    "TelnetClient",
+    "DirectPlay",
+    "LegacyMediaFeatures",
+    "RSAT: ActiveDirectory",
+    "RSAT: DNS",
+    "RSAT: DHCP",
+    "RSAT: GroupPolicy",
+    "RSAT: FileServices",
+    "OpenSSH.Client",
+    "OpenSSH.Server",
+    "IIS-WebServerRole",
+    "IIS-ManagementConsole",
+    "IIS-FTPServer",
+    "MediaPlayback",
+    "XPSViewer",
+    "WindowsIdentityFoundation",
+    "TFTPClient",
+    "SimpleTCPIPServices",
+    "WindowsPowerShellISE",
+    "WMI-SNMPProvider",
+    "WMI-Win32Provider",
+    "WMI-ASPNetProvider"
+  ],
+
+  "WPFInstall": [
+    "Chocolatey",
+    "Scoop",
+    "WSL2",
+    "PowerShell7",
+    "Git",
+    "Python3",
+    "NodeJS",
+    "Docker",
+    "VisualStudioCode",
+    "NvidiaDrivers",
+    "SteamCMD",
+    "SysinternalsSuite",
+    "MacriumReflectFree",
+    "Rufus",
+    "OBSStudio",
+    "FFmpeg",
+    "VLC",
+    "Notepad++",
+    "KeePassXC",
+    "BraveBrowser",
+    "TorBrowser",
+    "WireGuardVPN",
+    "OpenVPN",
+    "qBittorrent",
+    "VirtualBox",
+    "VMwareWorkstationPlayer",
+    "Bitwarden",
+    "WindowsBackup",
+    "FirewallRulesPack",
+    "DefenderConfigTool",
+    "GoLang",
+    "Rust",
+    "JavaJDK",
+    "DotNetSDK",
+    "KubernetesCLI",
+    "Postman",
+    "Slack",
+    "Discord",
+    "Spotify",
+    "Zoom"
+  ],
+
+  "PostInstallAutomation": [
+    {
+      "name": "Enable BitLocker",
+      "command": "Enable-BitLocker -MountPoint 'C:' -EncryptionMethod XtsAes256 -UsedSpaceOnly -RecoveryPasswordProtector"
+    },
+    {
+      "name": "Configure Firewall Rules",
+      "command": "netsh advfirewall set allprofiles state on && netsh advfirewall firewall add rule name='Block Inbound SMB' dir=in action=block protocol=TCP localport=445"
+    },
+    {
+      "name": "Enable Defender Exploit Guard",
+      "command": "Set-MpPreference -EnableControlledFolderAccess Enabled -EnableNetworkProtection Enabled"
+    },
+    {
+      "name": "Apply Ultimate Performance Plan",
+      "command": "powercfg /setactive SCHEME_MIN"
+    },
+
+    {
+      "name": "Schedule Weekly SSD Optimization",
+      "command": "schtasks /create /tn \"SSDOptimize\" /tr \"defrag C: /O\" /sc weekly /d SUN /ru SYSTEM"
+    },
+    {
+      "name": "Schedule Monthly Windows Update Cleanup",
+      "command": "schtasks /create /tn \"WU-Cleanup\" /tr \"Dism.exe /Online /Cleanup-Image /StartComponentCleanup\" /sc monthly /d 1 /ru SYSTEM"
+    },
+    {
+      "name": "Schedule Weekly Defender Scan",
+      "command": "schtasks /create /tn \"DefenderQuickScan\" /tr \"MpCmdRun.exe -Scan -ScanType 1\" /sc weekly /d SAT /ru SYSTEM"
+    },
+    {
+      "name": "Schedule Weekly Disk Health Check",
+      "command": "schtasks /create /tn \"DiskHealthCheck\" /tr \"chkdsk /scan\" /sc weekly /d SUN /ru SYSTEM"
+    },
+    {
+      "name": "Schedule Event Log Cleanup",
+      "command": "schtasks /create /tn \"EventLogCleanup\" /tr \"wevtutil cl Application && wevtutil cl System\" /sc monthly /d 1 /ru SYSTEM"
+    },
+
+    {
+      "name": "Self-Healing Tweaks",
+      "command": "schtasks /create /tn \"ReapplyTweaks\" /tr \"powershell.exe -ExecutionPolicy Bypass -File C:\\\\Winutil\\\\ApplyTweaks.ps1\" /sc weekly /d MON /ru SYSTEM"
+    },
+
+    {
+      "name": "Profile Backup to OneDrive",
+      "command": "Copy-Item C:\\\\Winutil\\\\Connor-ConnorOS-Winutil.json $env:OneDrive\\\\Backups\\\\ConnorOS.json -Force"
+    },
+    {
+      "name": "Export Installed App List",
+      "command": "winget export -o $env:OneDrive\\\\Backups\\\\InstalledApps.json"
+    },
+
+    {
+      "name": "Gaming - Disable Fullscreen Optimizations",
+      "command": "reg add \"HKCU\\\\System\\\\GameConfigStore\" /v GameDVR_FSEBehaviorMode /t REG_DWORD /d 2 /f"
+    },
+    {
+      "name": "Gaming - Disable DVR Background Recording",
+      "command": "reg add \"HKCU\\\\System\\\\GameConfigStore\" /v GameDVR_Enabled /t REG_DWORD /d 0 /f"
+    },
+    {
+      "name": "Gaming - Optimize Network Stack",
+      "command": "netsh int tcp set global autotuninglevel=normal && netsh int tcp set global rss=enabled"
+    },
+
+    {
+      "name": "Developer - Docker Cleanup",
+      "command": "schtasks /create /tn \"DockerPrune\" /tr \"docker system prune -af\" /sc monthly /d 1 /ru SYSTEM"
+    },
+    {
+      "name": "Developer - VSCode Extension Export",
+      "command": "code --list-extensions > $env:OneDrive\\\\Backups\\\\VSCodeExtensions.txt"
+    },
+
+    {
+      "name": "System - Timezone Sync",
+      "command": "tzutil /s \"Eastern Standard Time\" && w32tm /resync"
+    },
+    {
+      "name": "System - Disable Autoplay",
+      "command": "reg add \"HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Policies\\\\Explorer\" /v NoDriveTypeAutoRun /t REG_DWORD /d 255 /f"
+    },
+    {
+      "name": "System - Disable SMBv1",
+      "command": "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"
+    },
+
+    {
+      "name": "Network - Flush DNS Weekly",
+      "command": "schtasks /create /tn \"DNSFlush\" /tr \"ipconfig /flushdns\" /sc weekly /d MON /ru SYSTEM"
+    },
+    {
+      "name": "Network - Winsock Reset Monthly",
+      "command": "schtasks /create /tn \"WinsockReset\" /tr \"netsh winsock reset\" /sc monthly /d 1 /ru SYSTEM"
+    },
+
+    {
+      "name": "Monitoring - Weekly Health Dashboard",
+      "command": "schtasks /create /tn \"HealthDashboard\" /tr \"powershell.exe -Command \\\"Get-ComputerInfo | ConvertTo-Html | Out-File $env:OneDrive\\\\Reports\\\\HealthDashboard.html\\\"\" /sc weekly /d SUN /ru SYSTEM"
+    },
+    {
+      "name": "Monitoring - Backup Verification",
+      "command": "schtasks /create /tn \"BackupVerify\" /tr \"powershell.exe -Command \\\"Get-FileHash $env:OneDrive\\\\Backups\\\\ConnorOS.json | Out-File $env:OneDrive\\\\Reports\\\\BackupHash.txt\\\"\" /sc weekly /d SUN /ru SYSTEM"
+    }
+  ]
+}

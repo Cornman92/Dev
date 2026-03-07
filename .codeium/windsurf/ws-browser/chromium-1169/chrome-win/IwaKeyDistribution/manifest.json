@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "name": "Iwa Key Distribution",
+  "version": "2024.0.0.0",
+  "is_preloaded": true,
+  "performance": {
+    "enable_caching": true,
+    "cache_ttl": 3600,
+    "max_cache_size": 1000,
+    "enable_background_processing": true,
+    "max_background_jobs": 10,
+    "enable_async_operations": true,
+    "optimization_level": "advanced"
+  },
+  "async": {
+    "max_concurrent_operations": 10,
+    "operation_timeout": 30,
+    "enable_progress_tracking": true,
+    "batch_size": 4
+  }
+}

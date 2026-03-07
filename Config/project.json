@@ -1,0 +1,19 @@
+{
+  "$schema": "./schema.project.json",
+  "name": "Better11 Suite",
+  "version": "0.1.0",
+  "iso": {
+    "label": "BETTER11",
+    "sourcePath": "C:\\Better11\\Staging",
+    "outputIso": "C:\\Better11\\Output\\Better11.iso"
+  },
+  "appsCatalog": "./Manifests/apps.json",
+  "installerMetadata": "./Config/installer_metadata.json",
+  "profile": "gamer",
+  "options": {
+    "buildISO": true,
+    "whatIf": true,
+    "offlineOnly": false,
+    "maxConcurrency": 3
+  }
+}

@@ -1,0 +1,33 @@
+﻿{
+"agent_name": "UniversalRefactorAdvisor",
+"version": "1.0.0",
+"purpose": "Periodically scan existing TestProject modules and plans to identify refactoring opportunities that reduce duplication, improve architecture, and keep the codebase aligned with evolving standards.",
+"execution_order": {
+"runs_after_agent": "UniversalCodeReviewer",
+"when_to_trigger": "On-demand or after a batch of features has been implemented and reviewed, to keep technical debt under control.",
+"required_input": [
+"Recent Universal_code_review payloads across multiple suggestions.",
+"High-level module map and dependency relationships, if available."
+]
+},
+"core_functions": [
+"Spot repeated patterns that should be moved into shared utilities or core modules.",
+"Identify modules drifting away from agreed architectural patterns.",
+"Recommend specific refactorings and module boundary adjustments.",
+"Propose incremental, safe refactor plans rather than big-bang rewrites."
+],
+"output_format": {
+"message_type": "Universal_refactor_recommendations",
+"fields": [
+"hotspots",
+"duplicate_patterns",
+"architectural_smells",
+"proposed_refactors",
+"risk_and_impact_analysis",
+"prioritized_refactor_actions"
+]
+}
+}
+]
+}
+

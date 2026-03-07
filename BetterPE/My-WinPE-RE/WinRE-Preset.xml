@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NTLite>
+  <Settings>
+    <Preset Name="WinRE-Advanced-Recovery" />
+  </Settings>
+
+  <ImageTasks>
+    <Mount ImageFile="D:\My-Win[PE][RE]\WinRE\base\winre.wim" Index="1" />
+
+    <Features>
+      <Feature Name="WinPE-WMI" State="Enable" />
+      <Feature Name="WinPE-Scripting" State="Enable" />
+      <Feature Name="WinPE-PowerShell" State="Enable" />
+      <Feature Name="WinPE-HTA" State="Enable" />
+      <Feature Name="WinPE-DismCmdlets" State="Enable" />
+    </Features>
+
+    <Registry>
+      <Add>
+        <Key Path="HKLM\Software\Microsoft\Windows NT\CurrentVersion\WinREConfig" Name="CustomTool" Value="X:\Menu\menu.ini" Type="String" />
+        <Key Path="HKLM\SYSTEM\Setup" Name="CmdLine" Value="X:\Scripts\Start.ps1" Type="String" />
+        <Key Path="HKLM\SYSTEM\ControlSet001\Services\wuauserv" Name="Start" Value="4" Type="DWord" />
+      </Add>
+    </Registry>
+
+    <ExternalApps>
+      <Copy Source="D:\My-Win[PE][RE]\WinRE\tools\*" Destination="Windows\System32\Tools\" />
+      <Copy Source="D:\My-Win[PE][RE]\WinRE\scripts\*" Destination="Windows\System32\Scripts\" />
+      <Copy Source="D:\My-Win[PE][RE]\WinRE\modules\*" Destination="Windows\System32\Modules\" />
+    </ExternalApps>
+
+    <Drivers>
+      <Add Folder="D:\My-Win[PE][RE]\WinRE\drivers\NVMe" Recursive="True" />
+      <Add Folder="D:\My-Win[PE][RE]\WinRE\drivers\USB" Recursive="True" />
+    </Drivers>
+
+    <Finalize />
+  </ImageTasks>
+</NTLite>

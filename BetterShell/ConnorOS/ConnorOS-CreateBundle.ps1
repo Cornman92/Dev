@@ -1,0 +1,1 @@
+Compress-Archive -Path .\ConnorOS-PostInstall.ps1, .\ConnorOS-PostInstall-Linux.sh, .\ConnorOS-PostInstall-macOS.sh, .\ConnorOS-Universal.ps1, .\ConnorOS-Universal.sh, .\connoros_collector_api.py, .\webhook.yaml, .\home_automation.yaml, .\profile_inheritance.json, .\profile_inheritance_engine.py, .\winutils.json -DestinationPath .\ConnorOS_Autonomy_Bundle.zip -Force

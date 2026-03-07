@@ -1,0 +1,206 @@
+# GaymerPC Ultimate Suite - Pre-commit Hooks Configuration
+# Optimized for Connor O (C-Man) - i5-9600K + RTX 3060 Ti Gaming PC
+# Windows 11 Pro x64 24H2 Development Environment
+
+repos:
+  # =============================================================================
+  # PYTHON HOOKS
+  # =============================================================================
+  
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: end-of-file-fixer
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: check-yaml
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: check-added-large-files
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: check-merge-conflict
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: check-case-conflict
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: check-docstring-first
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: check-executables-have-shebangs
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: check-json
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: check-toml
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: check-xml
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: debug-statements
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: detect-private-key
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: mixed-line-ending
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: name-tests-test
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: requirements-txt-fixer
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: fix-byte-order-marker
+        exclude: '^(.git/|docs/|Libraries/)'
+
+  # =============================================================================
+  # PYTHON CODE FORMATTING
+  # =============================================================================
+  
+  - repo: https://github.com/psf/black
+    rev: 23.7.0
+    hooks:
+      - id: black
+        language_version: python3
+        args: [--line-length=88, --target-version=py39]
+        exclude: '^(.git/|docs/|Libraries/)'
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: [--profile=black, --line-length=88]
+        exclude: '^(.git/|docs/|Libraries/)'
+
+  # =============================================================================
+  # PYTHON LINTING
+  # =============================================================================
+  
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        args: [--max-line-length=88, --extend-ignore=E203,W503]
+        exclude: '^(.git/|docs/|Libraries/)'
+        additional_dependencies: [flake8-docstrings, flake8-import-order]
+
+  # =============================================================================
+  # PYTHON TYPE CHECKING
+  # =============================================================================
+  
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.5.1
+    hooks:
+      - id: mypy
+        args: [--ignore-missing-imports, --no-strict-optional]
+        exclude: '^(.git/|docs/|Libraries/)'
+        additional_dependencies: [types-requests, types-PyYAML]
+
+  # =============================================================================
+  # PYTHON SECURITY
+  # =============================================================================
+  
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        args: [-r, ., -f, json, -o, bandit-report.json]
+        exclude: '^(.git/|docs/|Libraries/)'
+
+  # =============================================================================
+  # JAVASCRIPT/TYPESCRIPT HOOKS
+  # =============================================================================
+  
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.48.0
+    hooks:
+      - id: eslint
+        files: \.(js|ts|jsx|tsx)$
+        exclude: '^(.git/|docs/|Libraries/|node_modules/)'
+        additional_dependencies:
+          - eslint@^8.48.0
+          - '@typescript-eslint/eslint-plugin@^6.7.0'
+          - '@typescript-eslint/parser@^6.7.0'
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.0.3
+    hooks:
+      - id: prettier
+        files: \.(js|ts|jsx|tsx|json|css|scss|md|yml|yaml)$
+        exclude: '^(.git/|docs/|Libraries/|node_modules/)'
+
+  # =============================================================================
+  # POWERSHELL HOOKS
+  # =============================================================================
+  
+  - repo: local
+    hooks:
+      - id: powershell-script-analyzer
+        name: PowerShell Script Analyzer
+        entry: powershell
+        language: system
+        args: [-Command, "Invoke-ScriptAnalyzer -Path {{ file }} -Severity @('Error', 'Warning')"]
+        files: \.ps1$
+        exclude: '^(.git/|docs/|Libraries/)'
+        pass_filenames: true
+        always_run: false
+
+      - id: powershell-syntax-check
+        name: PowerShell Syntax Check
+        entry: powershell
+        language: system
+        args: [-Command, "try { . '{{ file }}' -WhatIf } catch { Write-Error $_.Exception.Message; exit 1 }"]
+        files: \.ps1$
+        exclude: '^(.git/|docs/|Libraries/)'
+        pass_filenames: true
+        always_run: false
+
+  # =============================================================================
+  # DOCUMENTATION HOOKS
+  # =============================================================================
+  
+  - repo: https://github.com/pycqa/pydocstyle
+    rev: 6.3.0
+    hooks:
+      - id: pydocstyle
+        args: [--convention=google]
+        exclude: '^(.git/|docs/|Libraries/)'
+
+  # =============================================================================
+  # DOCKER HOOKS
+  # =============================================================================
+  
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.12.0
+    hooks:
+      - id: hadolint-docker
+        files: Dockerfile
+        exclude: '^(.git/|docs/|Libraries/)'
+
+  # =============================================================================
+  # GIT HOOKS
+  # =============================================================================
+  
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: pre-commit-django
+        exclude: '^(.git/|docs/|Libraries/)'
+      - id: pre-push-django
+        exclude: '^(.git/|docs/|Libraries/)'
+
+# =============================================================================
+# CONFIGURATION
+# =============================================================================
+
+default_stages: [commit, push]
+fail_fast: false
+minimum_pre_commit_version: '3.0.0'
+
+# =============================================================================
+# CUSTOM HOOKS FOR GAYMERPC
+# =============================================================================
+
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit.com hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: ''
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: weekly
+  skip: ['']
+  submodules: false

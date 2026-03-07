@@ -1,0 +1,354 @@
+# =============================================================================
+# C-Man Dev Workspace - Cursor AI .cursorignore
+# Extended exclusions for Cursor AI context optimization
+# =============================================================================
+
+# Include all .gitignore patterns
+# (Cursor automatically respects .gitignore, but we'll be explicit here)
+
+# =============================================================================
+# LARGE VENDOR DIRECTORIES & EXTERNAL TOOLKITS
+# =============================================================================
+
+# Large PowerShell toolkits (thousands of files)
+GaymerPC/
+OwnershipToolkit/
+tools/
+extracted_functions/
+PowerShell/
+
+# Node.js dependencies
+node_modules/
+
+# Python dependencies
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.env/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# =============================================================================
+# BUILD ARTIFACTS & COMPILED FILES
+# =============================================================================
+
+# Build outputs
+dist/
+build/
+out/
+target/
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# Webpack bundles
+webpack-stats.json
+.webpack/
+
+# TypeScript compiled files
+*.js.map
+*.d.ts.map
+
+# =============================================================================
+# DOCUMENTATION & GENERATED CONTENT
+# =============================================================================
+
+# Generated documentation
+docs/_build/
+docs/build/
+site/
+_site/
+
+# API documentation
+api-docs/
+swagger-ui/
+openapi.json
+
+# Generated markdown
+*.generated.md
+*.auto.md
+
+# =============================================================================
+# TEST COVERAGE & REPORTS
+# =============================================================================
+
+# Coverage reports
+coverage/
+htmlcov/
+.coverage
+.coverage.*
+*.lcov
+.nyc_output/
+
+# Test results
+test-results/
+test-reports/
+junit.xml
+test.xml
+
+# Performance test results
+*.perf.log
+performance-results/
+benchmark-results/
+
+# =============================================================================
+# LOGS & TEMPORARY FILES
+# =============================================================================
+
+# Log files
+*.log
+logs/
+log/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Cache directories
+.cache/
+cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+
+# =============================================================================
+# IDE & EDITOR SPECIFIC
+# =============================================================================
+
+# VS Code
+.vscode/
+.history/
+
+# JetBrains
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Cursor
+.cursor/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# =============================================================================
+# SYSTEM & OS FILES
+# =============================================================================
+
+# Windows
+Thumbs.db
+ehthumbs.db
+*.tmp
+*.temp
+*.bak
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# =============================================================================
+# SENSITIVE & CONFIGURATION
+# =============================================================================
+
+# Environment files
+.env*
+!env.template
+!*.env.example
+
+# Secrets and keys
+secrets.json
+credentials.json
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# =============================================================================
+# DEPENDENCY MANAGEMENT
+# =============================================================================
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+poetry.lock
+Pipfile.lock
+requirements-lock.txt
+
+# Package manager caches
+.npm/
+.yarn/
+.pnpm-store/
+
+# =============================================================================
+# DEVELOPMENT TOOLS
+# =============================================================================
+
+# Linting cache
+.eslintcache
+.stylelintcache
+.pylint.d/
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+*.tsbuildinfo
+
+# Testing frameworks
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+.hypothesis/
+
+# =============================================================================
+# CONTAINERIZATION & DEPLOYMENT
+# =============================================================================
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Kubernetes
+*.kubeconfig
+
+# =============================================================================
+# MEDIA & ASSETS
+# =============================================================================
+
+# Large media files
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.flv
+*.webm
+*.mkv
+
+# Large audio files
+*.mp3
+*.wav
+*.flac
+*.aac
+*.ogg
+
+# Large image files
+*.psd
+*.ai
+*.sketch
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.dmg
+*.iso
+
+# =============================================================================
+# PROJECT SPECIFIC EXCLUSIONS
+# =============================================================================
+
+# Backup files
+*.backup.*
+*.bak
+*.old
+
+# Local development overrides
+local/
+dev-local/
+local-config/
+
+# Deployment artifacts
+deployment-artifacts/
+deploy/
+.deploy/
+
+# Monitoring and profiling
+*.prof
+*.profile
+*.trace
+
+# Memory dumps
+*.dmp
+*.hprof
+
+# =============================================================================
+# LARGE DATASETS & MODELS
+# =============================================================================
+
+# Machine learning models
+*.model
+*.pkl
+*.joblib
+*.h5
+*.pb
+
+# Large datasets
+*.csv
+*.json
+*.parquet
+*.feather
+*.hdf5
+
+# Vision model files
+config/vision_models/
+config/vision_datasets/
+config/vision_training/
+config/vision_inference/
+
+# =============================================================================
+# PLUGIN SYSTEM
+# =============================================================================
+
+# Installed plugins (may contain large binaries)
+plugins/installed/
+
+# Plugin caches
+.plugin-cache/

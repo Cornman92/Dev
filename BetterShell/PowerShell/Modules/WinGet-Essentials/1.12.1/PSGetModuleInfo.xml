@@ -1,0 +1,232 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>System.Management.Automation.PSCustomObject</T>
+      <T>System.Object</T>
+    </TN>
+    <MS>
+      <S N="Name">WinGet-Essentials</S>
+      <S N="Version">1.12.1</S>
+      <Obj N="Type" RefId="1">
+        <TN RefId="1">
+          <T>Microsoft.PowerShell.PSResourceGet.UtilClasses.ResourceType</T>
+          <T>System.Enum</T>
+          <T>System.ValueType</T>
+          <T>System.Object</T>
+        </TN>
+        <ToString>Module</ToString>
+        <I32>1</I32>
+      </Obj>
+      <S N="Description">Provides cmdlets that compliment the existing WinGet CLI. Primarily, improves the user-experience for software updates and offers a convenient way to install collections of software via WinGet through the use of user-defined tags.</S>
+      <S N="Author">Jon Carrier</S>
+      <S N="CompanyName">Unknown</S>
+      <S N="Copyright">(c) Jon Carrier. All rights reserved.</S>
+      <DT N="PublishedDate">2025-06-22T20:36:17.117</DT>
+      <DT N="InstalledDate">2025-12-25T20:05:41.7207223-05:00</DT>
+      <B N="IsPrerelease">false</B>
+      <Nil N="UpdatedDate" />
+      <URI N="LicenseUri">https://github.com/jjcarrier/PS-WinGet-Essentials/blob/main/LICENSE</URI>
+      <URI N="ProjectUri">https://github.com/jjcarrier/PS-WinGet-Essentials</URI>
+      <Nil N="IconUri" />
+      <Obj N="Tags" RefId="2">
+        <TN RefId="2">
+          <T>System.String[]</T>
+          <T>System.Array</T>
+          <T>System.Object</T>
+        </TN>
+        <LST>
+          <S>Windows</S>
+          <S>WinGet</S>
+          <S>Console</S>
+          <S>Terminal</S>
+          <S>UI</S>
+          <S>PSModule</S>
+          <S>PSFunction_Update-WinGetEssentials</S>
+          <S>PSCommand_Update-WinGetEssentials</S>
+          <S>PSFunction_Update-WinGetSoftware</S>
+          <S>PSCommand_Update-WinGetSoftware</S>
+          <S>PSFunction_Get-WinGetSoftwareUpgrade</S>
+          <S>PSCommand_Get-WinGetSoftwareUpgrade</S>
+          <S>PSFunction_Checkpoint-WinGetSoftware</S>
+          <S>PSCommand_Checkpoint-WinGetSoftware</S>
+          <S>PSFunction_Restore-WinGetSoftware</S>
+          <S>PSCommand_Restore-WinGetSoftware</S>
+          <S>PSFunction_Initialize-WinGetIgnore</S>
+          <S>PSCommand_Initialize-WinGetIgnore</S>
+          <S>PSFunction_Initialize-WinGetRestore</S>
+          <S>PSCommand_Initialize-WinGetRestore</S>
+          <S>PSFunction_Merge-WinGetRestore</S>
+          <S>PSCommand_Merge-WinGetRestore</S>
+          <S>PSIncludes_Function</S>
+        </LST>
+      </Obj>
+      <Obj N="Includes" RefId="3">
+        <TN RefId="3">
+          <T>System.Collections.Hashtable</T>
+          <T>System.Object</T>
+        </TN>
+        <DCT>
+          <En>
+            <S N="Key">RoleCapability</S>
+            <Nil N="Value" />
+          </En>
+          <En>
+            <S N="Key">Function</S>
+            <Nil N="Value" />
+          </En>
+          <En>
+            <S N="Key">Cmdlet</S>
+            <Obj N="Value" RefId="4">
+              <TNRef RefId="2" />
+              <LST />
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">Workflow</S>
+            <Nil N="Value" />
+          </En>
+          <En>
+            <S N="Key">DscResource</S>
+            <Obj N="Value" RefId="5">
+              <TNRef RefId="2" />
+              <LST />
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">Command</S>
+            <Obj N="Value" RefId="6">
+              <TNRef RefId="2" />
+              <LST>
+                <S>Update-WinGetEssentials</S>
+                <S>Update-WinGetSoftware</S>
+                <S>Get-WinGetSoftwareUpgrade</S>
+                <S>Checkpoint-WinGetSoftware</S>
+                <S>Restore-WinGetSoftware</S>
+                <S>Initialize-WinGetIgnore</S>
+                <S>Initialize-WinGetRestore</S>
+                <S>Merge-WinGetRestore</S>
+              </LST>
+            </Obj>
+          </En>
+        </DCT>
+      </Obj>
+      <S N="PowerShellGetFormatVersion"></S>
+      <S N="ReleaseNotes"></S>
+      <Obj N="Dependencies" RefId="7">
+        <TN RefId="4">
+          <T>Microsoft.PowerShell.PSResourceGet.UtilClasses.Dependency[]</T>
+          <T>System.Array</T>
+          <T>System.Object</T>
+        </TN>
+        <LST>
+          <Obj RefId="8">
+            <TN RefId="5">
+              <T>Microsoft.PowerShell.PSResourceGet.UtilClasses.Dependency</T>
+              <T>System.Object</T>
+            </TN>
+            <ToString>Microsoft.PowerShell.PSResourceGet.UtilClasses.Dependency</ToString>
+            <Props>
+              <S N="Name">TextTable</S>
+              <Obj N="VersionRange" RefId="9">
+                <TN RefId="6">
+                  <T>NuGet.Versioning.VersionRange</T>
+                  <T>NuGet.Versioning.VersionRangeBase</T>
+                  <T>System.Object</T>
+                </TN>
+                <ToString>[1.0.2, )</ToString>
+                <Props>
+                  <B N="IsFloating">false</B>
+                  <Obj N="MinVersion" RefId="10">
+                    <TN RefId="7">
+                      <T>NuGet.Versioning.NuGetVersion</T>
+                      <T>NuGet.Versioning.SemanticVersion</T>
+                      <T>System.Object</T>
+                    </TN>
+                    <ToString>1.0.2</ToString>
+                    <Props>
+                      <Version N="Version">1.0.2.0</Version>
+                      <B N="IsLegacyVersion">false</B>
+                      <I32 N="Revision">0</I32>
+                      <B N="IsSemVer2">false</B>
+                      <S N="OriginalVersion">1.0.2</S>
+                      <I32 N="Major">1</I32>
+                      <I32 N="Minor">0</I32>
+                      <I32 N="Patch">2</I32>
+                      <Obj N="ReleaseLabels" RefId="11">
+                        <TNRef RefId="2" />
+                        <LST />
+                      </Obj>
+                      <S N="Release"></S>
+                      <B N="IsPrerelease">false</B>
+                      <B N="HasMetadata">false</B>
+                      <S N="Metadata"></S>
+                    </Props>
+                  </Obj>
+                  <Nil N="MaxVersion" />
+                  <B N="HasLowerBound">true</B>
+                  <B N="IsMinInclusive">true</B>
+                  <B N="HasUpperBound">false</B>
+                  <B N="IsMaxInclusive">false</B>
+                  <B N="HasLowerAndUpperBounds">false</B>
+                  <Nil N="Float" />
+                  <S N="OriginalString">[1.0.2, )</S>
+                </Props>
+              </Obj>
+            </Props>
+          </Obj>
+          <Obj RefId="12">
+            <TNRef RefId="5" />
+            <ToString>Microsoft.PowerShell.PSResourceGet.UtilClasses.Dependency</ToString>
+            <Props>
+              <S N="Name">TableUI</S>
+              <Obj N="VersionRange" RefId="13">
+                <TNRef RefId="6" />
+                <ToString>[1.9.1, )</ToString>
+                <Props>
+                  <B N="IsFloating">false</B>
+                  <Obj N="MinVersion" RefId="14">
+                    <TNRef RefId="7" />
+                    <ToString>1.9.1</ToString>
+                    <Props>
+                      <Version N="Version">1.9.1.0</Version>
+                      <B N="IsLegacyVersion">false</B>
+                      <I32 N="Revision">0</I32>
+                      <B N="IsSemVer2">false</B>
+                      <S N="OriginalVersion">1.9.1</S>
+                      <I32 N="Major">1</I32>
+                      <I32 N="Minor">9</I32>
+                      <I32 N="Patch">1</I32>
+                      <Ref N="ReleaseLabels" RefId="11" />
+                      <S N="Release"></S>
+                      <B N="IsPrerelease">false</B>
+                      <B N="HasMetadata">false</B>
+                      <S N="Metadata"></S>
+                    </Props>
+                  </Obj>
+                  <Nil N="MaxVersion" />
+                  <B N="HasLowerBound">true</B>
+                  <B N="IsMinInclusive">true</B>
+                  <B N="HasUpperBound">false</B>
+                  <B N="IsMaxInclusive">false</B>
+                  <B N="HasLowerAndUpperBounds">false</B>
+                  <Nil N="Float" />
+                  <S N="OriginalString">[1.9.1, )</S>
+                </Props>
+              </Obj>
+            </Props>
+          </Obj>
+        </LST>
+      </Obj>
+      <S N="RepositorySourceLocation">https://www.powershellgallery.com/api/v2</S>
+      <S N="Repository">PSGallery</S>
+      <Obj N="AdditionalMetadata" RefId="15">
+        <TNRef RefId="0" />
+        <MS>
+          <S N="NormalizedVersion">1.12.1</S>
+          <S N="IsPrerelease">False</S>
+        </MS>
+      </Obj>
+      <S N="InstalledLocation">C:\Users\saymo\OneDrive\C-Man\Documents\PowerShell\Modules</S>
+    </MS>
+  </Obj>
+</Objs>

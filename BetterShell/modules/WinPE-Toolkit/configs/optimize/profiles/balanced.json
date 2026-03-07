@@ -1,0 +1,23 @@
+[
+  {
+    "id": "balanced-default",
+    "name": "Balanced (default) profile",
+    "description": "Revert to balanced power scheme and default visual effects.",
+    "failOnError": false,
+    "actions": [
+      {
+        "type": "PowerPlanSet",
+        "scheme": "Balanced"
+      },
+      {
+        "type": "RegistrySet",
+        "hive": "HKCU",
+        "path": "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects",
+        "name": "VisualFXSetting",
+        "valueType": "DWord",
+        "value": 0
+      }
+    ]
+  }
+]
+

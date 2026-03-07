@@ -1,0 +1,74 @@
+{
+  "preferences": {
+    "coworkScheduledTasksEnabled": true,
+    "sidebarMode": "chat",
+    "coworkWebSearchEnabled": true,
+    "bypassPermissionsModeEnabled": true,
+    "launchPreviewPersistSession": true,
+    "dockBounceEnabled": true
+  },
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_GITHUB_PAT_HERE>"
+      }
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic-ai/mcp-server-brave-search"
+      ],
+      "env": {
+        "BRAVE_API_KEY": "<YOUR_BRAVE_API_KEY_HERE>"
+      }
+    },
+    "powershell-mcp": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\saymo\\OneDrive\\Dev\\powershell-mcp-server\\dist\\index.js"
+      ]
+    },
+    "winget-mcp": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\saymo\\OneDrive\\Dev\\winget-mcp-server\\dist\\index.js"
+      ]
+    },
+    "system-info-mcp": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\saymo\\OneDrive\\Dev\\system-info-mcp-server\\dist\\index.js"
+      ]
+    },
+    "code-analysis-mcp": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\saymo\\OneDrive\\Dev\\code-analysis-mcp-server\\dist\\index.js"
+      ]
+    },
+    "dotnet-cli-mcp": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\saymo\\OneDrive\\Dev\\dotnet-cli-mcp-server\\dist\\index.js"
+      ]
+    },
+    "nuget-mcp": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\saymo\\OneDrive\\Dev\\nuget-mcp-server\\dist\\index.js"
+      ]
+    },
+    "project-scaffolder-mcp": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\saymo\\OneDrive\\Dev\\project-scaffolder-mcp-server\\dist\\index.js"
+      ]
+    }
+  }
+}

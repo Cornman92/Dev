@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://better11.com/schemas/config.json",
+  "title": "Better11 Configuration Schema",
+  "description": "Configuration schema for Better11 Windows Enhancement Toolkit",
+  "type": "object",
+  "properties": {
+    "optimization": {
+      "type": "object",
+      "description": "System optimization settings",
+      "properties": {
+        "profile": {
+          "type": "string",
+          "description": "Current optimization profile",
+          "enum": ["Balanced", "Performance", "PowerSaver", "Gaming", "Custom"],
+          "default": "Balanced"
+        },
+        "autoOptimize": {
+          "type": "boolean",
+          "description": "Enable automatic optimization",
+          "default": true
+        },
+        "schedule": {
+          "type": "object",
+          "description": "Optimization schedule",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false
+            },
+            "frequency": {
+              "type": "string",
+              "enum": ["Daily", "Weekly", "Monthly"],
+              "default": "Weekly"
+            },
+            "time": {
+              "type": "string",
+              "pattern": "^([01]?[0-9]|2[0-3]):[0-5][0-9]$",
+              "default": "02:00"
+            }
+          }
+        }
+      }
+    },
+    "packages": {
+      "type": "object",
+      "description": "Package management settings",
+      "properties": {
+        "autoUpdate": {
+          "type": "boolean",
+          "description": "Enable automatic package updates",
+          "default": true
+        },
+        "updateChannel": {
+          "type": "string",
+          "description": "Package update channel",
+          "enum": ["Stable", "Beta", "Alpha"],
+          "default": "Stable"
+        },
+        "cacheDirectory": {
+          "type": "string",
+          "description": "Package cache directory",
+          "default": "%TEMP%\\Better11\\Packages"
+        },
+        "trustedSources": {
+          "type": "array",
+          "description": "Trusted package sources",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          },
+          "default": ["https://packages.better11.com"]
+        }
+      }
+    },
+    "logging": {
+      "type": "object",
+      "description": "Logging configuration",
+      "properties": {
+        "level": {
+          "type": "string",
+          "description": "Minimum log level",
+          "enum": ["Debug", "Information", "Warning", "Error", "Critical"],
+          "default": "Information"
+        },
+        "maxFileSize": {
+          "type": "integer",
+          "description": "Maximum log file size in MB",
+          "minimum": 1,
+          "maximum": 1000,
+          "default": 100
+        },
+        "maxFiles": {
+          "type": "integer",
+          "description": "Maximum number of log files to retain",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 10
+        },
+        "enableConsole": {
+          "type": "boolean",
+          "description": "Enable console logging",
+          "default": true
+        },
+        "enableFile": {
+          "type": "boolean",
+          "description": "Enable file logging",
+          "default": true
+        },
+        "enableEventLog": {
+          "type": "boolean",
+          "description": "Enable Windows Event Log logging",
+          "default": false
+        }
+      }
+    },
+    "performance": {
+      "type": "object",
+      "description": "Performance monitoring settings",
+      "properties": {
+        "monitoringEnabled": {
+          "type": "boolean",
+          "description": "Enable performance monitoring",
+          "default": true
+        },
+        "collectionInterval": {
+          "type": "integer",
+          "description": "Performance data collection interval in seconds",
+          "minimum": 1,
+          "maximum": 3600,
+          "default": 60
+        },
+        "retentionPeriod": {
+          "type": "integer",
+          "description": "Data retention period in days",
+          "minimum": 1,
+          "maximum": 365,
+          "default": 7
+        },
+        "alerts": {
+          "type": "object",
+          "description": "Performance alert thresholds",
+          "properties": {
+            "cpuThreshold": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "default": 80
+            },
+            "memoryThreshold": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "default": 85
+            },
+            "diskThreshold": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "default": 90
+            }
+          }
+        }
+      }
+    },
+    "security": {
+      "type": "object",
+      "description": "Security settings",
+      "properties": {
+        "scanInterval": {
+          "type": "integer",
+          "description": "Security scan interval in hours",
+          "minimum": 1,
+          "maximum": 168,
+          "default": 24
+        },
+        "autoQuarantine": {
+          "type": "boolean",
+          "description": "Enable automatic quarantine of threats",
+          "default": true
+        },
+        "trustedDirectories": {
+          "type": "array",
+          "description": "Trusted directories for security scanning",
+          "items": {
+            "type": "string"
+          },
+          "default": ["C:\\Windows", "C:\\Program Files", "C:\\Program Files (x86)"]
+        }
+      }
+    },
+    "ui": {
+      "type": "object",
+      "description": "User interface settings",
+      "properties": {
+        "theme": {
+          "type": "string",
+          "description": "UI theme",
+          "enum": ["Light", "Dark", "Auto", "Custom"],
+          "default": "Auto"
+        },
+        "language": {
+          "type": "string",
+          "description": "Interface language",
+          "default": "en-US"
+        },
+        "autoStart": {
+          "type": "boolean",
+          "description": "Start Better11 with Windows",
+          "default": false
+        },
+        "minimizeToTray": {
+          "type": "boolean",
+          "description": "Minimize to system tray",
+          "default": true
+        }
+      }
+    }
+  },
+  "required": ["optimization", "packages"],
+  "additionalProperties": false
+}

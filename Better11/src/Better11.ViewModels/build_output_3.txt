@@ -1,0 +1,15 @@
+  Determining projects to restore...
+  Restored d:\Dev\Better11\src\Better11.Models\Better11.Models.csproj (in 318 ms).
+  Restored d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj (in 396 ms).
+  Restored D:\Dev\Better11\src\Better11.Services\Better11.Services.csproj (in 396 ms).
+  1 of 4 projects are up-to-date for restore.
+  Better11.Core -> D:\Dev\Better11\src\Better11.Core\bin\Debug\net8.0-windows10.0.22621.0\Better11.Core.dll
+  Better11.Models -> d:\Dev\Better11\src\Better11.Models\bin\Debug\net8.0-windows10.0.22621.0\Better11.Models.dll
+  Better11.Services -> d:\Dev\Better11\src\Better11.Services\bin\Debug\net8.0-windows10.0.22621.0\Better11.Services.dll
+  Better11.ViewModels -> D:\Dev\Better11\src\Better11.ViewModels\bin\Debug\net8.0-windows10.0.22621.0\Better11.ViewModels.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:05.21

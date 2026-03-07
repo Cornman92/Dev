@@ -1,0 +1,30 @@
+name: Community Features
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+  pull_request:
+    types: [opened, edited, labeled]
+  discussion:
+    types: [created, edited]
+
+jobs:
+  community-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check issue labels
+        if: github.event_name == 'issues'
+        run: |
+          echo "Issue opened: ${{ github.event.issue.title }}"
+          echo "Labels: ${{ github.event.issue.labels.*.name }}"
+      
+      - name: Check PR labels
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "PR opened: ${{ github.event.pull_request.title }}"
+          echo "Labels: ${{ github.event.pull_request.labels.*.name }}"
+      
+      - name: Check discussion
+        if: github.event_name == 'discussion'
+        run: |
+          echo "Discussion created: ${{ github.event.discussion.title }}"

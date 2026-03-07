@@ -1,0 +1,36 @@
+{
+  "mcpServers": {
+    "better11": {
+      "command": "node",
+      "args": ["tools/mcp-server/dist/index.js"],
+      "env": {}
+    },
+    "collab": {
+      "command": "node",
+      "args": ["tools/collab-mcp-server/dist/index.js"],
+      "env": {}
+    },
+    "windows-mcp": {
+      "command": "uvx",
+      "args": ["windows-mcp"],
+      "env": {}
+    },
+    "filesystem-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "D:\\Dev",
+        "C:\\Users\\C-Man\\Desktop",
+        "C:\\Users\\C-Man\\Documents",
+        "C:\\Users\\C-Man\\Downloads"
+      ],
+      "env": {}
+    },
+    "desktopcommander-mcp": {
+      "command": "npx",
+      "args": ["-y", "@wonderwhy-er/desktop-commander"],
+      "env": {}
+    }
+  }
+}

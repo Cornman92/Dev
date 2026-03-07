@@ -1,0 +1,3042 @@
+{
+  "metadata": {
+    "createdAtUtc": "2025-12-15T21:48:03.2605182Z",
+    "runId": "b2a04d0e-21d0-4b09-a014-e6e4e5f5243a",
+    "machine": "GAYMER-PC",
+    "user": "C-Man",
+    "isWinPE": false
+  },
+  "system": {
+    "osCaption": "Microsoft Windows 11 Pro",
+    "osVersion": "10.0.26200",
+    "osBuild": "26200",
+    "osInstallDate": "2025-12-15T14:39:56-05:00",
+    "architecture": "AMD64",
+    "computerName": "GAYMER-PC",
+    "manufacturer": "System manufacturer",
+    "model": "System Product Name",
+    "totalMemoryGB": 31.91,
+    "cpuName": "Intel(R) Core(TM) i5-9600K CPU @ 3.70GHz",
+    "cpuCores": 6,
+    "cpuLogical": 6
+  },
+  "storage": {
+    "disks": [
+      {
+        "Number": 2,
+        "FriendlyName": "NVMe Samsung SSD 970",
+        "Size": 1000204886016,
+        "PartitionStyle": "GPT",
+        "OperationalStatus": "Online"
+      },
+      {
+        "Number": 0,
+        "FriendlyName": "Samsung SSD 850 EVO 250GB",
+        "Size": 250059350016,
+        "PartitionStyle": "GPT",
+        "OperationalStatus": "Online"
+      },
+      {
+        "Number": 1,
+        "FriendlyName": "WDC WD10EZEX-00BN5A0",
+        "Size": 1000204886016,
+        "PartitionStyle": "GPT",
+        "OperationalStatus": "Online"
+      },
+      {
+        "Number": 4,
+        "FriendlyName": " USB DISK 3.0",
+        "Size": 15750070272,
+        "PartitionStyle": "GPT",
+        "OperationalStatus": "Online"
+      },
+      {
+        "Number": 5,
+        "FriendlyName": "PNY USB 2.0 FD",
+        "Size": 31042043904,
+        "PartitionStyle": "GPT",
+        "OperationalStatus": "Online"
+      },
+      {
+        "Number": 6,
+        "FriendlyName": "SanDisk U3 Titanium",
+        "Size": 4103938560,
+        "PartitionStyle": "MBR",
+        "OperationalStatus": "Online"
+      },
+      {
+        "Number": 3,
+        "FriendlyName": "WD Elements 10A8",
+        "Size": 750121910272,
+        "PartitionStyle": "GPT",
+        "OperationalStatus": "Online"
+      }
+    ],
+    "partitions": [
+      {
+        "DiskNumber": 2,
+        "PartitionNumber": 1,
+        "DriveLetter": "G",
+        "Size": 900181524480,
+        "GptType": "{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}",
+        "MbrType": null,
+        "IsBoot": false,
+        "IsSystem": false
+      },
+      {
+        "DiskNumber": 2,
+        "PartitionNumber": 2,
+        "DriveLetter": "H",
+        "Size": 100020518912,
+        "GptType": "{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}",
+        "MbrType": null,
+        "IsBoot": false,
+        "IsSystem": false
+      },
+      {
+        "DiskNumber": 0,
+        "PartitionNumber": 1,
+        "DriveLetter": "\u0000",
+        "Size": 1048576000,
+        "GptType": "{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}",
+        "MbrType": null,
+        "IsBoot": false,
+        "IsSystem": true
+      },
+      {
+        "DiskNumber": 0,
+        "PartitionNumber": 2,
+        "DriveLetter": "\u0000",
+        "Size": 1048576000,
+        "GptType": "{e3c9e316-0b5c-4db8-817d-f92df00215ae}",
+        "MbrType": null,
+        "IsBoot": false,
+        "IsSystem": false
+      },
+      {
+        "DiskNumber": 0,
+        "PartitionNumber": 3,
+        "DriveLetter": "C",
+        "Size": 213047574528,
+        "GptType": "{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}",
+        "MbrType": null,
+        "IsBoot": true,
+        "IsSystem": false
+      },
+      {
+        "DiskNumber": 0,
+        "PartitionNumber": 4,
+        "DriveLetter": "\u0000",
+        "Size": 859832320,
+        "GptType": "{de94bba4-06d1-4d40-a16a-bfd50179d6ac}",
+        "MbrType": null,
+        "IsBoot": false,
+        "IsSystem": false
+      },
+      {
+        "DiskNumber": 0,
+        "PartitionNumber": 5,
+        "DriveLetter": "D",
+        "Size": 34050408448,
+        "GptType": "{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}",
+        "MbrType": null,
+        "IsBoot": false,
+        "IsSystem": false
+      },
+      {
+        "DiskNumber": 1,
+        "PartitionNumber": 1,
+        "DriveLetter": "E",
+        "Size": 899678208000,
+        "GptType": "{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}",
+        "MbrType": null,
+        "IsBoot": false,
+        "IsSystem": false
+      },
+      {
+        "DiskNumber": 1,
+        "PartitionNumber": 2,
+        "DriveLetter": "F",
+        "Size": 100524883968,
+        "GptType": "{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}",
+        "MbrType": null,
+        "IsBoot": false,
+        "IsSystem": false
+      },
+      {
+        "DiskNumber": 4,
+        "PartitionNumber": 1,
+        "DriveLetter": "W",
+        "Size": 15747895296,
+        "GptType": "{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}",
+        "MbrType": null,
+        "IsBoot": false,
+        "IsSystem": false
+      },
+      {
+        "DiskNumber": 4,
+        "PartitionNumber": 2,
+        "DriveLetter": "\u0000",
+        "Size": 1064448,
+        "GptType": "{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}",
+        "MbrType": null,
+        "IsBoot": false,
+        "IsSystem": false
+      },
+      {
+        "DiskNumber": 5,
+        "PartitionNumber": 1,
+        "DriveLetter": "V",
+        "Size": 31007420416,
+        "GptType": "{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}",
+        "MbrType": null,
+        "IsBoot": false,
+        "IsSystem": false
+      },
+      {
+        "DiskNumber": 5,
+        "PartitionNumber": 2,
+        "DriveLetter": "\u0000",
+        "Size": 33554432,
+        "GptType": "{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}",
+        "MbrType": null,
+        "IsBoot": false,
+        "IsSystem": false
+      },
+      {
+        "DiskNumber": 6,
+        "PartitionNumber": 1,
+        "DriveLetter": "U",
+        "Size": 4103873024,
+        "GptType": null,
+        "MbrType": 12,
+        "IsBoot": false,
+        "IsSystem": false
+      },
+      {
+        "DiskNumber": 3,
+        "PartitionNumber": 1,
+        "DriveLetter": "\u0000",
+        "Size": 16759808,
+        "GptType": "{e3c9e316-0b5c-4db8-817d-f92df00215ae}",
+        "MbrType": null,
+        "IsBoot": false,
+        "IsSystem": false
+      },
+      {
+        "DiskNumber": 3,
+        "PartitionNumber": 2,
+        "DriveLetter": "I",
+        "Size": 750103035904,
+        "GptType": "{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}",
+        "MbrType": null,
+        "IsBoot": false,
+        "IsSystem": false
+      }
+    ],
+    "volumes": [
+      {
+        "DriveLetter": null,
+        "FileSystem": "FAT",
+        "Size": 1028096,
+        "SizeRemaining": 133120,
+        "FileSystemLabel": "UEFI_NTFS",
+        "HealthStatus": "Healthy"
+      },
+      {
+        "DriveLetter": "A",
+        "FileSystem": "CDFS",
+        "Size": 5849088,
+        "SizeRemaining": 0,
+        "FileSystemLabel": "U3 System",
+        "HealthStatus": "Healthy"
+      },
+      {
+        "DriveLetter": "U",
+        "FileSystem": "FAT32",
+        "Size": 4095483904,
+        "SizeRemaining": 4033462272,
+        "FileSystemLabel": "VEEAMRECOV",
+        "HealthStatus": "Healthy"
+      },
+      {
+        "DriveLetter": "D",
+        "FileSystem": "NTFS",
+        "Size": 34050404352,
+        "SizeRemaining": 33917345792,
+        "FileSystemLabel": "DualBoot",
+        "HealthStatus": "Healthy"
+      },
+      {
+        "DriveLetter": "H",
+        "FileSystem": "ReFS",
+        "Size": 99992207360,
+        "SizeRemaining": 90168610816,
+        "FileSystemLabel": "NVME-DevDrv",
+        "HealthStatus": "Healthy"
+      },
+      {
+        "DriveLetter": null,
+        "FileSystem": "NTFS",
+        "Size": 859828224,
+        "SizeRemaining": 148217856,
+        "FileSystemLabel": "Recovery",
+        "HealthStatus": "Healthy"
+      },
+      {
+        "DriveLetter": "V",
+        "FileSystem": "NTFS",
+        "Size": 31007416320,
+        "SizeRemaining": 23150333952,
+        "FileSystemLabel": "Ventoy",
+        "HealthStatus": "Healthy"
+      },
+      {
+        "DriveLetter": null,
+        "FileSystem": "FAT",
+        "Size": 33277440,
+        "SizeRemaining": 4786688,
+        "FileSystemLabel": "VTOYEFI",
+        "HealthStatus": "Healthy"
+      },
+      {
+        "DriveLetter": "I",
+        "FileSystem": "NTFS",
+        "Size": 750103031808,
+        "SizeRemaining": 343520460800,
+        "FileSystemLabel": "USB-HDD",
+        "HealthStatus": "Healthy"
+      },
+      {
+        "DriveLetter": "W",
+        "FileSystem": "NTFS",
+        "Size": 15747891200,
+        "SizeRemaining": 9166610432,
+        "FileSystemLabel": "MicroWinx64Pro",
+        "HealthStatus": "Healthy"
+      },
+      {
+        "DriveLetter": "F",
+        "FileSystem": "ReFS",
+        "Size": 100461969408,
+        "SizeRemaining": 98464514048,
+        "FileSystemLabel": "HDD-DevDrv",
+        "HealthStatus": "Healthy"
+      },
+      {
+        "DriveLetter": "C",
+        "FileSystem": "NTFS",
+        "Size": 213047570432,
+        "SizeRemaining": 32155303936,
+        "FileSystemLabel": "MicroWin",
+        "HealthStatus": "Healthy"
+      },
+      {
+        "DriveLetter": "E",
+        "FileSystem": "NTFS",
+        "Size": 899678203904,
+        "SizeRemaining": 879436021760,
+        "FileSystemLabel": "HDD",
+        "HealthStatus": "Healthy"
+      },
+      {
+        "DriveLetter": "G",
+        "FileSystem": "NTFS",
+        "Size": 900181520384,
+        "SizeRemaining": 809944911872,
+        "FileSystemLabel": "NVME",
+        "HealthStatus": "Healthy"
+      }
+    ]
+  },
+  "services": [
+    {
+      "Name": "AarSvc_273fde",
+      "DisplayName": "Agent Activation Runtime_273fde",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "ADPSvc",
+      "DisplayName": "Aggregated Data Platform Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "ALG",
+      "DisplayName": "Application Layer Gateway Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "AppHostSvc",
+      "DisplayName": "Application Host Helper Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "AppIDSvc",
+      "DisplayName": "Application Identity",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "Appinfo",
+      "DisplayName": "Application Information",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "AppMgmt",
+      "DisplayName": "Application Management",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "AppReadiness",
+      "DisplayName": "App Readiness",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "AppVClient",
+      "DisplayName": "Microsoft App-V Client",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "AppXSvc",
+      "DisplayName": "AppX Deployment Service (AppXSVC)",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "ApxSvc",
+      "DisplayName": "Windows Virtual Audio Device Proxy Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "aspnet_state",
+      "DisplayName": "ASP.NET State Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "AssignedAccessManagerSvc",
+      "DisplayName": "AssignedAccessManager Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "AudioEndpointBuilder",
+      "DisplayName": "Windows Audio Endpoint Builder",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "Audiosrv",
+      "DisplayName": "Windows Audio",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "autotimesvc",
+      "DisplayName": "Cellular Time",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "AxInstSV",
+      "DisplayName": "ActiveX Installer (AxInstSV)",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "battlenet_helpersvc",
+      "DisplayName": "Battle.net Update Helper Svc",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "BcastDVRUserService_273fde",
+      "DisplayName": "GameDVR and Broadcast User Service_273fde",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "BDESVC",
+      "DisplayName": "BitLocker Drive Encryption Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "BFE",
+      "DisplayName": "Base Filtering Engine",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "BITS",
+      "DisplayName": "Background Intelligent Transfer Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "BluetoothUserService_273fde",
+      "DisplayName": "Bluetooth User Support Service_273fde",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "BrokerInfrastructure",
+      "DisplayName": "Background Tasks Infrastructure Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "Browser",
+      "DisplayName": "Computer Browser",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "BTAGService",
+      "DisplayName": "Bluetooth Audio Gateway Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "BthAvctpSvc",
+      "DisplayName": "AVCTP service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "bthserv",
+      "DisplayName": "Bluetooth Support Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "camsvc",
+      "DisplayName": "Capability Access Manager Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "CaptureService_273fde",
+      "DisplayName": "CaptureService_273fde",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "cbdhsvc_273fde",
+      "DisplayName": "Clipboard User Service_273fde",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "CDPSvc",
+      "DisplayName": "Connected Devices Platform Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "CDPUserSvc_273fde",
+      "DisplayName": "Connected Devices Platform User Service_273fde",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "CertPropSvc",
+      "DisplayName": "Certificate Propagation",
+      "Status": 1,
+      "StartType": 4
+    },
+    {
+      "Name": "chromoting",
+      "DisplayName": "Chrome Remote Desktop Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "ClickToRunSvc",
+      "DisplayName": "Microsoft Office Click-to-Run Service",
+      "Status": 1,
+      "StartType": 4
+    },
+    {
+      "Name": "ClipSVC",
+      "DisplayName": "Client License Service (ClipSVC)",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "CloudBackupRestoreSvc_273fde",
+      "DisplayName": "Cloud Backup and Restore Service_273fde",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "cloudidsvc",
+      "DisplayName": "Microsoft Cloud Identity Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "CmService",
+      "DisplayName": "Container Manager Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "COMSysApp",
+      "DisplayName": "COM+ System Application",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "ConsentUxUserSvc_273fde",
+      "DisplayName": "ConsentUX User Service_273fde",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "CoreMessagingRegistrar",
+      "DisplayName": "CoreMessaging",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "CredentialEnrollmentManagerUserSvc_273fde",
+      "DisplayName": "CredentialEnrollmentManagerUserSvc_273fde",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "CryptSvc",
+      "DisplayName": "Cryptographic Services",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "CscService",
+      "DisplayName": "Offline Files",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "DbxSvc",
+      "DisplayName": "DbxSvc",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "DcomLaunch",
+      "DisplayName": "DCOM Server Process Launcher",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "dcsvc",
+      "DisplayName": "Declared Configuration(DC) service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "defragsvc",
+      "DisplayName": "Optimize drives",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "DeviceAssociationBrokerSvc_273fde",
+      "DisplayName": "DeviceAssociationBroker_273fde",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "DeviceAssociationService",
+      "DisplayName": "Device Association Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "DeviceInstall",
+      "DisplayName": "Device Install Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "DevicePickerUserSvc_273fde",
+      "DisplayName": "DevicePicker_273fde",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "DevicesFlowUserSvc_273fde",
+      "DisplayName": "DevicesFlow_273fde",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "DevQueryBroker",
+      "DisplayName": "DevQuery Background Discovery Broker",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "Dhcp",
+      "DisplayName": "DHCP Client",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "diagsvc",
+      "DisplayName": "Diagnostic Execution Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "DiagTrack",
+      "DisplayName": "Connected User Experiences and Telemetry",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "DialogBlockingService",
+      "DisplayName": "DialogBlockingService",
+      "Status": 1,
+      "StartType": 4
+    },
+    {
+      "Name": "DispBrokerDesktopSvc",
+      "DisplayName": "Display Policy Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "DisplayEnhancementService",
+      "DisplayName": "Display Enhancement Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "DmEnrollmentSvc",
+      "DisplayName": "Device Management Enrollment Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "dmwappushservice",
+      "DisplayName": "Device Management Wireless Application Protocol (WAP) Push message Routing Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "Dnscache",
+      "DisplayName": "DNS Client",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "DoSvc",
+      "DisplayName": "Delivery Optimization",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "dot3svc",
+      "DisplayName": "Wired AutoConfig",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "DPS",
+      "DisplayName": "Diagnostic Policy Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "DropboxElevationService",
+      "DisplayName": "Dropbox Elevation Service (DropboxElevationService)",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "DsmSvc",
+      "DisplayName": "Device Setup Manager",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "DsSvc",
+      "DisplayName": "Data Sharing Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "DusmSvc",
+      "DisplayName": "Data Usage",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "EapHost",
+      "DisplayName": "Extensible Authentication Protocol",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "edgeupdate",
+      "DisplayName": "Microsoft Edge Update Service (edgeupdate)",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "edgeupdatem",
+      "DisplayName": "Microsoft Edge Update Service (edgeupdatem)",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "EFS",
+      "DisplayName": "Encrypting File System (EFS)",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "embeddedmode",
+      "DisplayName": "Embedded Mode",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "EntAppSvc",
+      "DisplayName": "Enterprise App Management Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "EpicOnlineServices",
+      "DisplayName": "Epic Online Services",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "EventLog",
+      "DisplayName": "Windows Event Log",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "EventSystem",
+      "DisplayName": "COM+ Event System",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "Everything",
+      "DisplayName": "Everything",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "fdPHost",
+      "DisplayName": "Function Discovery Provider Host",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "FDResPub",
+      "DisplayName": "Function Discovery Resource Publication",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "fhsvc",
+      "DisplayName": "File History Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "FileSyncHelper",
+      "DisplayName": "FileSyncHelper",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "FontCache",
+      "DisplayName": "Windows Font Cache Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "FontCache3.0.0.0",
+      "DisplayName": "Windows Presentation Foundation Font Cache 3.0.0.0",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "FrameServer",
+      "DisplayName": "Windows Camera Frame Server",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "FrameServerMonitor",
+      "DisplayName": "Windows Camera Frame Server Monitor",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "ftpsvc",
+      "DisplayName": "Microsoft FTP Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "GameInputRedistService",
+      "DisplayName": "GameInput Redist Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "GameInputSvc",
+      "DisplayName": "GameInput Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "GamingServices",
+      "DisplayName": "Gaming Services",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "GamingServicesNet",
+      "DisplayName": "Gaming Services",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "gcs",
+      "DisplayName": "Hyper-V Guest Compute Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "GlideXNearService",
+      "DisplayName": "GlideX Near Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "GlideXRemoteService",
+      "DisplayName": "GlideX Remote Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "GlideXService",
+      "DisplayName": "GlideX Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "GlideXServiceExt",
+      "DisplayName": "GlideX Service Extension",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "GoogleUpdaterInternalService143.0.7482.0",
+      "DisplayName": "Google Updater Internal Service (GoogleUpdaterInternalService143.0.7482.0)",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "GoogleUpdaterInternalService144.0.7547.0",
+      "DisplayName": "Google Updater Internal Service (GoogleUpdaterInternalService144.0.7547.0)",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "GoogleUpdaterService143.0.7482.0",
+      "DisplayName": "Google Updater Service (GoogleUpdaterService143.0.7482.0)",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "gpsvc",
+      "DisplayName": "Group Policy Client",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "GraphicsPerfSvc",
+      "DisplayName": "GraphicsPerfSvc",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "HgClientService",
+      "DisplayName": "Host Guardian Client Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "hidserv",
+      "DisplayName": "Human Interface Device Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "HNS",
+      "DisplayName": "Host Network Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "hpatchmon",
+      "DisplayName": "Hotpatch Monitoring Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "HvHost",
+      "DisplayName": "HV Host Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "icssvc",
+      "DisplayName": "Windows Mobile Hotspot Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "IISADMIN",
+      "DisplayName": "IIS Admin Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "IKEEXT",
+      "DisplayName": "IKE and AuthIP IPsec Keying Modules",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "InstallService",
+      "DisplayName": "Microsoft Store Install Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "Intel(R) TPM Provisioning Service",
+      "DisplayName": "Intel(R) TPM Provisioning Service",
+      "Status": 1,
+      "StartType": 2
+    },
+    {
+      "Name": "InventorySvc",
+      "DisplayName": "Inventory and Compatibility Appraisal service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "iphlpsvc",
+      "DisplayName": "IP Helper",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "IpxlatCfgSvc",
+      "DisplayName": "IP Translation Configuration Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "jhi_service",
+      "DisplayName": "Intel(R) Dynamic Application Loader Host Interface Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "KeyIso",
+      "DisplayName": "CNG Key Isolation",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "KtmRm",
+      "DisplayName": "KtmRm for Distributed Transaction Coordinator",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "LanmanServer",
+      "DisplayName": "Server",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "LanmanWorkstation",
+      "DisplayName": "Workstation",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "lfsvc",
+      "DisplayName": "Geolocation Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "LGHUBUpdaterService",
+      "DisplayName": "LGHUB Updater Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "LicenseManager",
+      "DisplayName": "Windows License Manager Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "lltdsvc",
+      "DisplayName": "Link-Layer Topology Discovery Mapper",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "lmhosts",
+      "DisplayName": "TCP/IP NetBIOS Helper",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "LocalKdc",
+      "DisplayName": "Kerberos Local Key Distribution Center",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "logi_lamparray_service",
+      "DisplayName": "Logitech LampArray Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "LSM",
+      "DisplayName": "Local Session Manager",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "LxpSvc",
+      "DisplayName": "Language Experience Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "MapsBroker",
+      "DisplayName": "Downloaded Maps Manager",
+      "Status": 1,
+      "StartType": 2
+    },
+    {
+      "Name": "McmSvc",
+      "DisplayName": "Mobile Connectivity Management Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "McpManagementService",
+      "DisplayName": "McpManagementService",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "MDCoreSvc",
+      "DisplayName": "Microsoft Defender Core Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "MessagingService_273fde",
+      "DisplayName": "MessagingService_273fde",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "MicrosoftEdgeElevationService",
+      "DisplayName": "Microsoft Edge Elevation Service (MicrosoftEdgeElevationService)",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "midisrv",
+      "DisplayName": "Windows MIDI Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "mpssvc",
+      "DisplayName": "Windows Defender Firewall",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "MSDTC",
+      "DisplayName": "Distributed Transaction Coordinator",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "MSiSCSI",
+      "DisplayName": "Microsoft iSCSI Initiator Service",
+      "Status": 1,
+      "StartType": 4
+    },
+    {
+      "Name": "msiserver",
+      "DisplayName": "Windows Installer",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "MSI_Case_Service",
+      "DisplayName": "MSI_Case_Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "MSI_Center_Service",
+      "DisplayName": "MSI Center Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "MsKeyboardFilter",
+      "DisplayName": "Microsoft Keyboard Filter",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "MSMQ",
+      "DisplayName": "Message Queuing",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "MSMQTriggers",
+      "DisplayName": "Message Queuing Triggers",
+      "Status": 1,
+      "StartType": 2
+    },
+    {
+      "Name": "NaturalAuthentication",
+      "DisplayName": "Natural Authentication",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "NcaSvc",
+      "DisplayName": "Network Connectivity Assistant",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "NcbService",
+      "DisplayName": "Network Connection Broker",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "NcdAutoSetup",
+      "DisplayName": "Network Connected Devices Auto-Setup",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "Netlogon",
+      "DisplayName": "Netlogon",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "Netman",
+      "DisplayName": "Network Connections",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "NetMsmqActivator",
+      "DisplayName": "Net.Msmq Listener Adapter",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "NetPipeActivator",
+      "DisplayName": "Net.Pipe Listener Adapter",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "netprofm",
+      "DisplayName": "Network List Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "NetSetupSvc",
+      "DisplayName": "Network Setup Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "NetTcpActivator",
+      "DisplayName": "Net.Tcp Listener Adapter",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "NetTcpPortSharing",
+      "DisplayName": "Net.Tcp Port Sharing Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "NfsClnt",
+      "DisplayName": "Client for NFS",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "NgcCtnrSvc",
+      "DisplayName": "Microsoft Passport Container",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "NgcSvc",
+      "DisplayName": "Microsoft Passport",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "NlaSvc",
+      "DisplayName": "Network Location Awareness",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "NPSMSvc_273fde",
+      "DisplayName": "Now Playing Session Manager Service_273fde",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "nsi",
+      "DisplayName": "Network Store Interface Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "nvagent",
+      "DisplayName": "Network Virtualization Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "NVDisplay.ContainerLocalSystem",
+      "DisplayName": "NVIDIA Display Container LS",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "OneDrive Updater Service",
+      "DisplayName": "OneDrive Updater Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "OneSyncSvc_273fde",
+      "DisplayName": "Sync Host_273fde",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "P9RdrService_273fde",
+      "DisplayName": "P9RdrService_273fde",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "PcaSvc",
+      "DisplayName": "Program Compatibility Assistant Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "PCManager Service Store",
+      "DisplayName": "Microsoft PC Manager Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "PeerDistSvc",
+      "DisplayName": "BranchCache",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "PenService_273fde",
+      "DisplayName": "PenService_273fde",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "perceptionsimulation",
+      "DisplayName": "Windows Perception Simulation Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "PerfHost",
+      "DisplayName": "Performance Counter DLL Host",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "PhoneSvc",
+      "DisplayName": "Phone Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "PimIndexMaintenanceSvc_273fde",
+      "DisplayName": "Contact Data_273fde",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "pla",
+      "DisplayName": "Performance Logs & Alerts",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "PlexUpdateService",
+      "DisplayName": "Plex Update Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "PlugPlay",
+      "DisplayName": "Plug and Play",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "PolicyAgent",
+      "DisplayName": "IPsec Policy Agent",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "Power",
+      "DisplayName": "Power",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "PrintDeviceConfigurationService",
+      "DisplayName": "Print Device Configuration Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "PrintNotify",
+      "DisplayName": "Printer Extensions and Notifications",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "PrintScanBrokerService",
+      "DisplayName": "PrintScanBrokerService",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "PrintWorkflowUserSvc_273fde",
+      "DisplayName": "PrintWorkflow_273fde",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "ProfSvc",
+      "DisplayName": "User Profile Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "PushToInstall",
+      "DisplayName": "Windows PushToInstall Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "QWAVE",
+      "DisplayName": "Quality Windows Audio Video Experience",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "RasAuto",
+      "DisplayName": "Remote Access Auto Connection Manager",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "RasMan",
+      "DisplayName": "Remote Access Connection Manager",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "RDAgentBootLoader",
+      "DisplayName": "Remote Desktop Agent Loader",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "refsdedupsvc",
+      "DisplayName": "ReFS Dedup Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "RemoteAccess",
+      "DisplayName": "Routing and Remote Access",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "RemoteRegistry",
+      "DisplayName": "Remote Registry",
+      "Status": 1,
+      "StartType": 4
+    },
+    {
+      "Name": "RetailDemo",
+      "DisplayName": "Retail Demo Service",
+      "Status": 1,
+      "StartType": 4
+    },
+    {
+      "Name": "RmSvc",
+      "DisplayName": "Radio Management Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "RpcEptMapper",
+      "DisplayName": "RPC Endpoint Mapper",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "RpcLocator",
+      "DisplayName": "Remote Procedure Call (RPC) Locator",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "RpcSs",
+      "DisplayName": "Remote Procedure Call (RPC)",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "RstMwService",
+      "DisplayName": "Intel(R) Storage Middleware Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "SamSs",
+      "DisplayName": "Security Accounts Manager",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "SCardSvr",
+      "DisplayName": "Smart Card",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "ScDeviceEnum",
+      "DisplayName": "Smart Card Device Enumeration Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "Schedule",
+      "DisplayName": "Task Scheduler",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "SCPolicySvc",
+      "DisplayName": "Smart Card Removal Policy",
+      "Status": 1,
+      "StartType": 4
+    },
+    {
+      "Name": "SDRSVC",
+      "DisplayName": "Windows Backup",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "seclogon",
+      "DisplayName": "Secondary Logon",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "SecurityHealthService",
+      "DisplayName": "Windows Security Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "SEMgrSvc",
+      "DisplayName": "Payments and NFC/SE Manager",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "SENS",
+      "DisplayName": "System Event Notification Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "Sense",
+      "DisplayName": "Windows Defender Advanced Threat Protection Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "SensorDataService",
+      "DisplayName": "Sensor Data Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "SensorService",
+      "DisplayName": "Sensor Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "SensrSvc",
+      "DisplayName": "Sensor Monitoring Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "SessionEnv",
+      "DisplayName": "Remote Desktop Configuration",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "SharedAccess",
+      "DisplayName": "Internet Connection Sharing (ICS)",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "ShellHWDetection",
+      "DisplayName": "Shell Hardware Detection",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "shpamsvc",
+      "DisplayName": "Shared PC Account Manager",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "simptcp",
+      "DisplayName": "Simple TCP/IP Services",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "smphost",
+      "DisplayName": "Microsoft Storage Spaces SMP",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "SmsRouter",
+      "DisplayName": "Microsoft Windows SMS Router Service.",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "SNMPTrap",
+      "DisplayName": "SNMP Trap",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "Spooler",
+      "DisplayName": "Print Spooler",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "sppsvc",
+      "DisplayName": "Software Protection",
+      "Status": 1,
+      "StartType": 2
+    },
+    {
+      "Name": "SSDPSRV",
+      "DisplayName": "SSDP Discovery",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "ssh-agent",
+      "DisplayName": "OpenSSH Authentication Agent",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "SstpSvc",
+      "DisplayName": "Secure Socket Tunneling Protocol Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "StateRepository",
+      "DisplayName": "State Repository Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "StiSvc",
+      "DisplayName": "Windows Image Acquisition (WIA)",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "StorSvc",
+      "DisplayName": "Storage Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "svsvc",
+      "DisplayName": "Spot Verifier",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "swprv",
+      "DisplayName": "Microsoft Software Shadow Copy Provider",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "SysMain",
+      "DisplayName": "SysMain",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "SystemEventsBroker",
+      "DisplayName": "System Events Broker",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "TapiSrv",
+      "DisplayName": "Telephony",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "TeamViewer",
+      "DisplayName": "TeamViewer",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "TermService",
+      "DisplayName": "Remote Desktop Services",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "TextInputManagementService",
+      "DisplayName": "Text Input Management Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "Themes",
+      "DisplayName": "Themes",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "TieringEngineService",
+      "DisplayName": "Storage Tiers Management",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "TimeBrokerSvc",
+      "DisplayName": "Time Broker",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "TokenBroker",
+      "DisplayName": "Web Account Manager",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "TrkWks",
+      "DisplayName": "Distributed Link Tracking Client",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "TroubleshootingSvc",
+      "DisplayName": "Recommended Troubleshooting Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "TrustedInstaller",
+      "DisplayName": "Windows Modules Installer",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "tzautoupdate",
+      "DisplayName": "Auto Time Zone Updater",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "UdkUserSvc_273fde",
+      "DisplayName": "Udk User Service_273fde",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "UevAgentService",
+      "DisplayName": "User Experience Virtualization Service",
+      "Status": 1,
+      "StartType": 4
+    },
+    {
+      "Name": "UmRdpService",
+      "DisplayName": "Remote Desktop Services UserMode Port Redirector",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "UnistoreSvc_273fde",
+      "DisplayName": "User Data Storage_273fde",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "UpcElevationService",
+      "DisplayName": "Ubisoft UPC Elevation Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "upnphost",
+      "DisplayName": "UPnP Device Host",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "UserDataSvc_273fde",
+      "DisplayName": "User Data Access_273fde",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "UserManager",
+      "DisplayName": "User Manager",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "UsoSvc",
+      "DisplayName": "Update Orchestrator Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "UwfServicingSvc",
+      "DisplayName": "Unified Write Filter Servicing Helper Service",
+      "Status": 1,
+      "StartType": 4
+    },
+    {
+      "Name": "VaultSvc",
+      "DisplayName": "Credential Manager",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "vds",
+      "DisplayName": "Virtual Disk",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "VeeamEndpointBackupSvc",
+      "DisplayName": "Veeam Agent for Microsoft Windows",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "vmcompute",
+      "DisplayName": "Hyper-V Host Compute Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "vmicguestinterface",
+      "DisplayName": "Hyper-V Guest Service Interface",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "vmicheartbeat",
+      "DisplayName": "Hyper-V Heartbeat Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "vmickvpexchange",
+      "DisplayName": "Hyper-V Data Exchange Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "vmicrdv",
+      "DisplayName": "Hyper-V Remote Desktop Virtualization Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "vmicshutdown",
+      "DisplayName": "Hyper-V Guest Shutdown Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "vmictimesync",
+      "DisplayName": "Hyper-V Time Synchronization Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "vmicvmsession",
+      "DisplayName": "Hyper-V PowerShell Direct Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "vmicvss",
+      "DisplayName": "Hyper-V Volume Shadow Copy Requestor",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "vmms",
+      "DisplayName": "Hyper-V Virtual Machine Management",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "VSS",
+      "DisplayName": "Volume Shadow Copy",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "W32Time",
+      "DisplayName": "Windows Time",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "w3logsvc",
+      "DisplayName": "W3C Logging Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "W3SVC",
+      "DisplayName": "World Wide Web Publishing Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "WaaSMedicSvc",
+      "DisplayName": "WaaSMedicSvc",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WalletService",
+      "DisplayName": "WalletService",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WarpJITSvc",
+      "DisplayName": "Warp JIT Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WAS",
+      "DisplayName": "Windows Process Activation Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "wbengine",
+      "DisplayName": "Block Level Backup Engine Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WbioSrvc",
+      "DisplayName": "Windows Biometric Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "Wcmsvc",
+      "DisplayName": "Windows Connection Manager",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "wcncsvc",
+      "DisplayName": "Windows Connect Now - Config Registrar",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WdiServiceHost",
+      "DisplayName": "Diagnostic Service Host",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "WdiSystemHost",
+      "DisplayName": "Diagnostic System Host",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "WdNisSvc",
+      "DisplayName": "Microsoft Defender Antivirus Network Inspection Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "WebClient",
+      "DisplayName": "WebClient",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "webthreatdefsvc",
+      "DisplayName": "Web Threat Defense Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "webthreatdefusersvc_273fde",
+      "DisplayName": "Web Threat Defense User Service_273fde",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "Wecsvc",
+      "DisplayName": "Windows Event Collector",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WEPHOSTSVC",
+      "DisplayName": "Windows Encryption Provider Host Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "wercplsupport",
+      "DisplayName": "Problem Reports Control Panel Support",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WerSvc",
+      "DisplayName": "Windows Error Reporting Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WFDSConMgrSvc",
+      "DisplayName": "Wi-Fi Direct Services Connection Manager Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "whesvc",
+      "DisplayName": "Windows Health and Optimized Experiences",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "WiaRpc",
+      "DisplayName": "Still Image Acquisition Events",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WinDefend",
+      "DisplayName": "Microsoft Defender Antivirus Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "WinHttpAutoProxySvc",
+      "DisplayName": "WinHTTP Web Proxy Auto-Discovery Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "Winmgmt",
+      "DisplayName": "Windows Management Instrumentation",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "WinRM",
+      "DisplayName": "Windows Remote Management (WS-Management)",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "wisvc",
+      "DisplayName": "Windows Insider Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WlanSvc",
+      "DisplayName": "WLAN AutoConfig",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "wlidsvc",
+      "DisplayName": "Microsoft Account Sign-in Assistant",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "wlpasvc",
+      "DisplayName": "Local Profile Assistant Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WManSvc",
+      "DisplayName": "Windows Management Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "wmiApSrv",
+      "DisplayName": "WMI Performance Adapter",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WMIRegistrationService",
+      "DisplayName": "Intel(R) Management Engine WMI Provider Registration",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "WMPNetworkSvc",
+      "DisplayName": "Windows Media Player Network Sharing Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WMSVC",
+      "DisplayName": "Web Management Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "workfolderssvc",
+      "DisplayName": "Work Folders",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WpcMonSvc",
+      "DisplayName": "Parental Controls",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WPDBusEnum",
+      "DisplayName": "Portable Device Enumerator Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WpnService",
+      "DisplayName": "Windows Push Notifications System Service",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "WpnUserService_273fde",
+      "DisplayName": "Windows Push Notifications User Service_273fde",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "WSAIFabricSvc",
+      "DisplayName": "WSAIFabricSvc",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "wscsvc",
+      "DisplayName": "Security Center",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "WSearch",
+      "DisplayName": "Windows Search",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "WSLService",
+      "DisplayName": "WSL Service",
+      "Status": 4,
+      "StartType": 3
+    },
+    {
+      "Name": "wuauserv",
+      "DisplayName": "Windows Update",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "wuqisvc",
+      "DisplayName": "Microsoft Usage and Quality Insights",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "WwanSvc",
+      "DisplayName": "WWAN AutoConfig",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "XblAuthManager",
+      "DisplayName": "Xbox Live Auth Manager",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "XblGameSave",
+      "DisplayName": "Xbox Live Game Save",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "XboxGipSvc",
+      "DisplayName": "Xbox Accessory Management Service",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "XboxNetApiSvc",
+      "DisplayName": "Xbox Live Networking Service",
+      "Status": 1,
+      "StartType": 3
+    }
+  ],
+  "hotfixes": [
+    {
+      "HotFixID": "KB5066128",
+      "Description": "Update",
+      "InstalledOn": "2025-12-15T00:00:00"
+    },
+    {
+      "HotFixID": "KB5054156",
+      "Description": "Update",
+      "InstalledOn": "2025-12-15T00:00:00"
+    },
+    {
+      "HotFixID": "KB5072033",
+      "Description": "Security Update",
+      "InstalledOn": "2025-12-15T00:00:00"
+    },
+    {
+      "HotFixID": "KB5071142",
+      "Description": "Update",
+      "InstalledOn": "2025-12-15T00:00:00"
+    }
+  ],
+  "apps": [
+    {
+      "Name": "BCD and Boot",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "BCUninstaller 5.9.0.0",
+      "Version": "5.9.0.0",
+      "Publisher": "Marcin Szeniak",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Chocolatey GUI",
+      "Version": "2.1.1.0",
+      "Publisher": "Chocolatey",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Chrome Remote Desktop Host",
+      "Version": "144.0.7559.13",
+      "Publisher": "Google LLC",
+      "InstallDate": "20251215"
+    },
+    {
+      "Name": "CMake",
+      "Version": "4.2.1",
+      "Publisher": "Kitware",
+      "InstallDate": "20251209"
+    },
+    {
+      "Name": "CPUID CPU-Z 2.17",
+      "Version": "2.17",
+      "Publisher": "CPUID, Inc.",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "CPUID HWMonitor 1.60",
+      "Version": "1.60",
+      "Publisher": "CPUID, Inc.",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Custom Cursor 1.0.25",
+      "Version": "1.0.25",
+      "Publisher": "Blife Team",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "DISMTools 0.7.2 Preview",
+      "Version": "0.7.2.25121",
+      "Publisher": "CodingWonders Software",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Driver Booster 13",
+      "Version": "13.1.0",
+      "Publisher": "IObit",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Dropbox Update Helper",
+      "Version": "1.3.1053.1",
+      "Publisher": "Dropbox, Inc.",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Duplicati",
+      "Version": "2.2.0.1",
+      "Publisher": "Duplicati Team",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Epic Games Launcher",
+      "Version": "1.3.161.0",
+      "Publisher": "Epic Games, Inc.",
+      "InstallDate": "20251212"
+    },
+    {
+      "Name": "Epic Online Services",
+      "Version": "4.0.1",
+      "Publisher": "Epic Games, Inc.",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Everything 1.4.1.1030 (x64)",
+      "Version": "1.4.1.1030",
+      "Publisher": "voidtools",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "FxSound",
+      "Version": "1.1.36.0",
+      "Publisher": "FxSound LLC",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Git",
+      "Version": "2.52.0",
+      "Publisher": "The Git Development Community",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "GitHub CLI",
+      "Version": "2.83.2",
+      "Publisher": "GitHub, Inc.",
+      "InstallDate": "20251215"
+    },
+    {
+      "Name": "GlideX Service Installer",
+      "Version": "3.8.5.0",
+      "Publisher": "ASUSTeK COMPUTER INC.",
+      "InstallDate": "20251212"
+    },
+    {
+      "Name": "iCloud Outlook",
+      "Version": "15.4.0.210",
+      "Publisher": "Apple Inc.",
+      "InstallDate": "20251212"
+    },
+    {
+      "Name": "Imaging And Configuration Designer (DesktopEditions)",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Imaging And Configuration Designer (OnecoreUAP)",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Imaging Designer (DesktopEditions)",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Imaging Designer (OnecoreUAP)",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Imaging Tools Support (DesktopEditions)",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Imaging Tools Support (OnecoreUAP)",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Kits Configuration Installer",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Microsoft .NET Host - 6.0.36 (x64)",
+      "Version": "48.144.23141",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Microsoft .NET Host - 8.0.22 (x64)",
+      "Version": "64.88.42551",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft .NET Host - 9.0.11 (x64)",
+      "Version": "72.44.42384",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Microsoft .NET Host FX Resolver - 6.0.36 (x64)",
+      "Version": "48.144.23141",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Microsoft .NET Host FX Resolver - 8.0.22 (x64)",
+      "Version": "64.88.42551",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft .NET Host FX Resolver - 9.0.10 (x64)",
+      "Version": "72.40.40927",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Microsoft .NET Host FX Resolver - 9.0.11 (x64)",
+      "Version": "72.44.42384",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Microsoft .NET Runtime - 6.0.36 (x64)",
+      "Version": "48.144.23141",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Microsoft .NET Runtime - 8.0.22 (x64)",
+      "Version": "64.88.42551",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft .NET Runtime - 9.0.10 (x64)",
+      "Version": "72.40.40927",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Microsoft .NET Runtime - 9.0.11 (x64)",
+      "Version": "72.44.42384",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Microsoft ASP.NET Core 8.0.22 Shared Framework (x64)",
+      "Version": "8.0.22.25528",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft Edge",
+      "Version": "143.0.3650.80",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251215"
+    },
+    {
+      "Name": "Microsoft Edge WebView2 Runtime",
+      "Version": "143.0.3650.80",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251211"
+    },
+    {
+      "Name": "Microsoft GameInput",
+      "Version": "10.1.26100.6879",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.4148",
+      "Version": "9.0.30729.4148",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.6161",
+      "Version": "9.0.30729.6161",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.4148",
+      "Version": "9.0.30729.4148",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.6161",
+      "Version": "9.0.30729.6161",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2010  x64 Redistributable - 10.0.40219",
+      "Version": "10.0.40219",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2010  x86 Redistributable - 10.0.40219",
+      "Version": "10.0.40219",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2012 x64 Additional Runtime - 11.0.61030",
+      "Version": "11.0.61030",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2012 x64 Minimum Runtime - 11.0.61030",
+      "Version": "11.0.61030",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2012 x86 Additional Runtime - 11.0.61030",
+      "Version": "11.0.61030",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2012 x86 Minimum Runtime - 11.0.61030",
+      "Version": "11.0.61030",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.40664",
+      "Version": "12.0.40664",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.40664",
+      "Version": "12.0.40664",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.40664",
+      "Version": "12.0.40664",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.40664",
+      "Version": "12.0.40664",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2022 X64 Additional Runtime - 14.50.35719",
+      "Version": "14.50.35719",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2022 X64 Minimum Runtime - 14.50.35719",
+      "Version": "14.50.35719",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2022 X86 Additional Runtime - 14.50.35719",
+      "Version": "14.50.35719",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251212"
+    },
+    {
+      "Name": "Microsoft Visual C++ 2022 X86 Minimum Runtime - 14.50.35719",
+      "Version": "14.50.35719",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251212"
+    },
+    {
+      "Name": "Microsoft Windows Desktop Runtime - 6.0.36 (x64)",
+      "Version": "48.144.23186",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Microsoft Windows Desktop Runtime - 8.0.22 (x64)",
+      "Version": "64.88.42561",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Microsoft Windows Desktop Runtime - 9.0.10 (x64)",
+      "Version": "72.40.40921",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Microsoft Windows Desktop Runtime - 9.0.11 (x64)",
+      "Version": "72.44.42433",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Microsoft XNA Framework Redistributable 4.0 Refresh",
+      "Version": "4.0.30901.0",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "MSI Center SDK",
+      "Version": "3.2025.1107.01",
+      "Publisher": "MSI",
+      "InstallDate": "20251212"
+    },
+    {
+      "Name": "Nilesoft Shell",
+      "Version": "1.9.18",
+      "Publisher": "Nilesoft",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Node.js",
+      "Version": "25.2.1",
+      "Publisher": "Node.js Foundation",
+      "InstallDate": "20251212"
+    },
+    {
+      "Name": "NTLite",
+      "Version": "2025.12.10723.0",
+      "Publisher": "Nlitesoft d.o.o.",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "NVIDIA Graphics Driver 581.80",
+      "Version": "581.80",
+      "Publisher": "NVIDIA Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "NVIDIA Install Application",
+      "Version": "2.1002.438.0",
+      "Publisher": "NVIDIA Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "NVIDIA PhysX System Software 9.23.1019",
+      "Version": "9.23.1019",
+      "Publisher": "NVIDIA Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "OA3Tool",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "OACheck",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "OATool",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "OEM Test Certificates (OnecoreUAP)",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Office 16 Click-to-Run Extensibility Component",
+      "Version": "16.0.19426.20170",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251206"
+    },
+    {
+      "Name": "Open-Shell",
+      "Version": "4.4.196",
+      "Publisher": "The Open-Shell Team",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "OpenSSL v3.0.0 FIPS",
+      "Version": "3.0.0.31",
+      "Publisher": "Veeam Software Group GmbH",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Oscdimg (DesktopEditions)",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Plex Media Server 1.42.2.10156 (x64)",
+      "Version": "1.42.2.10156",
+      "Publisher": "Plex, Inc.",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "PowerToys (Preview)",
+      "Version": "0.96.1",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "PuTTY release 0.83 (64-bit)",
+      "Version": "0.83.0.0",
+      "Publisher": "Simon Tatham",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Python 3.14.2 Add to Path (64-bit)",
+      "Version": "3.14.2150.0",
+      "Publisher": "Python Software Foundation",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Python 3.14.2 Core Interpreter (64-bit)",
+      "Version": "3.14.2150.0",
+      "Publisher": "Python Software Foundation",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Python 3.14.2 Development Libraries (64-bit)",
+      "Version": "3.14.2150.0",
+      "Publisher": "Python Software Foundation",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Python 3.14.2 Documentation (64-bit)",
+      "Version": "3.14.2150.0",
+      "Publisher": "Python Software Foundation",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Python 3.14.2 Executables (64-bit)",
+      "Version": "3.14.2150.0",
+      "Publisher": "Python Software Foundation",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Python 3.14.2 pip Bootstrap (64-bit)",
+      "Version": "3.14.2150.0",
+      "Publisher": "Python Software Foundation",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Python 3.14.2 Standard Library (64-bit)",
+      "Version": "3.14.2150.0",
+      "Publisher": "Python Software Foundation",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Python 3.14.2 Tcl/Tk Support (64-bit)",
+      "Version": "3.14.2150.0",
+      "Publisher": "Python Software Foundation",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Python 3.14.2 Test Suite (64-bit)",
+      "Version": "3.14.2150.0",
+      "Publisher": "Python Software Foundation",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Python Install Manager",
+      "Version": "25.1.240.0",
+      "Publisher": "Python Software Foundation",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Python Launcher",
+      "Version": "3.14.2150.0",
+      "Publisher": "Python Software Foundation",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Remote Desktop Agent Boot Loader",
+      "Version": "1.0.9023.1100",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Remote Desktop Services Infrastructure Agent",
+      "Version": "1.0.12684.400",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Samsung NVM Express Driver 3.3.0.2003",
+      "Version": "3.3.0.2003",
+      "Publisher": "Samsung Electronics Co., Ltd",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Supply Chain Trust Tools ADK",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "TechPowerUp GPU-Z",
+      "Version": "2.68.0",
+      "Publisher": "TechPowerUp",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Toolkit Documentation",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "UEV Tools on amd64",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "UltraSearch V4.8.5 (64 bit)",
+      "Version": "4.8.5",
+      "Publisher": "JAM Software",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "User State Migration Tool (ClientCore)",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "User State Migration Tool (DesktopEditions)",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Veeam Agent for Microsoft Windows",
+      "Version": "13.0.1.120",
+      "Publisher": "Veeam Software Group GmbH",
+      "InstallDate": "20251210"
+    },
+    {
+      "Name": "Windows Deployment Customizations",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Windows Deployment Image Servicing and Management - Headers and Libraries",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Windows Deployment Image Servicing and Management Tools (DesktopEditions)",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Windows Deployment Tools",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Windows Deployment Tools Environment",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Windows Setup Files (ClientCore)",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Windows Setup Files (DesktopEditions)",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Windows Setup Files (OnecoreUAP)",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Windows Setup Files (ShellCommon)",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Windows Subsystem for Linux",
+      "Version": "2.6.2.0",
+      "Publisher": "Microsoft Corporation",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "Windows System Image Manager",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "WPT Redistributables",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    },
+    {
+      "Name": "WPTx64 (DesktopEditions)",
+      "Version": "10.1.26100.2454",
+      "Publisher": "Microsoft",
+      "InstallDate": "20251207"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "dev-workspace-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dev workspace root — run MCP server tests, workspace report, and dashboard from here",
+  "scripts": {
+    "test:mcp-time-utils": "cd time-utils-mcp-server && npm run test:integration",
+    "test:mcp-code-analysis": "cd code-analysis-mcp-server && npm run test:integration",
+    "test:mcp-powershell": "cd powershell-mcp-server && npm run test:integration",
+    "test:mcp-system-info": "cd system-info-mcp-server && npm run test:integration",
+    "test:mcp-winget": "cd winget-mcp-server && npm run test:integration",
+    "test:mcp-dotnet-cli": "cd dotnet-cli-mcp-server && npm run test:integration",
+    "test:mcp-nuget": "cd nuget-mcp-server && npm run test:integration",
+    "test:mcp-project-scaffolder": "cd project-scaffolder-mcp-server && npm run test",
+    "test:mcp-all": "node run-all-mcp-tests.cjs",
+    "report:workspace": "powershell -NoProfile -ExecutionPolicy Bypass -File ./Generate-WorkspaceReport.ps1",
+    "dashboard:start": "cd dev-dashboard && npm run start"
+  }
+}

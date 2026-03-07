@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Better11.Tests</RootNamespace>
+    <AssemblyName>Better11.Tests</AssemblyName>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <!-- Relax analyzer rules for test project to allow test naming and patterns -->
+    <NoWarn>$(NoWarn);CA1707;CA1001;CA1861;SA1128;SA1503;SA1116</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Better11.Core\Better11.Core.csproj" />
+    <ProjectReference Include="..\Better11.Services\Better11.Services.csproj" />
+    <ProjectReference Include="..\Better11.ViewModels\Better11.ViewModels.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="xunit" Version="2.7.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6" />
+    <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="coverlet.collector" Version="6.0.0" />
+  </ItemGroup>
+</Project>

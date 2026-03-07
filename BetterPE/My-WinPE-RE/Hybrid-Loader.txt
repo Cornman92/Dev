@@ -1,0 +1,4 @@
+set id=
+for /f "tokens=2 delims={}" %i in ('bcdedit /store D:\My-Win[PE][RE]\Combined\BCD /create /d "Hybrid Ultimate Tools" /application osloader') do set id={%i}
+bcdedit /store D:\My-Win[PE][RE]\Combined\BCD /set %id% device ramdisk=[boot]\sources\Combined.wim,{ramdiskoptions}
+bcdedit /store D:\My-Win[PE][RE]\Combined\BCD /set %id% path \windows\system32\boot\winload.exe

@@ -1,0 +1,13 @@
+---
+description: Apply when editing handoff notes or coordinating between Claude and Cursor
+globs: "**/.cursor/claude-cursor-handoff.md","**/MCP-CURSOR-CLAUDE-SETUP.md","**/collab-mcp-server/**"
+alwaysApply: false
+---
+
+# Collab (Claude–Cursor)
+
+When editing the handoff file, MCP setup docs, or the collab MCP server:
+
+- Use **collab_handoff_read** to show current handoff notes before editing by hand.
+- Use **collab_handoff_write** to update handoff notes from the agent (preferred over editing the file directly so format stays consistent).
+- Reference **docs/MCP-CURSOR-CLAUDE-SETUP.md** and **tools/collab-mcp-server/README.md** for tool usage and setup.

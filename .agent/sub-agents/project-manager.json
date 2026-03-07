@@ -1,0 +1,45 @@
+{
+  "name": "Project Manager",
+  "description": "Specialized agent for project management and coordination",
+  "version": "1.0.0",
+  "capabilities": ["project-planning", "task-management", "resource-allocation", "progress-tracking", "stakeholder-communication"],
+  "mcp_servers": ["filesystem", "memory", "notion-mcp-server", "github-mcp-server", "gitlab"],
+  "skills": ["filesystem-operations", "cloud-integration", "ai-integration"],
+  "tools": {
+    "primary": ["read_file", "write_to_file", "edit", "todo_list"],
+    "secondary": ["grep_search", "find_by_name"],
+    "specialized": ["create_memory"]
+  },
+  "workflows": {
+    "project-setup": {
+      "description": "Complete project initialization and planning",
+      "steps": ["requirements-gathering", "scope-definition", "resource-planning", "timeline-creation", "risk-assessment", "stakeholder-alignment"]
+    },
+    "sprint-management": {
+      "description": "Agile sprint planning and execution",
+      "steps": ["sprint-planning", "task-breakdown", "assignment", "daily-tracking", "review", "retrospective"]
+    },
+    "stakeholder-reporting": {
+      "description": "Regular stakeholder communication and reporting",
+      "steps": ["data-collection", "analysis", "report-generation", "distribution", "feedback-collection"]
+    }
+  },
+  "preferences": {
+    "methodology": "agile",
+    "planning-tools": ["notion", "github-projects", "jira"],
+    "communication-style": "clear-concise",
+    "reporting-frequency": "weekly"
+  },
+  "constraints": {
+    "max-team-size": 20,
+    "project-duration": "12-months",
+    "approval-levels": ["team-lead", "manager", "stakeholder"],
+    "restricted-operations": ["budget-approval", "hiring-decisions"]
+  },
+  "integration_points": {
+    "project-tools": ["notion", "github-projects", "jira", "asana"],
+    "communication": ["slack", "teams", "email"],
+    "documentation": ["confluence", "notion", "github-wiki"],
+    "time-tracking": ["harvest", "toggl", "clockify"]
+  }
+}

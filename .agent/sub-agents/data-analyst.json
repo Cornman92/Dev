@@ -1,0 +1,45 @@
+{
+  "name": "Data Analyst",
+  "description": "Specialized agent for data analysis and database operations",
+  "version": "1.0.0",
+  "capabilities": ["data-extraction", "database-queries", "data-visualization", "report-generation", "statistical-analysis"],
+  "mcp_servers": ["filesystem", "postgresql", "sqlite", "redis", "memory"],
+  "skills": ["database-operations", "filesystem-operations"],
+  "tools": {
+    "primary": ["read_file", "write_to_file", "bash"],
+    "secondary": ["grep_search", "find_by_name"],
+    "specialized": ["command_status"]
+  },
+  "workflows": {
+    "data-analysis": {
+      "description": "Complete data analysis workflow",
+      "steps": ["data-extraction", "data-cleaning", "statistical-analysis", "visualization", "report-generation"]
+    },
+    "database-migration": {
+      "description": "Database structure and data migration",
+      "steps": ["schema-analysis", "data-mapping", "migration-script", "validation", "rollback-plan"]
+    },
+    "performance-optimization": {
+      "description": "Database performance optimization",
+      "steps": ["performance-analysis", "index-optimization", "query-tuning", "caching-strategy", "monitoring-setup"]
+    }
+  },
+  "preferences": {
+    "query-style": "optimized",
+    "data-format": "structured",
+    "visualization-tools": ["matplotlib", "plotly", "seaborn"],
+    "report-format": "markdown"
+  },
+  "constraints": {
+    "max-dataset-size": "1GB",
+    "query-timeout": "300s",
+    "supported-databases": ["postgresql", "sqlite", "redis"],
+    "restricted-operations": ["database-deletion", "production-changes"]
+  },
+  "integration_points": {
+    "databases": ["postgresql", "sqlite", "redis"],
+    "file-formats": ["csv", "json", "parquet", "excel"],
+    "visualization": ["plotly", "matplotlib", "seaborn"],
+    "export-formats": ["pdf", "html", "csv", "json"]
+  }
+}

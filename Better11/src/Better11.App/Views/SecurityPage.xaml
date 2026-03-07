@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Better11. All rights reserved. -->
+<!-- Better11 System Enhancement Suite - SecurityPage.xaml -->
+<!-- Dense WinUtil-inspired security center with score display and hardening controls -->
+<Page
+    x:Class="Better11.App.Views.SecurityPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    NavigationCacheMode="Enabled"
+    Background="{StaticResource B11PrimaryBackgroundBrush}">
+
+    <Grid Padding="{StaticResource B11PageMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- PAGE HEADER                                                    -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Grid Grid.Row="0" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                <FontIcon Glyph="&#xE72E;" FontSize="20" Foreground="{StaticResource B11AccentBrush}"/>
+                <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+                           FontSize="{StaticResource B11FontSizeTitle}"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextPrimaryBrush}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                <Button Style="{StaticResource B11AccentButtonStyle}"
+                        Command="{x:Bind ViewModel.RunScanCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <FontIcon Glyph="&#xE71C;" FontSize="12"/>
+                        <TextBlock Text="Scan"/>
+                    </StackPanel>
+                </Button>
+                <Button Content="Refresh"
+                        Style="{StaticResource B11CompactButtonStyle}"
+                        Command="{x:Bind ViewModel.LoadSecurityStatusCommand}"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- STATUS BAR                                                     -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <StackPanel Grid.Row="1" Spacing="4" Margin="0,0,0,8">
+            <ProgressBar IsIndeterminate="True"
+                         Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
+                         Height="2"/>
+            <InfoBar IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+                     Severity="Error" Title="Error"
+                     Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+                     IsClosable="True"/>
+            <InfoBar IsOpen="{x:Bind ViewModel.HasSuccess, Mode=OneWay}"
+                     Severity="Success" Title="Success"
+                     Message="{x:Bind ViewModel.SuccessMessage, Mode=OneWay}"
+                     IsClosable="True"/>
+        </StackPanel>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- MAIN CONTENT                                                   -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="{StaticResource B11SectionSpacing}">
+
+                <!-- ─── Security Score Display ─── -->
+                <Border Style="{StaticResource B11DenseCardStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Width="56" Height="56" CornerRadius="28"
+                                Background="{StaticResource B11AccentSubtleBrush}"
+                                Margin="0,0,14,0">
+                            <FontIcon Glyph="&#xE72E;" FontSize="24"
+                                      Foreground="{StaticResource B11AccentBrush}"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock Text="Security Score"
+                                       FontSize="{StaticResource B11FontSizeSubtitle}"
+                                       FontWeight="SemiBold"
+                                       Foreground="{StaticResource B11TextPrimaryBrush}"/>
+                            <TextBlock Text="Overall system protection level"
+                                       FontSize="{StaticResource B11FontSizeCaption}"
+                                       Foreground="{StaticResource B11TextTertiaryBrush}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="{x:Bind ViewModel.SecurityScore, Mode=OneWay}"
+                                       FontSize="32" FontWeight="Bold"
+                                       Foreground="{StaticResource B11SuccessBrush}"/>
+                            <TextBlock Text="/100" FontSize="16"
+                                       Foreground="{StaticResource B11TextTertiaryBrush}"
+                                       VerticalAlignment="Bottom" Margin="2,0,0,5"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- ─── Security Components — 2 column layout ─── -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- ─── Windows Defender ─── -->
+                    <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource B11DenseCardStyle}" Margin="0,0,4,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+                                <FontIcon Glyph="&#xE83D;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="Windows Defender" Style="{StaticResource B11SectionHeaderStyle}" Margin="0"/>
+                            </StackPanel>
+
+                            <!-- Status Row -->
+                            <Border Background="{StaticResource B11TertiaryBackgroundBrush}"
+                                    CornerRadius="3" Padding="8,4" Margin="0,0,0,6">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Status"
+                                               FontSize="{StaticResource B11FontSizeCaption}"
+                                               Foreground="{StaticResource B11TextSecondaryBrush}"
+                                               VerticalAlignment="Center"/>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4">
+                                        <Ellipse Width="8" Height="8" Fill="{StaticResource B11SuccessBrush}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind ViewModel.SecurityStatus.AntivirusStatus, Mode=OneWay}"
+                                                   FontSize="{StaticResource B11FontSizeCaption}"
+                                                   Foreground="{StaticResource B11TextPrimaryBrush}"
+                                                   VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <CheckBox Content="Real-time protection"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" IsChecked="True"
+                                      Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Cloud-delivered protection"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" IsChecked="True"
+                                      Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Automatic sample submission"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}"
+                                      Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Tamper Protection"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" IsChecked="True"
+                                      Margin="{StaticResource B11ItemMargin}"/>
+
+                            <Button Content="Quick Scan" Margin="0,6,0,0"
+                                    Style="{StaticResource B11CompactButtonStyle}"
+                                    HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ─── Firewall ─── -->
+                    <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource B11DenseCardStyle}" Margin="4,0,0,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+                                <FontIcon Glyph="&#xED63;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="Firewall" Style="{StaticResource B11SectionHeaderStyle}" Margin="0"/>
+                            </StackPanel>
+
+                            <Border Background="{StaticResource B11TertiaryBackgroundBrush}"
+                                    CornerRadius="3" Padding="8,4" Margin="0,0,0,6">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Status"
+                                               FontSize="{StaticResource B11FontSizeCaption}"
+                                               Foreground="{StaticResource B11TextSecondaryBrush}"
+                                               VerticalAlignment="Center"/>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4">
+                                        <Ellipse Width="8" Height="8" Fill="{StaticResource B11SuccessBrush}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind ViewModel.SecurityStatus.FirewallStatus, Mode=OneWay}"
+                                                   FontSize="{StaticResource B11FontSizeCaption}"
+                                                   Foreground="{StaticResource B11TextPrimaryBrush}"
+                                                   VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <CheckBox Content="Domain profile enabled"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" IsChecked="True"
+                                      Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Private profile enabled"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" IsChecked="True"
+                                      Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Public profile enabled"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" IsChecked="True"
+                                      Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Block inbound by default"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" IsChecked="True"
+                                      Margin="{StaticResource B11ItemMargin}"/>
+
+                            <Button Content="Manage Rules" Margin="0,6,0,0"
+                                    Style="{StaticResource B11CompactButtonStyle}"
+                                    HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ─── UAC ─── -->
+                    <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource B11DenseCardStyle}" Margin="0,0,4,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+                                <FontIcon Glyph="&#xE7EF;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="UAC" Style="{StaticResource B11SectionHeaderStyle}" Margin="0"/>
+                            </StackPanel>
+
+                            <Border Background="{StaticResource B11TertiaryBackgroundBrush}"
+                                    CornerRadius="3" Padding="8,4" Margin="0,0,0,6">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Level"
+                                               FontSize="{StaticResource B11FontSizeCaption}"
+                                               Foreground="{StaticResource B11TextSecondaryBrush}"
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1"
+                                               Text="{x:Bind ViewModel.SecurityStatus.UacLevel, Mode=OneWay}"
+                                               FontSize="{StaticResource B11FontSizeCaption}"
+                                               Foreground="{StaticResource B11TextPrimaryBrush}"
+                                               VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+
+                            <CheckBox Content="Enable UAC prompts"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" IsChecked="True"
+                                      Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Secure desktop dimming"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" IsChecked="True"
+                                      Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Admin approval mode"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}" IsChecked="True"
+                                      Margin="{StaticResource B11ItemMargin}"/>
+
+                            <Button Content="Configure UAC" Margin="0,6,0,0"
+                                    Style="{StaticResource B11CompactButtonStyle}"
+                                    HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ─── BitLocker ─── -->
+                    <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource B11DenseCardStyle}" Margin="4,0,0,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+                                <FontIcon Glyph="&#xE72E;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="BitLocker" Style="{StaticResource B11SectionHeaderStyle}" Margin="0"/>
+                            </StackPanel>
+
+                            <Border Background="{StaticResource B11TertiaryBackgroundBrush}"
+                                    CornerRadius="3" Padding="8,4" Margin="0,0,0,6">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Status"
+                                               FontSize="{StaticResource B11FontSizeCaption}"
+                                               Foreground="{StaticResource B11TextSecondaryBrush}"
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1"
+                                               Text="{x:Bind ViewModel.SecurityStatus.BitLockerStatus, Mode=OneWay}"
+                                               FontSize="{StaticResource B11FontSizeCaption}"
+                                               Foreground="{StaticResource B11TextPrimaryBrush}"
+                                               VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+
+                            <CheckBox Content="Encrypt OS drive"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}"
+                                      Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Encrypt data drives"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}"
+                                      Margin="{StaticResource B11ItemMargin}"/>
+                            <CheckBox Content="Require PIN at startup"
+                                      Style="{StaticResource B11DenseCheckBoxStyle}"
+                                      Margin="{StaticResource B11ItemMargin}"/>
+
+                            <Button Content="Manage BitLocker" Margin="0,6,0,0"
+                                    Style="{StaticResource B11CompactButtonStyle}"
+                                    HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ─── Exploit Protection ─── -->
+                    <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource B11DenseCardStyle}">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+                                <FontIcon Glyph="&#xE74C;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="Exploit Protection" Style="{StaticResource B11SectionHeaderStyle}" Margin="0"/>
+                            </StackPanel>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <CheckBox Content="Control Flow Guard (CFG)"
+                                              Style="{StaticResource B11DenseCheckBoxStyle}" IsChecked="True"
+                                              Margin="{StaticResource B11ItemMargin}"/>
+                                    <CheckBox Content="Data Execution Prevention (DEP)"
+                                              Style="{StaticResource B11DenseCheckBoxStyle}" IsChecked="True"
+                                              Margin="{StaticResource B11ItemMargin}"/>
+                                    <CheckBox Content="Force ASLR randomization"
+                                              Style="{StaticResource B11DenseCheckBoxStyle}" IsChecked="True"
+                                              Margin="{StaticResource B11ItemMargin}"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1">
+                                    <CheckBox Content="SEHOP"
+                                              Style="{StaticResource B11DenseCheckBoxStyle}" IsChecked="True"
+                                              Margin="{StaticResource B11ItemMargin}"/>
+                                    <CheckBox Content="Heap integrity validation"
+                                              Style="{StaticResource B11DenseCheckBoxStyle}" IsChecked="True"
+                                              Margin="{StaticResource B11ItemMargin}"/>
+                                    <CheckBox Content="Export address filtering"
+                                              Style="{StaticResource B11DenseCheckBoxStyle}"
+                                              Margin="{StaticResource B11ItemMargin}"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- ─── Issues Found ─── -->
+                <TextBlock Text="Issues Found" Style="{StaticResource B11SectionHeaderStyle}"/>
+
+                <Border Style="{StaticResource B11DenseCardStyle}">
+                    <ListView ItemsSource="{x:Bind ViewModel.Issues, Mode=OneWay}"
+                              SelectionMode="None"
+                              ItemContainerStyle="{StaticResource B11DenseListViewItemStyle}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnSpacing="8" MinHeight="{StaticResource B11RowHeight}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Ellipse Grid.Column="0" Width="8" Height="8"
+                                             Fill="{StaticResource B11WarningBrush}"
+                                             VerticalAlignment="Center"/>
+
+                                    <StackPanel Grid.Column="1" Spacing="1" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Title}"
+                                                   FontSize="{StaticResource B11FontSizeBody}"
+                                                   Foreground="{StaticResource B11TextPrimaryBrush}"
+                                                   FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding Description}"
+                                                   FontSize="{StaticResource B11FontSizeCaption}"
+                                                   Foreground="{StaticResource B11TextSecondaryBrush}"
+                                                   TextTrimming="CharacterEllipsis"/>
+                                    </StackPanel>
+
+                                    <Border Grid.Column="2" CornerRadius="3" Padding="6,2"
+                                            Background="{StaticResource B11SurfaceBackgroundBrush}"
+                                            VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Severity}"
+                                                   FontSize="{StaticResource B11FontSizeCaption}"
+                                                   Foreground="{StaticResource B11WarningBrush}"/>
+                                    </Border>
+
+                                    <Button Grid.Column="3" Content="Fix"
+                                            Style="{StaticResource B11AccentButtonStyle}"
+                                            Height="24" Padding="8,2,8,2"
+                                            FontSize="{StaticResource B11FontSizeCaption}"
+                                            VerticalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                        <ListView.Footer>
+                            <TextBlock Text="No issues detected. Run a scan to check."
+                                       FontSize="{StaticResource B11FontSizeCaption}"
+                                       Foreground="{StaticResource B11TextTertiaryBrush}"
+                                       Margin="0,6,0,6"
+                                       HorizontalAlignment="Center"/>
+                        </ListView.Footer>
+                    </ListView>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

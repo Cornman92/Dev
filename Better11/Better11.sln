@@ -1,0 +1,54 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35431.28
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Better11.Core", "src\Better11.Core\Better11.Core.csproj", "{A1B2C3D4-1111-2222-3333-444455556666}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Better11.Services", "src\Better11.Services\Better11.Services.csproj", "{A1B2C3D4-1111-2222-3333-444455557777}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Better11.ViewModels", "src\Better11.ViewModels\Better11.ViewModels.csproj", "{A1B2C3D4-1111-2222-3333-444455558888}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Better11.App", "src\Better11.App\Better11.App.csproj", "{A1B2C3D4-1111-2222-3333-444455559999}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Better11.Core.Tests", "tests\Better11.Core.Tests\Better11.Core.Tests.csproj", "{B1B2C3D4-1111-2222-3333-444455556666}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Better11.Services.Tests", "tests\Better11.Services.Tests\Better11.Services.Tests.csproj", "{B1B2C3D4-1111-2222-3333-444455557777}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Better11.ViewModels.Tests", "tests\Better11.ViewModels.Tests\Better11.ViewModels.Tests.csproj", "{B1B2C3D4-1111-2222-3333-444455558888}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1B2C3D4-1111-2222-3333-444455556666}.Debug|x64.ActiveCfg = Debug|x64
+		{A1B2C3D4-1111-2222-3333-444455556666}.Debug|x64.Build.0 = Debug|x64
+		{A1B2C3D4-1111-2222-3333-444455556666}.Release|x64.ActiveCfg = Release|x64
+		{A1B2C3D4-1111-2222-3333-444455556666}.Release|x64.Build.0 = Release|x64
+		{A1B2C3D4-1111-2222-3333-444455557777}.Debug|x64.ActiveCfg = Debug|x64
+		{A1B2C3D4-1111-2222-3333-444455557777}.Debug|x64.Build.0 = Debug|x64
+		{A1B2C3D4-1111-2222-3333-444455557777}.Release|x64.ActiveCfg = Release|x64
+		{A1B2C3D4-1111-2222-3333-444455557777}.Release|x64.Build.0 = Release|x64
+		{A1B2C3D4-1111-2222-3333-444455558888}.Debug|x64.ActiveCfg = Debug|x64
+		{A1B2C3D4-1111-2222-3333-444455558888}.Debug|x64.Build.0 = Debug|x64
+		{A1B2C3D4-1111-2222-3333-444455558888}.Release|x64.ActiveCfg = Release|x64
+		{A1B2C3D4-1111-2222-3333-444455558888}.Release|x64.Build.0 = Release|x64
+		{A1B2C3D4-1111-2222-3333-444455559999}.Debug|x64.ActiveCfg = Debug|x64
+		{A1B2C3D4-1111-2222-3333-444455559999}.Debug|x64.Build.0 = Debug|x64
+		{A1B2C3D4-1111-2222-3333-444455559999}.Release|x64.ActiveCfg = Release|x64
+		{A1B2C3D4-1111-2222-3333-444455559999}.Release|x64.Build.0 = Release|x64
+		{B1B2C3D4-1111-2222-3333-444455556666}.Debug|x64.ActiveCfg = Debug|x64
+		{B1B2C3D4-1111-2222-3333-444455556666}.Debug|x64.Build.0 = Debug|x64
+		{B1B2C3D4-1111-2222-3333-444455556666}.Release|x64.ActiveCfg = Release|x64
+		{B1B2C3D4-1111-2222-3333-444455556666}.Release|x64.Build.0 = Release|x64
+		{B1B2C3D4-1111-2222-3333-444455557777}.Debug|x64.ActiveCfg = Debug|x64
+		{B1B2C3D4-1111-2222-3333-444455557777}.Debug|x64.Build.0 = Debug|x64
+		{B1B2C3D4-1111-2222-3333-444455557777}.Release|x64.ActiveCfg = Release|x64
+		{B1B2C3D4-1111-2222-3333-444455557777}.Release|x64.Build.0 = Release|x64
+		{B1B2C3D4-1111-2222-3333-444455558888}.Debug|x64.ActiveCfg = Debug|x64
+		{B1B2C3D4-1111-2222-3333-444455558888}.Debug|x64.Build.0 = Debug|x64
+		{B1B2C3D4-1111-2222-3333-444455558888}.Release|x64.ActiveCfg = Release|x64
+		{B1B2C3D4-1111-2222-3333-444455558888}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+EndGlobal
