@@ -13,4 +13,12 @@ public record Package
     public bool HasUpdate => !string.IsNullOrEmpty(AvailableVersion) && AvailableVersion != Version;
 }
 
-public enum PackageSource { WinGet, Chocolatey, Scoop, NuGet, AppX, Msix }
+public enum PackageSource
+{
+    WinGet,
+    Chocolatey,
+    Scoop,
+    NuGet,
+    AppX,
+    Msix,
+}

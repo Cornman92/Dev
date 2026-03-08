@@ -83,18 +83,19 @@ public sealed partial class BackupRestoreViewModel : BaseViewModel
     /// <inheritdoc/>
     protected override async Task OnInitializeAsync(CancellationToken cancellationToken = default)
     {
-        await RefreshAllAsync().ConfigureAwait(false);
+        await RefreshAllCoreAsync(cancellationToken).ConfigureAwait(false);
     }
 
     /// <summary>Reloads all backup and restore data.</summary>
     [RelayCommand]
     private async Task RefreshAllAsync()
     {
-        await LoadRestorePointsAsync().ConfigureAwait(false);
-        await LoadRegistryBackupsAsync().ConfigureAwait(false);
-        await LoadFileBackupsAsync().ConfigureAwait(false);
-        await LoadSchedulesAsync().ConfigureAwait(false);
-        StatusMessage = "Backup and restore data refreshed.";
+        await SafeExecuteAsync(
+            async ct =>
+            {
+                await RefreshAllCoreAsync(ct).ConfigureAwait(false);
+            },
+            "Refreshing backup and restore data...").ConfigureAwait(false);
     }
 
     /// <summary>Creates a new system restore point.</summary>
@@ -115,7 +116,7 @@ public sealed partial class BackupRestoreViewModel : BaseViewModel
                 {
                     SetSuccess("System restore point created.");
                     RpDescription = string.Empty;
-                    await LoadRestorePointsAsync().ConfigureAwait(false);
+                    await LoadRestorePointsCoreAsync(ct).ConfigureAwait(false);
                 }
                 else
                 {
@@ -142,7 +143,7 @@ public sealed partial class BackupRestoreViewModel : BaseViewModel
                 if (result.IsSuccess)
                 {
                     SetSuccess("Registry key exported successfully.");
-                    await LoadRegistryBackupsAsync().ConfigureAwait(false);
+                    await LoadRegistryBackupsCoreAsync(ct).ConfigureAwait(false);
                 }
                 else
                 {
@@ -195,7 +196,7 @@ public sealed partial class BackupRestoreViewModel : BaseViewModel
                 if (result.IsSuccess)
                 {
                     SetSuccess("File backup created.");
-                    await LoadFileBackupsAsync().ConfigureAwait(false);
+                    await LoadFileBackupsCoreAsync(ct).ConfigureAwait(false);
                 }
                 else
                 {
@@ -222,7 +223,7 @@ public sealed partial class BackupRestoreViewModel : BaseViewModel
                 if (result.IsSuccess)
                 {
                     SetSuccess($"Backup schedule '{SchedName}' created.");
-                    await LoadSchedulesAsync().ConfigureAwait(false);
+                    await LoadSchedulesCoreAsync(ct).ConfigureAwait(false);
                 }
                 else
                 {
@@ -249,7 +250,7 @@ public sealed partial class BackupRestoreViewModel : BaseViewModel
                 if (result.IsSuccess)
                 {
                     SetSuccess($"Schedule '{name}' deleted.");
-                    await LoadSchedulesAsync().ConfigureAwait(false);
+                    await LoadSchedulesCoreAsync(ct).ConfigureAwait(false);
                 }
                 else
                 {
@@ -262,100 +263,117 @@ public sealed partial class BackupRestoreViewModel : BaseViewModel
     private async Task LoadRestorePointsAsync()
     {
         await SafeExecuteAsync(
-            async ct =>
-            {
-                var result = await _service.GetRestorePointsAsync(ct).ConfigureAwait(false);
-                if (result.IsSuccess)
-                {
-                    RunOnUIThread(() =>
-                    {
-                        RestorePoints.Clear();
-                        foreach (var r in result.Value)
-                        {
-                            RestorePoints.Add(r);
-                        }
-                    });
-                }
-                else
-                {
-                    SetErrorFromResult(result);
-                }
-            },
+            LoadRestorePointsCoreAsync,
             "Loading restore points...").ConfigureAwait(false);
     }
 
     private async Task LoadRegistryBackupsAsync()
     {
         await SafeExecuteAsync(
-            async ct =>
-            {
-                var result = await _service.GetRegistryBackupsAsync(ct).ConfigureAwait(false);
-                if (result.IsSuccess)
-                {
-                    RunOnUIThread(() =>
-                    {
-                        RegBackups.Clear();
-                        foreach (var r in result.Value)
-                        {
-                            RegBackups.Add(r);
-                        }
-                    });
-                }
-                else
-                {
-                    SetErrorFromResult(result);
-                }
-            },
+            LoadRegistryBackupsCoreAsync,
             "Loading registry backups...").ConfigureAwait(false);
     }
 
     private async Task LoadFileBackupsAsync()
     {
         await SafeExecuteAsync(
-            async ct =>
-            {
-                var result = await _service.GetFileBackupsAsync(ct).ConfigureAwait(false);
-                if (result.IsSuccess)
-                {
-                    RunOnUIThread(() =>
-                    {
-                        FileBackups.Clear();
-                        foreach (var f in result.Value)
-                        {
-                            FileBackups.Add(f);
-                        }
-                    });
-                }
-                else
-                {
-                    SetErrorFromResult(result);
-                }
-            },
+            LoadFileBackupsCoreAsync,
             "Loading file backups...").ConfigureAwait(false);
     }
 
     private async Task LoadSchedulesAsync()
     {
         await SafeExecuteAsync(
-            async ct =>
-            {
-                var result = await _service.GetSchedulesAsync(ct).ConfigureAwait(false);
-                if (result.IsSuccess)
-                {
-                    RunOnUIThread(() =>
-                    {
-                        Schedules.Clear();
-                        foreach (var s in result.Value)
-                        {
-                            Schedules.Add(s);
-                        }
-                    });
-                }
-                else
-                {
-                    SetErrorFromResult(result);
-                }
-            },
+            LoadSchedulesCoreAsync,
             "Loading backup schedules...").ConfigureAwait(false);
+    }
+
+    private async Task RefreshAllCoreAsync(CancellationToken cancellationToken)
+    {
+        await LoadRestorePointsCoreAsync(cancellationToken).ConfigureAwait(false);
+        await LoadRegistryBackupsCoreAsync(cancellationToken).ConfigureAwait(false);
+        await LoadFileBackupsCoreAsync(cancellationToken).ConfigureAwait(false);
+        await LoadSchedulesCoreAsync(cancellationToken).ConfigureAwait(false);
+        StatusMessage = "Backup and restore data refreshed.";
+    }
+
+    private async Task LoadRestorePointsCoreAsync(CancellationToken cancellationToken)
+    {
+        var result = await _service.GetRestorePointsAsync(cancellationToken).ConfigureAwait(false);
+        if (result.IsSuccess)
+        {
+            RunOnUIThread(() =>
+            {
+                RestorePoints.Clear();
+                foreach (var restorePoint in result.Value)
+                {
+                    RestorePoints.Add(restorePoint);
+                }
+            });
+        }
+        else
+        {
+            SetErrorFromResult(result);
+        }
+    }
+
+    private async Task LoadRegistryBackupsCoreAsync(CancellationToken cancellationToken)
+    {
+        var result = await _service.GetRegistryBackupsAsync(cancellationToken).ConfigureAwait(false);
+        if (result.IsSuccess)
+        {
+            RunOnUIThread(() =>
+            {
+                RegBackups.Clear();
+                foreach (var registryBackup in result.Value)
+                {
+                    RegBackups.Add(registryBackup);
+                }
+            });
+        }
+        else
+        {
+            SetErrorFromResult(result);
+        }
+    }
+
+    private async Task LoadFileBackupsCoreAsync(CancellationToken cancellationToken)
+    {
+        var result = await _service.GetFileBackupsAsync(cancellationToken).ConfigureAwait(false);
+        if (result.IsSuccess)
+        {
+            RunOnUIThread(() =>
+            {
+                FileBackups.Clear();
+                foreach (var fileBackup in result.Value)
+                {
+                    FileBackups.Add(fileBackup);
+                }
+            });
+        }
+        else
+        {
+            SetErrorFromResult(result);
+        }
+    }
+
+    private async Task LoadSchedulesCoreAsync(CancellationToken cancellationToken)
+    {
+        var result = await _service.GetSchedulesAsync(cancellationToken).ConfigureAwait(false);
+        if (result.IsSuccess)
+        {
+            RunOnUIThread(() =>
+            {
+                Schedules.Clear();
+                foreach (var schedule in result.Value)
+                {
+                    Schedules.Add(schedule);
+                }
+            });
+        }
+        else
+        {
+            SetErrorFromResult(result);
+        }
     }
 }

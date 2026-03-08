@@ -46,7 +46,7 @@ namespace Better11.App
             var logPath = Path.Combine(logDir, $"better11-{DateTime.Now:yyyyMMdd}.log");
             var jsonLogPath = Path.Combine(logDir, $"better11-{DateTime.Now:yyyyMMdd}.json");
 
-            Log.Logger = new LoggerConfiguration()
+            var loggerConfiguration = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .Enrich.FromLogContext()
                 .Enrich.WithProperty("Application", "Better11")
@@ -58,9 +58,27 @@ namespace Better11.App
                     outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {Level:u3}] [{SourceContext}] {Message:lj}{NewLine}{Exception}")
                 .WriteTo.File(new CompactJsonFormatter(), jsonLogPath,
                     rollingInterval: RollingInterval.Day,
-                    retainedFileCountLimit: 30)
-                .WriteTo.EventLog("Better11", manageEventSource: true)
-                .CreateLogger();
+                    retainedFileCountLimit: 30);
+
+            var eventLogSinkEnabled = false;
+            try
+            {
+                if (System.Diagnostics.EventLog.SourceExists("Better11"))
+                {
+                    loggerConfiguration = loggerConfiguration.WriteTo.EventLog("Better11", manageEventSource: false);
+                    eventLogSinkEnabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Better11 Event Log sink unavailable: {ex}");
+            }
+
+            Log.Logger = loggerConfiguration.CreateLogger();
+            if (!eventLogSinkEnabled)
+            {
+                Log.Warning("Windows Event Log sink disabled because the Better11 event source is unavailable.");
+            }
 
             var serviceCollection = new ServiceCollection();
 

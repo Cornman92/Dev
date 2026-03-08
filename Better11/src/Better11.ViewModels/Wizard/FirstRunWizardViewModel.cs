@@ -3,6 +3,7 @@
 namespace Better11.ViewModels.Wizard;
 
 using System.Collections.ObjectModel;
+using Better11.Core.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
@@ -13,7 +14,12 @@ using Microsoft.Extensions.Logging;
 /// </summary>
 public sealed partial class FirstRunWizardViewModel : ObservableObject
 {
+    private readonly ICustomizationCatalogService _catalogService;
+    private readonly ICustomizationExecutionService _executionService;
+    private readonly IRecipeService _recipeService;
     private readonly ILogger<FirstRunWizardViewModel> _logger;
+    private readonly List<RecipeDto> _recipeTemplates = new();
+    private RecipeDto? _selectedRecipeTemplate;
 
     [ObservableProperty]
     private int _currentStep;
@@ -58,6 +64,9 @@ public sealed partial class FirstRunWizardViewModel : ObservableObject
     private string _selectedPreset = "Balanced";
 
     [ObservableProperty]
+    private PresetOption? _selectedPresetOption;
+
+    [ObservableProperty]
     private string _systemSummary = string.Empty;
 
     [ObservableProperty]
@@ -99,20 +108,28 @@ public sealed partial class FirstRunWizardViewModel : ObservableObject
     /// <summary>
     /// Initializes a new instance of the <see cref="FirstRunWizardViewModel"/> class.
     /// </summary>
-    /// <param name="logger">The logger instance.</param>
-    public FirstRunWizardViewModel(ILogger<FirstRunWizardViewModel> logger)
+    public FirstRunWizardViewModel(
+        ICustomizationCatalogService catalogService,
+        ICustomizationExecutionService executionService,
+        IRecipeService recipeService,
+        ILogger<FirstRunWizardViewModel> logger)
     {
-        _logger = logger;
+        _catalogService = catalogService ?? throw new ArgumentNullException(nameof(catalogService));
+        _executionService = executionService ?? throw new ArgumentNullException(nameof(executionService));
+        _recipeService = recipeService ?? throw new ArgumentNullException(nameof(recipeService));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
         Presets = new ObservableCollection<PresetOption>
         {
-            new("Gaming", "\uE7FC", "Maximize FPS, disable visual effects, optimize GPU/CPU, disable telemetry, debloat"),
-            new("Developer", "\uE943", "Dev tools, package managers, Git config, WSL, PowerShell modules, no bloatware"),
-            new("Privacy", "\uE72E", "Maximum privacy, disable telemetry/tracking/ads, harden security, minimal data collection"),
-            new("Balanced", "\uE9D5", "Sensible defaults — performance + privacy + usability balance"),
-            new("Minimal", "\uE74C", "Only essential tweaks — safe for any system, no aggressive changes"),
+            new("Gaming", "\uE7FC", "FPS-oriented baseline with gaming, cleanup, startup, and privacy items queued."),
+            new("Developer", "\uE943", "Workstation setup focused on productivity, privacy, and reduced background noise."),
+            new("Privacy", "\uE72E", "Aggressive privacy and security configuration with telemetry-reduction defaults."),
+            new("Balanced", "\uE9D5", "Recommended mixed preset that balances performance, privacy, and usability."),
+            new("Minimal", "\uE74C", "Conservative starting point with low-risk items only."),
         };
 
         Modules = new ObservableCollection<WizardModule>();
+        SelectedPresetOption = Presets.FirstOrDefault(option => option.Name == SelectedPreset) ?? Presets.FirstOrDefault();
     }
 
     /// <summary>
@@ -145,7 +162,7 @@ public sealed partial class FirstRunWizardViewModel : ObservableObject
         }
         else if (CurrentStep == 3)
         {
-            PopulateModulesForPreset();
+            await PopulateModulesForPresetAsync(cancellationToken).ConfigureAwait(true);
         }
         else if (CurrentStep == 4)
         {
@@ -178,15 +195,29 @@ public sealed partial class FirstRunWizardViewModel : ObservableObject
         _logger.LogInformation("First Run Wizard skipped by user");
     }
 
+    partial void OnSelectedPresetOptionChanged(PresetOption? value)
+    {
+        if (value is null)
+        {
+            return;
+        }
+
+        SelectedPreset = value.Name;
+        if (CurrentStep >= 3)
+        {
+            _ = PopulateModulesForPresetAsync(CancellationToken.None);
+        }
+    }
+
     private void UpdateStepState()
     {
         (StepTitle, StepDescription, NextButtonText) = CurrentStep switch
         {
             0 => ("Welcome", "Welcome to Better11 System Enhancement Suite", "Get Started"),
             1 => ("System Scan", "Analyzing your system configuration...", "Next"),
-            2 => ("Quick Config", "Choose a preset that matches your usage", "Next"),
-            3 => ("Module Selection", "Fine-tune which modules to enable", "Apply"),
-            4 => ("Applying", "Applying your selections...", ""),
+            2 => ("Quick Config", "Choose a recipe template that matches your usage", "Next"),
+            3 => ("Module Selection", "Adjust the recipe-backed customization catalog before applying", "Apply"),
+            4 => ("Applying", "Applying your selections...", string.Empty),
             5 => ("Complete", "Better11 is configured and ready!", "Finish"),
             _ => ("Unknown", string.Empty, "Next"),
         };
@@ -200,10 +231,11 @@ public sealed partial class FirstRunWizardViewModel : ObservableObject
         IsScanning = true;
         ScanProgress = 0;
         ScanStatus = "Detecting hardware...";
+        HasError = false;
+        ErrorMessage = string.Empty;
 
         try
         {
-            // Simulate scan steps with progress
             var steps = new[]
             {
                 ("Detecting OS version...", 15.0),
@@ -223,7 +255,6 @@ public sealed partial class FirstRunWizardViewModel : ObservableObject
                 await Task.Delay(300, cancellationToken).ConfigureAwait(true);
             }
 
-            // Populate detected info (in production, these come from SystemInfoService)
             OsVersion = Environment.OSVersion.VersionString;
             CpuName = Environment.GetEnvironmentVariable("PROCESSOR_IDENTIFIER") ?? "Unknown CPU";
             RamAmount = $"{GC.GetGCMemoryInfo().TotalAvailableMemoryBytes / (1024 * 1024 * 1024)} GB";
@@ -251,72 +282,140 @@ public sealed partial class FirstRunWizardViewModel : ObservableObject
         }
     }
 
-    private void PopulateModulesForPreset()
+    private async Task PopulateModulesForPresetAsync(CancellationToken cancellationToken)
     {
+        HasError = false;
+        ErrorMessage = string.Empty;
         Modules.Clear();
 
-        var allModules = new (string Name, string Category, string Description, bool DefaultOn)[]
+        var recipesResult = await _recipeService.GetBuiltInRecipesAsync(cancellationToken).ConfigureAwait(true);
+        if (recipesResult.IsFailure || recipesResult.Value is null)
         {
-            ("System Optimization", "Performance", "CPU, memory, and I/O tweaks", true),
-            ("Visual Effects", "Performance", "Disable animations and transparency", false),
-            ("Gaming Tweaks", "Performance", "GPU scheduling, game mode, power plan", false),
-            ("Disk Cleanup", "Maintenance", "Remove temp files, caches, logs", true),
-            ("Startup Manager", "Maintenance", "Disable unnecessary startup items", true),
-            ("Scheduled Tasks", "Maintenance", "Disable telemetry and bloat tasks", true),
-            ("Privacy Tweaks", "Privacy", "Disable tracking, ads, telemetry", true),
-            ("Security Hardening", "Security", "Firewall, UAC, exploit protection", true),
-            ("Network Optimization", "Network", "DNS, TCP/IP, adapter settings", false),
-            ("Package Manager", "Software", "Install/remove packages via winget", true),
-            ("Driver Manager", "Hardware", "Update and backup drivers", true),
-            ("Windows Update", "System", "Configure update policies", false),
-            ("Appearance", "Customization", "Theme, taskbar, Start menu tweaks", false),
-            ("RAM Disk", "Advanced", "Create RAM disks for temp/cache", false),
-        };
-
-        foreach (var (name, category, description, defaultOn) in allModules)
-        {
-            var isSelected = SelectedPreset switch
-            {
-                "Gaming" => category is "Performance" or "Maintenance" || name == "Privacy Tweaks",
-                "Developer" => category is "Software" or "Maintenance" || name is "Network Optimization" or "Privacy Tweaks",
-                "Privacy" => category is "Privacy" or "Security" || name is "Startup Manager" or "Scheduled Tasks",
-                "Balanced" => defaultOn,
-                "Minimal" => name is "System Optimization" or "Disk Cleanup" or "Startup Manager",
-                _ => defaultOn,
-            };
-
-            Modules.Add(new WizardModule(name, category, description, isSelected));
+            HasError = true;
+            ErrorMessage = $"Failed to load preset recipes: {recipesResult.Error?.Message}";
+            return;
         }
 
-        SelectedModuleCount = Modules.Count(m => m.IsSelected);
+        _recipeTemplates.Clear();
+        _recipeTemplates.AddRange(recipesResult.Value);
+        _selectedRecipeTemplate = _recipeTemplates.FirstOrDefault(recipe =>
+                string.Equals(recipe.Name, SelectedPreset, StringComparison.OrdinalIgnoreCase))
+            ?? _recipeTemplates.FirstOrDefault(recipe =>
+                string.Equals(recipe.Name, "Balanced", StringComparison.OrdinalIgnoreCase))
+            ?? _recipeTemplates.FirstOrDefault();
+
+        if (_selectedRecipeTemplate is null)
+        {
+            HasError = true;
+            ErrorMessage = "No built-in preset recipes are available.";
+            return;
+        }
+
+        var catalogResult = await _catalogService.GetCatalogAsync(
+            _selectedRecipeTemplate.TargetKind,
+            _selectedRecipeTemplate.SafetyTier,
+            cancellationToken).ConfigureAwait(true);
+
+        if (catalogResult.IsFailure || catalogResult.Value is null)
+        {
+            HasError = true;
+            ErrorMessage = $"Failed to load customization catalog: {catalogResult.Error?.Message}";
+            return;
+        }
+
+        var selectedItemIds = _selectedRecipeTemplate.Items
+            .Where(item => item.Enabled)
+            .Select(item => item.ItemId)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        foreach (var item in catalogResult.Value
+                     .SelectMany(category => category.Items)
+                     .OrderBy(item => item.CategoryTitle, StringComparer.OrdinalIgnoreCase)
+                     .ThenBy(item => item.Title, StringComparer.OrdinalIgnoreCase))
+        {
+            var module = new WizardModule(
+                item.Id,
+                item.Title,
+                item.CategoryTitle,
+                item.Description,
+                selectedItemIds.Contains(item.Id),
+                item.RiskLabel,
+                item.SafetyTier.ToString());
+
+            module.PropertyChanged += OnModulePropertyChanged;
+            Modules.Add(module);
+        }
+
+        UpdateSelectedModuleCount();
     }
 
     private async Task ApplySelectionsAsync(CancellationToken cancellationToken)
     {
         IsApplying = true;
         CanGoNext = false;
-        var selected = Modules.Where(m => m.IsSelected).ToList();
-        TotalToApply = selected.Count;
         AppliedCount = 0;
         ApplyProgress = 0;
+        HasError = false;
+        ErrorMessage = string.Empty;
 
         try
         {
-            foreach (var module in selected)
+            var selectedItemIds = Modules
+                .Where(module => module.IsSelected)
+                .Select(module => module.ItemId)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
+            if (selectedItemIds.Count == 0)
             {
-                cancellationToken.ThrowIfCancellationRequested();
-                ApplyStatus = $"Applying {module.Name}...";
-                // In production, invoke the corresponding PowerShell service
-                await Task.Delay(500, cancellationToken).ConfigureAwait(true);
-                AppliedCount++;
-                ApplyProgress = (double)AppliedCount / TotalToApply * 100;
+                ApplyStatus = "No customization items selected";
+                return;
             }
 
-            ApplyStatus = "All selections applied successfully";
+            var targetKind = _selectedRecipeTemplate?.TargetKind ?? CustomizationTargetKind.LiveSystem;
+            var safetyTier = _selectedRecipeTemplate?.SafetyTier ?? SafetyTier.Advanced;
+
+            ApplyStatus = "Building execution plan...";
+            ApplyProgress = 20;
+
+            var planResult = await _executionService.BuildExecutionPlanAsync(
+                selectedItemIds,
+                targetKind,
+                safetyTier,
+                cancellationToken).ConfigureAwait(true);
+
+            if (planResult.IsFailure || planResult.Value is null)
+            {
+                HasError = true;
+                ErrorMessage = $"Failed to build plan: {planResult.Error?.Message}";
+                return;
+            }
+
+            TotalToApply = planResult.Value.ResolvedItems.Count;
+            ApplyStatus = "Applying customization recipe...";
+            ApplyProgress = 55;
+
+            var executeResult = await _executionService.ExecutePlanAsync(planResult.Value, cancellationToken)
+                .ConfigureAwait(true);
+
+            if (executeResult.IsFailure || executeResult.Value is null)
+            {
+                HasError = true;
+                ErrorMessage = $"Apply failed: {executeResult.Error?.Message}";
+                return;
+            }
+
+            AppliedCount = executeResult.Value.AppliedItemIds.Count;
+            ApplyProgress = 100;
+            ApplyStatus = executeResult.Value.LogSummary;
             CurrentStep = 5;
             IsComplete = true;
             UpdateStepState();
-            _logger.LogInformation("First Run Wizard completed. Applied {Count} modules with preset {Preset}", selected.Count, SelectedPreset);
+
+            _logger.LogInformation(
+                "First Run Wizard completed. Applied {Count} customization items with preset {Preset}",
+                AppliedCount,
+                SelectedPreset);
         }
         catch (OperationCanceledException)
         {
@@ -334,14 +433,24 @@ public sealed partial class FirstRunWizardViewModel : ObservableObject
             CanGoNext = true;
         }
     }
+
+    private void OnModulePropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (string.Equals(e.PropertyName, nameof(WizardModule.IsSelected), StringComparison.Ordinal))
+        {
+            UpdateSelectedModuleCount();
+        }
+    }
+
+    private void UpdateSelectedModuleCount()
+    {
+        SelectedModuleCount = Modules.Count(module => module.IsSelected);
+    }
 }
 
 /// <summary>
 /// Represents a wizard preset option.
 /// </summary>
-/// <param name="Name">The preset name.</param>
-/// <param name="Icon">The icon glyph.</param>
-/// <param name="Description">The preset description.</param>
 public sealed record PresetOption(string Name, string Icon, string Description);
 
 /// <summary>
@@ -355,13 +464,26 @@ public sealed partial class WizardModule : ObservableObject
     /// <summary>
     /// Initializes a new instance of the <see cref="WizardModule"/> class.
     /// </summary>
-    public WizardModule(string name, string category, string description, bool isSelected)
+    public WizardModule(
+        string itemId,
+        string name,
+        string category,
+        string description,
+        bool isSelected,
+        string riskLabel,
+        string safetyTier)
     {
+        ItemId = itemId;
         Name = name;
         Category = category;
         Description = description;
         IsSelected = isSelected;
+        RiskLabel = riskLabel;
+        SafetyTier = safetyTier;
     }
+
+    /// <summary>Gets the catalog item identifier.</summary>
+    public string ItemId { get; }
 
     /// <summary>Gets the module name.</summary>
     public string Name { get; }
@@ -371,4 +493,10 @@ public sealed partial class WizardModule : ObservableObject
 
     /// <summary>Gets the module description.</summary>
     public string Description { get; }
+
+    /// <summary>Gets the risk label.</summary>
+    public string RiskLabel { get; }
+
+    /// <summary>Gets the safety tier.</summary>
+    public string SafetyTier { get; }
 }

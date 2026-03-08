@@ -13,4 +13,11 @@ public record Driver
     public bool HasUpdate => !string.IsNullOrEmpty(AvailableVersion) && AvailableVersion != DriverVersion;
 }
 
-public enum DriverStatus { OK, Degraded, Error, Unknown, Disabled }
+public enum DriverStatus
+{
+    OK,
+    Degraded,
+    Error,
+    Unknown,
+    Disabled,
+}

@@ -6,6 +6,10 @@
 
 using Better11.App.Navigation;
 using Better11.Core.Interfaces;
+using Better11.Services.Analytics;
+using Better11.Services.AppUpdate;
+using Better11.Services.BackupRestore;
+using Better11.Services.Customization;
 using Better11.Services.DiskCleanup;
 using Better11.Services.Driver;
 using Better11.Services.Network;
@@ -15,16 +19,14 @@ using Better11.Services.PowerShell;
 using Better11.Services.Privacy;
 using Better11.Services.ScheduledTask;
 using Better11.Services.Security;
+using Better11.Services.Settings;
 using Better11.Services.Startup;
 using Better11.Services.SystemInfo;
-using Better11.Services.Analytics;
-using Better11.Services.AppUpdate;
-using Better11.Services.Settings;
 using Better11.Services.Update;
-using Better11.Services.BackupRestore;
 using Better11.Services.UserAccount;
 using Better11.ViewModels.About;
 using Better11.ViewModels.BackupRestore;
+using Better11.ViewModels.Customization;
 using Better11.ViewModels.Dashboard;
 using Better11.ViewModels.DiskCleanup;
 using Better11.ViewModels.Driver;
@@ -39,6 +41,7 @@ using Better11.ViewModels.Startup;
 using Better11.ViewModels.SystemInfo;
 using Better11.ViewModels.Update;
 using Better11.ViewModels.UserAccount;
+using Better11.ViewModels.Wizard;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -78,6 +81,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IAppUpdateService, AppUpdateService>();
         services.AddSingleton<IBackupRestoreService, BackupRestoreService>();
         services.AddSingleton<IUserAccountService, UserAccountService>();
+        services.AddSingleton<ICustomizationCatalogService, CustomizationCatalogService>();
+        services.AddSingleton<ICustomizationExecutionService, CustomizationExecutionService>();
+        services.AddSingleton<IRecipeService, RecipeService>();
+        services.AddSingleton<IImageServicingService, ImageServicingService>();
 
         // Navigation
         services.AddSingleton<NavigationService>();
@@ -86,6 +93,7 @@ public static class ServiceCollectionExtensions
 
         // ViewModels
         services.AddTransient<DashboardViewModel>();
+        services.AddTransient<CustomizationStudioViewModel>();
         services.AddTransient<PackageViewModel>();
         services.AddTransient<DriverViewModel>();
         services.AddTransient<StartupViewModel>();
@@ -101,6 +109,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<AboutViewModel>();
         services.AddTransient<BackupRestoreViewModel>();
         services.AddTransient<UserAccountViewModel>();
+        services.AddTransient<FirstRunWizardViewModel>();
 
         return services;
     }

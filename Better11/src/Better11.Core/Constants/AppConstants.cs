@@ -100,6 +100,9 @@ namespace Better11.Core.Constants
             /// <summary>Optimization page key.</summary>
             public const string Optimization = "Optimization";
 
+            /// <summary>Customization studio page key.</summary>
+            public const string CustomizationStudio = "CustomizationStudio";
+
             /// <summary>Privacy page key.</summary>
             public const string Privacy = "Privacy";
 

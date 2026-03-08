@@ -5,10 +5,9 @@
 // ============================================================================
 
 using System.Collections.ObjectModel;
+using Better11.Core.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Better11.Core.Interfaces;
-using Better11.ViewModels.Base;
 using Microsoft.Extensions.Logging;
 
 namespace Better11.ViewModels.Update;

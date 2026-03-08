@@ -141,7 +141,13 @@ function Enable-B11ScheduledTask {
                   elseif ($task.Delay.TotalMilliseconds -gt 0) { [int]$task.Delay.TotalMilliseconds }
                   else { 60000 }
 
-    $dueTime = if ($task.Delay.TotalMilliseconds -gt 0) { [int]$task.Delay.TotalMilliseconds } else { 0 }
+    $dueTime = if ($task.Delay.TotalMilliseconds -gt 0) {
+        [int]$task.Delay.TotalMilliseconds
+    } elseif ($StartImmediately) {
+        0
+    } else {
+        $intervalMs
+    }
     $period = if ($task.Interval.TotalMilliseconds -gt 0) { $intervalMs } else { [Timeout]::Infinite }
 
     $timer = [Timer]::new($callback, $Name, $dueTime, $period)

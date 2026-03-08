@@ -28,6 +28,15 @@ public static class SettingsConstants
     /// <summary>Key for the list of applied optimization modules.</summary>
     public const string AppliedModules = "AppliedModules";
 
+    /// <summary>Key for the last selected customization safety tier.</summary>
+    public const string CustomizationSafetyTier = "CustomizationSafetyTier";
+
+    /// <summary>Key for the last selected customization target.</summary>
+    public const string CustomizationTarget = "CustomizationTarget";
+
+    /// <summary>Key for the last selected customization recipe identifier.</summary>
+    public const string SelectedCustomizationRecipe = "SelectedCustomizationRecipe";
+
     /// <summary>Key indicating whether anonymous usage telemetry is enabled (opt-in).</summary>
     public const string Telemetry = "Telemetry";
 }

@@ -93,47 +93,26 @@ public sealed partial class UserAccountViewModel : BaseViewModel
     /// <inheritdoc/>
     protected override async Task OnInitializeAsync(CancellationToken cancellationToken = default)
     {
-        await LoadAllAsync().ConfigureAwait(false);
+        await LoadAllCoreAsync(cancellationToken).ConfigureAwait(false);
     }
 
     /// <summary>Reloads accounts, groups, and sessions sequentially.</summary>
     [RelayCommand]
     private async Task LoadAllAsync()
     {
-        await LoadAccountsAsync().ConfigureAwait(false);
-        await LoadGroupsAsync().ConfigureAwait(false);
-        await LoadSessionsAsync().ConfigureAwait(false);
-        await LoadProfilesAsync().ConfigureAwait(false);
-        await LoadPolicyAsync().ConfigureAwait(false);
-        await LoadAutoLoginAsync().ConfigureAwait(false);
+        await SafeExecuteAsync(
+            async ct =>
+            {
+                await LoadAllCoreAsync(ct).ConfigureAwait(false);
+            },
+            "Loading user account data...").ConfigureAwait(false);
     }
 
     [RelayCommand]
     private async Task LoadAccountsAsync()
     {
         await SafeExecuteAsync(
-            async ct =>
-            {
-                var result = await _service.GetLocalAccountsAsync(ct).ConfigureAwait(false);
-                if (result.IsSuccess)
-                {
-                    RunOnUIThread(() =>
-                    {
-                        Accounts.Clear();
-                        foreach (var a in result.Value)
-                        {
-                            Accounts.Add(a);
-                        }
-
-                        AccountCount = Accounts.Count;
-                    });
-                    StatusMessage = $"Loaded {Accounts.Count} account(s).";
-                }
-                else
-                {
-                    SetErrorFromResult(result);
-                }
-            },
+            LoadAccountsCoreAsync,
             "Loading local accounts...").ConfigureAwait(false);
     }
 
@@ -141,25 +120,7 @@ public sealed partial class UserAccountViewModel : BaseViewModel
     private async Task LoadGroupsAsync()
     {
         await SafeExecuteAsync(
-            async ct =>
-            {
-                var result = await _service.GetLocalGroupsAsync(ct).ConfigureAwait(false);
-                if (result.IsSuccess)
-                {
-                    RunOnUIThread(() =>
-                    {
-                        Groups.Clear();
-                        foreach (var g in result.Value)
-                        {
-                            Groups.Add(g);
-                        }
-                    });
-                }
-                else
-                {
-                    SetErrorFromResult(result);
-                }
-            },
+            LoadGroupsCoreAsync,
             "Loading local groups...").ConfigureAwait(false);
     }
 
@@ -167,25 +128,7 @@ public sealed partial class UserAccountViewModel : BaseViewModel
     private async Task LoadSessionsAsync()
     {
         await SafeExecuteAsync(
-            async ct =>
-            {
-                var result = await _service.GetUserSessionsAsync(ct).ConfigureAwait(false);
-                if (result.IsSuccess)
-                {
-                    RunOnUIThread(() =>
-                    {
-                        Sessions.Clear();
-                        foreach (var s in result.Value)
-                        {
-                            Sessions.Add(s);
-                        }
-                    });
-                }
-                else
-                {
-                    SetErrorFromResult(result);
-                }
-            },
+            LoadSessionsCoreAsync,
             "Loading active sessions...").ConfigureAwait(false);
     }
 
@@ -193,25 +136,7 @@ public sealed partial class UserAccountViewModel : BaseViewModel
     private async Task LoadProfilesAsync()
     {
         await SafeExecuteAsync(
-            async ct =>
-            {
-                var result = await _service.GetUserProfilesAsync(ct).ConfigureAwait(false);
-                if (result.IsSuccess)
-                {
-                    RunOnUIThread(() =>
-                    {
-                        Profiles.Clear();
-                        foreach (var p in result.Value)
-                        {
-                            Profiles.Add(p);
-                        }
-                    });
-                }
-                else
-                {
-                    SetErrorFromResult(result);
-                }
-            },
+            LoadProfilesCoreAsync,
             "Loading user profiles...").ConfigureAwait(false);
     }
 
@@ -219,21 +144,7 @@ public sealed partial class UserAccountViewModel : BaseViewModel
     private async Task LoadPolicyAsync()
     {
         await SafeExecuteAsync(
-            async ct =>
-            {
-                var result = await _service.GetPasswordPolicyAsync(ct).ConfigureAwait(false);
-                if (result.IsSuccess)
-                {
-                    PolicyMinLength = result.Value.MinLength;
-                    PolicyMaxAge = result.Value.MaxAgeDays;
-                    PolicyComplexity = result.Value.ComplexityEnabled;
-                    LockoutThreshold = result.Value.LockoutThreshold;
-                }
-                else
-                {
-                    SetErrorFromResult(result);
-                }
-            },
+            LoadPolicyCoreAsync,
             "Loading password policy...").ConfigureAwait(false);
     }
 
@@ -241,19 +152,7 @@ public sealed partial class UserAccountViewModel : BaseViewModel
     private async Task LoadAutoLoginAsync()
     {
         await SafeExecuteAsync(
-            async ct =>
-            {
-                var result = await _service.GetAutoLoginAsync(ct).ConfigureAwait(false);
-                if (result.IsSuccess)
-                {
-                    AutoLoginEnabled = result.Value.Enabled;
-                    AutoLoginUser = result.Value.Username ?? string.Empty;
-                }
-                else
-                {
-                    SetErrorFromResult(result);
-                }
-            },
+            LoadAutoLoginCoreAsync,
             "Loading auto-login config...").ConfigureAwait(false);
     }
 
@@ -273,7 +172,7 @@ public sealed partial class UserAccountViewModel : BaseViewModel
                 if (result.IsSuccess)
                 {
                     SetSuccess($"Account '{NewUsername}' created successfully.");
-                    await LoadAccountsAsync().ConfigureAwait(false);
+                    await LoadAccountsCoreAsync(ct).ConfigureAwait(false);
                     NewUsername = string.Empty;
                     NewPassword = string.Empty;
                     NewFullName = string.Empty;
@@ -301,7 +200,7 @@ public sealed partial class UserAccountViewModel : BaseViewModel
                 if (result.IsSuccess)
                 {
                     SetSuccess($"Account '{username}' deleted.");
-                    await LoadAccountsAsync().ConfigureAwait(false);
+                    await LoadAccountsCoreAsync(ct).ConfigureAwait(false);
                 }
                 else
                 {
@@ -333,7 +232,7 @@ public sealed partial class UserAccountViewModel : BaseViewModel
                 if (result.IsSuccess)
                 {
                     SetSuccess($"Account '{username}' {(newState ? "enabled" : "disabled")}.");
-                    await LoadAccountsAsync().ConfigureAwait(false);
+                    await LoadAccountsCoreAsync(ct).ConfigureAwait(false);
                 }
                 else
                 {
@@ -352,25 +251,7 @@ public sealed partial class UserAccountViewModel : BaseViewModel
         }
 
         await SafeExecuteAsync(
-            async ct =>
-            {
-                var result = await _service.GetGroupMembersAsync(groupName, ct).ConfigureAwait(false);
-                if (result.IsSuccess)
-                {
-                    RunOnUIThread(() =>
-                    {
-                        GroupMembers.Clear();
-                        foreach (var m in result.Value)
-                        {
-                            GroupMembers.Add(m);
-                        }
-                    });
-                }
-                else
-                {
-                    SetErrorFromResult(result);
-                }
-            },
+            ct => LoadGroupMembersCoreAsync(groupName, ct),
             $"Loading members for {groupName}...").ConfigureAwait(false);
     }
 
@@ -389,7 +270,7 @@ public sealed partial class UserAccountViewModel : BaseViewModel
                 if (result.IsSuccess)
                 {
                     SetSuccess($"User '{MemberUsername}' added to group '{SelectedGroup.Name}'.");
-                    await LoadGroupMembersAsync(SelectedGroup.Name).ConfigureAwait(false);
+                    await LoadGroupMembersCoreAsync(SelectedGroup.Name, ct).ConfigureAwait(false);
                     MemberUsername = string.Empty;
                 }
                 else
@@ -415,7 +296,7 @@ public sealed partial class UserAccountViewModel : BaseViewModel
                 if (result.IsSuccess)
                 {
                     SetSuccess($"User '{username}' removed from group '{SelectedGroup.Name}'.");
-                    await LoadGroupMembersAsync(SelectedGroup.Name).ConfigureAwait(false);
+                    await LoadGroupMembersCoreAsync(SelectedGroup.Name, ct).ConfigureAwait(false);
                 }
                 else
                 {
@@ -435,7 +316,7 @@ public sealed partial class UserAccountViewModel : BaseViewModel
                 if (result.IsSuccess)
                 {
                     SetSuccess("Password policy updated.");
-                    await LoadPolicyAsync().ConfigureAwait(false);
+                    await LoadPolicyCoreAsync(ct).ConfigureAwait(false);
                 }
                 else
                 {
@@ -455,7 +336,7 @@ public sealed partial class UserAccountViewModel : BaseViewModel
                 if (result.IsSuccess)
                 {
                     SetSuccess("Auto-login enabled.");
-                    await LoadAutoLoginAsync().ConfigureAwait(false);
+                    await LoadAutoLoginCoreAsync(ct).ConfigureAwait(false);
                     AutoLoginPass = string.Empty;
                 }
                 else
@@ -476,7 +357,7 @@ public sealed partial class UserAccountViewModel : BaseViewModel
                 if (result.IsSuccess)
                 {
                     SetSuccess("Auto-login disabled.");
-                    await LoadAutoLoginAsync().ConfigureAwait(false);
+                    await LoadAutoLoginCoreAsync(ct).ConfigureAwait(false);
                 }
                 else
                 {
@@ -490,25 +371,7 @@ public sealed partial class UserAccountViewModel : BaseViewModel
     private async Task LoadAuditAsync()
     {
         await SafeExecuteAsync(
-            async ct =>
-            {
-                var result = await _service.GetSecurityAuditAsync(100, ct).ConfigureAwait(false);
-                if (result.IsSuccess)
-                {
-                    RunOnUIThread(() =>
-                    {
-                        AuditEvents.Clear();
-                        foreach (var e in result.Value)
-                        {
-                            AuditEvents.Add(e);
-                        }
-                    });
-                }
-                else
-                {
-                    SetErrorFromResult(result);
-                }
-            },
+            LoadAuditCoreAsync,
             "Loading security audit...").ConfigureAwait(false);
     }
 
@@ -522,7 +385,7 @@ public sealed partial class UserAccountViewModel : BaseViewModel
                 if (result.IsSuccess)
                 {
                     SetSuccess($"Session {sessionId} logged off.");
-                    await LoadSessionsAsync().ConfigureAwait(false);
+                    await LoadSessionsCoreAsync(ct).ConfigureAwait(false);
                 }
                 else
                 {
@@ -530,5 +393,168 @@ public sealed partial class UserAccountViewModel : BaseViewModel
                 }
             },
             $"Logging off session {sessionId}...").ConfigureAwait(false);
+    }
+
+    private async Task LoadAllCoreAsync(CancellationToken cancellationToken)
+    {
+        await LoadAccountsCoreAsync(cancellationToken).ConfigureAwait(false);
+        await LoadGroupsCoreAsync(cancellationToken).ConfigureAwait(false);
+        await LoadSessionsCoreAsync(cancellationToken).ConfigureAwait(false);
+        await LoadProfilesCoreAsync(cancellationToken).ConfigureAwait(false);
+        await LoadPolicyCoreAsync(cancellationToken).ConfigureAwait(false);
+        await LoadAutoLoginCoreAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task LoadAccountsCoreAsync(CancellationToken cancellationToken)
+    {
+        var result = await _service.GetLocalAccountsAsync(cancellationToken).ConfigureAwait(false);
+        if (result.IsSuccess)
+        {
+            RunOnUIThread(() =>
+            {
+                Accounts.Clear();
+                foreach (var account in result.Value)
+                {
+                    Accounts.Add(account);
+                }
+
+                AccountCount = Accounts.Count;
+            });
+            StatusMessage = $"Loaded {Accounts.Count} account(s).";
+        }
+        else
+        {
+            SetErrorFromResult(result);
+        }
+    }
+
+    private async Task LoadGroupsCoreAsync(CancellationToken cancellationToken)
+    {
+        var result = await _service.GetLocalGroupsAsync(cancellationToken).ConfigureAwait(false);
+        if (result.IsSuccess)
+        {
+            RunOnUIThread(() =>
+            {
+                Groups.Clear();
+                foreach (var group in result.Value)
+                {
+                    Groups.Add(group);
+                }
+            });
+        }
+        else
+        {
+            SetErrorFromResult(result);
+        }
+    }
+
+    private async Task LoadSessionsCoreAsync(CancellationToken cancellationToken)
+    {
+        var result = await _service.GetUserSessionsAsync(cancellationToken).ConfigureAwait(false);
+        if (result.IsSuccess)
+        {
+            RunOnUIThread(() =>
+            {
+                Sessions.Clear();
+                foreach (var session in result.Value)
+                {
+                    Sessions.Add(session);
+                }
+            });
+        }
+        else
+        {
+            SetErrorFromResult(result);
+        }
+    }
+
+    private async Task LoadProfilesCoreAsync(CancellationToken cancellationToken)
+    {
+        var result = await _service.GetUserProfilesAsync(cancellationToken).ConfigureAwait(false);
+        if (result.IsSuccess)
+        {
+            RunOnUIThread(() =>
+            {
+                Profiles.Clear();
+                foreach (var profile in result.Value)
+                {
+                    Profiles.Add(profile);
+                }
+            });
+        }
+        else
+        {
+            SetErrorFromResult(result);
+        }
+    }
+
+    private async Task LoadPolicyCoreAsync(CancellationToken cancellationToken)
+    {
+        var result = await _service.GetPasswordPolicyAsync(cancellationToken).ConfigureAwait(false);
+        if (result.IsSuccess)
+        {
+            PolicyMinLength = result.Value.MinLength;
+            PolicyMaxAge = result.Value.MaxAgeDays;
+            PolicyComplexity = result.Value.ComplexityEnabled;
+            LockoutThreshold = result.Value.LockoutThreshold;
+        }
+        else
+        {
+            SetErrorFromResult(result);
+        }
+    }
+
+    private async Task LoadAutoLoginCoreAsync(CancellationToken cancellationToken)
+    {
+        var result = await _service.GetAutoLoginAsync(cancellationToken).ConfigureAwait(false);
+        if (result.IsSuccess)
+        {
+            AutoLoginEnabled = result.Value.Enabled;
+            AutoLoginUser = result.Value.Username ?? string.Empty;
+        }
+        else
+        {
+            SetErrorFromResult(result);
+        }
+    }
+
+    private async Task LoadGroupMembersCoreAsync(string groupName, CancellationToken cancellationToken)
+    {
+        var result = await _service.GetGroupMembersAsync(groupName, cancellationToken).ConfigureAwait(false);
+        if (result.IsSuccess)
+        {
+            RunOnUIThread(() =>
+            {
+                GroupMembers.Clear();
+                foreach (var member in result.Value)
+                {
+                    GroupMembers.Add(member);
+                }
+            });
+        }
+        else
+        {
+            SetErrorFromResult(result);
+        }
+    }
+
+    private async Task LoadAuditCoreAsync(CancellationToken cancellationToken)
+    {
+        var result = await _service.GetSecurityAuditAsync(100, cancellationToken).ConfigureAwait(false);
+        if (result.IsSuccess)
+        {
+            RunOnUIThread(() =>
+            {
+                AuditEvents.Clear();
+                foreach (var auditEvent in result.Value)
+                {
+                    AuditEvents.Add(auditEvent);
+                }
+            });
+        }
+        else
+        {
+            SetErrorFromResult(result);
+        }
     }
 }

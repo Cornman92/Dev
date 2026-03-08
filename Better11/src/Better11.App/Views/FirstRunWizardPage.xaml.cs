@@ -15,7 +15,9 @@ public sealed partial class FirstRunWizardPage : Page
     /// </summary>
     public FirstRunWizardPage()
     {
+        ViewModel = App.GetService<FirstRunWizardViewModel>();
         this.InitializeComponent();
+        DataContext = ViewModel;
     }
 
     /// <summary>

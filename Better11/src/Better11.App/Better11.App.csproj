@@ -10,6 +10,9 @@
     <Platforms>x64</Platforms>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
+    <WindowsPackageType Condition="'$(GenerateAppxPackageOnBuild)' == 'true'">MSIX</WindowsPackageType>
+    <AppxManifest Condition="'$(WindowsPackageType)' == 'MSIX'">Package.appxmanifest</AppxManifest>
+    <AppxPackageSigningEnabled Condition="'$(GenerateAppxPackageOnBuild)' == 'true' and '$(AppxPackageSigningEnabled)' == ''">false</AppxPackageSigningEnabled>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <PublishProfile>win-x64</PublishProfile>
     <ApplicationIcon>Assets\better11.ico</ApplicationIcon>

@@ -4,8 +4,6 @@
 // Copyright (c) 2026 Better11. All rights reserved.
 // ============================================================================
 
-using System.Drawing;
-using System.Windows.Forms;
 using System.Windows.Input;
 using Better11.Core.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -63,6 +61,9 @@ public sealed class SystemTrayService : ISystemTrayService, IDisposable
     /// <inheritdoc/>
     public async Task ShowAsync(string iconPath, string tooltip)
     {
+        ArgumentNullException.ThrowIfNull(iconPath);
+        ArgumentNullException.ThrowIfNull(tooltip);
+
         if (_disposed)
         {
             _logger.LogWarning("Attempted to show disposed system tray");
@@ -125,6 +126,9 @@ public sealed class SystemTrayService : ISystemTrayService, IDisposable
     /// <inheritdoc/>
     public async Task ShowNotificationAsync(string title, string message, int timeout = 5000)
     {
+        ArgumentNullException.ThrowIfNull(title);
+        ArgumentNullException.ThrowIfNull(message);
+
         if (_disposed)
         {
             return;
@@ -148,6 +152,9 @@ public sealed class SystemTrayService : ISystemTrayService, IDisposable
     /// <inheritdoc/>
     public async Task AddContextMenuItemAsync(string text, ICommand command)
     {
+        ArgumentNullException.ThrowIfNull(text);
+        ArgumentNullException.ThrowIfNull(command);
+
         if (_disposed)
         {
             return;
@@ -203,6 +210,9 @@ public sealed class SystemTrayService : ISystemTrayService, IDisposable
     /// <inheritdoc/>
     public async Task AddContextMenuSubmenuAsync(string text, params (string Text, ICommand Command)[] items)
     {
+        ArgumentNullException.ThrowIfNull(text);
+        ArgumentNullException.ThrowIfNull(items);
+
         if (_disposed)
         {
             return;
@@ -241,6 +251,8 @@ public sealed class SystemTrayService : ISystemTrayService, IDisposable
     /// <inheritdoc/>
     public async Task UpdateTooltipAsync(string tooltip)
     {
+        ArgumentNullException.ThrowIfNull(tooltip);
+
         if (_disposed)
         {
             return;
@@ -264,6 +276,8 @@ public sealed class SystemTrayService : ISystemTrayService, IDisposable
     /// <inheritdoc/>
     public async Task UpdateIconAsync(string iconPath)
     {
+        ArgumentNullException.ThrowIfNull(iconPath);
+
         if (_disposed)
         {
             return;

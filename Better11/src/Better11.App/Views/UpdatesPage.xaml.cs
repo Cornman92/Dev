@@ -4,9 +4,9 @@
 // Copyright (c) 2026 Better11. All rights reserved.
 // ============================================================================
 
+using Better11.ViewModels.Update;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Better11.ViewModels.Update;
 
 namespace Better11.App.Views;
 

@@ -88,11 +88,31 @@ $ArtifactsDir = Join-Path $SolutionRoot 'artifacts'
 if ($Package) {
     Write-Host "[4/5] Creating MSIX package..." -ForegroundColor Yellow
     if (-not (Test-Path $AppProj)) { throw "App project not found: $AppProj" }
-    dotnet publish $AppProj --configuration $Configuration `
-        -p:Platform=x64 `
-        -p:GenerateAppxPackageOnBuild=true `
-        --output $ArtifactsDir
-    if ($LASTEXITCODE -ne 0) { throw "Packaging failed" }
+    New-Item -Path $ArtifactsDir -ItemType Directory -Force | Out-Null
+    $packageOutputDir = [System.IO.Path]::GetFullPath($ArtifactsDir)
+
+    if ($MsBuildExe) {
+        & $MsBuildExe $AppProj `
+            -p:Configuration=$Configuration `
+            -p:Platform=x64 `
+            -p:GenerateAppxPackageOnBuild=true `
+            -p:WindowsPackageType=MSIX `
+            -p:AppxPackageSigningEnabled=false `
+            -p:UapAppxPackageBuildMode=SideloadOnly `
+            "-p:AppxPackageDir=$packageOutputDir\\" `
+            -t:Publish `
+            -v:minimal `
+            -nologo
+        if ($LASTEXITCODE -ne 0) { throw "Packaging failed" }
+    } else {
+        dotnet publish $AppProj --configuration $Configuration `
+            -p:Platform=x64 `
+            -p:GenerateAppxPackageOnBuild=true `
+            -p:WindowsPackageType=MSIX `
+            -p:AppxPackageSigningEnabled=false `
+            --output $ArtifactsDir
+        if ($LASTEXITCODE -ne 0) { throw "Packaging failed" }
+    }
     $msix = Get-ChildItem -Path $ArtifactsDir -Filter '*.msix' -ErrorAction SilentlyContinue | Select-Object -First 1
     if ($msix) { Write-Host "  MSIX: $($msix.Name)" -ForegroundColor Green }
     Write-Host "  Output: $ArtifactsDir" -ForegroundColor Green

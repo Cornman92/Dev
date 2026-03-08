@@ -62,7 +62,7 @@
                 <!-- Skip Button -->
                 <Button Grid.Column="1" Content="Skip Wizard"
                         Style="{StaticResource B11CompactButtonStyle}"
-                        Command="{x:Bind ViewModel.SkipCommand}"
+                        Command="{Binding SkipCommand}"
                         Height="24" FontSize="11"/>
             </Grid>
         </Border>
@@ -73,19 +73,19 @@
 
                 <!-- Step Title -->
                 <StackPanel Spacing="4" Margin="0,8,0,12">
-                    <TextBlock Text="{x:Bind ViewModel.StepTitle, Mode=OneWay}"
+                    <TextBlock Text="{Binding StepTitle}"
                                FontSize="{StaticResource B11FontSizeTitle}"
                                FontWeight="Bold"
                                Foreground="{StaticResource B11TextPrimaryBrush}"/>
-                    <TextBlock Text="{x:Bind ViewModel.StepDescription, Mode=OneWay}"
+                    <TextBlock Text="{Binding StepDescription}"
                                FontSize="{StaticResource B11FontSizeBody}"
                                Foreground="{StaticResource B11TextSecondaryBrush}"/>
                 </StackPanel>
 
                 <!-- Error Bar -->
-                <InfoBar IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+                <InfoBar IsOpen="{Binding HasError}"
                          Severity="Error" Title="Error"
-                         Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+                         Message="{Binding ErrorMessage}"
                          IsClosable="True"/>
 
                 <!-- Step 0: Welcome -->
@@ -112,28 +112,28 @@
                 <Border Style="{StaticResource B11DenseCardStyle}">
                     <StackPanel Spacing="8">
                         <TextBlock Text="System Detection" Style="{StaticResource B11SectionHeaderStyle}"/>
-                        <ProgressBar Value="{x:Bind ViewModel.ScanProgress, Mode=OneWay}"
+                        <ProgressBar Value="{Binding ScanProgress}"
                                      Maximum="100" Height="4"
-                                     Visibility="{x:Bind ViewModel.IsScanning, Mode=OneWay}"/>
-                        <TextBlock Text="{x:Bind ViewModel.ScanStatus, Mode=OneWay}"
+                                     Visibility="{Binding IsScanning}"/>
+                        <TextBlock Text="{Binding ScanStatus}"
                                    FontSize="{StaticResource B11FontSizeCaption}"
                                    Foreground="{StaticResource B11TextTertiaryBrush}"/>
                         <StackPanel Spacing="4" Margin="0,8,0,0">
                             <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="100"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="OS" FontSize="{StaticResource B11FontSizeBody}" Foreground="{StaticResource B11TextSecondaryBrush}"/>
-                                <TextBlock Grid.Column="1" Text="{x:Bind ViewModel.OsVersion, Mode=OneWay}" FontSize="{StaticResource B11FontSizeBody}" Foreground="{StaticResource B11TextPrimaryBrush}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding OsVersion}" FontSize="{StaticResource B11FontSizeBody}" Foreground="{StaticResource B11TextPrimaryBrush}"/>
                             </Grid>
                             <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="100"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="CPU" FontSize="{StaticResource B11FontSizeBody}" Foreground="{StaticResource B11TextSecondaryBrush}"/>
-                                <TextBlock Grid.Column="1" Text="{x:Bind ViewModel.CpuName, Mode=OneWay}" FontSize="{StaticResource B11FontSizeBody}" Foreground="{StaticResource B11TextPrimaryBrush}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding CpuName}" FontSize="{StaticResource B11FontSizeBody}" Foreground="{StaticResource B11TextPrimaryBrush}"/>
                             </Grid>
                             <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="100"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="RAM" FontSize="{StaticResource B11FontSizeBody}" Foreground="{StaticResource B11TextSecondaryBrush}"/>
-                                <TextBlock Grid.Column="1" Text="{x:Bind ViewModel.RamAmount, Mode=OneWay}" FontSize="{StaticResource B11FontSizeBody}" Foreground="{StaticResource B11TextPrimaryBrush}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding RamAmount}" FontSize="{StaticResource B11FontSizeBody}" Foreground="{StaticResource B11TextPrimaryBrush}"/>
                             </Grid>
                             <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="100"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="GPU" FontSize="{StaticResource B11FontSizeBody}" Foreground="{StaticResource B11TextSecondaryBrush}"/>
-                                <TextBlock Grid.Column="1" Text="{x:Bind ViewModel.GpuName, Mode=OneWay}" FontSize="{StaticResource B11FontSizeBody}" Foreground="{StaticResource B11TextPrimaryBrush}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding GpuName}" FontSize="{StaticResource B11FontSizeBody}" Foreground="{StaticResource B11TextPrimaryBrush}"/>
                             </Grid>
                         </StackPanel>
                     </StackPanel>
@@ -141,48 +141,43 @@
 
                 <!-- Step 2: Preset Selection -->
                 <TextBlock Text="Choose Your Profile" Style="{StaticResource B11SectionHeaderStyle}"/>
-                <ItemsRepeater ItemsSource="{x:Bind ViewModel.Presets}">
-                    <ItemsRepeater.Layout>
-                        <StackLayout Spacing="4"/>
-                    </ItemsRepeater.Layout>
-                    <ItemsRepeater.ItemTemplate>
+                <ListView ItemsSource="{Binding Presets}"
+                          SelectedItem="{Binding SelectedPresetOption, Mode=TwoWay}"
+                          SelectionMode="Single"
+                          IsItemClickEnabled="True"
+                          HorizontalContentAlignment="Stretch"
+                          Background="Transparent"
+                          BorderThickness="0">
+                    <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border Style="{StaticResource B11DenseCardStyle}" Padding="12,8,12,8">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <RadioButton Grid.Column="0" GroupName="Preset" Margin="0,0,8,0"
-                                                 MinHeight="0" MinWidth="0"/>
-                                    <StackPanel Grid.Column="1" Spacing="2">
-                                        <StackPanel Orientation="Horizontal" Spacing="6">
-                                            <FontIcon Glyph="{Binding Icon}" FontSize="14"
-                                                      Foreground="{StaticResource B11AccentBrush}"/>
-                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold"
-                                                       FontSize="{StaticResource B11FontSizeBody}"
-                                                       Foreground="{StaticResource B11TextPrimaryBrush}"/>
-                                        </StackPanel>
-                                        <TextBlock Text="{Binding Description}"
-                                                   FontSize="{StaticResource B11FontSizeCaption}"
-                                                   Foreground="{StaticResource B11TextTertiaryBrush}"
-                                                   TextWrapping="Wrap"/>
+                                <StackPanel Spacing="2">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <FontIcon Glyph="{Binding Icon}" FontSize="14"
+                                                  Foreground="{StaticResource B11AccentBrush}"/>
+                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold"
+                                                   FontSize="{StaticResource B11FontSizeBody}"
+                                                   Foreground="{StaticResource B11TextPrimaryBrush}"/>
                                     </StackPanel>
-                                </Grid>
+                                    <TextBlock Text="{Binding Description}"
+                                               FontSize="{StaticResource B11FontSizeCaption}"
+                                               Foreground="{StaticResource B11TextTertiaryBrush}"
+                                               TextWrapping="Wrap"/>
+                                </StackPanel>
                             </Border>
                         </DataTemplate>
-                    </ItemsRepeater.ItemTemplate>
-                </ItemsRepeater>
+                    </ListView.ItemTemplate>
+                </ListView>
 
                 <!-- Step 3: Module Selection -->
                 <TextBlock Text="Select Modules" Style="{StaticResource B11SectionHeaderStyle}"/>
                 <TextBlock FontSize="{StaticResource B11FontSizeCaption}"
                            Foreground="{StaticResource B11TextTertiaryBrush}">
                     <Run Text="Selected: "/>
-                    <Run Text="{x:Bind ViewModel.SelectedModuleCount, Mode=OneWay}"/>
+                    <Run Text="{Binding SelectedModuleCount}"/>
                     <Run Text=" modules"/>
                 </TextBlock>
-                <ItemsRepeater ItemsSource="{x:Bind ViewModel.Modules}">
+                <ItemsRepeater ItemsSource="{Binding Modules}">
                     <ItemsRepeater.Layout>
                         <UniformGridLayout MinItemWidth="300" MinItemHeight="28"
                                            MinRowSpacing="2" MinColumnSpacing="4"
@@ -199,6 +194,12 @@
                                     <TextBlock Text="{Binding Category}" FontSize="10"
                                                Foreground="{StaticResource B11TextTertiaryBrush}"
                                                VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding RiskLabel}" FontSize="10"
+                                               Foreground="{StaticResource B11AccentBrush}"
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding SafetyTier}" FontSize="10"
+                                               Foreground="{StaticResource B11TextTertiaryBrush}"
+                                               VerticalAlignment="Center"/>
                                 </StackPanel>
                             </CheckBox>
                         </DataTemplate>
@@ -208,21 +209,21 @@
                 <!-- Step 4: Applying -->
                 <Border Style="{StaticResource B11DenseCardStyle}" Padding="16,12,16,12">
                     <StackPanel Spacing="8" HorizontalAlignment="Center">
-                        <ProgressRing IsActive="{x:Bind ViewModel.IsApplying, Mode=OneWay}"
+                        <ProgressRing IsActive="{Binding IsApplying}"
                                       Width="40" Height="40"/>
-                        <TextBlock Text="{x:Bind ViewModel.ApplyStatus, Mode=OneWay}"
+                        <TextBlock Text="{Binding ApplyStatus}"
                                    FontSize="{StaticResource B11FontSizeBody}"
                                    Foreground="{StaticResource B11TextSecondaryBrush}"
                                    HorizontalAlignment="Center"/>
-                        <ProgressBar Value="{x:Bind ViewModel.ApplyProgress, Mode=OneWay}"
+                        <ProgressBar Value="{Binding ApplyProgress}"
                                      Maximum="100" Height="4"/>
                         <TextBlock HorizontalAlignment="Center"
                                    FontSize="{StaticResource B11FontSizeCaption}"
                                    Foreground="{StaticResource B11TextTertiaryBrush}">
-                            <Run Text="{x:Bind ViewModel.AppliedCount, Mode=OneWay}"/>
+                            <Run Text="{Binding AppliedCount}"/>
                             <Run Text=" / "/>
-                            <Run Text="{x:Bind ViewModel.TotalToApply, Mode=OneWay}"/>
-                            <Run Text=" modules"/>
+                            <Run Text="{Binding TotalToApply}"/>
+                            <Run Text=" items"/>
                         </TextBlock>
                     </StackPanel>
                 </Border>
@@ -260,14 +261,14 @@
 
                 <Button Grid.Column="0" Content="Back"
                         Style="{StaticResource B11CompactButtonStyle}"
-                        Command="{x:Bind ViewModel.GoBackCommand}"
-                        Visibility="{x:Bind ViewModel.CanGoBack, Mode=OneWay}"/>
+                        Command="{Binding GoBackCommand}"
+                        Visibility="{Binding CanGoBack}"/>
 
                 <Button Grid.Column="1"
-                        Content="{x:Bind ViewModel.NextButtonText, Mode=OneWay}"
+                        Content="{Binding NextButtonText}"
                         Style="{StaticResource B11AccentButtonStyle}"
-                        Command="{x:Bind ViewModel.GoNextCommand}"
-                        Visibility="{x:Bind ViewModel.CanGoNext, Mode=OneWay}"/>
+                        Command="{Binding GoNextCommand}"
+                        Visibility="{Binding CanGoNext}"/>
             </Grid>
         </Border>
     </Grid>

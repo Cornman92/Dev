@@ -642,6 +642,12 @@ namespace Better11.Core.Interfaces
         /// <summary>Gets or sets a value indicating whether it is currently applied.</summary>
         public bool IsApplied { get; set; }
 
+        /// <summary>Gets the current status label for display.</summary>
+        public string StatusText => IsApplied ? "Applied" : "Pending";
+
+        /// <summary>Gets or sets a value indicating whether the tweak is queued for application.</summary>
+        public bool IsSelected { get; set; }
+
         /// <summary>Gets or sets the risk level.</summary>
         public string RiskLevel { get; set; } = "Low";
     }

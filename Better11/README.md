@@ -7,7 +7,7 @@
 Better11 provides power users, developers, and gaming enthusiasts with comprehensive Windows system management through two interfaces:
 
 - **WinUI 3 GUI** — Dense, dark desktop application with 16+ functional pages
-- **PowerShell TUI** — Terminal interface for WinPE and full Windows environments
+- **PowerShell TUI** — Deferred in the current repo-root solution; TUI tests exist in `tests\TUI`, but the implementation is not part of `Better11.sln`
 
 ## Key Features
 
@@ -37,13 +37,13 @@ Better11 provides power users, developers, and gaming enthusiasts with comprehen
 
 ```powershell
 # Build the solution (see BUILD.md for full details)
-cd Better11\Better11
+cd Better11
 .\scripts\Build-Better11.ps1 -Configuration Release -Test
 
 # Or manually:
 dotnet restore Better11.sln
-dotnet build Better11.sln --configuration Release
-dotnet test Better11.sln --configuration Release
+& "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" Better11.sln -p:Configuration=Release -p:Platform=x64 -t:Build -v:minimal -nologo
+dotnet test Better11.sln --configuration Release -p:Platform=x64
 
 # Import PowerShell modules
 Import-Module .\modules\Better11\Better11.psd1
@@ -65,12 +65,13 @@ Import-Module .\modules\Better11\Better11.psd1
 | Metric | Value |
 |--------|-------|
 | Codebase | ~115,000+ LOC, 550+ files |
-| Work Streams | 7 of 7 complete ✅ |
-| WS7 Status | Zero-error compilation pass completed |
-| Tests | 1,800+ (xUnit + Pester) |
-| Code Quality | 0 StyleCop violations, 0 PSScriptAnalyzer violations |
+| Current focus | GUI stabilization and repo-truth cleanup |
+| Verified on 2026-03-08 | Repo-root `Better11.sln` builds via `.\scripts\Build-Better11.ps1 -Configuration Release` |
+| In-solution tests | 336 passing xUnit tests across the 3 test projects in `Better11.sln` |
+| App launch | Release/x64 executable opened successfully with window title `Better11 System Enhancement Suite` |
+| Deferred scope | `tests\TUI` exists in the repo but is not part of `Better11.sln` |
 
-See [PLAN.md](PLAN.md) for detailed work stream status.
+See [PLAN.md](PLAN.md) for historical work-stream context and [BUILD.md](BUILD.md) for the currently verified build path.
 
 ## Documentation
 
@@ -95,7 +96,7 @@ See [PLAN.md](PLAN.md) for detailed work stream status.
 | [docs/MODULES.md](docs/MODULES.md) | PowerShell modules and C# service mapping |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Build, test, and contribution guidelines |
 | [CHANGELOG.md](CHANGELOG.md) | Version history and release notes |
-| [docs/SOURCE-TREES.md](docs/SOURCE-TREES.md) | Single canonical source tree (Better11/Better11/src) |
+| [docs/SOURCE-TREES.md](docs/SOURCE-TREES.md) | Canonical source tree and deferred alternate tree notes |
 
 ### Development Environment
 | File | Purpose |
@@ -111,13 +112,13 @@ See [PLAN.md](PLAN.md) for detailed work stream status.
 
 ```
 D:\Dev\Better11\
-├── Better11\              # Main solution
-│   ├── src\               # C# source (App, Core, Services, ViewModels)
-│   ├── tests\             # All test projects
-│   └── Better11.sln       # Solution file
+├── src\                   # Canonical C# source (App, Core, Services, ViewModels)
+├── tests\                 # In-solution xUnit projects plus deferred TUI tests
+├── scripts\               # Build and utility scripts
+├── Better11.sln           # Repo-root solution file
 ├── configs\               # JSON configuration files
 ├── modules\               # PowerShell modules (102 total)
-├── src\                   # Additional source modules
+├── Better11\              # Alternate/deprecated source tree kept for reference
 ├── .cursor\               # Cursor IDE rules, skills, MCP config
 ├── tools\                 # MCP servers (better11, collab)
 └── docs\                  # Reference documentation
@@ -137,15 +138,16 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 See [BUILD.md](BUILD.md) for full build, test, and package commands. Summary:
 
 ```powershell
-cd Better11\Better11
+cd Better11
 .\scripts\Build-Better11.ps1 -Configuration Release -Test -Package
 
 # Or manually: restore, build, test, then publish for MSIX
-dotnet build Better11.sln -c Release -warnaserror
-dotnet test Better11.sln -c Release
+dotnet restore Better11.sln
+& "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" Better11.sln -p:Configuration=Release -p:Platform=x64 -t:Build -v:minimal -nologo
+dotnet test Better11.sln -c Release -p:Platform=x64
 # Import and use modules
 Import-Module .\modules\Better11\Better11.psd1
 ```
 ---
 
-*Last Updated: 2026-03-01*
+*Last Updated: 2026-03-08*

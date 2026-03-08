@@ -2,7 +2,6 @@
 
 using System.Collections.ObjectModel;
 using Better11.Core.Interfaces;
-using Better11.ViewModels.Base;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;

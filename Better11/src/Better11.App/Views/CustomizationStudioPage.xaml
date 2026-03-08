@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Better11.App.Views.CustomizationStudioPage"
+    x:Name="RootPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    NavigationCacheMode="Enabled"
+    Background="{StaticResource B11PrimaryBackgroundBrush}">
+
+    <Grid Padding="{StaticResource B11PageMargin}" RowSpacing="12" ColumnSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <FontIcon Glyph="&#xE713;" FontSize="20" Foreground="{StaticResource B11AccentBrush}"/>
+                <TextBlock Text="{Binding PageTitle}"
+                           FontSize="{StaticResource B11FontSizeTitle}"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextPrimaryBrush}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                <Button Content="Refresh"
+                        Style="{StaticResource B11CompactButtonStyle}"
+                        Command="{Binding LoadStudioCommand}"/>
+                <Button Content="Analyze"
+                        Style="{StaticResource B11CompactButtonStyle}"
+                        Command="{Binding AnalyzeQueueCommand}"/>
+                <Button Content="Apply"
+                        Style="{StaticResource B11AccentButtonStyle}"
+                        Command="{Binding ApplyPlanCommand}"/>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Spacing="4">
+            <ProgressBar IsIndeterminate="True"
+                         Visibility="{Binding IsBusy}"
+                         Height="2"/>
+            <InfoBar IsOpen="{Binding HasError}"
+                     Severity="Error"
+                     Title="Error"
+                     Message="{Binding ErrorMessage}"
+                     IsClosable="True"/>
+            <InfoBar IsOpen="{Binding HasSuccess}"
+                     Severity="Success"
+                     Title="Success"
+                     Message="{Binding SuccessMessage}"
+                     IsClosable="True"/>
+        </StackPanel>
+
+        <Grid Grid.Row="2" ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="340"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource B11DenseCardStyle}">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Filters"
+                               Style="{StaticResource B11SectionHeaderStyle}"/>
+
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Target"
+                                   Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                        <ComboBox ItemsSource="{Binding TargetOptions}"
+                                  SelectedItem="{Binding SelectedTarget, Mode=TwoWay}"/>
+                    </StackPanel>
+
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Safety Tier"
+                                   Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                        <ComboBox ItemsSource="{Binding SafetyTierOptions}"
+                                  SelectedItem="{Binding SelectedSafetyTier, Mode=TwoWay}"/>
+                    </StackPanel>
+
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Search"
+                                   Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                        <TextBox PlaceholderText="Search catalog"
+                                 Text="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Categories"
+                                   Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                        <ListView ItemsSource="{Binding CatalogCategories}"
+                                  SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+                                  MaxHeight="360">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Spacing="2" Padding="0,4">
+                                        <TextBlock Text="{Binding Title}" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding Description}"
+                                                   TextWrapping="Wrap"
+                                                   FontSize="11"
+                                                   Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+
+                    <TextBlock Text="{Binding PlanSummary}"
+                               TextWrapping="Wrap"
+                               Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1" Style="{StaticResource B11DenseCardStyle}">
+                <Grid RowSpacing="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+                            <TextBlock Text="Catalog"
+                                       Style="{StaticResource B11SectionHeaderStyle}"/>
+                            <TextBlock Text="Data-driven live-system catalog for Better11 actions."
+                                       Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                        </StackPanel>
+
+                        <Button Grid.Column="1"
+                                Content="Queue Selected"
+                                Style="{StaticResource B11CompactButtonStyle}"
+                                Command="{Binding QueueSelectedItemCommand}"/>
+                    </Grid>
+
+                    <ListView Grid.Row="1"
+                              ItemsSource="{Binding VisibleItems}"
+                              SelectedItem="{Binding SelectedCatalogItem, Mode=TwoWay}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Padding="10" Margin="0,0,0,8" BorderThickness="1"
+                                        BorderBrush="{StaticResource B11BorderDefaultBrush}">
+                                    <StackPanel Spacing="4">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding Title}" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding SafetyTier}"
+                                                       Foreground="{StaticResource B11AccentBrush}"/>
+                                        </Grid>
+                                        <TextBlock Text="{Binding Description}"
+                                                   TextWrapping="Wrap"
+                                                   Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                                        <TextBlock Text="{Binding PreviewText}"
+                                                   TextWrapping="WrapWholeWords"
+                                                   FontSize="11"
+                                                   Foreground="{StaticResource B11TextTertiaryBrush}"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Border>
+
+            <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
+                <StackPanel Spacing="12">
+                    <Border Style="{StaticResource B11DenseCardStyle}">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="Queue"
+                                       Style="{StaticResource B11SectionHeaderStyle}"/>
+                            <TextBlock Foreground="{StaticResource B11TextSecondaryBrush}">
+                                <Run Text="{Binding QueueCount}"/>
+                                <Run Text=" items queued"/>
+                            </TextBlock>
+
+                            <ListView ItemsSource="{Binding QueueItems}" MaxHeight="180">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Padding="0,4">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding Title}" TextWrapping="Wrap"/>
+                                            <Button Grid.Column="1"
+                                                    Content="Remove"
+                                                    Style="{StaticResource B11CompactButtonStyle}"
+                                                    Command="{Binding DataContext.RemoveQueuedItemCommand, ElementName=RootPage}"
+                                                    CommandParameter="{Binding}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource B11DenseCardStyle}">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="Recipes"
+                                       Style="{StaticResource B11SectionHeaderStyle}"/>
+                            <ComboBox ItemsSource="{Binding Recipes}"
+                                      SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}"
+                                      DisplayMemberPath="Name"/>
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Button Content="Load"
+                                        Style="{StaticResource B11CompactButtonStyle}"
+                                        Command="{Binding QueueSelectedRecipeCommand}"/>
+                                <Button Content="Save"
+                                        Style="{StaticResource B11CompactButtonStyle}"
+                                        Command="{Binding SaveQueueAsRecipeCommand}"/>
+                                <Button Content="Export"
+                                        Style="{StaticResource B11CompactButtonStyle}"
+                                        Command="{Binding ExportQueueAsRecipeCommand}"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding ExportPath}"
+                                       TextWrapping="WrapWholeWords"
+                                       Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource B11DenseCardStyle}">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="Plan Warnings"
+                                       Style="{StaticResource B11SectionHeaderStyle}"/>
+                            <ItemsControl ItemsSource="{Binding PlanWarnings}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}"
+                                                   TextWrapping="Wrap"
+                                                   Margin="0,0,0,4"
+                                                   Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <TextBlock Text="Blocked Items"
+                                       Style="{StaticResource B11SectionHeaderStyle}"
+                                       Margin="0,8,0,0"/>
+                            <ItemsControl ItemsSource="{Binding BlockedItems}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0,0,0,6">
+                                            <TextBlock Text="{Binding Title}" FontWeight="SemiBold"/>
+                                            <TextBlock Text="{Binding Reason}"
+                                                       TextWrapping="Wrap"
+                                                       Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource B11DenseCardStyle}">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="Rollback Journal"
+                                       Style="{StaticResource B11SectionHeaderStyle}"/>
+                            <ComboBox ItemsSource="{Binding RollbackHistory}"
+                                      SelectedItem="{Binding SelectedRollbackEntry, Mode=TwoWay}"
+                                      DisplayMemberPath="Title"/>
+                            <Button Content="Rollback Selected"
+                                    Style="{StaticResource B11CompactButtonStyle}"
+                                    Command="{Binding RollbackSelectedEntryCommand}"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>

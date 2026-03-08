@@ -3,12 +3,6 @@
 Describe 'B11.BetterPE.NetworkDeploy' {
     BeforeAll {
         Import-Module (Join-Path $PSScriptRoot '..' 'Public' 'NetworkDeploy.ps1') -Force -ErrorAction SilentlyContinue
-
-        # Mock external commands
-        Mock wdsutil.exe { return 'Mocked WDS output' } -ErrorAction SilentlyContinue
-        Mock Get-WindowsFeature { [PSCustomObject]@{ Installed = $false } } -ErrorAction SilentlyContinue
-        Mock Install-WindowsFeature { [PSCustomObject]@{ Success = $true; RestartNeeded = 'No' } } -ErrorAction SilentlyContinue
-        Mock Get-Service { [PSCustomObject]@{ Status = 'Stopped' } } -ErrorAction SilentlyContinue
     }
 
     Context 'Initialize-B11PxeServer' {

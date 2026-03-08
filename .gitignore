@@ -23,3 +23,6 @@
 # Temporary files
 **/*.tmp
 **/*.temp
+
+# Codeium Windsurf browser binaries (too large for GitHub)
+.codeium/windsurf/ws-browser/

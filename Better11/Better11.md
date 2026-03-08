@@ -11,8 +11,8 @@
 | **Target Audience** | Power users, developers, gaming enthusiasts |
 | **UI Style** | Dense, dark, WinUtil-inspired (Chris Titus Tech aesthetic) |
 | **Codebase** | ~115,000+ LOC, 550+ files, 1,800+ tests |
-| **Status** | 100% complete — All 7 work streams finished |
-| **Date** | 2026-03-01 |
+| **Status** | GUI baseline verified; release readiness still in progress |
+| **Date** | 2026-03-08 |
 
 ## Sub-Components
 
@@ -25,7 +25,7 @@
 
 ## Two User Interfaces
 
-- **PowerShell TUI** — Terminal UI for WinPE + full Windows (primary for advanced/deployment)
+- **PowerShell TUI** — Deferred in the current solution; repo tests exist under `tests\TUI`, but the implementation is not part of `Better11.sln`
 - **C# WinUI 3 GUI** — Full graphical desktop application with 16+ pages
 
 ## Architecture
@@ -39,6 +39,15 @@
 
 ## Current Status
 
+Current verified baseline as of 2026-03-08:
+
+- Repo-root `Better11.sln` builds cleanly through `.\scripts\Build-Better11.ps1 -Configuration Release`
+- `dotnet test Better11.sln -c Release -p:Platform=x64` passes for all 3 in-solution xUnit projects (336 tests)
+- The Release/x64 WinUI app launches successfully with the window title `Better11 System Enhancement Suite`
+- TUI remains outside the current solution scope
+
+Historical work-stream snapshot:
+
 | Work Stream | Description | Status |
 |-------------|-------------|--------|
 | WS1 | Reporting & Analytics | COMPLETE |
@@ -49,7 +58,7 @@
 | WS6 | First Run Wizard + Integration QA | COMPLETE |
 | WS7 | Final Zero-Error Compilation Pass | COMPLETE |
 
-**Status:** All 7 work streams completed successfully. The project is now production-ready with zero code quality violations and comprehensive test coverage.
+**Status:** The work-stream record remains useful as historical context, but it should not be treated as a current release-readiness guarantee without re-verification.
 
 ## Development Team
 
@@ -71,15 +80,14 @@
 
 ```
 D:\Dev\Better11\
-├── Better11\                  # Main solution directory
-│   ├── src\                   # Source code (App, Core, Services, ViewModels)
-│   ├── tests\                 # Unit, integration, and scenario tests
-│   ├── scripts\               # Build and utility scripts
-│   └── Better11.sln           # Solution file
+├── src\                       # Canonical source code (App, Core, Services, ViewModels)
+├── tests\                     # In-solution xUnit tests plus deferred TUI tests
+├── scripts\                   # Build and utility scripts
+├── Better11.sln               # Repo-root solution file
 ├── configs\                   # JSON configuration files
 ├── modules\                   # PowerShell modules (Aurora.*, Better11 submodules)
 ├── docs\                      # Reference docs (INSTALL, APP-UPDATE, SOURCE-TREES)
-├── src\                       # Deprecated alternate source (see docs/SOURCE-TREES.md)
+├── Better11\                  # Deprecated alternate source tree (see docs/SOURCE-TREES.md)
 ├── .cursor\                   # Cursor IDE rules, skills, MCP config
 ├── tools\                     # MCP servers (better11, collab)
 ├── CLAUDE.md                  # Claude Code agent instructions

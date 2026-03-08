@@ -3,8 +3,6 @@
 // Better11 System Enhancement Suite
 // Copyright (c) 2026 Better11. All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using Better11.App.Navigation;
 using Better11.App.Views;
 using Microsoft.UI.Xaml;
@@ -20,6 +18,7 @@ public sealed partial class MainWindow : Window
     private static readonly Dictionary<string, Type> PageMap = new()
     {
         ["Dashboard"] = typeof(DashboardPage),
+        ["CustomizationStudio"] = typeof(CustomizationStudioPage),
         ["Packages"] = typeof(PackageManagerPage),
         ["Drivers"] = typeof(DriverManagerPage),
         ["Startup"] = typeof(StartupManagerPage),
@@ -38,7 +37,9 @@ public sealed partial class MainWindow : Window
         ["FirstRunWizard"] = typeof(FirstRunWizardPage),
     };
 
+    /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow"/> class.
+    /// </summary>
     public MainWindow()
     {
         this.InitializeComponent();

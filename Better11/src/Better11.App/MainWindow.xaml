@@ -50,6 +50,11 @@
             <NavigationViewItemSeparator/>
             <NavigationViewItemHeader Content="Optimization"/>
 
+            <NavigationViewItem Content="Customization Studio" Tag="CustomizationStudio">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE8F1;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
             <NavigationViewItem Content="System Optimization" Tag="Optimization">
                 <NavigationViewItem.Icon>
                     <FontIcon Glyph="&#xE9D5;"/>

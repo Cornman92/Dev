@@ -13,4 +13,10 @@ public record OptimizationItem
     public string ApplyCommand { get; init; } = string.Empty;
 }
 
-public enum SafetyTier { Safe, Moderate, Advanced, Expert }
+public enum SafetyTier
+{
+    Safe,
+    Moderate,
+    Advanced,
+    Expert,
+}

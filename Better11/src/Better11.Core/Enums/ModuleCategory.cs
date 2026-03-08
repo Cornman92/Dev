@@ -21,5 +21,5 @@ public enum ModuleCategory
     Storage,
     Shell,
     Settings,
-    Dashboard
+    Dashboard,
 }

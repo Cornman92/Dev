@@ -214,8 +214,8 @@ function Get-B11FileWatcher {
             }
         }
     } else {
-        foreach ($kvp in $script:WatcherConfigs) {
-            $config = $kvp.Value
+        foreach ($config in $script:WatcherConfigs.Values) {
+            if (-not $config) { continue }
             [PSCustomObject]@{
                 PSTypeName = 'B11.FileWatcher'
                 Name       = $config.Name

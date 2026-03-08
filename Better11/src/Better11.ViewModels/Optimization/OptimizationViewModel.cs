@@ -5,10 +5,9 @@
 // ============================================================================
 
 using System.Collections.ObjectModel;
+using Better11.Core.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Better11.Core.Interfaces;
-using Better11.ViewModels.Base;
 using Microsoft.Extensions.Logging;
 
 namespace Better11.ViewModels.Optimization;
@@ -64,10 +63,29 @@ public sealed partial class OptimizationViewModel : BaseViewModel
 
                 if (result.IsSuccess)
                 {
+                    var categories = result.Value!
+                        .Select(category => new OptimizationCategoryDto
+                        {
+                            Name = category.Name,
+                            Description = category.Description,
+                            Tweaks = category.Tweaks
+                                .Select(tweak => new TweakDto
+                                {
+                                    Id = tweak.Id,
+                                    Name = tweak.Name,
+                                    Description = tweak.Description,
+                                    IsApplied = tweak.IsApplied,
+                                    IsSelected = !tweak.IsApplied,
+                                    RiskLevel = tweak.RiskLevel,
+                                })
+                                .ToList(),
+                        })
+                        .ToList();
+
                     RunOnUIThread(() =>
                     {
                         Categories.Clear();
-                        foreach (var category in result.Value!)
+                        foreach (var category in categories)
                         {
                             Categories.Add(category);
                         }
@@ -91,7 +109,7 @@ public sealed partial class OptimizationViewModel : BaseViewModel
             {
                 var selectedTweakIds = Categories
                     .SelectMany(c => c.Tweaks)
-                    .Where(t => !t.IsApplied)
+                    .Where(t => t.IsSelected && !t.IsApplied)
                     .Select(t => t.Id)
                     .ToList();
 

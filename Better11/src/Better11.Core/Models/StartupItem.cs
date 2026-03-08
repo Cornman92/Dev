@@ -10,4 +10,11 @@ public record StartupItem
     public StartupImpact Impact { get; init; }
 }
 
-public enum StartupImpact { None, Low, Medium, High, NotMeasured }
+public enum StartupImpact
+{
+    None,
+    Low,
+    Medium,
+    High,
+    NotMeasured,
+}
