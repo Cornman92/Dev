@@ -28,7 +28,7 @@
     "cors": "^2.8.5",
     "helmet": "^7.1.0",
     "winston": "^3.11.0",
-    "express-rate-limit": "^7.1.5",
+    "express-rate-limit": "^8.3.0",
     "express-validator": "^7.0.1",
     "chart.js": "^4.4.0"
   },
