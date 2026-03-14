@@ -186,7 +186,7 @@ jobs:
 
       - name: 📦 Setup Node.js
         if: matrix.language == 'node' && matrix.condition
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
@@ -292,7 +292,7 @@ jobs:
           cache: 'pip'
 
       - name: 📦 Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
@@ -370,7 +370,7 @@ jobs:
 
       - name: 📦 Setup Node.js
         if: matrix.target == 'node'
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
 
