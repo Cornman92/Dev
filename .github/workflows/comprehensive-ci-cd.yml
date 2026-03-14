@@ -376,7 +376,7 @@ jobs:
 
       - name: 🐳 Setup Docker Buildx
         if: matrix.target == 'docker'
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: 🔧 Install Python dependencies
         if: matrix.target == 'python'
