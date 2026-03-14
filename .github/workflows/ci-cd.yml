@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup PowerShell ${{ matrix.pwsh-version }}
-        uses: azure/powershell@v1
+        uses: azure/powershell@v2
         with:
           azPSVersion: ${{ matrix.pwsh-version }}
           inlineScript: |
@@ -83,7 +83,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup PowerShell
-        uses: azure/powershell@v1
+        uses: azure/powershell@v2
 
       - name: Install PSScriptAnalyzer
         run: Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
@@ -152,7 +152,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup PowerShell
-        uses: azure/powershell@v1
+        uses: azure/powershell@v2
 
       - name: Publish to PowerShell Gallery
         env:
