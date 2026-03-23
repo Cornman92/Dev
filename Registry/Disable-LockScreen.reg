@@ -1,0 +1,10 @@
+Windows Registry Editor Version 5.00
+
+; Disable Windows Lock Screen
+; Author: C-Man | Date: 2026-02-28
+;
+; Skips the lock screen and goes directly to the sign-in prompt.
+; To re-enable, set NoLockScreen to 0 or delete the key.
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization]
+"NoLockScreen"=dword:00000001

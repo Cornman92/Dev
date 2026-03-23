@@ -1,0 +1,13 @@
+Windows Registry Editor Version 5.00
+
+; Restore Classic Right-Click Context Menu (Windows 11)
+; Author: C-Man | Date: 2026-02-28
+;
+; Windows 11 uses a simplified context menu by default.
+; This restores the full classic context menu.
+;
+; To undo: delete the key below or run the companion undo reg file.
+; A restart or explorer restart is required after applying.
+
+[HKEY_CURRENT_USER\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32]
+@=""

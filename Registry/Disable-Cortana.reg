@@ -1,0 +1,12 @@
+Windows Registry Editor Version 5.00
+
+; Disable Cortana
+; Author: C-Man | Date: 2026-02-28
+; To re-enable, set AllowCortana to 1
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search]
+"AllowCortana"=dword:00000000
+"AllowCortanaAboveLock"=dword:00000000
+"AllowSearchToUseLocation"=dword:00000000
+"ConnectedSearchUseWeb"=dword:00000000
+"DisableWebSearch"=dword:00000001

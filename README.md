@@ -1,71 +1,116 @@
 # Dev Workspace
 
-Root workspace at `D:\Dev` containing MCP servers, the development dashboard, migration/consolidation scripts, and project trees (Better11, BetterShell, BetterPE).
+Personal development environment for automation scripts, gaming projects, system utilities, and general development.
 
-## Layout
+## Directory Structure
 
-| Area | Description |
-|------|-------------|
-| **Root** | `package.json` (MCP test scripts, workspace commands), migration/lint/fix scripts, `workspace_report.json`, [FEATURES-AND-AUTOMATIONS-PLAN.md](./FEATURES-AND-AUTOMATIONS-PLAN.md) |
-| **MCP Servers** | `*-mcp-server/` — time-utils, code-analysis, powershell, system-info, winget, dotnet-cli, nuget, project-scaffolder, unified. See [docs/MCP-SERVER-INDEX.md](./docs/MCP-SERVER-INDEX.md). |
-| **Projects** | Better11 (.NET), BetterShell, BetterPE, **dev-dashboard** (Node/Express), claude-agents |
-| **Config/Data** | Config, configs, data, docs, DotFiles, GoldenImage, Skills, Skills-MCP, tests |
+```
+Dev/
+├── Archive/          # Archived and completed projects
+├── Artifacts/        # Build outputs and generated files
+├── Assets/           # Media, images, and resources
+├── CurrentProjects/  # Active development work
+├── Functions/        # Reusable function libraries
+├── Modules/          # Modular components and packages
+├── Optimizations/    # Performance optimization scripts
+├── Registry/         # Windows registry scripts
+├── Scratch/          # Temporary/experimental code
+└── Scripts/          # Production automation scripts
+```
 
-## Main Scripts
+## Getting Started
 
-### Migration and consolidation
+### Prerequisites
 
-- **Invoke-DevMigration.ps1** — Migrates `C:\Users\...\OneDrive\Dev` → `D:\Dev` with diff-merge for Better11. Run with `-WhatIf` first.
-- **consolidate_workspace.ps1** — Moves platform, PowerShell, modules, etc. into BetterShell/BetterPE. Supports `-WhatIf`.
-- **Migrate-OneDriveDevToLocal.ps1** — OneDrive Dev → local Dev migration (legacy/detailed).
+- Windows 10/11
+- Git for Windows
+- PowerShell 5.1+ (or PowerShell Core 7+)
+- Your preferred code editor (VS Code or Cursor recommended)
 
-### Lint and fix
+### Setup
 
-- **_lint-migrate.ps1** — Runs PSScriptAnalyzer on a script (default: `Migrate-OneDriveDevToLocal.ps1`). Usage: `.\_lint-migrate.ps1` or `.\_lint-migrate.ps1 -Path 'D:\Dev\SomeScript.ps1'`.
-- **_fix-migrate.ps1** — Reverts Console output to Write-Host and adds SuppressMessageAttribute in the migration script.
+1. Clone the repository:
+   ```powershell
+   git clone <repo-url> C:\Dev
+   cd C:\Dev
+   ```
 
-### Workspace report and MCP
+2. Verify git hooks are in place:
+   ```powershell
+   ls .git/hooks/pre-commit
+   ls .git/hooks/commit-msg
+   ```
+   If hooks are missing after a fresh clone, copy them from a teammate or re-run the setup script (see `Scripts/` when available).
 
-- **Generate-WorkspaceReport.ps1** — Regenerates `workspace_report.json` (project types, file stats, Git status). Run from `D:\Dev`.
-- **npm run report:workspace** — Same, via root `package.json` (calls script if present).
-- **npm run test:mcp-all** — Runs all MCP integration tests from root. Individual: `npm run test:mcp-time-utils`, `test:mcp-powershell`, etc.
-- **Invoke-McpHealthCheck.ps1** — Checks MCP server status (for dashboard or CLI).
+3. Start developing:
+   - New experiments go in `Scratch/`
+   - Production scripts go in `Scripts/`
+   - Reusable functions go in `Functions/`
 
-## Development dashboard
+## Usage
 
-- **Location:** `D:\Dev\dev-dashboard`
-- **Start:** From root run `npm run dashboard:start`, or `cd dev-dashboard && npm install && npm start`.
-- **URL:** http://localhost:3000 — projects, builds, commits, health; optional GitHub sync and WebSocket updates.
-- **Docs:** [dev-dashboard/README.md](./dev-dashboard/README.md), [SETUP.md](./dev-dashboard/SETUP.md), [QUICK-START.md](./dev-dashboard/QUICK-START.md).
-
-## Automations
-
-- **Scheduled workspace report** — Regenerate `workspace_report.json` (e.g. daily) via Task Scheduler or cron calling `Generate-WorkspaceReport.ps1` or `npm run report:workspace`.
-- **Lint / pre-commit** — Optionally run `_lint-migrate.ps1` on key scripts (or broader PSScriptAnalyzer).
-- **CI** — Root-level workflow can run `npm run test:mcp-all`, lint, and report generation. See [docs/AUTOMATION-RUNBOOK.md](./docs/AUTOMATION-RUNBOOK.md).
-
-## Documentation
-
-- [FEATURES-AND-AUTOMATIONS-PLAN.md](./FEATURES-AND-AUTOMATIONS-PLAN.md) — Planned features, automations, and implementation order.
-- [docs/USER-GUIDE.md](./docs/USER-GUIDE.md) — How to use the workspace, dashboard, and scripts.
-- [docs/ROADMAP-300.md](./docs/ROADMAP-300.md) — 300-step roadmap checklist.
-- [docs/MCP-SERVER-INDEX.md](./docs/MCP-SERVER-INDEX.md) — MCP servers, purpose, how to run and test.
-- [docs/AUTOMATION-RUNBOOK.md](./docs/AUTOMATION-RUNBOOK.md) — Scheduled tasks, logs, manual runs.
-- [docs/INDEX.md](./docs/INDEX.md) — Master documentation index (includes Better11).
-
-## Quick reference
+### Running Scripts
 
 ```powershell
-# From D:\Dev
-.\Invoke-DevMigration.ps1 -WhatIf
-.\consolidate_workspace.ps1 -WhatIf
-.\_lint-migrate.ps1
-.\Generate-WorkspaceReport.ps1
-.\Invoke-McpHealthCheck.ps1
+# Run a script from the Scripts folder
+.\Scripts\script-name.ps1
+
+# Import a function module
+Import-Module .\Modules\ModuleName
+
+# Dot-source a function library
+. .\Functions\FunctionName.ps1
 ```
 
-```bash
-npm run test:mcp-all
-npm run report:workspace
-npm run dashboard:start
+### Development Workflow
+
+1. Create experimental code in `Scratch/`
+2. Test thoroughly
+3. Move working code to appropriate folder
+4. Document and commit changes
+
+## Tooling
+
+| Tool | Purpose |
+|------|---------|
+| `.gitattributes` | Enforces CRLF line endings; marks binary files |
+| `.gitignore` | Excludes 158 patterns across 9 categories |
+| `pre-commit` hook | Scans for secrets, API keys, and credentials before commits |
+| `commit-msg` hook | Validates conventional commit format (`type: description`) |
+
+### Commit Convention
+
+All commits follow the conventional commit format:
+
 ```
+type: brief description
+
+Optional body with more detail.
+```
+
+**Types:** `feat`, `fix`, `docs`, `refactor`, `test`, `chore`
+
+## Project Categories
+
+- **Automation** - System automation and task scripts
+- **Gaming** - Game development and gaming utilities
+- **Utilities** - General-purpose tools and helpers
+- **Optimizations** - System performance tweaks
+
+## Key Documents
+
+| Document | Purpose |
+|----------|---------|
+| [CLAUDE.md](CLAUDE.md) | Agent instructions and coding conventions |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Code style, branching, and PR guidelines |
+| [cursor.md](cursor.md) | Editor/IDE configuration rules |
+| [plan.md](plan.md) | Workspace development roadmap |
+| [TODO.md](TODO.md) | Active task list with status tracking |
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## License
+
+MIT License - See [LICENSE](LICENSE) for details.

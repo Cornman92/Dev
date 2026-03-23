@@ -1,140 +1,124 @@
-# CLAUDE.md
+# CLAUDE.md - Agent Instructions
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Project Overview
 
-## Workspace Overview
+Personal development workspace for C-Man. This repository contains automation scripts, gaming projects, system utilities, and general development work.
 
-Root workspace at `D:\Dev`. Contains MCP servers, the dev-dashboard, migration/consolidation scripts, and major project trees (Better11, BetterShell, BetterPE).
+## Directory Structure
 
-**Platform:** Windows-only. Many operations require administrator privileges.
+| Directory | Purpose |
+|-----------|---------|
+| `Archive/` | Archived and completed projects |
+| `Artifacts/` | Build outputs, generated files, and compiled binaries |
+| `Assets/` | Media files, images, icons, and other resources |
+| `CurrentProjects/` | Active development work and ongoing projects |
+| `Functions/` | Reusable function libraries (PowerShell, Python, etc.) |
+| `Modules/` | Modular components and packages |
+| `Optimizations/` | Performance optimization scripts and system tweaks |
+| `Registry/` | Windows registry scripts and backups |
+| `Scratch/` | Temporary and experimental code (testing area) |
+| `Scripts/` | Production automation and utility scripts |
 
-## Common Commands
-
-### From `D:\Dev` (workspace root)
-
-```bash
-# MCP testing
-npm run test:mcp-all                           # All MCP integration tests
-npm run test:mcp-<name>                        # Single server (e.g. test:mcp-powershell)
-
-# Workspace
-npm run report:workspace                       # Regenerate workspace_report.json
-npm run dashboard:start                        # Start dev-dashboard at http://localhost:3000
-```
-
-```powershell
-.\Generate-WorkspaceReport.ps1                 # Regenerate workspace_report.json
-.\Invoke-McpHealthCheck.ps1                    # Check MCP server status
-.\Invoke-AllMcpTests.ps1                       # Run all MCP tests (PowerShell runner)
-.\Invoke-MigrationDryRun.ps1                   # Dry-run migration check
-
-# Lint / fix
-.\_lint-migrate.ps1                            # PSScriptAnalyzer on migration script
-.\_lint-migrate.ps1 -Path 'D:\Dev\SomeScript.ps1'
-
-# Migration (always run -WhatIf first)
-.\Invoke-DevMigration.ps1 -WhatIf
-.\consolidate_workspace.ps1 -WhatIf
-```
-
-### MCP servers (per-server, from their directory)
-
-```bash
-npm run build        # Compile TypeScript → dist/
-npm test             # Unit tests (Vitest)
-npm run test:integration   # Integration tests
-```
-
-### Better11 (.NET / WinUI 3) — from `D:\Dev\Better11\Better11\`
-
-```powershell
-# Recommended build (uses MSBuild, falls back to dotnet)
-.\scripts\Build-Better11.ps1 -Configuration Release
-
-# Manual restore + build (MSBuild required for WinUI 3 XAML)
-dotnet restore Better11.sln
-& "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" Better11.sln -p:Configuration=Release -p:Platform=x64 -t:Build -v:minimal -nologo
-
-# Test
-dotnet test Better11.sln -c Release -p:Platform=x64 --no-build
-
-# Package (MSIX)
-.\scripts\Build-Better11.ps1 -Configuration Release -Package
-```
-
-> Better11 is **x64-only**. `dotnet build` can fail on the App project due to the WinUI XAML compiler — prefer MSBuild.
-
-### dev-dashboard — from `D:\Dev\dev-dashboard\`
-
-```bash
-npm install
-cp config/env.example .env   # configure GITHUB_TOKEN, PORT, etc.
-npm run setup-db
-npm start                    # production
-npm run dev                  # nodemon (auto-reload)
-npm test
-```
-
-## Architecture
-
-### Workspace layout
-
-| Area | Location |
-|------|----------|
-| MCP servers | `*-mcp-server/` (time-utils, code-analysis, powershell, system-info, winget, dotnet-cli, nuget, project-scaffolder, unified) |
-| Dev dashboard | `dev-dashboard/` — Node/Express + SQLite + WebSocket |
-| Better11 | `Better11/Better11/` — WinUI 3 C# solution |
-| BetterShell | `BetterShell/` — PowerShell platform/profile/deployment |
-| BetterPE | `BetterPE/` — Custom WinPE environment |
-| Scripts | Root `.ps1` files — migration, consolidation, lint, reporting |
-| Docs | `docs/` — comprehensive architecture and runbook docs |
-
-### MCP servers
-
-Each server under `*-mcp-server/` is a standalone TypeScript/Node project:
-- Build: `tsc` → `dist/index.js`
-- Run: `node dist/index.js` (stdio transport, MCP protocol)
-- Test: Vitest (unit) + Vitest integration config
-- Cursor config: `.cursor/mcp.json` (wires servers by absolute path)
-
-The **unified-mcp-server** is a Python stub/aggregator (`pip install -e .`, test with `pytest`); not included in `test:mcp-all`.
-
-### dev-dashboard architecture
-
-- **Backend:** `backend/server.js` (Express), routes under `backend/routes/`, services under `backend/services/`, SQLite via `backend/models/`, WebSocket at `ws://localhost:3000/ws`
-- **Frontend:** `frontend/` (vanilla JS/HTML), connects via REST + WebSocket
-- **Key endpoints:** `/api/projects`, `/api/builds`, `/api/commits`, `/api/workspace-report` (reads `workspace_report.json`), `/api/mcp-status` (runs `Invoke-McpHealthCheck.ps1 -AsJson`), `/api/quick-action`, `/api/code-analysis`
-
-### Better11 architecture
-
-Stack: WinUI 3 / C# (.NET 8+) / PowerShell 5.1+. Pattern: MVVM via CommunityToolkit.Mvvm + DI (Microsoft.Extensions.DependencyInjection). 102 PowerShell modules bridged via `IPowerShellService`.
-
-```
-UI Layer (WinUI 3 / TUI)
-  → ViewModels (CommunityToolkit, [ObservableProperty], [RelayCommand])
-    → Services (15+ C# services, Result<T> error handling)
-      → IPowerShellService → PowerShell modules
-```
-
-- Source: `Better11/Better11/src/`
-- Tests: `Better11/Better11/tests/` (xUnit, ~1800+ tests)
-- Theme: dark (#111111 bg, #0078D4 accent, 24px rows); see `Better11/Better11/STYLE-GUIDE.md`
-- Detailed agent instructions: `Better11/CLAUDE.md`
-
-### PowerShell conventions (workspace-wide)
-
-- Use approved verbs; support `-WhatIf`/`-Confirm` for state-changing ops
-- Lint with PSScriptAnalyzer (`.\_lint-migrate.ps1 -Path <script>`)
-- System/registry operations require administrator elevation
-
-## Key documentation
+## Key Files
 
 | File | Purpose |
 |------|---------|
-| `docs/MCP-SERVER-INDEX.md` | MCP server directory, run/test instructions |
-| `docs/AUTOMATION-RUNBOOK.md` | Scheduled tasks, logs, manual runs |
-| `docs/ROADMAP-300.md` | 300-step workspace roadmap |
-| `docs/USER-GUIDE.md` | Workspace usage guide |
-| `FEATURES-AND-AUTOMATIONS-PLAN.md` | Planned features and implementation status |
-| `Better11/CLAUDE.md` | Better11-specific Claude Code instructions |
-| `dev-dashboard/README.md` | Dashboard setup, API reference, WebSocket events |
+| `.gitattributes` | Enforces CRLF line endings for Windows; marks binary files |
+| `.gitignore` | Excludes build outputs, secrets, IDE files, OS files (158 rules) |
+| `CONTRIBUTING.md` | Code style, branching, commit format, and PR guidelines |
+| `plan.md` | Workspace development roadmap and milestone tracking |
+| `cursor.md` | Editor/IDE configuration rules for Cursor and VS Code |
+| `TODO.md` | Active task list with status tracking |
+
+## Development Workflow
+
+1. **New experiments** go in `Scratch/` first
+2. **Tested code** moves to appropriate folder (`Scripts/`, `Functions/`, etc.)
+3. **Completed projects** are archived to `Archive/`
+4. **Build outputs** are stored in `Artifacts/`
+
+## Coding Conventions
+
+### PowerShell
+- Use approved verbs (Get-, Set-, New-, etc.)
+- Include comment-based help for functions
+- Use PascalCase for function names
+- Use camelCase for variables
+- Target PowerShell 5.1+ compatibility; prefer 7+ features when possible
+
+### Python
+- Follow PEP 8 style guidelines
+- Use type hints for function signatures
+- Use virtual environments (stored in `.venv/`, gitignored)
+- Prefer f-strings over `.format()` or `%` formatting
+
+### General
+- Keep scripts modular and single-purpose
+- Document all scripts with header comments
+- Use meaningful variable and function names
+- Test thoroughly in `Scratch/` before production use
+
+## Git Configuration
+
+### Line Endings
+- Enforced via `.gitattributes` (not just local git config)
+- Windows files (`.ps1`, `.bat`, `.cmd`, `.py`, `.js`, `.md`): CRLF
+- Unix scripts (`.sh`, `.bash`): LF
+- Binary files (images, archives, executables): no conversion
+
+### Git Hooks (Active)
+
+| Hook | Purpose |
+|------|---------|
+| `pre-commit` | Scans staged files for hardcoded secrets, API keys, passwords, private keys, and connection strings. Blocks commit on detection. |
+| `commit-msg` | Validates conventional commit format: `type: description` or `type(scope): description`. Valid types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`. |
+
+### Commit Convention
+```
+type: brief description
+
+Optional longer description if needed.
+```
+Types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`
+
+## Common Commands
+
+```powershell
+# Navigate to workspace
+cd C:\Dev
+
+# List current projects
+ls CurrentProjects/
+
+# Run a script
+.\Scripts\script-name.ps1
+
+# Import a function library
+. .\Functions\FunctionName.ps1
+
+# Run pre-commit hook manually
+sh .git/hooks/pre-commit
+```
+
+## Agent Guidelines
+
+When working in this repository:
+
+1. **Prefer editing existing files** over creating new ones
+2. **Use Scratch/** for any experimental or test code
+3. **Follow the directory structure** - place files in appropriate folders
+4. **Check for existing functions** in `Functions/` before creating new ones
+5. **Test changes** before committing
+6. **Keep commits atomic** - one logical change per commit
+7. **Use conventional commits** - the commit-msg hook enforces this
+8. **Never commit secrets** - the pre-commit hook scans for them
+9. **Update TODO.md** when completing tasks or discovering new work
+10. **Consult plan.md** for current priorities and roadmap context
+
+## Important Notes
+
+- This is a Windows environment (use PowerShell-compatible syntax)
+- Line endings are CRLF (enforced via `.gitattributes`)
+- Avoid committing sensitive data (credentials, API keys, etc.)
+- The `$RECYCLE.BIN/` and `System Volume Information/` folders are system folders and should be ignored
+- Git hooks are local to each clone - run setup script after fresh clones
