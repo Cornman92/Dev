@@ -2,7 +2,7 @@
     # Module manifest for the Dev workspace Functions library
 
     RootModule        = ''
-    ModuleVersion     = '0.2.0'
+    ModuleVersion     = '0.3.0'
     GUID              = 'b1c2d3e4-f5a6-7890-abcd-ef1234567890'
     Author            = 'C-Man'
     CompanyName       = ''

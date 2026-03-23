@@ -1,6 +1,6 @@
 # TODO - Workspace Task List
 
-> **Last Updated:** 2026-02-28
+> **Last Updated:** 2026-03-23
 > Legend: `[ ]` Pending | `[x]` Done | `[~]` In Progress
 
 ---
@@ -75,3 +75,27 @@
 - [x] 48. Create module manifest for Functions/ (Functions.psd1)
 - [x] 49. Write getting-started tutorial in Assets/docs/ for onboarding
 - [x] 50. Create Scripts/New-ScriptFromTemplate.ps1 - script scaffolding generator
+
+## Phase 4 Remaining - Gaming Utilities
+
+- [x] 51. Create Scripts/Start-GameLauncher.ps1 - game scanner/launcher with catalog
+- [x] 52. Create Scripts/Invoke-ModManager.ps1 - game mod enable/disable/backup manager
+- [x] 53. Create Scripts/Start-StreamHelper.ps1 - streaming/recording optimization helper
+
+## Phase 5 Remaining - Automation & Integration
+
+- [x] 54. Create Scripts/Invoke-DailyHealthReport.ps1 - scheduled health report (HTML/Text)
+- [x] 55. Create Scripts/Invoke-BackupAutomation.ps1 - config-driven backup automation
+- [x] 56. Create Scripts/Send-Notification.ps1 - toast/email/webhook notification system
+
+## Test Coverage
+
+- [x] 57. Create Tests/Get-SystemInfo.Tests.ps1 - system info function tests
+- [x] 58. Create Tests/ConvertTo-HashtableSplat.Tests.ps1 - splatting helper tests
+- [x] 59. Create Tests/Get-FileHashBatch.Tests.ps1 - batch hashing function tests
+
+## Housekeeping
+
+- [x] 60. Update plan.md - mark Phase 4 & 5 items complete
+- [x] 61. Update CHANGELOG.md - add v0.3.0 entry
+- [x] 62. Bump Functions.psd1 module version to 0.3.0

@@ -3,6 +3,18 @@
 All notable changes to this workspace are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.3.0] - 2026-03-23
+
+### Added
+- **Gaming Scripts:** Start-GameLauncher (game scanner/launcher with catalog), Invoke-ModManager (mod enable/disable/backup), Start-StreamHelper (streaming optimization)
+- **Automation Scripts:** Invoke-DailyHealthReport (HTML/text health reports with scheduled task support), Invoke-BackupAutomation (config-driven local/cloud backup), Send-Notification (toast/email/Discord/Slack)
+- **Tests:** Get-SystemInfo.Tests.ps1, ConvertTo-HashtableSplat.Tests.ps1, Get-FileHashBatch.Tests.ps1 (full Pester coverage for all 5 core functions)
+
+### Changed
+- Bumped Functions.psd1 module version to 0.3.0
+- Updated plan.md: All 5 phases now complete
+- Updated TODO.md: Added items 51-62, all complete
+
 ## [0.2.0] - 2026-02-28
 
 ### Added
