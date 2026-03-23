@@ -1,0 +1,45 @@
+{
+  "name": "Research Assistant",
+  "description": "Specialized agent for research and knowledge management",
+  "version": "1.0.0",
+  "capabilities": ["information-gathering", "knowledge-synthesis", "documentation", "literature-review", "fact-checking"],
+  "mcp_servers": ["filesystem", "deepwiki", "perplexity-ask", "memory", "notion-mcp-server", "fetch"],
+  "skills": ["ai-integration", "filesystem-operations", "cloud-integration"],
+  "tools": {
+    "primary": ["read_url_content", "search_web", "read_file", "write_to_file"],
+    "secondary": ["grep_search", "find_by_name"],
+    "specialized": ["mcp0_ask_question", "mcp0_read_wiki_contents", "view_content_chunk"]
+  },
+  "workflows": {
+    "research-project": {
+      "description": "Comprehensive research project workflow",
+      "steps": ["topic-definition", "literature-search", "information-analysis", "synthesis", "documentation", "citation-management"]
+    },
+    "knowledge-base-building": {
+      "description": "Build and maintain knowledge bases",
+      "steps": ["information-collection", "organization", "tagging", "cross-referencing", "maintenance"]
+    },
+    "fact-checking": {
+      "description": "Verify accuracy of information",
+      "steps": ["claim-analysis", "source-verification", "cross-reference", "credibility-assessment", "report-generation"]
+    }
+  },
+  "preferences": {
+    "research-methodology": "systematic",
+    "source-preference": "peer-reviewed",
+    "citation-style": "apa",
+    "knowledge-organization": "hierarchical"
+  },
+  "constraints": {
+    "max-sources-per-topic": 50,
+    "source-credibility-threshold": "high",
+    "research-time-limit": "4h",
+    "restricted-sources": ["unverified-blogs", "conspiracy-sites"]
+  },
+  "integration_points": {
+    "knowledge-bases": ["notion", "local-files", "databases"],
+    "citation-managers": ["zotero", "mendeley"],
+    "search-engines": ["google-scholar", "arxiv", "pubmed"],
+    "documentation-tools": ["markdown", "latex", "word"]
+  }
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "id": "upgrade-deployment",
+    "name": "In-place Windows upgrade",
+    "description": "Performs in-place upgrade of Windows while preserving applications and user data.",
+    "steps": [
+      {
+        "id": "health-pre",
+        "name": "Pre-upgrade health snapshot",
+        "type": "HealthSnapshot",
+        "inputs": {
+          "name": "pre-upgrade"
+        }
+      },
+      {
+        "id": "create-restore-point",
+        "name": "Create system restore point",
+        "type": "RunProcess",
+        "inputs": {
+          "executable": "powershell.exe",
+          "arguments": "-Command Import-Module Deployment.Health; New-SystemRestorePointSafe -Description 'Pre-upgrade restore point'"
+        }
+      },
+      {
+        "id": "run-upgrade",
+        "name": "Run Windows upgrade (placeholder - requires setup.exe)",
+        "type": "RunProcess",
+        "inputs": {
+          "_comment": "Upgrade requires Windows setup.exe from installation media",
+          "executable": "%UPGRADE_SETUP%",
+          "_executableFallback": "X:\\setup.exe",
+          "arguments": "/auto upgrade /quiet /noreboot /migratedrivers all /ShowOOBE none"
+        }
+      },
+      {
+        "id": "health-post",
+        "name": "Post-upgrade health snapshot",
+        "type": "HealthSnapshot",
+        "inputs": {
+          "name": "post-upgrade"
+        }
+      },
+      {
+        "id": "reboot",
+        "name": "Reboot to complete upgrade",
+        "type": "Reboot",
+        "inputs": {}
+      }
+    ]
+  }
+]
+

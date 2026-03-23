@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Better11. All rights reserved. -->
+<!-- Better11 System Enhancement Suite - PackageManagerPage.xaml -->
+<!-- Dense WinUtil-inspired package manager with search, multi-source list, and bulk actions -->
+<Page
+    x:Class="Better11.App.Views.PackageManagerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{StaticResource B11PrimaryBackgroundBrush}"
+    NavigationCacheMode="Enabled">
+
+    <Grid Padding="{StaticResource B11PageMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- PAGE HEADER                                                    -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Grid Grid.Row="0" Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                <FontIcon Glyph="&#xE71D;" FontSize="20"
+                          Foreground="{StaticResource B11AccentBrush}"/>
+                <TextBlock Text="{x:Bind ViewModel.PageTitle}"
+                           FontSize="{StaticResource B11FontSizeTitle}"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextPrimaryBrush}"/>
+            </StackPanel>
+
+            <!-- Search + Actions -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="6">
+                <TextBox PlaceholderText="Search packages..."
+                         Text="{x:Bind ViewModel.SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Width="220" Height="28"
+                         FontSize="{StaticResource B11FontSizeBody}"
+                         Padding="8,4,8,4"
+                         Background="{StaticResource B11SurfaceBackgroundBrush}"
+                         Foreground="{StaticResource B11TextPrimaryBrush}"
+                         BorderBrush="{StaticResource B11BorderDefaultBrush}"/>
+                <Button Content="Refresh"
+                        Style="{StaticResource B11CompactButtonStyle}"
+                        Command="{x:Bind ViewModel.RefreshCommand}"/>
+                <Button Style="{StaticResource B11AccentButtonStyle}"
+                        Command="{x:Bind ViewModel.InstallNewCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <FontIcon Glyph="&#xE710;" FontSize="12"/>
+                        <TextBlock Text="Install New"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- STATUS BAR                                                     -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <StackPanel Grid.Row="1" Spacing="4" Margin="0,0,0,6">
+            <ProgressBar IsIndeterminate="True"
+                         Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
+                         Height="2"/>
+            <InfoBar IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+                     Severity="Error" Title="Error"
+                     Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+                     IsClosable="True"/>
+            <InfoBar IsOpen="{x:Bind ViewModel.HasSuccess, Mode=OneWay}"
+                     Severity="Success" Title="Success"
+                     Message="{x:Bind ViewModel.SuccessMessage, Mode=OneWay}"
+                     IsClosable="True"/>
+        </StackPanel>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- COLUMN HEADERS                                                 -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Border Grid.Row="2" Style="{StaticResource B11DenseCardStyle}"
+                Margin="0,0,0,2" Padding="8,4,8,4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="32"/>
+                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Column="0"
+                          IsChecked="{x:Bind ViewModel.IsAllSelected, Mode=TwoWay}"
+                          MinWidth="0" MinHeight="0" Padding="0"
+                          ToolTipService.ToolTip="Select All"/>
+                <TextBlock Grid.Column="1" Text="Package Name"
+                           FontSize="{StaticResource B11FontSizeCaption}"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                <TextBlock Grid.Column="2" Text="Version"
+                           FontSize="{StaticResource B11FontSizeCaption}"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                <TextBlock Grid.Column="3" Text="Source"
+                           FontSize="{StaticResource B11FontSizeCaption}"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                <TextBlock Grid.Column="4" Text="Status"
+                           FontSize="{StaticResource B11FontSizeCaption}"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+            </Grid>
+        </Border>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- PACKAGE LIST                                                   -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <ListView Grid.Row="3"
+                  ItemsSource="{x:Bind ViewModel.FilteredPackages, Mode=OneWay}"
+                  SelectionMode="None"
+                  Background="Transparent">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" BasedOn="{StaticResource B11DenseListViewItemStyle}">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="Transparent"
+                            BorderBrush="{StaticResource B11BorderSubtleBrush}"
+                            BorderThickness="0,0,0,1"
+                            Padding="0,2,0,2">
+                        <Grid MinHeight="{StaticResource B11RowHeight}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32"/>
+                                <ColumnDefinition Width="2.5*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Column="0"
+                                      IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                      MinWidth="0" MinHeight="0" Padding="0"/>
+
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="0">
+                                <TextBlock Text="{Binding Name}"
+                                           FontSize="{StaticResource B11FontSizeBody}"
+                                           Foreground="{StaticResource B11TextPrimaryBrush}"
+                                           TextTrimming="CharacterEllipsis"/>
+                                <TextBlock Text="{Binding Id}"
+                                           FontSize="{StaticResource B11FontSizeCaption}"
+                                           Foreground="{StaticResource B11TextTertiaryBrush}"
+                                           TextTrimming="CharacterEllipsis"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Column="2" Text="{Binding Version}"
+                                       FontSize="{StaticResource B11FontSizeBody}"
+                                       Foreground="{StaticResource B11TextSecondaryBrush}"
+                                       FontFamily="{StaticResource B11FontFamilyMono}"
+                                       VerticalAlignment="Center"/>
+
+                            <Border Grid.Column="3" VerticalAlignment="Center"
+                                    Background="{StaticResource B11SurfaceBackgroundBrush}"
+                                    CornerRadius="2" Padding="6,1,6,1"
+                                    HorizontalAlignment="Left">
+                                <TextBlock Text="{Binding Source}"
+                                           FontSize="{StaticResource B11FontSizeCaption}"
+                                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="4" Orientation="Horizontal"
+                                        VerticalAlignment="Center" Spacing="4">
+                                <Ellipse Width="8" Height="8"
+                                         Fill="{Binding StatusColor}"
+                                         Style="{StaticResource B11StatusDotStyle}"/>
+                                <TextBlock Text="{Binding Status}"
+                                           FontSize="{StaticResource B11FontSizeCaption}"
+                                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- BOTTOM ACTION BAR                                              -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Border Grid.Row="4" Style="{StaticResource B11DenseCardStyle}"
+                Margin="0,6,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Selection Info -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal"
+                            VerticalAlignment="Center" Spacing="8">
+                    <TextBlock Text="{x:Bind ViewModel.SelectedCount, Mode=OneWay}"
+                               FontSize="{StaticResource B11FontSizeBody}"
+                               Foreground="{StaticResource B11AccentBrush}"
+                               FontWeight="SemiBold"/>
+                    <TextBlock Text="selected"
+                               FontSize="{StaticResource B11FontSizeBody}"
+                               Foreground="{StaticResource B11TextTertiaryBrush}"/>
+                    <TextBlock Text="|"
+                               Foreground="{StaticResource B11TextTertiaryBrush}"/>
+                    <TextBlock Text="{x:Bind ViewModel.TotalCount, Mode=OneWay}"
+                               FontSize="{StaticResource B11FontSizeBody}"
+                               Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                    <TextBlock Text="total packages"
+                               FontSize="{StaticResource B11FontSizeBody}"
+                               Foreground="{StaticResource B11TextTertiaryBrush}"/>
+                </StackPanel>
+
+                <!-- Action Buttons -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                    <Button Style="{StaticResource B11AccentButtonStyle}"
+                            Command="{x:Bind ViewModel.InstallSelectedCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <FontIcon Glyph="&#xE896;" FontSize="12"/>
+                            <TextBlock Text="Install Selected"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource B11CompactButtonStyle}"
+                            Command="{x:Bind ViewModel.UninstallSelectedCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <FontIcon Glyph="&#xE74D;" FontSize="12"/>
+                            <TextBlock Text="Uninstall Selected"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource B11CompactButtonStyle}"
+                            Command="{x:Bind ViewModel.ExportListCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <FontIcon Glyph="&#xEDE1;" FontSize="12"/>
+                            <TextBlock Text="Export List"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

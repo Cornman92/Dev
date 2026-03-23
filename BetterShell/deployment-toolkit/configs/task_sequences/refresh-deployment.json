@@ -1,0 +1,64 @@
+[
+  {
+    "id": "refresh-deployment",
+    "name": "Refresh existing Windows installation",
+    "description": "Backs up user data, applies fresh Windows image, restores data, and reinstalls applications.",
+    "steps": [
+      {
+        "id": "health-pre",
+        "name": "Pre-refresh health snapshot",
+        "type": "HealthSnapshot",
+        "inputs": {
+          "name": "pre-refresh"
+        }
+      },
+      {
+        "id": "backup-user-data",
+        "name": "Backup user data (placeholder - requires USMT or custom script)",
+        "type": "RunProcess",
+        "inputs": {
+          "executable": "powershell.exe",
+          "arguments": "-Command Write-Host 'User data backup step - implement with USMT or custom script'"
+        }
+      },
+      {
+        "id": "apply-image",
+        "name": "Apply Windows image (preserve existing partitions)",
+        "type": "ApplyImage",
+        "inputs": {
+          "_comment": "WIM path supports environment variables: %WIM_PATH%, %INSTALL_WIM%",
+          "wimPath": "%WIM_PATH%",
+          "_wimPathFallback": "X:\\sources\\install.wim",
+          "index": 1,
+          "targetDriveLetter": "C"
+        }
+      },
+      {
+        "id": "restore-user-data",
+        "name": "Restore user data (placeholder - requires USMT or custom script)",
+        "type": "RunProcess",
+        "inputs": {
+          "executable": "powershell.exe",
+          "arguments": "-Command Write-Host 'User data restore step - implement with USMT or custom script'"
+        }
+      },
+      {
+        "id": "install-apps",
+        "name": "Reinstall applications",
+        "type": "InstallAppSet",
+        "inputs": {
+          "appSetId": "base-desktop"
+        }
+      },
+      {
+        "id": "health-post",
+        "name": "Post-refresh health snapshot",
+        "type": "HealthSnapshot",
+        "inputs": {
+          "name": "post-refresh"
+        }
+      }
+    ]
+  }
+]
+

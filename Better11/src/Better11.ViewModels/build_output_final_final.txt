@@ -1,0 +1,14 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  Better11.Core -> D:\Dev\Better11\src\Better11.Core\bin\Debug\net8.0-windows10.0.22621.0\Better11.Core.dll
+  Better11.Models -> d:\Dev\Better11\src\Better11.Models\bin\Debug\net8.0-windows10.0.22621.0\Better11.Models.dll
+  Better11.Services -> d:\Dev\Better11\src\Better11.Services\bin\Debug\net8.0-windows10.0.22621.0\Better11.Services.dll
+d:\Dev\Better11\src\Better11.ViewModels\BackupRestore\BackupRestoreViewModel.cs(330,2): error SA1518: File is required to end with a single newline character (https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1518.md) [d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj]
+
+Build FAILED.
+
+d:\Dev\Better11\src\Better11.ViewModels\BackupRestore\BackupRestoreViewModel.cs(330,2): error SA1518: File is required to end with a single newline character (https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1518.md) [d:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj]
+    0 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:03.28

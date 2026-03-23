@@ -1,0 +1,212 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+env:
+  POWERSHELL_TELEMETRY_OPTOUT: 1
+
+jobs:
+  # PowerShell Module Testing
+  test-powershell-modules:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        pwsh-version: ['7.2', '7.4', 'latest']
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PowerShell ${{ matrix.pwsh-version }}
+        uses: azure/powershell@v1
+        with:
+          azPSVersion: ${{ matrix.pwsh-version }}
+          inlineScript: |
+            Write-Host "PowerShell Version: $($PSVersionTable.PSVersion)"
+
+      - name: Install Pester
+        run: Install-Module -Name Pester -Force -Scope CurrentUser -MinimumVersion 5.0
+
+      - name: Run PowerShell Tests
+        run: |
+          $testResults = Invoke-Pester -Path "./tests" -PassThru -OutputFormat NUnitXml -OutputFile "./test-results-${{ matrix.pwsh-version }}.xml"
+          if ($testResults.FailedCount -gt 0) {
+            Write-Error "Tests failed: $($testResults.FailedCount) out of $($testResults.TotalCount)"
+            exit 1
+          }
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-powershell-${{ matrix.pwsh-version }}
+          path: ./test-results-${{ matrix.pwsh-version }}.xml
+
+  # Node.js Testing (for projects with package.json)
+  test-nodejs:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        node-version: ['18.x', '20.x']
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage/lcov.info
+
+  # Lint PowerShell Scripts
+  lint-powershell:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PowerShell
+        uses: azure/powershell@v1
+
+      - name: Install PSScriptAnalyzer
+        run: Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
+
+      - name: Run PSScriptAnalyzer
+        run: |
+          $results = Invoke-ScriptAnalyzer -Path "./" -Recurse -ExcludeRule @('PSUseDeclaredVarsMoreThanAssignments')
+          if ($results.Count -gt 0) {
+            Write-Host "ScriptAnalyzer found $($results.Count) issues:"
+            $results | Format-Table
+            exit 1
+          }
+
+  # Build Documentation
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install docs dependencies
+        run: |
+          npm install -g markdownlint-cli
+          npm install -g markdown-link-check
+
+      - name: Lint Markdown
+        run: |
+          find ./docs -name "*.md" -exec markdownlint {} \;
+
+      - name: Check links
+        run: |
+          find ./docs -name "README.md" -exec markdown-link-check {} \;
+
+  # Security Scan
+  security-scan:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  # Deploy to PowerShell Gallery (on main branch)
+  deploy-powershell:
+    runs-on: windows-latest
+    needs: [test-powershell-modules, lint-powershell]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PowerShell
+        uses: azure/powershell@v1
+
+      - name: Publish to PowerShell Gallery
+        env:
+          NUGET_API_KEY: ${{ secrets.POWERSHELL_GALLERY_API_KEY }}
+        run: |
+          # Find and publish all PowerShell modules
+          Get-ChildItem -Path "./modules" -Directory | ForEach-Object {
+            $manifest = Get-ChildItem -Path $_.FullName -Name "*.psd1" -Recurse | Select-Object -First 1
+            if ($manifest) {
+              Write-Host "Publishing module: $($_.Name)"
+              Publish-Module -Path $_.FullName -NuGetApiKey $env:NUGET_API_KEY -Force
+            }
+          }
+
+  # Create Release
+  create-release:
+    runs-on: ubuntu-latest
+    needs: [test-powershell-modules, test-nodejs, lint-powershell, build-docs, security-scan]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          # Generate changelog based on commits since last tag
+          git fetch --tags
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LAST_TAG" ]; then
+            CHANGELOG=$(git log --pretty=format:"- %s" HEAD)
+          else
+            CHANGELOG=$(git log --pretty=format:"- %s" $LAST_TAG..HEAD)
+          fi
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Release v${{ github.run_number }}
+          body: |
+            ## Changes
+            ${{ steps.changelog.outputs.changelog }}
+            
+            ## Installation
+            ```powershell
+            Install-Module -Name <ModuleName> -Force
+            ```
+          draft: false
+          prerelease: false

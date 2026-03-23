@@ -1,0 +1,18 @@
+[
+  {
+    "id": "apps-dev-workstation",
+    "name": "Install developer workstation apps",
+    "description": "Install the dev-workstation app set on a running system.",
+    "steps": [
+      {
+        "id": "install-apps",
+        "name": "Install developer workstation apps",
+        "type": "InstallAppSet",
+        "inputs": {
+          "appSetId": "dev-workstation"
+        }
+      }
+    ]
+  }
+]
+

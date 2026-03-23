@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Image Configuration Wizard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #7c3aed;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --dark-bg: #1f2937;
+            --light-bg: #f9fafb;
+            --card-bg: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .wizard-container {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Wizard Header */
+        .wizard-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .wizard-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .wizard-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            padding: 2rem 2rem 0;
+            background: var(--light-bg);
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--border-color);
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+
+        .progress-line-fill {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            z-index: 2;
+            transform: translateY(-50%);
+            transition: width 0.5s ease;
+        }
+
+        .progress-step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+            z-index: 3;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .progress-step.completed {
+            border-color: var(--success-color);
+            background: var(--success-color);
+            color: white;
+        }
+
+        .progress-step-label {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .progress-step.active .progress-step-label,
+        .progress-step.completed .progress-step-label {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Wizard Content */
+        .wizard-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .wizard-step {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .wizard-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-header {
+            margin-bottom: 2rem;
+        }
+
+        .step-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .step-header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .form-help {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* Radio and Checkbox Groups */
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .radio-option, .checkbox-option {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .radio-option:hover, .checkbox-option:hover {
+            border-color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .radio-option.selected, .checkbox-option.selected {
+            border-color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .radio-option input, .checkbox-option input {
+            margin-right: 0.75rem;
+        }
+
+        .radio-option-content, .checkbox-option-content {
+            flex: 1;
+        }
+
+        .radio-option-title, .checkbox-option-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .radio-option-description, .checkbox-option-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 48px;
+            height: 24px;
+            background: var(--text-secondary);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: var(--success-color);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(24px);
+        }
+
+        /* Feature Cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-card {
+            padding: 1.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-card.selected {
+            border-color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Validation Summary */
+        .validation-summary {
+            background: var(--light-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .validation-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .validation-item:last-child {
+            border-bottom: none;
+        }
+
+        .validation-icon {
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+        }
+
+        .validation-icon.success {
+            color: var(--success-color);
+        }
+
+        .validation-icon.warning {
+            color: var(--warning-color);
+        }
+
+        .validation-icon.error {
+            color: var(--danger-color);
+        }
+
+        .validation-text {
+            flex: 1;
+        }
+
+        .validation-status {
+            font-weight: 500;
+        }
+
+        /* Wizard Footer */
+        .wizard-footer {
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            background: var(--light-bg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .wizard-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--text-secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--light-bg);
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Summary Table */
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        .summary-table th,
+        .summary-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .summary-table th {
+            font-weight: 600;
+            background: var(--light-bg);
+        }
+
+        .summary-table tr:hover {
+            background: var(--light-bg);
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-top: 2px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Success Animation */
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 2rem auto;
+            border-radius: 50%;
+            background: var(--success-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: scaleIn 0.5s ease;
+        }
+
+        .success-checkmark::after {
+            content: '✓';
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .wizard-container {
+                max-height: 100vh;
+                border-radius: 0;
+            }
+
+            .wizard-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .progress-step-label {
+                display: none;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .wizard-footer {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .wizard-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wizard-container">
+        <!-- Wizard Header -->
+        <header class="wizard-header">
+            <h1>Golden Image Setup Wizard</h1>
+            <p>Configure your Golden Image system with our step-by-step guide</p>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-line"></div>
+                <div class="progress-line-fill" id="progress-fill" style="width: 0%"></div>
+                <div class="progress-step active" data-step="1">
+                    1
+                    <span class="progress-step-label">Welcome</span>
+                </div>
+                <div class="progress-step" data-step="2">
+                    2
+                    <span class="progress-step-label">Features</span>
+                </div>
+                <div class="progress-step" data-step="3">
+                    3
+                    <span class="progress-step-label">Security</span>
+                </div>
+                <div class="progress-step" data-step="4">
+                    4
+                    <span class="progress-step-label">Cloud</span>
+                </div>
+                <div class="progress-step" data-step="5">
+                    5
+                    <span class="progress-step-label">Review</span>
+                </div>
+                <div class="progress-step" data-step="6">
+                    6
+                    <span class="progress-step-label">Complete</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wizard Content -->
+        <div class="wizard-content">
+            <!-- Step 1: Welcome -->
+            <div class="wizard-step active" id="step-1">
+                <div class="step-header">
+                    <h2>Welcome to Golden Image</h2>
+                    <p>Let's configure your advanced system monitoring, security, and cloud integration platform.</p>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-title">Security Scanning</div>
+                        <div class="feature-description">Advanced threat detection and real-time monitoring</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">☁️</div>
+                        <div class="feature-title">Cloud Integration</div>
+                        <div class="feature-description">Multi-provider backup and disaster recovery</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">Real-time Monitoring</div>
+                        <div class="feature-description">Live dashboards and performance metrics</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-title">Performance Optimization</div>
+                        <div class="feature-description">Parallel processing and system tuning</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="system-name">System Name</label>
+                    <input type="text" id="system-name" class="form-control" placeholder="e.g., GoldenImage-Prod-01" value="GoldenImage-01">
+                    <div class="form-help">Choose a unique name for your Golden Image system</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="environment">Environment Type</label>
+                    <select id="environment" class="form-control">
+                        <option value="">Select environment...</option>
+                        <option value="production">Production</option>
+                        <option value="staging">Staging</option>
+                        <option value="development">Development</option>
+                        <option value="testing">Testing</option>
+                    </select>
+                    <div class="form-help">This helps us apply the appropriate security and performance settings</div>
+                </div>
+            </div>
+
+            <!-- Step 2: Features Selection -->
+            <div class="wizard-step" id="step-2">
+                <div class="step-header">
+                    <h2>Choose Your Features</h2>
+                    <p>Select the features you want to enable for your Golden Image system.</p>
+                </div>
+
+                <div class="checkbox-group">
+                    <div class="checkbox-option selected">
+                        <input type="checkbox" id="feature-security" checked>
+                        <div class="checkbox-option-content">
+                            <div class="checkbox-option-title">🔒 Advanced Security Scanning</div>
+                            <div class="checkbox-option-description">Comprehensive threat detection, malware scanning, and real-time security monitoring</div>
+                        </div>
+                    </div>
+                    <div class="checkbox-option selected">
+                        <input type="checkbox" id="feature-monitoring" checked>
+                        <div class="checkbox-option-content">
+                            <div class="checkbox-option-title">📊 Real-time Monitoring Dashboard</div>
+                            <div class="checkbox-option-description">Live performance metrics, system health monitoring, and interactive dashboards</div>
+                        </div>
+                    </div>
+                    <div class="checkbox-option selected">
+                        <input type="checkbox" id="feature-cloud" checked>
+                        <div class="checkbox-option-content">
+                            <div class="checkbox-option-title">☁️ Cloud Backup & Restore</div>
+                            <div class="checkbox-option-description">Multi-cloud backup (Azure, AWS, GCP) with automated disaster recovery</div>
+                        </div>
+                    </div>
+                    <div class="checkbox-option selected">
+                        <input type="checkbox" id="feature-performance" checked>
+                        <div class="checkbox-option-content">
+                            <div class="checkbox-option-title">⚡ Performance Optimization</div>
+                            <div class="checkbox-option-description">Parallel processing, system tuning, and AI-powered optimization</div>
+                        </div>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="feature-recovery">
+                        <div class="checkbox-option-content">
+                            <div class="checkbox-option-title">🔧 Error Recovery System</div>
+                            <div class="checkbox-option-description">Self-healing capabilities and automated error recovery</div>
+                        </div>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="feature-ai">
+                        <div class="checkbox-option-content">
+                            <div class="checkbox-option-title">🤖 AI-Powered Features</div>
+                            <div class="checkbox-option-description">Predictive analysis, intelligent automation, and smart recommendations</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Configuration Profile</label>
+                    <div class="radio-group">
+                        <div class="radio-option selected">
+                            <input type="radio" name="profile" value="balanced" checked>
+                            <div class="radio-option-content">
+                                <div class="radio-option-title">⚖️ Balanced</div>
+                                <div class="radio-option-description">Optimal balance of security, performance, and features</div>
+                            </div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="profile" value="security">
+                            <div class="radio-option-content">
+                                <div class="radio-option-title">🛡️ Security-Focused</div>
+                                <div class="radio-option-description">Maximum security with enhanced monitoring and threat detection</div>
+                            </div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="profile" value="performance">
+                            <div class="radio-option-content">
+                                <div class="radio-option-title">🚀 Performance-Focused</div>
+                                <div class="radio-option-description">Maximum performance with optimized resource usage</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Security Configuration -->
+            <div class="wizard-step" id="step-3">
+                <div class="step-header">
+                    <h2>Security Configuration</h2>
+                    <p>Configure your security settings and scanning preferences.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="security-level">Security Level</label>
+                    <select id="security-level" class="form-control">
+                        <option value="standard">Standard - Basic protection with regular scans</option>
+                        <option value="enhanced" selected>Enhanced - Advanced threat detection and monitoring</option>
+                        <option value="maximum">Maximum - Enterprise-grade security with real-time protection</option>
+                    </select>
+                    <div class="form-help">Choose based on your security requirements and compliance needs</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="scan-frequency">Security Scan Frequency</label>
+                        <select id="scan-frequency" class="form-control">
+                            <option value="hourly">Hourly</option>
+                            <option value="daily" selected>Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="scan-depth">Scan Depth</label>
+                        <select id="scan-depth" class="form-control">
+                            <option value="quick">Quick - Essential areas only</option>
+                            <option value="standard" selected>Standard - Comprehensive system scan</option>
+                            <option value="deep">Deep - Thorough analysis with heuristics</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Automatic Actions</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option selected">
+                            <input type="checkbox" id="auto-quarantine" checked>
+                            <div class="checkbox-option-content">
+                                <div class="checkbox-option-title">🚫 Auto-Quarantine Threats</div>
+                                <div class="checkbox-option-description">Automatically isolate critical security threats</div>
+                            </div>
+                        </div>
+                        <div class="checkbox-option selected">
+                            <input type="checkbox" id="auto-updates" checked>
+                            <div class="checkbox-option-content">
+                                <div class="checkbox-option-title">🔄 Auto-Update Definitions</div>
+                                <div class="checkbox-option-description">Keep security signatures and rules updated</div>
+                            </div>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="alert-admins">
+                            <div class="checkbox-option-content">
+                                <div class="checkbox-option-title">📧 Alert Administrators</div>
+                                <div class="checkbox-option-description">Send email alerts for critical security events</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="admin-email">Administrator Email</label>
+                    <input type="email" id="admin-email" class="form-control" placeholder="admin@company.com">
+                    <div class="form-help">Optional: Receive security alerts and system notifications</div>
+                </div>
+            </div>
+
+            <!-- Step 4: Cloud Configuration -->
+            <div class="wizard-step" id="step-4">
+                <div class="step-header">
+                    <h2>Cloud Integration Setup</h2>
+                    <p>Configure your cloud backup and disaster recovery settings.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="cloud-provider">Cloud Provider</label>
+                    <select id="cloud-provider" class="form-control">
+                        <option value="">Select cloud provider...</option>
+                        <option value="azure">Microsoft Azure</option>
+                        <option value="aws">Amazon Web Services (AWS)</option>
+                        <option value="gcp">Google Cloud Platform</option>
+                        <option value="none">No cloud integration</option>
+                    </select>
+                    <div class="form-help">Choose your preferred cloud provider for backups</div>
+                </div>
+
+                <div id="cloud-config" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="storage-account">Storage Account/Container</label>
+                            <input type="text" id="storage-account" class="form-control" placeholder="goldenimagestorage">
+                        </div>
+                        <div class="form-group">
+                            <label for="resource-group">Resource Group</label>
+                            <input type="text" id="resource-group" class="form-control" placeholder="GoldenImage-RG">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="backup-frequency">Backup Frequency</label>
+                        <select id="backup-frequency" class="form-control">
+                            <option value="hourly">Hourly</option>
+                            <option value="daily" selected>Daily</option>
+                            <option value="weekly">Weekly</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="backup-retention">Backup Retention (days)</label>
+                        <input type="number" id="backup-retention" class="form-control" value="30" min="1" max="365">
+                    </div>
+
+                    <div class="checkbox-group">
+                        <div class="checkbox-option selected">
+                            <input type="checkbox" id="auto-backup" checked>
+                            <div class="checkbox-option-content">
+                                <div class="checkbox-option-title">💾 Enable Automatic Backup</div>
+                                <div class="checkbox-option-description">Schedule automatic cloud backups</div>
+                            </div>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="backup-encryption">
+                            <div class="checkbox-option-content">
+                                <div class="checkbox-option-title">🔐 Encrypt Backups</div>
+                                <div class="checkbox-option-description">Encrypt backup data for additional security</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="no-cloud-warning" style="display: none;" class="form-group">
+                    <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 1rem;">
+                        <strong>⚠️ No Cloud Integration</strong><br>
+                        You won't have automatic backup and disaster recovery capabilities. Consider enabling cloud integration for better data protection.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Review Configuration -->
+            <div class="wizard-step" id="step-5">
+                <div class="step-header">
+                    <h2>Review Your Configuration</h2>
+                    <p>Please review your settings before completing the setup.</p>
+                </div>
+
+                <div class="validation-summary">
+                    <h3 style="margin-bottom: 1rem;">Configuration Summary</h3>
+                    <div id="validation-items">
+                        <!-- Validation items will be populated here -->
+                    </div>
+                </div>
+
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summary-table-body">
+                        <!-- Summary items will be populated here -->
+                    </tbody>
+                </table>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="confirm-setup">
+                        I confirm that the configuration is correct and I want to proceed with the setup
+                    </label>
+                </div>
+            </div>
+
+            <!-- Step 6: Complete -->
+            <div class="wizard-step" id="step-6">
+                <div class="step-header">
+                    <h2>Setup Complete!</h2>
+                    <p>Your Golden Image system has been successfully configured.</p>
+                </div>
+
+                <div class="success-checkmark"></div>
+
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <h3 style="color: var(--success-color); margin-bottom: 1rem;">🎉 Configuration Successful</h3>
+                    <p>Your Golden Image system is now ready with the following features:</p>
+                </div>
+
+                <div id="enabled-features" style="margin-bottom: 2rem;">
+                    <!-- Enabled features will be listed here -->
+                </div>
+
+                <div class="form-group">
+                    <h4>Next Steps:</h4>
+                    <ul style="color: var(--text-secondary); line-height: 1.6;">
+                        <li>Access your monitoring dashboard at <code>http://localhost:8080/dashboard</code></li>
+                        <li>Review the security scan results in the monitoring panel</li>
+                        <li>Configure additional settings in the configuration dashboard</li>
+                        <li>Check the documentation for advanced features and troubleshooting</li>
+                    </ul>
+                </div>
+
+                <div style="background: var(--light-bg); border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+                    <strong>📁 Configuration File:</strong><br>
+                    <code id="config-file-path">C:\GoldenImage\GoldenImageConfig.json</code><br>
+                    <small class="form-help">Your configuration has been saved. You can modify it later using the configuration dashboard.</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wizard Footer -->
+        <footer class="wizard-footer">
+            <div>
+                <span id="step-indicator">Step 1 of 6</span>
+            </div>
+            <div class="wizard-buttons">
+                <button class="btn btn-outline" id="prev-btn" onclick="previousStep()" disabled>
+                    Previous
+                </button>
+                <button class="btn btn-primary" id="next-btn" onclick="nextStep()">
+                    Next
+                </button>
+                <button class="btn btn-success" id="finish-btn" onclick="finishSetup()" style="display: none;">
+                    Finish Setup
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Wizard state
+        let currentStep = 1;
+        const totalSteps = 6;
+        let wizardData = {
+            systemName: '',
+            environment: '',
+            features: [],
+            profile: 'balanced',
+            security: {},
+            cloud: {}
+        };
+
+        // Initialize wizard
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeEventHandlers();
+            updateProgressBar();
+            updateStepIndicator();
+        });
+
+        // Initialize event handlers
+        function initializeEventHandlers() {
+            // Cloud provider change handler
+            document.getElementById('cloud-provider').addEventListener('change', function() {
+                const cloudConfig = document.getElementById('cloud-config');
+                const noCloudWarning = document.getElementById('no-cloud-warning');
+                
+                if (this.value === 'none' || this.value === '') {
+                    cloudConfig.style.display = 'none';
+                    noCloudWarning.style.display = 'block';
+                } else {
+                    cloudConfig.style.display = 'block';
+                    noCloudWarning.style.display = 'none';
+                }
+            });
+
+            // Checkbox and radio option handlers
+            document.querySelectorAll('.checkbox-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                    this.classList.toggle('selected', checkbox.checked);
+                });
+            });
+
+            document.querySelectorAll('.radio-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const radio = this.querySelector('input[type="radio"]');
+                    const name = radio.name;
+                    
+                    // Remove selected class from all options in this group
+                    document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                        r.closest('.radio-option').classList.remove('selected');
+                    });
+                    
+                    // Add selected class to clicked option
+                    radio.checked = true;
+                    this.classList.add('selected');
+                });
+            });
+
+            // Feature card handlers
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                });
+            });
+
+            // Confirm setup checkbox
+            document.getElementById('confirm-setup').addEventListener('change', function() {
+                document.getElementById('finish-btn').disabled = !this.checked;
+            });
+        }
+
+        // Navigation functions
+        function nextStep() {
+            if (validateCurrentStep()) {
+                saveCurrentStepData();
+                
+                if (currentStep < totalSteps) {
+                    // Hide current step
+                    document.getElementById(`step-${currentStep}`).classList.remove('active');
+                    document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.remove('active');
+                    document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('completed');
+                    
+                    currentStep++;
+                    
+                    // Show next step
+                    document.getElementById(`step-${currentStep}`).classList.add('active');
+                    document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('active');
+                    
+                    updateProgressBar();
+                    updateStepIndicator();
+                    updateButtons();
+                    
+                    // Special handling for review step
+                    if (currentStep === 5) {
+                        populateReviewStep();
+                    }
+                }
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                // Hide current step
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.remove('active');
+                
+                currentStep--;
+                
+                // Show previous step
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+                document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('active');
+                document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.remove('completed');
+                
+                updateProgressBar();
+                updateStepIndicator();
+                updateButtons();
+            }
+        }
+
+        function finishSetup() {
+            // Show loading state
+            const finishBtn = document.getElementById('finish-btn');
+            finishBtn.innerHTML = '<span class="loading-spinner"></span> Setting up...';
+            finishBtn.disabled = true;
+
+            // Simulate setup process
+            setTimeout(() => {
+                // Move to complete step
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.remove('active');
+                document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('completed');
+                
+                currentStep = 6;
+                
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+                document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('active');
+                
+                updateProgressBar();
+                updateStepIndicator();
+                updateButtons();
+                
+                populateCompleteStep();
+            }, 3000);
+        }
+
+        // Validation
+        function validateCurrentStep() {
+            let isValid = true;
+            let errorMessage = '';
+
+            switch(currentStep) {
+                case 1:
+                    const systemName = document.getElementById('system-name').value.trim();
+                    const environment = document.getElementById('environment').value;
+                    
+                    if (!systemName) {
+                        errorMessage = 'Please enter a system name';
+                        isValid = false;
+                    } else if (!environment) {
+                        errorMessage = 'Please select an environment type';
+                        isValid = false;
+                    }
+                    break;
+                    
+                case 2:
+                    const selectedFeatures = document.querySelectorAll('.checkbox-option.selected input[type="checkbox"]:checked');
+                    if (selectedFeatures.length === 0) {
+                        errorMessage = 'Please select at least one feature';
+                        isValid = false;
+                    }
+                    break;
+                    
+                case 3:
+                    const securityLevel = document.getElementById('security-level').value;
+                    if (!securityLevel) {
+                        errorMessage = 'Please select a security level';
+                        isValid = false;
+                    }
+                    break;
+                    
+                case 4:
+                    const cloudProvider = document.getElementById('cloud-provider').value;
+                    if (cloudProvider && cloudProvider !== 'none') {
+                        const storageAccount = document.getElementById('storage-account').value.trim();
+                        if (!storageAccount) {
+                            errorMessage = 'Please enter a storage account name';
+                            isValid = false;
+                        }
+                    }
+                    break;
+            }
+
+            if (!isValid) {
+                showNotification(errorMessage, 'error');
+            }
+
+            return isValid;
+        }
+
+        // Save current step data
+        function saveCurrentStepData() {
+            switch(currentStep) {
+                case 1:
+                    wizardData.systemName = document.getElementById('system-name').value.trim();
+                    wizardData.environment = document.getElementById('environment').value;
+                    break;
+                    
+                case 2:
+                    wizardData.features = [];
+                    document.querySelectorAll('.checkbox-option.selected input[type="checkbox"]:checked').forEach(checkbox => {
+                        wizardData.features.push(checkbox.id.replace('feature-', ''));
+                    });
+                    wizardData.profile = document.querySelector('input[name="profile"]:checked').value;
+                    break;
+                    
+                case 3:
+                    wizardData.security = {
+                        level: document.getElementById('security-level').value,
+                        scanFrequency: document.getElementById('scan-frequency').value,
+                        scanDepth: document.getElementById('scan-depth').value,
+                        autoQuarantine: document.getElementById('auto-quarantine').checked,
+                        autoUpdates: document.getElementById('auto-updates').checked,
+                        alertAdmins: document.getElementById('alert-admins').checked,
+                        adminEmail: document.getElementById('admin-email').value
+                    };
+                    break;
+                    
+                case 4:
+                    const cloudProvider = document.getElementById('cloud-provider').value;
+                    if (cloudProvider && cloudProvider !== 'none') {
+                        wizardData.cloud = {
+                            provider: cloudProvider,
+                            storageAccount: document.getElementById('storage-account').value,
+                            resourceGroup: document.getElementById('resource-group').value,
+                            backupFrequency: document.getElementById('backup-frequency').value,
+                            backupRetention: document.getElementById('backup-retention').value,
+                            autoBackup: document.getElementById('auto-backup').checked,
+                            encryption: document.getElementById('backup-encryption').checked
+                        };
+                    } else {
+                        wizardData.cloud = { enabled: false };
+                    }
+                    break;
+            }
+        }
+
+        // Populate review step
+        function populateReviewStep() {
+            // Validation items
+            const validationItems = document.getElementById('validation-items');
+            validationItems.innerHTML = `
+                <div class="validation-item">
+                    <div class="validation-icon success">✓</div>
+                    <div class="validation-text">
+                        <div>System Configuration</div>
+                        <div class="form-help">System name and environment configured</div>
+                    </div>
+                    <div class="validation-status">Complete</div>
+                </div>
+                <div class="validation-item">
+                    <div class="validation-icon success">✓</div>
+                    <div class="validation-text">
+                        <div>Feature Selection</div>
+                        <div class="form-help">${wizardData.features.length} features selected</div>
+                    </div>
+                    <div class="validation-status">Complete</div>
+                </div>
+                <div class="validation-item">
+                    <div class="validation-icon success">✓</div>
+                    <div class="validation-text">
+                        <div>Security Settings</div>
+                        <div class="form-help">${wizardData.security.level} security level configured</div>
+                    </div>
+                    <div class="validation-status">Complete</div>
+                </div>
+                <div class="validation-item">
+                    <div class="validation-icon ${wizardData.cloud.enabled ? 'success' : 'warning'}">
+                        ${wizardData.cloud.enabled ? '✓' : '⚠'}
+                    </div>
+                    <div class="validation-text">
+                        <div>Cloud Integration</div>
+                        <div class="form-help">${wizardData.cloud.enabled ? wizardData.cloud.provider + ' configured' : 'No cloud integration'}</div>
+                    </div>
+                    <div class="validation-status">${wizardData.cloud.enabled ? 'Complete' : 'Warning'}</div>
+                </div>
+            `;
+
+            // Summary table
+            const summaryTable = document.getElementById('summary-table-body');
+            summaryTable.innerHTML = `
+                <tr>
+                    <td>System Name</td>
+                    <td>${wizardData.systemName}</td>
+                </tr>
+                <tr>
+                    <td>Environment</td>
+                    <td>${wizardData.environment}</td>
+                </tr>
+                <tr>
+                    <td>Configuration Profile</td>
+                    <td>${wizardData.profile}</td>
+                </tr>
+                <tr>
+                    <td>Enabled Features</td>
+                    <td>${wizardData.features.join(', ')}</td>
+                </tr>
+                <tr>
+                    <td>Security Level</td>
+                    <td>${wizardData.security.level}</td>
+                </tr>
+                <tr>
+                    <td>Scan Frequency</td>
+                    <td>${wizardData.security.scanFrequency}</td>
+                </tr>
+                <tr>
+                    <td>Cloud Provider</td>
+                    <td>${wizardData.cloud.enabled ? wizardData.cloud.provider : 'None'}</td>
+                </tr>
+            `;
+        }
+
+        // Populate complete step
+        function populateCompleteStep() {
+            const enabledFeatures = document.getElementById('enabled-features');
+            const featureIcons = {
+                security: '🔒',
+                monitoring: '📊',
+                cloud: '☁️',
+                performance: '⚡',
+                recovery: '🔧',
+                ai: '🤖'
+            };
+
+            let featuresHtml = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">';
+            wizardData.features.forEach(feature => {
+                featuresHtml += `
+                    <div style="text-align: center; padding: 1rem; background: var(--light-bg); border-radius: 8px;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">${featureIcons[feature] || '⚙️'}</div>
+                        <div style="font-weight: 500;">${feature.charAt(0).toUpperCase() + feature.slice(1)}</div>
+                    </div>
+                `;
+            });
+            featuresHtml += '</div>';
+            enabledFeatures.innerHTML = featuresHtml;
+
+            // Update config file path
+            document.getElementById('config-file-path').textContent = `C:\\GoldenImage\\${wizardData.systemName}_Config.json`;
+        }
+
+        // UI Updates
+        function updateProgressBar() {
+            const progressFill = document.getElementById('progress-fill');
+            const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            progressFill.style.width = `${progress}%`;
+        }
+
+        function updateStepIndicator() {
+            document.getElementById('step-indicator').textContent = `Step ${currentStep} of ${totalSteps}`;
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishBtn = document.getElementById('finish-btn');
+
+            prevBtn.disabled = currentStep === 1;
+
+            if (currentStep === totalSteps - 1) {
+                nextBtn.style.display = 'none';
+                finishBtn.style.display = 'inline-flex';
+                finishBtn.disabled = true; // Will be enabled when checkbox is checked
+            } else if (currentStep === totalSteps) {
+                nextBtn.style.display = 'none';
+                finishBtn.style.display = 'none';
+            } else {
+                nextBtn.style.display = 'inline-flex';
+                finishBtn.style.display = 'none';
+            }
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                background: ${type === 'error' ? 'var(--danger-color)' : type === 'success' ? 'var(--success-color)' : 'var(--primary-color)'};
+                color: white;
+                border-radius: 8px;
+                box-shadow: var(--shadow-lg);
+                z-index: 2000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

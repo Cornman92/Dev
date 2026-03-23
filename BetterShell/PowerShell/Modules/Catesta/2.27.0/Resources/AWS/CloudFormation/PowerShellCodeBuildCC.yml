@@ -1,0 +1,1126 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'PS CodeBuild Stack: <%=$PLASTER_PARAM_ModuleName%>'
+
+# Docker images provided by CodeBuild
+# https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html
+
+Parameters:
+
+  CodeCommitRepositoryName:
+    Type: String
+    Default: <%=$PLASTER_PARAM_ModuleName%>
+    Description: The CodeCommit Repository Name. You will likely want this named the same as the PowerShell solution being built.
+    MaxLength: 100
+
+  CodeCommitRepositoryDescription:
+    Type: String
+    Description: The CodeCommit Repository Description. Also used for the CodeBuild Project Description.
+    MaxLength: 100
+
+  CodeBuildBadgeEnabled:
+    Type: String
+    Default: 'true'
+    Description: Selects whether to enable CodeBuild Build Badges.
+    AllowedValues:
+      - 'true'
+      - 'false'
+
+  CodeBuildTimeoutInMinutes:
+    Type: Number
+    Default: 30
+    Description: The number of minutes before a CodeBuild build will timeout.
+
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwsh') {
+@'
+  # https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html
+  LinuxCodeBuildImage:
+    Type: String
+    Default : aws/codebuild/standard:7.0
+    Description: CodeBuild image to use for the build.
+    AllowedValues:
+      - aws/codebuild/standard:7.0
+      - aws/codebuild/amazonlinux2-x86_64-standard:5.0
+'@
+}
+%>
+
+  LogRetentionInDays:
+    Type: Number
+    Default: 30
+    Description: The number of days to retain the CodeBuild logs.
+
+  PrimaryBranchName:
+    Type: String
+    Default: main
+    Description: The (case sensitive) branch name that represents your primary branch
+
+  # https://docs.aws.amazon.com/codebuild/latest/userguide/create-project-cli.html
+  # CodeBuildEnvironment:
+  #   Type: String
+  #   Default: WINDOWS_CONTAINER
+  #   Description: The type of build environment.
+  #   AllowedValues:
+  #     - WINDOWS_SERVER_2019_CONTAINER
+  #     - LINUX_CONTAINER
+
+  # https://docs.aws.amazon.com/codebuild/latest/userguide/create-project-cli.html
+  # CodeBuildComputeType:
+  #   Type: String
+  #   Default: BUILD_GENERAL1_MEDIUM
+  #   Description: The size of the CodeBuild instance. (Windows Containers do NOT support small)
+  #   AllowedValues:
+  #     - BUILD_GENERAL1_SMALL
+  #     - BUILD_GENERAL1_MEDIUM
+  #     - BUILD_GENERAL1_LARGE
+  #     - BUILD_GENERAL1_2XLARGE
+
+  # https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html
+  #CodeBuildImage:
+  #  Type: String
+  #  Default : ws/codebuild/windows-base:2019-2.0
+  #  Description: CodeBuild image to use for the build.
+  #  AllowedValues:
+  #    - aws/codebuild/windows-base:2019-3.0
+  #    - aws/codebuild/amazonlinux2-x86_64-standard:5.0
+  #    - aws/codebuild/standard:7.0
+
+  # BuildSpecFile:
+  #   Type: String
+  #   Default: buildspec_powershell_windows.yml
+  #   Description: The build file to be run by CodeBuild.
+  #   AllowedValues:
+  #     - buildspec_powershell_windows.yml
+  #     - buildspec_pwsh_windows.yml
+  #     - buildspec_pwsh_linux.yml
+
+  DeployEmailNotifications:
+    Type: String
+    Default: 'no'
+    Description: 'CodeBuild will send email notifications of state changes.'
+    AllowedValues:
+      - 'yes'
+      - 'no'
+
+  EmailForNotifications:
+    Type: String
+    Default: ignored@doesnotexist.com
+    Description: Email Address for SNS Notifications
+    AllowedPattern: "^[\\x20-\\x45]?[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$"
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: Code Commit
+        Parameters:
+          - CodeCommitRepositoryName
+          - CodeCommitRepositoryDescription
+          - PrimaryBranchName
+      - Label:
+          default: CodeBuild
+        Parameters:
+          - CodeBuildBadgeEnabled
+          - CodeBuildTimeoutInMinutes
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwsh') {
+@'
+          - LinuxCodeBuildImage
+'@
+}
+%>
+          - LogRetentionInDays
+          # - CodeBuildEnvironment
+          # - CodeBuildComputeType
+          # - BuildSpecFile
+      - Label:
+          default: Email Notifications
+        Parameters:
+          - DeployEmailNotifications
+          - EmailForNotifications
+    ParameterLabels:
+      CodeCommitRepositoryName:
+        default: Repository Name
+      CodeCommitRepositoryDescription:
+        default: Repository Description
+      CodeBuildBadgeEnabled:
+        default: Badge Enabled
+      CodeBuildTimeoutInMinutes:
+        default: Timeout in Minutes
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwsh') {
+@'
+      LinuxCodeBuildImage:
+        default: Linux CodeBuild Image
+'@
+}
+%>
+      LogRetentionInDays:
+        default: Log Retention in Days
+      PrimaryBranchName:
+        default: Primary Branch Name
+      # CodeBuildEnvironment:
+      #   default: Container Type
+      # CodeBuildComputeType:
+      #   default: Container Size
+      # BuildSpecFile:
+      #   default: Buildspec file
+      DeployEmailNotifications:
+        default: Deploy Email Notifications
+      EmailForNotifications:
+        default: Email Address
+
+Conditions:
+  DeployEmailNotificationsCondition:
+    !Equals [!Ref DeployEmailNotifications, 'yes']
+  # WindowsImage: !Equals [!Ref CodeBuildEnvironment, "WINDOWS_CONTAINER"]
+
+Resources:
+
+  S3BucketMainBuilds:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Retain
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          -
+            ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      # BucketName:
+      AccessControl: BucketOwnerFullControl
+      LifecycleConfiguration:
+        Rules:
+          -
+            AbortIncompleteMultipartUpload:
+                DaysAfterInitiation: 1
+            # ExpirationDate: Timestamp
+            ExpirationInDays: 365
+            Status: Enabled
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      Tags:
+        - Key: Service
+          Value: CodeCommitRepositoryName
+
+  S3BucketDevelopmentBuilds:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Retain
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          -
+            ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      # BucketName:
+      AccessControl: BucketOwnerFullControl
+      LifecycleConfiguration:
+        Rules:
+          -
+            AbortIncompleteMultipartUpload:
+                DaysAfterInitiation: 1
+            # ExpirationDate: Timestamp
+            ExpirationInDays: 365
+            Status: Enabled
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      Tags:
+        - Key: Service
+          Value: CodeCommitRepositoryName
+
+  # The IAM Role CodeBuild will run the container as
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
+  CodeBuildServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: /
+      Policies:
+        - PolicyName: CloudWatchPublishing
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'ps') {
+@'
+                  - Fn::GetAtt:
+                    - CodeBuildpsProjectLogGroup
+                    - Arn
+'@
+    }
+%>
+
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwshcore') {
+@'
+                  - Fn::GetAtt:
+                    - CodeBuildpwshcoreProjectLogGroup
+                    - Arn
+'@
+    }
+%>
+
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwsh') {
+@'
+                  - Fn::GetAtt:
+                    - CodeBuildpwshProjectLogGroup
+                    - Arn
+'@
+    }
+%>
+        - PolicyName: CodePipelineS3
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                Resource:
+                  - !Sub 'arn:${AWS::Partition}:s3:::codepipeline-${AWS::Region}-*'
+        - PolicyName: CodeCommitGitPull
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - codecommit:GitPull
+                  - ecr:GetRepositoryPolicy
+                  - ecr:SetRepositoryPolicy
+                Resource:
+                  - !Sub 'arn:${AWS::Partition}:codecommit:${AWS::Region}:${AWS::AccountId}:${CodeCommitRepositoryName}'
+        - PolicyName: S3ArtifactAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:ListObjects
+                  - 's3:*'
+                Resource:
+                  - '*'
+        - PolicyName: CBReportAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - codebuild:CreateReport
+                  - codebuild:CreateReportGroup
+                  - codebuild:UpdateReportGroup
+                  - codebuild:UpdateReport
+                  - codebuild:DeleteReportGroup
+                  - codebuild:DeleteReport
+                  - codebuild:BatchPutCodeCoverages
+                  - codebuild:BatchPutTestCases
+                Resource:
+                  - !Sub 'arn:${AWS::Partition}:codebuild:${AWS::Region}:${AWS::AccountId}:report-group/<%=$PLASTER_PARAM_ModuleName%>*'
+
+  # IAM Role for invoking the CodeBuild project
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
+  CodeCommitTriggeredLambdaFunctionIAMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - codecommit.amazonaws.com
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/AWSCodeBuildDeveloperAccess
+
+  # An SNS Topic used for CodeBuild status updates
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-topic.html
+  SNSTopicForCodeBuildUpdates:
+    Type: AWS::SNS::Topic
+    Properties:
+      Tags:
+        - Key: Service
+          Value: CodeCommitRepositoryName
+
+  # The SNS Topic Policy
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-policy.html
+  SNSTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      PolicyDocument:
+        Id: SNSTopicPolicy
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowEvents
+            Effect: Allow
+            Principal:
+              Service:
+                - events.amazonaws.com
+            Action: sns:Publish
+            Resource: !Ref SNSTopicForCodeBuildUpdates
+      Topics:
+        - !Ref SNSTopicForCodeBuildUpdates
+
+  # The SNS Email Subscription
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-subscription.html
+  SNSEmailSubscription:
+    Type: AWS::SNS::Subscription
+    Condition: DeployEmailNotificationsCondition
+    Properties:
+      # DeliveryPolicy: Json
+      Endpoint: !Ref EmailForNotifications
+      # FilterPolicy: Json
+      # FilterPolicyScope: String
+      Protocol: email
+      # RawMessageDelivery: Boolean
+      # RedrivePolicy: Json
+      # Region: String
+      # SubscriptionRoleArn: String
+      TopicArn: !Ref SNSTopicForCodeBuildUpdates
+
+  # ------------------------------------------------------------------
+  # Everything below this line is influenced by the buildspec decision
+  # ------------------------------------------------------------------
+
+  # CodeCommit Repository
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codecommit-repository.html
+  CodeCommitRepository:
+    Type: AWS::CodeCommit::Repository
+    DeletionPolicy: Delete
+    Properties:
+      # Code:
+      RepositoryDescription: !Ref CodeCommitRepositoryDescription
+      RepositoryName: !Ref CodeCommitRepositoryName
+      Tags:
+        - Key: Service
+          Value: CodeCommitRepositoryName
+      Triggers:
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'ps') {
+@'
+        - Name: CodeBuildTriggerWPS
+          CustomData: !Ref CodeCommitRepositoryName
+          DestinationArn: !GetAtt CodeCommitTriggeredLambdaWPS.Arn
+          Events:
+            - createReference
+            - updateReference
+'@
+    }
+%>
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwshcore') {
+@'
+        - Name: CodeBuildTriggerWPwsh
+          CustomData: !Ref CodeCommitRepositoryName
+          DestinationArn: !GetAtt CodeCommitTriggeredLambdaWPwsh.Arn
+          Events:
+            - createReference
+            - updateReference
+'@
+    }
+%>
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwsh') {
+@'
+        - Name: CodeBuildTriggerL
+          CustomData: !Ref CodeCommitRepositoryName
+          DestinationArn: !GetAtt CodeCommitTriggeredLambdaL.Arn
+          Events:
+            - createReference
+            - updateReference
+'@
+    }
+%>
+
+
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'ps') {
+@'
+
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-loggroup.html
+  CodeBuildpsProjectLogGroup:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Retain
+    Properties:
+      LogGroupName:
+        Fn::Sub: ${CodeCommitRepositoryName}-windows-powershell
+      RetentionInDays: !Ref LogRetentionInDays
+      Tags:
+      - Key: Service
+        Value: !Ref CodeCommitRepositoryName
+
+  # Windows PowerShell CodeBuild
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-webhookfilter.html
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-environment.html
+  # https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html
+  CodeBuildProjectWPS:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Artifacts:
+        Type: NO_ARTIFACTS
+      BadgeEnabled: !Ref CodeBuildBadgeEnabled
+      Description: !Ref CodeCommitRepositoryDescription
+      Environment:
+        ComputeType: BUILD_GENERAL1_MEDIUM
+        Image: aws/codebuild/windows-base:2019-3.0
+        Type: WINDOWS_SERVER_2019_CONTAINER
+        EnvironmentVariables:
+          - Name: main_bucket
+            Value: placeholder
+            Type: PLAINTEXT
+          - Name: s3_prefix
+            Value: placeholder
+            Type: PLAINTEXT
+      LogsConfig:
+        CloudWatchLogs:
+          GroupName:
+            Ref: CodeBuildpsProjectLogGroup
+          Status: ENABLED
+      Name:
+        !Join
+        - '-'
+        - - !Ref CodeCommitRepositoryName
+          - WindowsPowerShell
+      ServiceRole: !GetAtt CodeBuildServiceRole.Arn
+      Source:
+        Type: CODECOMMIT
+        Location: !Sub 'https://git-codecommit.${AWS::Region}.amazonaws.com/v1/repos/${CodeCommitRepositoryName}'
+        BuildSpec: buildspec_powershell_windows.yml
+      Tags:
+        - Key: Service
+          Value: CodeCommitRepositoryName
+      TimeoutInMinutes: !Ref CodeBuildTimeoutInMinutes
+'@
+    }
+%>
+
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwshcore') {
+@'
+
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-loggroup.html
+  CodeBuildpwshcoreProjectLogGroup:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Retain
+    Properties:
+      LogGroupName:
+        Fn::Sub: ${CodeCommitRepositoryName}-windows-pwsh
+      RetentionInDays: !Ref LogRetentionInDays
+      Tags:
+      - Key: Service
+        Value: !Ref CodeCommitRepositoryName
+
+  # Windows Pwsh CodeBuild
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-webhookfilter.html
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-environment.html
+  # https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html
+  CodeBuildProjectWPwsh:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Artifacts:
+        Type: NO_ARTIFACTS
+      BadgeEnabled: !Ref CodeBuildBadgeEnabled
+      Description: !Ref CodeCommitRepositoryDescription
+      Environment:
+        ComputeType: BUILD_GENERAL1_MEDIUM
+        Image: aws/codebuild/windows-base:2019-3.0
+        Type: WINDOWS_SERVER_2019_CONTAINER
+        EnvironmentVariables:
+          - Name: main_bucket
+            Value: placeholder
+            Type: PLAINTEXT
+          - Name: s3_prefix
+            Value: placeholder
+            Type: PLAINTEXT
+      LogsConfig:
+        CloudWatchLogs:
+          GroupName:
+            Ref: CodeBuildpwshcoreProjectLogGroup
+          Status: ENABLED
+      Name:
+        !Join
+        - '-'
+        - - !Ref CodeCommitRepositoryName
+          - WindowsPwsh
+      ServiceRole: !GetAtt CodeBuildServiceRole.Arn
+      Source:
+        Type: CODECOMMIT
+        Location: !Sub 'https://git-codecommit.${AWS::Region}.amazonaws.com/v1/repos/${CodeCommitRepositoryName}'
+        BuildSpec: buildspec_pwsh_windows.yml
+      Tags:
+        - Key: Service
+          Value: CodeCommitRepositoryName
+      TimeoutInMinutes: !Ref CodeBuildTimeoutInMinutes
+'@
+    }
+%>
+
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwsh') {
+@'
+
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-loggroup.html
+  CodeBuildpwshProjectLogGroup:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Retain
+    Properties:
+      LogGroupName:
+        Fn::Sub: ${CodeCommitRepositoryName}-linux-pwsh
+      RetentionInDays: !Ref LogRetentionInDays
+      Tags:
+      - Key: Service
+        Value: !Ref CodeCommitRepositoryName
+
+  # Linux Pwsh CodeBuild
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-webhookfilter.html
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-environment.html
+  # https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html
+  CodeBuildProjectLPwsh:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Artifacts:
+        Type: NO_ARTIFACTS
+      BadgeEnabled: !Ref CodeBuildBadgeEnabled
+      Description: !Ref CodeCommitRepositoryDescription
+      Environment:
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: !Ref LinuxCodeBuildImage
+        Type: LINUX_CONTAINER
+        EnvironmentVariables:
+          - Name: main_bucket
+            Value: placeholder
+            Type: PLAINTEXT
+          - Name: s3_prefix
+            Value: placeholder
+            Type: PLAINTEXT
+      LogsConfig:
+        CloudWatchLogs:
+          GroupName:
+            Ref: CodeBuildpwshProjectLogGroup
+          Status: ENABLED
+      Name:
+        !Join
+        - '-'
+        - - !Ref CodeCommitRepositoryName
+          - LinuxPwsh
+      ServiceRole: !GetAtt CodeBuildServiceRole.Arn
+      Source:
+        Type: CODECOMMIT
+        Location: !Sub 'https://git-codecommit.${AWS::Region}.amazonaws.com/v1/repos/${CodeCommitRepositoryName}'
+        BuildSpec: buildspec_pwsh_linux.yml
+      Tags:
+        - Key: Service
+          Value: CodeCommitRepositoryName
+      TimeoutInMinutes: !Ref CodeBuildTimeoutInMinutes
+'@
+    }
+%>
+
+  # The CodeBuild event for status updates
+  # https://docs.aws.amazon.com/codebuild/latest/userguide/sample-build-notifications.html
+  CodeBuildEventsRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Description: Trigger notifications based on CodeBuild state changes
+      EventPattern:
+        source:
+          - aws.codebuild
+        detail-type:
+          - CodeBuild Build State Change
+        detail:
+          build-status:
+            - IN_PROGRESS
+            - SUCCEEDED
+            - FAILED
+            - STOPPED
+          project-name:
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'ps') {
+@'
+            - !Ref CodeBuildProjectWPS
+'@
+    }
+%>
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwshcore') {
+@'
+            - !Ref CodeBuildProjectWPwsh
+'@
+    }
+%>
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwsh') {
+@'
+            - !Ref CodeBuildProjectLPwsh
+'@
+    }
+%>
+      State: ENABLED
+      Targets:
+        - Arn: !Ref SNSTopicForCodeBuildUpdates
+          Id: !Sub '${AWS::StackName}'
+          InputTransformer:
+            InputTemplate: '"The PowerShell solution build for <projectname> is in state <status> at <at>."'
+            InputPathsMap:
+              projectname: '$.detail.project-name'
+              status: '$.detail.build-status'
+              at: '$.time'
+              account: '$.account'
+
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'ps') {
+@'
+  # Embedded Lambda Function for Windows PowerShell deployment
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html
+  CodeCommitTriggeredLambdaWPS:
+    Type: AWS::Lambda::Function
+    Properties:
+      Architectures:
+        - x86_64
+      FunctionName: !Sub '${CodeCommitRepositoryName}-TriggerWPS'
+      Description: Trigger Windows PowerShell CodeBuild from CodeCommit commit triggers.
+      Handler: index.lambda_handler
+      Runtime: python3.12
+      MemorySize: 128
+      Timeout: 5
+      Environment:
+        Variables:
+          S3BucketMain: !Ref S3BucketMainBuilds
+          S3BucketDevelopment: !Ref S3BucketDevelopmentBuilds
+          PrimaryBranchName: !Ref PrimaryBranchName
+      Role: !GetAtt CodeCommitTriggeredLambdaFunctionIAMRole.Arn
+      Tags:
+        - Key: Service
+          Value: CodeCommitRepositoryName
+      Code:
+        ZipFile: |
+          import boto3
+          import json
+          import logging
+          import os
+
+          logger = logging.getLogger()
+          logger.setLevel(logging.INFO)
+
+          client = boto3.client('codebuild')
+
+          def lambda_handler(event, context):
+            logger.info(json.dumps(event))
+
+            branch = event['Records'][0]['codecommit']['references'][0]['ref'].replace('refs/heads/', '')
+            main_bucket = os.environ['S3BucketMain']
+            primary_branch_name = os.environ['PrimaryBranchName']
+
+            if branch == primary_branch_name:
+              s3_bucket = main_bucket
+              s3_path = ''
+            else:
+              s3_bucket = os.environ['S3BucketDevelopment']
+              s3_path = '{0}/{1}'.format(event['Records'][0]['customData'], branch)
+
+            logger.info('Found GIT Branch: {0}'.format(branch))
+            logger.info('Output artifact will be located in: s3:{0}/{1}'.format(s3_bucket, s3_path))
+
+            build = {
+              'projectName': event['Records'][0]['customData'] + "-WindowsPowerShell",
+              'sourceVersion': event['Records'][0]['codecommit']['references'][0]['commit'],
+              'artifactsOverride': {
+                'type': 'S3',
+                'name': event['Records'][0]['customData'],
+                'path': s3_path,
+                'location': s3_bucket,
+                'namespaceType': 'NONE',
+                'packaging': 'NONE'
+              },
+              'environmentVariablesOverride': [
+                {
+                  'name': 'main_bucket',
+                  'value': main_bucket,
+                  'type': 'PLAINTEXT'
+                },
+                {
+                  'name': 's3_prefix',
+                  'value': event['Records'][0]['customData'],
+                  'type': 'PLAINTEXT'
+                },
+                {
+                  'name': 'branch',
+                  'value': branch,
+                  'type': 'PLAINTEXT'
+                }
+              ]
+            }
+            logger.info('Starting build for project {0} from commit ID {1}'.format(build['projectName'], build['sourceVersion']))
+            logger.info(json.dumps(build))
+            response = client.start_build(**build)
+            logger.info('Successfully started a build with BuildId: {0}'.format(response['build']['id']))
+
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-loggroup.html
+  CodeCommitTriggeredLambdaWPSLogGroup:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Retain
+    DependsOn: CodeCommitTriggeredLambdaWPS
+    Properties:
+      # DataProtectionPolicy: Json
+      # KmsKeyId: String
+      LogGroupName: !Sub '/aws/lambda/${CodeCommitTriggeredLambdaWPS}'
+      RetentionInDays: 60
+      Tags:
+        - Key: Service
+          Value: CodeCommitRepositoryName
+'@
+    }
+%>
+
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwshcore') {
+@'
+  # Embedded Lambda Function for Windows pwsh deployment
+  CodeCommitTriggeredLambdaWPwsh:
+    Type: AWS::Lambda::Function
+    Properties:
+      Architectures:
+        - x86_64
+      FunctionName: !Sub '${CodeCommitRepositoryName}-TriggerWPwsh'
+      Description: Trigger pwsh CodeBuild from CodeCommit commit triggers.
+      Handler: index.lambda_handler
+      Runtime: python3.12
+      MemorySize: 128
+      Timeout: 5
+      Environment:
+        Variables:
+          S3BucketMain: !Ref S3BucketMainBuilds
+          S3BucketDevelopment: !Ref S3BucketDevelopmentBuilds
+          PrimaryBranchName: !Ref PrimaryBranchName
+      Role: !GetAtt CodeCommitTriggeredLambdaFunctionIAMRole.Arn
+      Tags:
+        - Key: Service
+          Value: CodeCommitRepositoryName
+      Code:
+        ZipFile: |
+          import boto3
+          import json
+          import logging
+          import os
+
+          logger = logging.getLogger()
+          logger.setLevel(logging.INFO)
+
+          client = boto3.client('codebuild')
+
+          def lambda_handler(event, context):
+            logger.info(json.dumps(event))
+
+            branch = event['Records'][0]['codecommit']['references'][0]['ref'].replace('refs/heads/', '')
+            main_bucket = os.environ['S3BucketMain']
+            primary_branch_name = os.environ['PrimaryBranchName']
+
+            if branch == primary_branch_name:
+              s3_bucket = main_bucket
+              s3_path = ''
+            else:
+              s3_bucket = os.environ['S3BucketDevelopment']
+              s3_path = '{0}/{1}'.format(event['Records'][0]['customData'], branch)
+
+            logger.info('Found GIT Branch: {0}'.format(branch))
+            logger.info('Output artifact will be located in: s3:{0}/{1}'.format(s3_bucket, s3_path))
+
+            build = {
+              'projectName': event['Records'][0]['customData'] + "-WindowsPwsh",
+              'sourceVersion': event['Records'][0]['codecommit']['references'][0]['commit'],
+              'artifactsOverride': {
+                'type': 'S3',
+                'name': event['Records'][0]['customData'],
+                'path': s3_path,
+                'location': s3_bucket,
+                'namespaceType': 'NONE',
+                'packaging': 'NONE'
+              },
+              'environmentVariablesOverride': [
+                {
+                  'name': 'main_bucket',
+                  'value': main_bucket,
+                  'type': 'PLAINTEXT'
+                },
+                {
+                  'name': 's3_prefix',
+                  'value': event['Records'][0]['customData'],
+                  'type': 'PLAINTEXT'
+                },
+                {
+                  'name': 'branch',
+                  'value': branch,
+                  'type': 'PLAINTEXT'
+                }
+              ]
+            }
+            logger.info('Starting build for project {0} from commit ID {1}'.format(build['projectName'], build['sourceVersion']))
+            logger.info(json.dumps(build))
+            response = client.start_build(**build)
+            logger.info('Successfully started a build with BuildId: {0}'.format(response['build']['id']))
+
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-loggroup.html
+  CodeCommitTriggeredLambdaWPwshLogGroup:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Retain
+    DependsOn: CodeCommitTriggeredLambdaWPwsh
+    Properties:
+      # DataProtectionPolicy: Json
+      # KmsKeyId: String
+      LogGroupName: !Sub '/aws/lambda/${CodeCommitTriggeredLambdaWPwsh}'
+      RetentionInDays: 60
+      Tags:
+        - Key: Service
+          Value: CodeCommitRepositoryName
+'@
+    }
+%>
+
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwshcore') {
+@'
+  # Embedded Lambda Function for Linux pwsh deployment
+  CodeCommitTriggeredLambdaL:
+    Type: AWS::Lambda::Function
+    Properties:
+      Architectures:
+        - x86_64
+      FunctionName: !Sub '${CodeCommitRepositoryName}-TriggerL'
+      Description: Trigger Linux pwsh CodeBuild from CodeCommit commit triggers.
+      Handler: index.lambda_handler
+      Runtime: python3.12
+      MemorySize: 128
+      Timeout: 5
+      Environment:
+        Variables:
+          S3BucketMain: !Ref S3BucketMainBuilds
+          S3BucketDevelopment: !Ref S3BucketDevelopmentBuilds
+          PrimaryBranchName: !Ref PrimaryBranchName
+      Role: !GetAtt CodeCommitTriggeredLambdaFunctionIAMRole.Arn
+      Tags:
+        - Key: Service
+          Value: CodeCommitRepositoryName
+      Code:
+        ZipFile: |
+          import boto3
+          import json
+          import logging
+          import os
+
+          logger = logging.getLogger()
+          logger.setLevel(logging.INFO)
+
+          client = boto3.client('codebuild')
+
+          def lambda_handler(event, context):
+            logger.info(json.dumps(event))
+
+            branch = event['Records'][0]['codecommit']['references'][0]['ref'].replace('refs/heads/', '')
+            main_bucket = os.environ['S3BucketMain']
+            primary_branch_name = os.environ['PrimaryBranchName']
+
+            if branch == primary_branch_name:
+              s3_bucket = main_bucket
+              s3_path = ''
+            else:
+              s3_bucket = os.environ['S3BucketDevelopment']
+              s3_path = '{0}/{1}'.format(event['Records'][0]['customData'], branch)
+
+            logger.info('Found GIT Branch: {0}'.format(branch))
+            logger.info('Output artifact will be located in: s3:{0}/{1}'.format(s3_bucket, s3_path))
+
+            build = {
+              'projectName': event['Records'][0]['customData'] + "-LinuxPwsh",
+              'sourceVersion': event['Records'][0]['codecommit']['references'][0]['commit'],
+              'artifactsOverride': {
+                'type': 'S3',
+                'name': event['Records'][0]['customData'],
+                'path': s3_path,
+                'location': s3_bucket,
+                'namespaceType': 'NONE',
+                'packaging': 'NONE'
+              },
+              'environmentVariablesOverride': [
+                {
+                  'name': 'main_bucket',
+                  'value': main_bucket,
+                  'type': 'PLAINTEXT'
+                },
+                {
+                  'name': 's3_prefix',
+                  'value': event['Records'][0]['customData'],
+                  'type': 'PLAINTEXT'
+                },
+                {
+                  'name': 'branch',
+                  'value': branch,
+                  'type': 'PLAINTEXT'
+                }
+              ]
+            }
+            logger.info('Starting build for project {0} from commit ID {1}'.format(build['projectName'], build['sourceVersion']))
+            logger.info(json.dumps(build))
+            response = client.start_build(**build)
+            logger.info('Successfully started a build with BuildId: {0}'.format(response['build']['id']))
+
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-loggroup.html
+  CodeCommitTriggeredLambdaLLogGroup:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Retain
+    DependsOn: CodeCommitTriggeredLambdaL
+    Properties:
+      # DataProtectionPolicy: Json
+      # KmsKeyId: String
+      LogGroupName: !Sub '/aws/lambda/${CodeCommitTriggeredLambdaL}'
+      RetentionInDays: 60
+      Tags:
+        - Key: Service
+          Value: CodeCommitRepositoryName
+'@
+    }
+%>
+
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'ps') {
+@'
+  # Allows CodeCommit to invoke the Lambda Function for Windows PowerShell build triggers
+  CodeCommitLambdaInvokePermissionWPS:
+    Type: 'AWS::Lambda::Permission'
+    Properties:
+      FunctionName: !GetAtt
+        - CodeCommitTriggeredLambdaWPS
+        - Arn
+      Action: lambda:InvokeFunction
+      Principal: codecommit.amazonaws.com
+'@
+    }
+%>
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwshcore') {
+@'
+  # Allows CodeCommit to invoke the Lambda Function for Windows pwsh build triggers
+  CodeCommitLambdaInvokePermissionWPwsh:
+    Type: 'AWS::Lambda::Permission'
+    Properties:
+      FunctionName: !GetAtt
+        - CodeCommitTriggeredLambdaWPwsh
+        - Arn
+      Action: lambda:InvokeFunction
+      Principal: codecommit.amazonaws.com
+'@
+    }
+%>
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwsh') {
+@'
+  # Allows CodeCommit to invoke the Lambda Function for Linux pwsh build triggers
+  CodeCommitLambdaInvokePermissionL:
+    Type: 'AWS::Lambda::Permission'
+    Properties:
+      FunctionName: !GetAtt
+        - CodeCommitTriggeredLambdaL
+        - Arn
+      Action: lambda:InvokeFunction
+      Principal: codecommit.amazonaws.com
+'@
+    }
+%>
+
+Outputs:
+
+  S3BucketMainBuilds:
+    Description: S3 Bucket Name for holding all builds from the main GIT branch
+    Value: !Ref S3BucketMainBuilds
+
+  S3BucketDevelopmentBuildsName:
+    Description: S3 Bucket Name for holding all builds from the non-main GIT branches
+    Value: !Ref S3BucketDevelopmentBuilds
+
+  CodeCommitRepository:
+    Description: The name of the source CodeCommit Repository.
+    Value: !Ref CodeCommitRepositoryName
+
+  SNSTopic:
+    Description: The SNS Topic used for CodeBuild status updates
+    Value: !Ref SNSTopicForCodeBuildUpdates
+
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'ps') {
+@'
+  CodeBuildProjectWPS:
+    Description: The name of the PS Windows CodeBuild Project.
+    Value: !Ref CodeBuildProjectWPS
+
+  CodeBuildProjectWPSURL:
+    Description: PS Windows CodeBuild URL
+    Value: !Sub "https://console.aws.amazon.com/codebuild/home?region=${AWS::Region}#/projects/${CodeBuildProjectWPS}/view"
+'@
+    }
+%>
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwshcore') {
+@'
+  CodeBuildProjectWPwsh:
+    Description: The name of the pwsh Windows CodeBuild Project.
+    Value: !Ref CodeBuildProjectWPwsh
+
+  CodeBuildProjectWPwshURL:
+    Description: pwsh Windows CodeBuild URL
+    Value: !Sub "https://console.aws.amazon.com/codebuild/home?region=${AWS::Region}#/projects/${CodeBuildProjectWPwsh}/view"
+'@
+    }
+%>
+<%
+    if ($PLASTER_PARAM_AWSOptions -eq 'pwsh') {
+@'
+  CodeBuildProjectLPwsh:
+    Description: The name of the PS Linux CodeBuild Project.
+    Value: !Ref CodeBuildProjectLPwsh
+
+  CodeBuildProjectLPwshURL:
+    Description: PS Linux CodeBuild URL
+    Value: !Sub "https://console.aws.amazon.com/codebuild/home?region=${AWS::Region}#/projects/${CodeBuildProjectLPwsh}/view"
+'@
+    }
+%>

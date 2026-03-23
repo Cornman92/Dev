@@ -1,0 +1,50 @@
+[
+  {
+    "id": "postsetup-optimize-dev",
+    "name": "Post-setup dev optimization",
+    "description": "Take baseline snapshot, apply performance + debloat + personalization, then take another snapshot.",
+    "steps": [
+      {
+        "id": "health-pre",
+        "name": "Baseline health snapshot",
+        "type": "HealthSnapshot",
+        "inputs": {
+          "name": "pre-optimize"
+        }
+      },
+      {
+        "id": "apply-optimization",
+        "name": "Apply performance desktop optimizations",
+        "type": "ApplyOptimizationProfile",
+        "inputs": {
+          "profileId": "perf-desktop"
+        }
+      },
+      {
+        "id": "apply-debloat",
+        "name": "Apply light debloat",
+        "type": "ApplyDebloatProfile",
+        "inputs": {
+          "profileId": "light"
+        }
+      },
+      {
+        "id": "apply-personalization",
+        "name": "Apply dev personalization",
+        "type": "ApplyPersonalizationProfile",
+        "inputs": {
+          "profileId": "dev-personal"
+        }
+      },
+      {
+        "id": "health-post",
+        "name": "Post-optimization health snapshot",
+        "type": "HealthSnapshot",
+        "inputs": {
+          "name": "post-optimize"
+        }
+      }
+    ]
+  }
+]
+

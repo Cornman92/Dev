@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+  <ViewDefinitions>
+    <!-- Add view definitions here if needed in the future -->
+    <!-- This file is required by the module manifest but can be empty if no custom formats are needed -->
+  </ViewDefinitions>
+</Configuration>

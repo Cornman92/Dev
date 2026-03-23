@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Image Configuration Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #7c3aed;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --dark-bg: #1f2937;
+            --light-bg: #f9fafb;
+            --card-bg: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: var(--dark-bg);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sidebar-header {
+            padding: 0 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-header .icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border-left-color: var(--primary-color);
+        }
+
+        .nav-item .icon {
+            margin-right: 0.75rem;
+            width: 20px;
+            display: inline-block;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            background: var(--light-bg);
+            overflow-y: auto;
+        }
+
+        .header {
+            background: var(--card-bg);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--text-secondary);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--light-bg);
+        }
+
+        /* Content Sections */
+        .content {
+            padding: 2rem;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-header h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 48px;
+            height: 24px;
+            background: var(--text-secondary);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: var(--success-color);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(24px);
+        }
+
+        /* Status Indicators */
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-success {
+            background: #dcfce7;
+            color: var(--success-color);
+        }
+
+        .status-warning {
+            background: #fef3c7;
+            color: var(--warning-color);
+        }
+
+        .status-danger {
+            background: #fee2e2;
+            color: var(--danger-color);
+        }
+
+        /* Progress Bars */
+        .progress {
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .grid-cols-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            
+            .grid-cols-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                padding: 1rem 0;
+            }
+            
+            .nav-menu {
+                display: flex;
+                overflow-x: auto;
+                padding: 0 1rem;
+            }
+            
+            .nav-item {
+                white-space: nowrap;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+            
+            .nav-item.active {
+                border-left: none;
+                border-bottom-color: var(--primary-color);
+            }
+            
+            .grid-cols-3,
+            .grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-top: 2px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .tab:hover {
+            color: var(--text-primary);
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>
+                    <div class="icon">GI</div>
+                    Golden Image
+                </h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-section="overview">
+                    <span class="icon">📊</span>
+                    Overview
+                </a>
+                <a href="#" class="nav-item" data-section="general">
+                    <span class="icon">⚙️</span>
+                    General Settings
+                </a>
+                <a href="#" class="nav-item" data-section="security">
+                    <span class="icon">🔒</span>
+                    Security
+                </a>
+                <a href="#" class="nav-item" data-section="performance">
+                    <span class="icon">⚡</span>
+                    Performance
+                </a>
+                <a href="#" class="nav-item" data-section="cloud">
+                    <span class="icon">☁️</span>
+                    Cloud Integration
+                </a>
+                <a href="#" class="nav-item" data-section="monitoring">
+                    <span class="icon">📈</span>
+                    Monitoring
+                </a>
+                <a href="#" class="nav-item" data-section="backup">
+                    <span class="icon">💾</span>
+                    Backup & Restore
+                </a>
+                <a href="#" class="nav-item" data-section="advanced">
+                    <span class="icon">🔧</span>
+                    Advanced
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="header">
+                <h2 id="section-title">Overview</h2>
+                <div class="header-actions">
+                    <button class="btn btn-outline" onclick="exportConfig()">
+                        <span>📥</span> Export Config
+                    </button>
+                    <button class="btn btn-outline" onclick="importConfig()">
+                        <span>📤</span> Import Config
+                    </button>
+                    <button class="btn btn-primary" onclick="saveConfig()">
+                        <span>💾</span> Save Changes
+                    </button>
+                </div>
+            </header>
+
+            <div class="content">
+                <!-- Overview Section -->
+                <section id="overview" class="section active">
+                    <div class="grid grid-cols-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>System Status</h3>
+                                <span class="status-badge status-success">Healthy</span>
+                            </div>
+                            <div style="text-align: center; padding: 2rem 0;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🟢</div>
+                                <p style="color: var(--text-secondary);">All systems operational</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Security Status</h3>
+                                <span class="status-badge status-warning">Medium Risk</span>
+                            </div>
+                            <div style="text-align: center; padding: 2rem 0;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+                                <p style="color: var(--text-secondary);">3 issues detected</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Performance</h3>
+                                <span class="status-badge status-success">Optimal</span>
+                            </div>
+                            <div style="text-align: center; padding: 2rem 0;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                                <p style="color: var(--text-secondary);">87% efficiency</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Quick Actions</h3>
+                        </div>
+                        <div class="grid grid-cols-4">
+                            <button class="btn btn-primary" onclick="runSecurityScan()">
+                                <span>🔍</span> Security Scan
+                            </button>
+                            <button class="btn btn-success" onclick="createBackup()">
+                                <span>💾</span> Create Backup
+                            </button>
+                            <button class="btn btn-warning" onclick="optimizeSystem()">
+                                <span>⚡</span> Optimize
+                            </button>
+                            <button class="btn btn-secondary" onclick="viewLogs()">
+                                <span>📋</span> View Logs
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent Activity</h3>
+                        </div>
+                        <div id="recent-activity">
+                            <div style="padding: 1rem 0; border-bottom: 1px solid var(--border-color);">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <strong>Security Scan Completed</strong>
+                                        <p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem;">No threats detected</p>
+                                    </div>
+                                    <span style="color: var(--text-secondary); font-size: 0.875rem;">2 hours ago</span>
+                                </div>
+                            </div>
+                            <div style="padding: 1rem 0; border-bottom: 1px solid var(--border-color);">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <strong>Backup Created</strong>
+                                        <p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem;">Azure backup completed successfully</p>
+                                    </div>
+                                    <span style="color: var(--text-secondary); font-size: 0.875rem;">6 hours ago</span>
+                                </div>
+                            </div>
+                            <div style="padding: 1rem 0;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <strong>System Optimization</strong>
+                                        <p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem;">Performance improved by 12%</p>
+                                    </div>
+                                    <span style="color: var(--text-secondary); font-size: 0.875rem;">1 day ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- General Settings Section -->
+                <section id="general" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Basic Configuration</h3>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="system-name">System Name</label>
+                                <input type="text" id="system-name" class="form-control" value="GoldenImage-01">
+                            </div>
+                            <div class="form-group">
+                                <label for="environment">Environment</label>
+                                <select id="environment" class="form-control">
+                                    <option value="production">Production</option>
+                                    <option value="staging">Staging</option>
+                                    <option value="development">Development</option>
+                                    <option value="testing">Testing</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" class="form-control" rows="3">Golden Image system with advanced security, monitoring, and cloud integration capabilities.</textarea>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Logging Configuration</h3>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="log-level">Log Level</label>
+                                <select id="log-level" class="form-control">
+                                    <option value="debug">Debug</option>
+                                    <option value="info" selected>Info</option>
+                                    <option value="warning">Warning</option>
+                                    <option value="error">Error</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="log-retention">Log Retention (days)</label>
+                                <input type="number" id="log-retention" class="form-control" value="30">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enable-cloud-logging" checked>
+                                Enable Cloud Logging
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Security Section -->
+                <section id="security" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Security Scanning</h3>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enable-security-scan" checked>
+                                Enable Security Scanning
+                            </label>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="scan-frequency">Scan Frequency</label>
+                                <select id="scan-frequency" class="form-control">
+                                    <option value="hourly">Hourly</option>
+                                    <option value="daily" selected>Daily</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="monthly">Monthly</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="scan-depth">Scan Depth</label>
+                                <select id="scan-depth" class="form-control">
+                                    <option value="quick">Quick</option>
+                                    <option value="standard" selected>Standard</option>
+                                    <option value="deep">Deep</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="quarantine-threats" checked>
+                                Automatically Quarantine Critical Threats
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Security Policies</h3>
+                        </div>
+                        <div class="form-group">
+                            <label for="security-profile">Security Profile</label>
+                            <select id="security-profile" class="form-control">
+                                <option value="standard">Standard</option>
+                                <option value="hardened" selected>Hardened</option>
+                                <option value="compliance">Compliance</option>
+                                <option value="maximum">Maximum Security</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enable-firewall" checked>
+                                Enable Firewall Rules
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enable-intrusion-detection">
+                                Enable Intrusion Detection
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Performance Section -->
+                <section id="performance" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Performance Optimization</h3>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enable-parallel-processing" checked>
+                                Enable Parallel Processing
+                            </label>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="max-parallel-jobs">Max Parallel Jobs</label>
+                                <input type="number" id="max-parallel-jobs" class="form-control" value="4" min="1" max="16">
+                            </div>
+                            <div class="form-group">
+                                <label for="job-timeout">Job Timeout (minutes)</label>
+                                <input type="number" id="job-timeout" class="form-control" value="30" min="5" max="120">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="optimize-system-performance" checked>
+                                Optimize System Performance
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Resource Management</h3>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="memory-limit">Memory Limit (%)</label>
+                                <input type="number" id="memory-limit" class="form-control" value="80" min="50" max="95">
+                            </div>
+                            <div class="form-group">
+                                <label for="cpu-limit">CPU Limit (%)</label>
+                                <input type="number" id="cpu-limit" class="form-control" value="90" min="50" max="100">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="priority">Process Priority</label>
+                            <select id="priority" class="form-control">
+                                <option value="low">Low</option>
+                                <option value="normal" selected>Normal</option>
+                                <option value="high">High</option>
+                                <option value="realtime">Realtime</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cloud Integration Section -->
+                <section id="cloud" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Cloud Provider</h3>
+                        </div>
+                        <div class="form-group">
+                            <label for="cloud-provider">Provider</label>
+                            <select id="cloud-provider" class="form-control">
+                                <option value="azure" selected>Azure</option>
+                                <option value="aws">AWS</option>
+                                <option value="gcp">Google Cloud</option>
+                                <option value="none">None</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="storage-account">Storage Account/Container</label>
+                                <input type="text" id="storage-account" class="form-control" placeholder="goldenimagestorage">
+                            </div>
+                            <div class="form-group">
+                                <label for="resource-group">Resource Group</label>
+                                <input type="text" id="resource-group" class="form-control" placeholder="GoldenImage-RG">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Backup Configuration</h3>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enable-auto-backup" checked>
+                                Enable Automatic Backup
+                            </label>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="backup-frequency">Backup Frequency</label>
+                                <select id="backup-frequency" class="form-control">
+                                    <option value="hourly">Hourly</option>
+                                    <option value="daily" selected>Daily</option>
+                                    <option value="weekly">Weekly</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="backup-retention">Retention Period (days)</label>
+                                <input type="number" id="backup-retention" class="form-control" value="30">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Monitoring Section -->
+                <section id="monitoring" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Dashboard Configuration</h3>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enable-dashboard" checked>
+                                Enable Monitoring Dashboard
+                            </label>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="refresh-interval">Refresh Interval (seconds)</label>
+                                <input type="number" id="refresh-interval" class="form-control" value="60" min="10" max="300">
+                            </div>
+                            <div class="form-group">
+                                <label for="data-retention">Data Retention (days)</label>
+                                <input type="number" id="data-retention" class="form-control" value="30">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Metrics Collection</h3>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enable-metrics" checked>
+                                Enable Metrics Collection
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enable-performance-metrics" checked>
+                                Collect Performance Metrics
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enable-security-metrics" checked>
+                                Collect Security Metrics
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Backup & Restore Section -->
+                <section id="backup" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Backup Management</h3>
+                        </div>
+                        <div class="grid grid-cols-2">
+                            <button class="btn btn-primary" onclick="createBackup()">
+                                <span>💾</span> Create Backup Now
+                            </button>
+                            <button class="btn btn-secondary" onclick="scheduleBackup()">
+                                <span>📅</span> Schedule Backup
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Available Backups</h3>
+                        </div>
+                        <div id="backup-list">
+                            <div style="padding: 1rem; text-align: center; color: var(--text-secondary);">
+                                Loading backup list...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Restore Options</h3>
+                        </div>
+                        <div class="form-group">
+                            <label for="restore-point">Select Backup to Restore</label>
+                            <select id="restore-point" class="form-control">
+                                <option value="">Select a backup...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="confirm-restore">
+                                I understand this will overwrite current configuration
+                            </label>
+                        </div>
+                        <button class="btn btn-danger" onclick="restoreBackup()" disabled id="restore-btn">
+                            <span>⚠️</span> Restore Configuration
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Advanced Section -->
+                <section id="advanced" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Error Recovery</h3>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enable-error-recovery" checked>
+                                Enable Error Recovery System
+                            </label>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="max-retry-attempts">Max Retry Attempts</label>
+                                <input type="number" id="max-retry-attempts" class="form-control" value="3" min="1" max="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="retry-delay">Retry Delay (seconds)</label>
+                                <input type="number" id="retry-delay" class="form-control" value="30" min="5" max="300">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Experimental Features</h3>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enable-ai-optimization">
+                                Enable AI-Powered Optimization
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enable-predictive-analysis">
+                                Enable Predictive Analysis
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enable-self-healing">
+                                Enable Self-Healing Capabilities
+                            </label>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for confirmations -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Confirm Action</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modal-body">
+                <p>Are you sure you want to proceed?</p>
+            </div>
+            <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem;">
+                <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" id="modal-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration management
+        let config = {};
+        let hasUnsavedChanges = false;
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadConfig();
+            setupNavigation();
+            setupFormHandlers();
+            loadBackupList();
+        });
+
+        // Navigation setup
+        function setupNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const sections = document.querySelectorAll('.section');
+
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Update active nav item
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding section
+                    const sectionId = this.getAttribute('data-section');
+                    sections.forEach(section => section.classList.remove('active'));
+                    document.getElementById(sectionId).classList.add('active');
+                    
+                    // Update header title
+                    document.getElementById('section-title').textContent = this.textContent.trim();
+                });
+            });
+        }
+
+        // Form handlers
+        function setupFormHandlers() {
+            const formControls = document.querySelectorAll('.form-control, input[type="checkbox"]');
+            formControls.forEach(control => {
+                control.addEventListener('change', function() {
+                    hasUnsavedChanges = true;
+                    updateSaveButton();
+                });
+            });
+
+            // Restore confirm checkbox
+            document.getElementById('confirm-restore').addEventListener('change', function() {
+                document.getElementById('restore-btn').disabled = !this.checked;
+            });
+        }
+
+        // Load configuration
+        function loadConfig() {
+            // Simulate loading configuration
+            config = {
+                general: {
+                    systemName: 'GoldenImage-01',
+                    environment: 'production',
+                    description: 'Golden Image system with advanced security, monitoring, and cloud integration capabilities.',
+                    logLevel: 'info',
+                    logRetention: 30,
+                    enableCloudLogging: true
+                },
+                security: {
+                    enabled: true,
+                    scanFrequency: 'daily',
+                    scanDepth: 'standard',
+                    quarantineThreats: true,
+                    profile: 'hardened',
+                    enableFirewall: true,
+                    enableIntrusionDetection: false
+                },
+                performance: {
+                    enableParallelProcessing: true,
+                    maxParallelJobs: 4,
+                    jobTimeout: 30,
+                    optimizeSystemPerformance: true,
+                    memoryLimit: 80,
+                    cpuLimit: 90,
+                    priority: 'normal'
+                },
+                cloud: {
+                    provider: 'azure',
+                    storageAccount: 'goldenimagestorage',
+                    resourceGroup: 'GoldenImage-RG',
+                    enableAutoBackup: true,
+                    backupFrequency: 'daily',
+                    backupRetention: 30
+                },
+                monitoring: {
+                    enableDashboard: true,
+                    refreshInterval: 60,
+                    dataRetention: 30,
+                    enableMetrics: true,
+                    enablePerformanceMetrics: true,
+                    enableSecurityMetrics: true
+                },
+                advanced: {
+                    enableErrorRecovery: true,
+                    maxRetryAttempts: 3,
+                    retryDelay: 30,
+                    enableAIOptimization: false,
+                    enablePredictiveAnalysis: false,
+                    enableSelfHealing: false
+                }
+            };
+
+            // Populate form fields
+            populateFormFields();
+        }
+
+        // Populate form fields with configuration
+        function populateFormFields() {
+            // General settings
+            document.getElementById('system-name').value = config.general.systemName;
+            document.getElementById('environment').value = config.general.environment;
+            document.getElementById('description').value = config.general.description;
+            document.getElementById('log-level').value = config.general.logLevel;
+            document.getElementById('log-retention').value = config.general.logRetention;
+            document.getElementById('enable-cloud-logging').checked = config.general.enableCloudLogging;
+
+            // Security settings
+            document.getElementById('enable-security-scan').checked = config.security.enabled;
+            document.getElementById('scan-frequency').value = config.security.scanFrequency;
+            document.getElementById('scan-depth').value = config.security.scanDepth;
+            document.getElementById('quarantine-threats').checked = config.security.quarantineThreats;
+            document.getElementById('security-profile').value = config.security.profile;
+            document.getElementById('enable-firewall').checked = config.security.enableFirewall;
+            document.getElementById('enable-intrusion-detection').checked = config.security.enableIntrusionDetection;
+
+            // Performance settings
+            document.getElementById('enable-parallel-processing').checked = config.performance.enableParallelProcessing;
+            document.getElementById('max-parallel-jobs').value = config.performance.maxParallelJobs;
+            document.getElementById('job-timeout').value = config.performance.jobTimeout;
+            document.getElementById('optimize-system-performance').checked = config.performance.optimizeSystemPerformance;
+            document.getElementById('memory-limit').value = config.performance.memoryLimit;
+            document.getElementById('cpu-limit').value = config.performance.cpuLimit;
+            document.getElementById('priority').value = config.performance.priority;
+
+            // Cloud settings
+            document.getElementById('cloud-provider').value = config.cloud.provider;
+            document.getElementById('storage-account').value = config.cloud.storageAccount;
+            document.getElementById('resource-group').value = config.cloud.resourceGroup;
+            document.getElementById('enable-auto-backup').checked = config.cloud.enableAutoBackup;
+            document.getElementById('backup-frequency').value = config.cloud.backupFrequency;
+            document.getElementById('backup-retention').value = config.cloud.backupRetention;
+
+            // Monitoring settings
+            document.getElementById('enable-dashboard').checked = config.monitoring.enableDashboard;
+            document.getElementById('refresh-interval').value = config.monitoring.refreshInterval;
+            document.getElementById('data-retention').value = config.monitoring.dataRetention;
+            document.getElementById('enable-metrics').checked = config.monitoring.enableMetrics;
+            document.getElementById('enable-performance-metrics').checked = config.monitoring.enablePerformanceMetrics;
+            document.getElementById('enable-security-metrics').checked = config.monitoring.enableSecurityMetrics;
+
+            // Advanced settings
+            document.getElementById('enable-error-recovery').checked = config.advanced.enableErrorRecovery;
+            document.getElementById('max-retry-attempts').value = config.advanced.maxRetryAttempts;
+            document.getElementById('retry-delay').value = config.advanced.retryDelay;
+            document.getElementById('enable-ai-optimization').checked = config.advanced.enableAIOptimization;
+            document.getElementById('enable-predictive-analysis').checked = config.advanced.enablePredictiveAnalysis;
+            document.getElementById('enable-self-healing').checked = config.advanced.enableSelfHealing;
+        }
+
+        // Save configuration
+        function saveConfig() {
+            showNotification('Configuration saved successfully!', 'success');
+            hasUnsavedChanges = false;
+            updateSaveButton();
+        }
+
+        // Export configuration
+        function exportConfig() {
+            const configData = JSON.stringify(config, null, 2);
+            const blob = new Blob([configData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'golden-image-config.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('Configuration exported!', 'success');
+        }
+
+        // Import configuration
+        function importConfig() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        config = JSON.parse(event.target.result);
+                        populateFormFields();
+                        showNotification('Configuration imported successfully!', 'success');
+                        hasUnsavedChanges = true;
+                        updateSaveButton();
+                    } catch (error) {
+                        showNotification('Invalid configuration file!', 'error');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        // Update save button state
+        function updateSaveButton() {
+            const saveBtn = document.querySelector('.btn-primary');
+            if (hasUnsavedChanges) {
+                saveBtn.style.background = 'var(--warning-color)';
+                saveBtn.innerHTML = '<span>💾</span> Save Changes*';
+            } else {
+                saveBtn.style.background = 'var(--primary-color)';
+                saveBtn.innerHTML = '<span>💾</span> Save Changes';
+            }
+        }
+
+        // Quick action functions
+        function runSecurityScan() {
+            showModal('Security Scan', 'Starting comprehensive security scan...', function() {
+                showNotification('Security scan initiated!', 'info');
+                setTimeout(() => {
+                    showNotification('Security scan completed. No threats detected.', 'success');
+                    updateRecentActivity('Security Scan Completed', 'No threats detected');
+                }, 3000);
+            });
+        }
+
+        function createBackup() {
+            showModal('Create Backup', 'Creating system backup...', function() {
+                showNotification('Backup creation started!', 'info');
+                setTimeout(() => {
+                    showNotification('Backup created successfully!', 'success');
+                    updateRecentActivity('Backup Created', 'System backup completed successfully');
+                    loadBackupList();
+                }, 2000);
+            });
+        }
+
+        function optimizeSystem() {
+            showModal('System Optimization', 'Optimizing system performance...', function() {
+                showNotification('System optimization started!', 'info');
+                setTimeout(() => {
+                    showNotification('System optimized! Performance improved by 12%.', 'success');
+                    updateRecentActivity('System Optimization', 'Performance improved by 12%');
+                }, 4000);
+            });
+        }
+
+        function viewLogs() {
+            showNotification('Opening log viewer...', 'info');
+            // In a real implementation, this would open a log viewer
+        }
+
+        function scheduleBackup() {
+            showModal('Schedule Backup', 'Backup scheduled for daily execution at 2:00 AM', function() {
+                showNotification('Backup scheduled successfully!', 'success');
+            });
+        }
+
+        function restoreBackup() {
+            const restorePoint = document.getElementById('restore-point').value;
+            if (!restorePoint) {
+                showNotification('Please select a backup to restore', 'warning');
+                return;
+            }
+
+            showModal('Restore Configuration', `Are you sure you want to restore from backup: ${restorePoint}? This action cannot be undone.`, function() {
+                showNotification('Configuration restoration started...', 'info');
+                setTimeout(() => {
+                    showNotification('Configuration restored successfully!', 'success');
+                    loadConfig();
+                    updateRecentActivity('Configuration Restored', `Restored from backup: ${restorePoint}`);
+                }, 3000);
+            });
+        }
+
+        // Load backup list
+        function loadBackupList() {
+            const backupList = document.getElementById('backup-list');
+            const restoreSelect = document.getElementById('restore-point');
+            
+            // Simulate loading backups
+            const backups = [
+                { id: 'backup_20231122_020000', date: '2023-11-22 02:00 AM', size: '245 MB', type: 'Automatic' },
+                { id: 'backup_20231121_020000', date: '2023-11-21 02:00 AM', size: '243 MB', type: 'Automatic' },
+                { id: 'backup_20231120_150000', date: '2023-11-20 03:00 PM', size: '241 MB', type: 'Manual' },
+                { id: 'backup_20231119_020000', date: '2023-11-19 02:00 AM', size: '239 MB', type: 'Automatic' }
+            ];
+
+            let backupHtml = '';
+            backups.forEach(backup => {
+                backupHtml += `
+                    <div style="padding: 1rem; border-bottom: 1px solid var(--border-color);">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <strong>${backup.id}</strong>
+                                <p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem;">
+                                    ${backup.date} • ${backup.size} • ${backup.type}
+                                </p>
+                            </div>
+                            <div>
+                                <button class="btn btn-outline" onclick="downloadBackup('${backup.id}')">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            backupList.innerHTML = backupHtml;
+
+            // Update restore select
+            restoreSelect.innerHTML = '<option value="">Select a backup...</option>';
+            backups.forEach(backup => {
+                restoreSelect.innerHTML += `<option value="${backup.id}">${backup.id} - ${backup.date}</option>`;
+            });
+        }
+
+        function downloadBackup(backupId) {
+            showNotification(`Downloading backup: ${backupId}`, 'info');
+        }
+
+        // Update recent activity
+        function updateRecentActivity(action, description) {
+            const activityContainer = document.getElementById('recent-activity');
+            const newActivity = document.createElement('div');
+            newActivity.style.cssText = 'padding: 1rem 0; border-bottom: 1px solid var(--border-color);';
+            newActivity.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong>${action}</strong>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem;">${description}</p>
+                    </div>
+                    <span style="color: var(--text-secondary); font-size: 0.875rem;">Just now</span>
+                </div>
+            `;
+            
+            // Add to top of list
+            activityContainer.insertBefore(newActivity, activityContainer.firstChild);
+            
+            // Remove last item if more than 3
+            const items = activityContainer.children;
+            if (items.length > 3) {
+                activityContainer.removeChild(items[items.length - 1]);
+            }
+        }
+
+        // Modal functions
+        function showModal(title, message, onConfirm) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-body').innerHTML = `<p>${message}</p>`;
+            document.getElementById('modal').classList.add('active');
+            
+            const confirmBtn = document.getElementById('modal-confirm');
+            confirmBtn.onclick = function() {
+                if (onConfirm) onConfirm();
+                closeModal();
+            };
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                background: ${type === 'success' ? 'var(--success-color)' : type === 'error' ? 'var(--danger-color)' : type === 'warning' ? 'var(--warning-color)' : 'var(--primary-color)'};
+                color: white;
+                border-radius: 8px;
+                box-shadow: var(--shadow-lg);
+                z-index: 2000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Handle page unload
+        window.addEventListener('beforeunload', function(e) {
+            if (hasUnsavedChanges) {
+                e.preventDefault();
+                e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+                return e.returnValue;
+            }
+        });
+    </script>
+</body>
+</html>

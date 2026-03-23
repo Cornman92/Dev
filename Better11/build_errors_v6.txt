@@ -1,0 +1,32 @@
+  Determining projects to restore...
+  Restored d:\Dev\Better11\src\Better11.Models\Better11.Models.csproj (in 338 ms).
+  Restored D:\Dev\Better11\src\Better11.Tests\Better11.Tests.csproj (in 449 ms).
+  Restored d:\Dev\Better11\src\Better11.Services\Better11.Services.csproj (in 448 ms).
+  Restored D:\Dev\Better11\src\Better11.ViewModels\Better11.ViewModels.csproj (in 449 ms).
+  Restored D:\Dev\Better11\src\Better11.App\Better11.App.csproj (in 492 ms).
+  1 of 6 projects are up-to-date for restore.
+  Better11.Core -> D:\Dev\Better11\src\Better11.Core\bin\x64\Debug\net8.0-windows10.0.22621.0\Better11.Core.dll
+  Better11.Models -> D:\Dev\Better11\src\Better11.Models\bin\Debug\net8.0-windows10.0.22621.0\Better11.Models.dll
+  Better11.Services -> D:\Dev\Better11\src\Better11.Services\bin\x64\Debug\net8.0-windows10.0.22621.0\Better11.Services.dll
+  Better11.ViewModels -> D:\Dev\Better11\src\Better11.ViewModels\bin\x64\Debug\net8.0-windows10.0.22621.0\Better11.ViewModels.dll
+D:\Dev\Better11\src\Better11.Tests\ViewModels\UserAccountViewModelTests.cs(42,16): error CS1061: 'UserAccountViewModel' does not contain a definition for 'LocalAccounts' and no accessible extension method 'LocalAccounts' accepting a first argument of type 'UserAccountViewModel' could be found (are you missing a using directive or an assembly reference?) [D:\Dev\Better11\src\Better11.Tests\Better11.Tests.csproj]
+D:\Dev\Better11\src\Better11.Tests\ViewModels\UserAccountViewModelTests.cs(43,16): error CS1061: 'UserAccountViewModel' does not contain a definition for 'LocalGroups' and no accessible extension method 'LocalGroups' accepting a first argument of type 'UserAccountViewModel' could be found (are you missing a using directive or an assembly reference?) [D:\Dev\Better11\src\Better11.Tests\Better11.Tests.csproj]
+D:\Dev\Better11\src\Better11.Tests\ViewModels\UserAccountViewModelTests.cs(44,16): error CS1061: 'UserAccountViewModel' does not contain a definition for 'ActiveSessions' and no accessible extension method 'ActiveSessions' accepting a first argument of type 'UserAccountViewModel' could be found (are you missing a using directive or an assembly reference?) [D:\Dev\Better11\src\Better11.Tests\Better11.Tests.csproj]
+D:\Dev\Better11\src\Better11.Tests\ViewModels\UserAccountViewModelTests.cs(60,50): error CS0426: The type name 'GroupMemberReference' does not exist in the type 'UserAccountViewModel' [D:\Dev\Better11\src\Better11.Tests\Better11.Tests.csproj]
+D:\Dev\Better11\src\Better11.Tests\ViewModels\UserAccountViewModelTests.cs(66,18): error CS1061: 'UserAccountViewModel' does not contain a definition for 'RemoveUserFromGroupCommand' and no accessible extension method 'RemoveUserFromGroupCommand' accepting a first argument of type 'UserAccountViewModel' could be found (are you missing a using directive or an assembly reference?) [D:\Dev\Better11\src\Better11.Tests\Better11.Tests.csproj]
+D:\Dev\Better11\src\Better11.App\Views\BackupRestorePage.xaml.cs(81,29): error CS8601: Possible null reference assignment. [D:\Dev\Better11\src\Better11.App\Better11.App.csproj]
+C:\Users\C-Man\.nuget\packages\microsoft.windowsappsdk\1.6.250108002\buildTransitive\Microsoft.UI.Xaml.Markup.Compiler.interop.targets(841,9): error MSB3073: The command ""C:\Users\C-Man\.nuget\packages\microsoft.windowsappsdk\1.6.250108002\buildTransitive\..\tools\net6.0\..\net472\XamlCompiler.exe" "obj\x64\Debug\net8.0-windows10.0.22621.0\\input.json" "obj\x64\Debug\net8.0-windows10.0.22621.0\\output.json"" exited with code 1. [D:\Dev\Better11\src\Better11.App\Better11.App.csproj]
+
+Build FAILED.
+
+D:\Dev\Better11\src\Better11.Tests\ViewModels\UserAccountViewModelTests.cs(42,16): error CS1061: 'UserAccountViewModel' does not contain a definition for 'LocalAccounts' and no accessible extension method 'LocalAccounts' accepting a first argument of type 'UserAccountViewModel' could be found (are you missing a using directive or an assembly reference?) [D:\Dev\Better11\src\Better11.Tests\Better11.Tests.csproj]
+D:\Dev\Better11\src\Better11.Tests\ViewModels\UserAccountViewModelTests.cs(43,16): error CS1061: 'UserAccountViewModel' does not contain a definition for 'LocalGroups' and no accessible extension method 'LocalGroups' accepting a first argument of type 'UserAccountViewModel' could be found (are you missing a using directive or an assembly reference?) [D:\Dev\Better11\src\Better11.Tests\Better11.Tests.csproj]
+D:\Dev\Better11\src\Better11.Tests\ViewModels\UserAccountViewModelTests.cs(44,16): error CS1061: 'UserAccountViewModel' does not contain a definition for 'ActiveSessions' and no accessible extension method 'ActiveSessions' accepting a first argument of type 'UserAccountViewModel' could be found (are you missing a using directive or an assembly reference?) [D:\Dev\Better11\src\Better11.Tests\Better11.Tests.csproj]
+D:\Dev\Better11\src\Better11.Tests\ViewModels\UserAccountViewModelTests.cs(60,50): error CS0426: The type name 'GroupMemberReference' does not exist in the type 'UserAccountViewModel' [D:\Dev\Better11\src\Better11.Tests\Better11.Tests.csproj]
+D:\Dev\Better11\src\Better11.Tests\ViewModels\UserAccountViewModelTests.cs(66,18): error CS1061: 'UserAccountViewModel' does not contain a definition for 'RemoveUserFromGroupCommand' and no accessible extension method 'RemoveUserFromGroupCommand' accepting a first argument of type 'UserAccountViewModel' could be found (are you missing a using directive or an assembly reference?) [D:\Dev\Better11\src\Better11.Tests\Better11.Tests.csproj]
+D:\Dev\Better11\src\Better11.App\Views\BackupRestorePage.xaml.cs(81,29): error CS8601: Possible null reference assignment. [D:\Dev\Better11\src\Better11.App\Better11.App.csproj]
+C:\Users\C-Man\.nuget\packages\microsoft.windowsappsdk\1.6.250108002\buildTransitive\Microsoft.UI.Xaml.Markup.Compiler.interop.targets(841,9): error MSB3073: The command ""C:\Users\C-Man\.nuget\packages\microsoft.windowsappsdk\1.6.250108002\buildTransitive\..\tools\net6.0\..\net472\XamlCompiler.exe" "obj\x64\Debug\net8.0-windows10.0.22621.0\\input.json" "obj\x64\Debug\net8.0-windows10.0.22621.0\\output.json"" exited with code 1. [D:\Dev\Better11\src\Better11.App\Better11.App.csproj]
+    0 Warning(s)
+    7 Error(s)
+
+Time Elapsed 00:00:23.83

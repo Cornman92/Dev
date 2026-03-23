@@ -1,0 +1,409 @@
+# GaymerPC Ultimate Suite - Development Automation
+# Advanced development workflows for Connor O (C-Man)
+# Optimized for rapid development and testing
+
+name: 🛠️ Development Automation
+
+on:
+  push:
+    branches: [ develop, feature/*, hotfix/* ]
+    paths:
+      - 'GaymerPC/**'
+      - 'scripts/**'
+      - 'requirements*.txt'
+      - 'package.json'
+      - 'pyproject.toml'
+  pull_request:
+    branches: [ develop ]
+    types: [ opened, synchronize, reopened, ready_for_review ]
+  issue_comment:
+    types: [ created, edited ]
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Development action to perform'
+        required: true
+        type: choice
+        options:
+          - 'setup-dev-environment'
+          - 'run-dev-tests'
+          - 'generate-docs'
+          - 'create-release-branch'
+          - 'merge-feature'
+          - 'cleanup-branches'
+      target_branch:
+        description: 'Target branch for action'
+        required: false
+        type: string
+        default: 'develop'
+
+env:
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '18'
+  POWERSHELL_VERSION: '7.4'
+  DEV_ENVIRONMENT: 'development'
+
+jobs:
+  # =============================================================================
+  # DEVELOPMENT ENVIRONMENT SETUP
+  # =============================================================================
+  
+  setup-dev-environment:
+    name: 🏗️ Setup Development Environment
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && inputs.action == 'setup-dev-environment'
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 🔧 Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+          pip install pre-commit
+
+      - name: 📦 Install Node.js dependencies
+        run: |
+          npm ci
+          npm install -g @typescript-eslint/parser @typescript-eslint/eslint-plugin
+
+      - name: 🔧 Setup pre-commit hooks
+        run: |
+          pre-commit install
+          pre-commit install --hook-type commit-msg
+
+      - name: 🐳 Setup Docker development environment
+        run: |
+          docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+
+      - name: 🧪 Run initial tests
+        run: |
+          pytest GaymerPC/Tests/ -v --tb=short
+          npm test
+
+      - name: 📊 Development environment status
+        run: |
+          echo "✅ Development environment setup complete!"
+          echo "🐍 Python: $(python --version)"
+          echo "📦 Node.js: $(node --version)"
+          echo "🐳 Docker: $(docker --version)"
+          echo "🔧 Pre-commit: $(pre-commit --version)"
+
+  # =============================================================================
+  # AUTOMATED TESTING ON PR
+  # =============================================================================
+  
+  pr-testing:
+    name: 🧪 PR Testing & Validation
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 🔧 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+          npm ci
+
+      - name: 🔍 Code quality checks
+        run: |
+          echo "🔍 Running code quality checks..."
+          flake8 GaymerPC/ --count --select=E9,F63,F7,F82 --show-source --statistics
+          black --check --diff GaymerPC/
+          isort --check-only --diff GaymerPC/
+          mypy GaymerPC/ --ignore-missing-imports
+          npx eslint "**/*.{js,ts,jsx,tsx}" --max-warnings 0
+
+      - name: 🧪 Run tests
+        run: |
+          echo "🧪 Running tests..."
+          pytest GaymerPC/Tests/ --cov=GaymerPC --cov-report=xml --cov-report=term-missing -v
+          npm test -- --coverage
+
+      - name: 🔒 Security checks
+        run: |
+          echo "🔒 Running security checks..."
+          bandit -r GaymerPC/ -f json -o bandit-report.json || true
+          npm audit --audit-level moderate || true
+
+      - name: 📊 Upload test results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: pr-test-results
+          path: |
+            coverage.xml
+            bandit-report.json
+            pytest-report.xml
+
+      - name: 💬 Comment PR with results
+        uses: actions/github-script@v6
+        if: always()
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            let comment = '## 🧪 Test Results\n\n';
+            
+            // Add test results
+            comment += '### ✅ Tests Status\n';
+            comment += `- **Status**: ${context.job === 'success' ? '✅ Passed' : '❌ Failed'}\n`;
+            comment += `- **Job**: ${context.job}\n`;
+            comment += `- **Workflow**: ${context.workflow}\n\n`;
+            
+            // Add coverage info if available
+            if (fs.existsSync('coverage.xml')) {
+              comment += '### 📊 Coverage\n';
+              comment += '- Coverage report generated\n';
+            }
+            
+            // Add security info if available
+            if (fs.existsSync('bandit-report.json')) {
+              comment += '### 🔒 Security\n';
+              comment += '- Security scan completed\n';
+            }
+            
+            comment += '\n---\n*Automated by GaymerPC Development Automation*';
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+  # =============================================================================
+  # DOCUMENTATION GENERATION
+  # =============================================================================
+  
+  generate-docs:
+    name: 📚 Generate Documentation
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && inputs.action == 'generate-docs'
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: 🔧 Install documentation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install sphinx sphinx-rtd-theme sphinx-autodoc-typehints
+          pip install -r requirements.txt
+
+      - name: 📚 Generate API documentation
+        run: |
+          echo "📚 Generating API documentation..."
+          cd docs
+          sphinx-build -b html . _build/html
+          sphinx-build -b pdf . _build/pdf
+
+      - name: 📚 Generate code documentation
+        run: |
+          echo "📚 Generating code documentation..."
+          pydoc -w GaymerPC/
+          mkdir -p docs/generated
+          mv *.html docs/generated/
+
+      - name: 📊 Upload documentation
+        uses: actions/upload-artifact@v3
+        with:
+          name: documentation
+          path: |
+            docs/_build/
+            docs/generated/
+
+  # =============================================================================
+  # BRANCH MANAGEMENT
+  # =============================================================================
+  
+  branch-management:
+    name: 🌿 Branch Management
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && (inputs.action == 'create-release-branch' || inputs.action == 'merge-feature' || inputs.action == 'cleanup-branches')
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🌿 Create release branch
+        if: inputs.action == 'create-release-branch'
+        run: |
+          echo "🌿 Creating release branch..."
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Create release branch from develop
+          git checkout develop
+          git pull origin develop
+          git checkout -b release/v${{ inputs.target_branch || '1.0.0' }}
+          git push origin release/v${{ inputs.target_branch || '1.0.0' }}
+          
+          echo "✅ Release branch created: release/v${{ inputs.target_branch || '1.0.0' }}"
+
+      - name: 🔀 Merge feature branch
+        if: inputs.action == 'merge-feature'
+        run: |
+          echo "🔀 Merging feature branch..."
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Merge feature branch to develop
+          git checkout develop
+          git pull origin develop
+          git merge --no-ff ${{ inputs.target_branch }}
+          git push origin develop
+          
+          echo "✅ Feature branch merged: ${{ inputs.target_branch }}"
+
+      - name: 🧹 Cleanup branches
+        if: inputs.action == 'cleanup-branches'
+        run: |
+          echo "🧹 Cleaning up merged branches..."
+          
+          # Get list of merged branches
+          MERGED_BRANCHES=$(git branch -r --merged develop | grep -v develop | grep -v main | sed 's/origin\///' | tr -d ' ')
+          
+          for branch in $MERGED_BRANCHES; do
+            echo "🗑️ Deleting merged branch: $branch"
+            git push origin --delete $branch || true
+          done
+          
+          echo "✅ Branch cleanup completed"
+
+  # =============================================================================
+  # ISSUE AUTOMATION
+  # =============================================================================
+  
+  issue-automation:
+    name: 🎫 Issue Automation
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issue_comment'
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🎫 Process issue commands
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const comment = context.payload.comment.body.toLowerCase();
+            const issue = context.payload.issue;
+            
+            // Check for automation commands
+            if (comment.includes('/assign')) {
+              // Auto-assign issue
+              await github.rest.issues.addAssignees({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                assignees: [context.payload.comment.user.login]
+              });
+              
+              await github.rest.issues.createComment({
+                issue_number: issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `✅ Issue assigned to @${context.payload.comment.user.login}`
+              });
+            }
+            
+            if (comment.includes('/label')) {
+              // Extract label from comment
+              const labelMatch = comment.match(/\/label\s+(\w+)/);
+              if (labelMatch) {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  labels: [labelMatch[1]]
+                });
+                
+                await github.rest.issues.createComment({
+                  issue_number: issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: `🏷️ Label "${labelMatch[1]}" added to issue`
+                });
+              }
+            }
+            
+            if (comment.includes('/close')) {
+              // Close issue
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+              
+              await github.rest.issues.createComment({
+                issue_number: issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: '🔒 Issue closed by automation'
+              });
+            }
+
+  # =============================================================================
+  # DEVELOPMENT NOTIFICATIONS
+  # =============================================================================
+  
+  notify:
+    name: 📢 Development Notifications
+    runs-on: ubuntu-latest
+    needs: [pr-testing, generate-docs, branch-management, issue-automation]
+    if: always()
+    steps:
+      - name: 📢 Send development notification
+        run: |
+          echo "📢 Development automation completed"
+          echo "  PR Testing: ${{ needs.pr-testing.result }}"
+          echo "  Documentation: ${{ needs.generate-docs.result }}"
+          echo "  Branch Management: ${{ needs.branch-management.result }}"
+          echo "  Issue Automation: ${{ needs.issue-automation.result }}"
+          
+          # Add notification logic (Slack, Discord, etc.)
+          # curl -X POST -H 'Content-type: application/json' \
+          #   --data '{"text":"Development automation completed"}' \
+          #   ${{ secrets.SLACK_WEBHOOK_URL }}
+

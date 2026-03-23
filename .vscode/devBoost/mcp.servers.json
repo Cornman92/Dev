@@ -1,0 +1,19 @@
+{
+  "servers": {
+    "microsoft-docs": {
+      "enabled": true,
+      "startCommand": "npx -y @microsoft/mcp-docs-server",
+      "description": "Microsoft Learn documentation MCP server"
+    },
+    "make-notion": {
+      "enabled": true,
+      "startCommand": "npx -y @makenotion/mcp-server",
+      "description": "Make Notion MCP server"
+    },
+    "copilot-container": {
+      "enabled": true,
+      "startCommand": "npx -y @microsoft/mcp-copilot-conta-server",
+      "description": "Copilot container MCP server (if available)"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "modules": [
+    {
+      "name": "Better11.Core",
+      "zip_url": "file:///mnt/data/Better11/updates/Better11.Core.zip",
+      "sha256": "15c9f989dc71d9efec90cbdd3c53edcb034b2f269242345c31b950713505257f"
+    },
+    {
+      "name": "Better11.Install",
+      "zip_url": "file:///mnt/data/Better11/updates/Better11.Install.zip",
+      "sha256": "6bc484c91eaf80a4439922143d490c50539d6f1c87bec10c00d0b2de42f5fb6f"
+    },
+    {
+      "name": "Better11.Tweaks",
+      "zip_url": "file:///mnt/data/Better11/updates/Better11.Tweaks.zip",
+      "sha256": "73e9b4405a47df2a7d208c05cd9c47c19d9c3dbe668aff2449836a38adc3a28a"
+    },
+    {
+      "name": "Better11.Drivers",
+      "zip_url": "file:///mnt/data/Better11/updates/Better11.Drivers.zip",
+      "sha256": "2ebde85ebdd676eff5e205459c65e6214859aaada35fa7845df1c29487160b02"
+    },
+    {
+      "name": "Better11.Retry",
+      "zip_url": "file:///mnt/data/Better11/updates/Better11.Retry.zip",
+      "sha256": "f2a2e7b57b374d4499d39a10b598a9dcc75f5ba3c4ddf50381b061252c2428e2"
+    }
+  ]
+}

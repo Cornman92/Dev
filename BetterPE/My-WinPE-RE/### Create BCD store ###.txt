@@ -1,0 +1,3 @@
+### Create BCD store ###
+
+bcdedit /createstore D:\My-Win[PE][RE]\Combined\BCD

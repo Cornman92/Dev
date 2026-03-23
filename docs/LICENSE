@@ -1,0 +1,61 @@
+MIT License
+
+Copyright (c) 2024 Connor O (C-Man)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Additional Terms for GaymerPC ULTIMATE Suite
+
+### Hardware Modification Disclaimer
+This software may suggest hardware modifications, overclocking, and system optimizations. 
+Users acknowledge that:
+
+1. **Hardware modifications carry inherent risks** including but not limited to:
+   - Permanent hardware damage
+   - Voiding of manufacturer warranties
+   - System instability
+   - Data loss
+
+2. **Users are solely responsible** for:
+   - Understanding the risks of any modifications
+   - Creating proper backups before making changes
+   - Testing modifications in safe environments
+   - Seeking professional help when needed
+
+3. **The authors disclaim all liability** for:
+   - Hardware damage resulting from software suggestions
+   - Data loss from system modifications
+   - Warranty voiding from hardware changes
+   - Any other consequences of using this software
+
+### Safety Recommendations
+- Always create system snapshots before making changes
+- Test modifications in virtual machines when possible
+- Follow manufacturer guidelines for hardware modifications
+- Consult professionals for critical system changes
+- Maintain proper backups and recovery procedures
+
+### Contact Information
+- **Developer**: Connor O (C-Man)
+- **Email**: Saymoner88@gmail.com
+- **GitHub**: Cornman92
+
+For support, questions, or concerns, please contact the developer directly.

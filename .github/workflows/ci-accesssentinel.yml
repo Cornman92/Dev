@@ -1,0 +1,38 @@
+name: CI - AccessSentinel
+
+on:
+  push:
+    paths:
+      - 'AccessSentinel/**'
+  pull_request:
+    paths:
+      - 'AccessSentinel/**'
+
+jobs:
+  test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PowerShell
+        uses: PowerShell/PowerShell@v1
+        with:
+          pwsh-version: '7.4.x'
+
+      - name: Install Pester
+        shell: pwsh
+        run: |
+          Install-Module Pester -Scope CurrentUser -Force -SkipPublisherCheck
+          Import-Module Pester -Force
+
+      - name: Run Pester tests
+        shell: pwsh
+        working-directory: ./AccessSentinel
+        run: |
+          $config = New-PesterConfiguration
+          $config.Run.Path = 'tests'
+          $config.Run.Exit = $true
+          $config.Output.Verbosity = 'Detailed'
+          Invoke-Pester -Configuration $config

@@ -1,0 +1,275 @@
+[flake8]
+max-line-length = 88
+extend-ignore = 
+    # E203: whitespace before ':' (conflicts with black)
+    E203,
+    # W503: line break before binary operator (conflicts with black)
+    W503,
+    # E501: line too long (handled by black)
+    E501,
+    # F401: imported but unused (handled by isort and mypy)
+    F401,
+    # F811: redefined while unused (handled by mypy)
+    F811,
+    # E722: do not use bare 'except' (too strict for some cases)
+    E722,
+    # W504: line break after binary operator (conflicts with black)
+    W504,
+    # E402: module level import not at top of file (needed for some scripts)
+    E402,
+    # F403: star import used (needed for some cases)
+    F403,
+    # F405: name may be undefined, or defined from star imports (handled by mypy)
+    F405,
+    # E731: do not assign a lambda expression, use a def (sometimes useful)
+    E731,
+    # W291: trailing whitespace (handled by black)
+    W291,
+    # W292: no newline at end of file (handled by black)
+    W292,
+    # W293: blank line contains whitespace (handled by black)
+    W293,
+    # W391: blank line at end of file (handled by black)
+    W391
+
+exclude = 
+    .git,
+    __pycache__,
+    .venv,
+    venv,
+    env,
+    .env,
+    build,
+    dist,
+    .eggs,
+    *.egg-info,
+    .coverage,
+    .pytest_cache,
+    .mypy_cache,
+    .tox,
+    .nox,
+    node_modules,
+    GaymerPC,
+    OwnershipToolkit,
+    tools,
+    extracted_functions,
+    coverage,
+    htmlcov,
+    .DS_Store,
+    .vscode,
+    .idea,
+    *.pyc,
+    *.pyo,
+    *.pyd,
+    __pycache__,
+    .git,
+    .tox,
+    .eggs,
+    *.egg,
+    .venv,
+    venv,
+    .pytest_cache,
+    .mypy_cache
+
+per-file-ignores =
+    # Ignore import errors in __init__.py files
+    __init__.py:F401
+    # Ignore line too long in test files (often have long strings)
+    tests/*:E501
+    test_*.py:E501
+    *_test.py:E501
+    # Ignore unused imports in scripts that may be used interactively
+    scripts/*:F401
+    # Ignore complexity in main files
+    main.py:C901
+    __main__.py:C901
+    # Ignore missing docstrings in test files
+    tests/*:D100,D101,D102,D103,D104
+    test_*.py:D100,D101,D102,D103,D104
+    *_test.py:D100,D101,D102,D103,D104
+    # Ignore missing docstrings in __init__.py files
+    __init__.py:D104
+    # Ignore import order in __init__.py files
+    __init__.py:F401
+    # Ignore unused variables in test files (often use fixtures)
+    tests/*:F841
+    test_*.py:F841
+    *_test.py:F841
+
+select = 
+    E,  # pycodestyle errors
+    W,  # pycodestyle warnings
+    F,  # pyflakes
+    C,  # mccabe complexity
+    B,  # flake8-bugbear
+    D,  # pydocstyle
+    I,  # isort
+    N,  # pep8-naming
+    T,  # flake8-builtins
+    S,  # flake8-bandit
+    P,  # pyflakes
+    R,  # flake8-return
+    A,  # flake8-builtins
+    COM,  # flake8-commas
+    SIM,  # flake8-simplify
+    TCH,  # flake8-type-checking
+    TID,  # flake8-tidy-imports
+    Q,  # flake8-quotes
+    WPS,  # wemake-python-styleguide
+
+max-complexity = 10
+
+# pydocstyle settings
+docstring-convention = google
+
+# isort settings
+import-order-style = google
+application-import-names = c_man_dev,scripts,api,core,shared,features,automation,deployment,plugins,unified_file_manager,unified_modules
+known-first-party = c_man_dev,scripts,api,core,shared,features,automation,deployment,plugins,unified_file_manager,unified_modules
+known-third-party = psutil,click,rich,textual,pytest,black,isort,mypy,flake8,fastapi,uvicorn,pydantic,sqlalchemy,alembic,requests,urllib3,cryptography,bcrypt,watchdog,colorama,pyyaml,tqdm,python-dateutil,aiofiles,tabulate
+
+# flake8-quotes settings
+inline-quotes = double
+multiline-quotes = double
+docstring-quotes = double
+
+# flake8-commas settings
+max-line-length = 88
+
+# flake8-simplify settings
+max-args = 5
+max-branches = 12
+max-returns = 6
+max-statements = 50
+
+# flake8-type-checking settings
+type-checking-exempt-modules = typing,typing_extensions
+
+# flake8-tidy-imports settings
+ban-relative-imports = true
+
+# wemake-python-styleguide settings
+max-returns = 6
+max-arguments = 5
+max-branches = 12
+max-statements = 50
+max-local-variables = 15
+max-attributes = 7
+max-parents = 7
+max-public-methods = 20
+max-line-length = 88
+
+# flake8-bandit settings
+exclude = tests/*,test_*.py,*_test.py
+skips = B101,B601,B603,B604,B605,B607,B608,B609,B610,B611,B701,B702,B703,B704,B705,B706,B707,B708,B709,B710,B711,B712,B713,B714,B715,B716,B717,B718,B719,B720,B721,B722,B723,B724,B725,B726,B727,B728,B729,B730,B731,B732,B733,B734,B735,B736,B737,B738,B739,B740,B741,B742,B743,B744,B745,B746,B747,B748,B749,B750,B751,B752,B753,B754,B755,B756,B757,B758,B759,B760,B761,B762,B763,B764,B765,B766,B767,B768,B769,B770,B771,B772,B773,B774,B775,B776,B777,B778,B779,B780,B781,B782,B783,B784,B785,B786,B787,B788,B789,B790,B791,B792,B793,B794,B795,B796,B797,B798,B799,B800,B801,B802,B803,B804,B805,B806,B807,B808,B809,B810,B811,B812,B813,B814,B815,B816,B817,B818,B819,B820,B821,B822,B823,B824,B825,B826,B827,B828,B829,B830,B831,B832,B833,B834,B835,B836,B837,B838,B839,B840,B841,B842,B843,B844,B845,B846,B847,B848,B849,B850,B851,B852,B853,B854,B855,B856,B857,B858,B859,B860,B861,B862,B863,B864,B865,B866,B867,B868,B869,B870,B871,B872,B873,B874,B875,B876,B877,B878,B879,B880,B881,B882,B883,B884,B885,B886,B887,B888,B889,B890,B891,B892,B893,B894,B895,B896,B897,B898,B899,B900,B901,B902,B903,B904,B905,B906,B907,B908,B909,B910,B911,B912,B913,B914,B915,B916,B917,B918,B919,B920,B921,B922,B923,B924,B925,B926,B927,B928,B929,B930,B931,B932,B933,B934,B935,B936,B937,B938,B939,B940,B941,B942,B943,B944,B945,B946,B947,B948,B949,B950,B951,B952,B953,B954,B955,B956,B957,B958,B959,B960,B961,B962,B963,B964,B965,B966,B967,B968,B969,B970,B971,B972,B973,B974,B975,B976,B977,B978,B979,B980,B981,B982,B983,B984,B985,B986,B987,B988,B989,B990,B991,B992,B993,B994,B995,B996,B997,B998,B999
+
+# flake8-return settings
+max-returns = 6
+
+# flake8-builtins settings
+builtins-ignorelist = id,type,dir,help,print,input,open,range,str,int,float,bool,list,tuple,dict,set,frozenset,bytes,bytearray,complex,slice,object,property,staticmethod,classmethod,super,isinstance,issubclass,hasattr,getattr,setattr,delattr,callable,repr,ascii,format,chr,ord,divmod,pow,round,abs,min,max,sum,all,any,enumerate,zip,filter,map,reversed,sorted,len,iter,next,hash,id,type,isinstance,issubclass,hasattr,getattr,setattr,delattr,callable,repr,ascii,format,chr,ord,divmod,pow,round,abs,min,max,sum,all,any,enumerate,zip,filter,map,reversed,sorted,len,iter,next,hash
+
+# flake8-comprehensions settings
+max-comprehension-length = 3
+max-comprehension-nesting = 2
+
+# flake8-docstrings settings
+docstring-convention = google
+docstring-min-length = 10
+
+# flake8-import-order settings
+import-order-style = google
+application-import-names = c_man_dev,scripts,api,core,shared,features,automation,deployment,plugins,unified_file_manager,unified_modules
+known-first-party = c_man_dev,scripts,api,core,shared,features,automation,deployment,plugins,unified_file_manager,unified_modules
+known-third-party = psutil,click,rich,textual,pytest,black,isort,mypy,flake8,fastapi,uvicorn,pydantic,sqlalchemy,alembic,requests,urllib3,cryptography,bcrypt,watchdog,colorama,pyyaml,tqdm,python-dateutil,aiofiles,tabulate
+
+# flake8-mutable settings
+mutable-default-arguments = true
+
+# flake8-pep3101 settings
+pep3101-check = true
+
+# flake8-polyfill settings
+polyfill = true
+
+# flake8-print settings
+print-statement = true
+
+# flake8-string-format settings
+string-format = true
+
+# flake8-unused-arguments settings
+unused-arguments = true
+
+# flake8-variables-names settings
+variables-names = true
+
+# flake8-annotations settings
+annotations = true
+
+# flake8-no-pep420 settings
+no-pep420 = true
+
+# flake8-pep3101 settings
+pep3101 = true
+
+# flake8-print settings
+print = true
+
+# flake8-string-format settings
+string-format = true
+
+# flake8-unused-arguments settings
+unused-arguments = true
+
+# flake8-variables-names settings
+variables-names = true
+
+# flake8-annotations settings
+annotations = true
+
+# flake8-no-pep420 settings
+no-pep420 = true
+
+# flake8-pep3101 settings
+pep3101 = true
+
+# flake8-print settings
+print = true
+
+# flake8-string-format settings
+string-format = true
+
+# flake8-unused-arguments settings
+unused-arguments = true
+
+# flake8-variables-names settings
+variables-names = true
+
+# flake8-annotations settings
+annotations = true
+
+# flake8-no-pep420 settings
+no-pep420 = true
+
+# flake8-pep3101 settings
+pep3101 = true
+
+# flake8-print settings
+print = true
+
+# flake8-string-format settings
+string-format = true
+
+# flake8-unused-arguments settings
+unused-arguments = true
+
+# flake8-variables-names settings
+variables-names = true
+
+# flake8-annotations settings
+annotations = true
+
+# flake8-no-pep420 settings
+no-pep420 = true
+

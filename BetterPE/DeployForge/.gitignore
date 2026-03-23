@@ -1,0 +1,130 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# JavaScript / TypeScript
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tsbuildinfo
+.pnp.cjs
+.pnp.loader.mjs
+
+# JetBrains
+.idea/
+*.iml
+*.iws
+.idea_modules/
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# OS
+.DS_Store
+Thumbs.db
+core
+
+# Logs
+*.log
+logs/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+
+# Linting
+.ruff_cache/
+
+# Security scanning
+.safety/
+bandit-report.txt
+bandit-output.json
+
+# Mount points
+mounts/
+temp/
+*.tmp
+
+# Image files (don't commit large files)
+*.iso
+*.wim
+*.esd
+*.ppkg
+*.vhd
+*.vhdx
+images/
+
+# Documentation builds
+docs/_build/
+docs/_static/
+docs/_templates/
+site/
+.readthedocs.yml
+
+# Distribution
+*.whl
+*.tar.gz
+*.zip
+
+# Local configuration
+.env
+.env.local
+*.local
+config.local.*
+core

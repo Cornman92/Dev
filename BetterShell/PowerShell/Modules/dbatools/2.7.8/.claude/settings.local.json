@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(reg query \"HKEY_CLASSES_ROOT\\SystemFileAssociations\\image\\shell\" /s)",
+      "Bash(reg query \"HKEY_CLASSES_ROOT\\*\\shell\" /s)",
+      "Bash(reg query \"HKEY_CLASSES_ROOT\\*\\shellex\\ContextMenuHandlers\" /s)",
+      "WebSearch",
+      "Bash(reg query:*)",
+      "Bash(findstr:*)",
+      "Bash(dir:*)",
+      "WebFetch(domain:github.com)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

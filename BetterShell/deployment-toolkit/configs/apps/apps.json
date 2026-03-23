@@ -1,0 +1,268 @@
+[
+  {
+    "_comment": "Application catalog. Source paths support environment variable substitution:",
+    "_comment2": "  - %DEPLOY_SHARE% or ${DEPLOY_SHARE} for deployment share root",
+    "_comment3": "  - .\\Apps\\... for paths relative to toolkit root",
+    "_comment4": "  - Absolute paths (e.g., D:\\Apps\\...)",
+    "_comment5": "  - Winget/Choco sources use package IDs, not paths",
+    "id": "7zip",
+    "name": "7-Zip",
+    "sourceType": "msi",
+    "source": "%DEPLOY_SHARE%\\Apps\\7zip\\7z2408-x64.msi",
+    "_sourceFallback": ".\\Apps\\7zip\\7z2408-x64.msi",
+    "installArgs": "",
+    "dependencies": [],
+    "detection": {
+      "registry": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\7-Zip",
+          "name": "DisplayName",
+          "value": "7-Zip 24.08 (x64)"
+        }
+      ],
+      "files": [
+        {
+          "path": "C:\\Program Files\\7-Zip\\7zFM.exe"
+        }
+      ]
+    }
+  },
+  {
+    "id": "google-chrome",
+    "name": "Google Chrome",
+    "sourceType": "exe",
+    "source": "%DEPLOY_SHARE%\\Apps\\GoogleChromeStandaloneEnterprise64.msi",
+    "_sourceFallback": ".\\Apps\\GoogleChromeStandaloneEnterprise64.msi",
+    "installArgs": "/qn /norestart",
+    "dependencies": [],
+    "detection": {
+      "registry": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Google Chrome",
+          "name": "DisplayName",
+          "value": "Google Chrome"
+        }
+      ]
+    }
+  },
+  {
+    "id": "vscode-winget",
+    "name": "Visual Studio Code (winget)",
+    "sourceType": "winget",
+    "source": "--id Microsoft.VisualStudioCode",
+    "installArgs": "",
+    "dependencies": [],
+    "detection": {
+      "files": [
+        {
+          "path": "C:\\Program Files\\Microsoft VS Code\\Code.exe"
+        }
+      ]
+    }
+  },
+  {
+    "id": "git-winget",
+    "name": "Git for Windows (winget)",
+    "sourceType": "winget",
+    "source": "--id Git.Git",
+    "installArgs": "",
+    "dependencies": [],
+    "detection": {
+      "files": [
+        {
+          "path": "C:\\Program Files\\Git\\bin\\git.exe"
+        }
+      ]
+    }
+  },
+  {
+    "id": "microsoft-office-winget",
+    "name": "Microsoft Office (winget)",
+    "sourceType": "winget",
+    "source": "--id Microsoft.Office",
+    "installArgs": "",
+    "dependencies": [],
+    "detection": {
+      "registry": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Microsoft Office",
+          "name": "DisplayName",
+          "value": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "adobe-reader",
+    "name": "Adobe Acrobat Reader DC",
+    "sourceType": "exe",
+    "source": "%DEPLOY_SHARE%\\Apps\\Adobe\\AcroRdrDC.exe",
+    "_sourceFallback": ".\\Apps\\Adobe\\AcroRdrDC.exe",
+    "installArgs": "/sAll /msi /norestart /quiet EULA_ACCEPT=YES",
+    "dependencies": [],
+    "detection": {
+      "registry": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Adobe\\Acrobat Reader\\DC",
+          "name": "DisplayName",
+          "value": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "firefox",
+    "name": "Mozilla Firefox",
+    "sourceType": "exe",
+    "source": "%DEPLOY_SHARE%\\Apps\\Firefox\\FirefoxSetup.exe",
+    "_sourceFallback": ".\\Apps\\Firefox\\FirefoxSetup.exe",
+    "installArgs": "/S",
+    "dependencies": [],
+    "detection": {
+      "files": [
+        {
+          "path": "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+        }
+      ]
+    }
+  },
+  {
+    "id": "notepad-plus-plus",
+    "name": "Notepad++",
+    "sourceType": "winget",
+    "source": "--id Notepad++.Notepad++",
+    "installArgs": "",
+    "dependencies": [],
+    "detection": {
+      "files": [
+        {
+          "path": "C:\\Program Files\\Notepad++\\notepad++.exe"
+        }
+      ]
+    }
+  },
+  {
+    "id": "python",
+    "name": "Python 3",
+    "sourceType": "winget",
+    "source": "--id Python.Python.3.12",
+    "installArgs": "",
+    "dependencies": [],
+    "detection": {
+      "files": [
+        {
+          "path": "C:\\Program Files\\Python312\\python.exe"
+        }
+      ]
+    }
+  },
+  {
+    "id": "nodejs",
+    "name": "Node.js",
+    "sourceType": "winget",
+    "source": "--id OpenJS.NodeJS.LTS",
+    "installArgs": "",
+    "dependencies": [],
+    "detection": {
+      "files": [
+        {
+          "path": "C:\\Program Files\\nodejs\\node.exe"
+        }
+      ]
+    }
+  },
+  {
+    "id": "docker-desktop",
+    "name": "Docker Desktop",
+    "sourceType": "winget",
+    "source": "--id Docker.DockerDesktop",
+    "installArgs": "",
+    "dependencies": [],
+    "detection": {
+      "files": [
+        {
+          "path": "C:\\Program Files\\Docker\\Docker\\Docker Desktop.exe"
+        }
+      ]
+    }
+  },
+  {
+    "id": "virtualbox",
+    "name": "Oracle VirtualBox",
+    "sourceType": "winget",
+    "source": "--id Oracle.VirtualBox",
+    "installArgs": "",
+    "dependencies": [],
+    "detection": {
+      "files": [
+        {
+          "path": "C:\\Program Files\\Oracle\\VirtualBox\\VirtualBox.exe"
+        }
+      ]
+    }
+  },
+  {
+    "id": "powershell-7",
+    "name": "PowerShell 7",
+    "sourceType": "winget",
+    "source": "--id Microsoft.PowerShell",
+    "installArgs": "",
+    "dependencies": [],
+    "detection": {
+      "files": [
+        {
+          "path": "C:\\Program Files\\PowerShell\\7\\pwsh.exe"
+        }
+      ]
+    }
+  },
+  {
+    "id": "windows-terminal",
+    "name": "Windows Terminal",
+    "sourceType": "winget",
+    "source": "--id Microsoft.WindowsTerminal",
+    "installArgs": "",
+    "dependencies": [],
+    "detection": {
+      "files": [
+        {
+          "path": "C:\\Program Files\\WindowsApps\\Microsoft.WindowsTerminal_*\\wt.exe"
+        }
+      ]
+    }
+  },
+  {
+    "id": "azure-cli",
+    "name": "Azure CLI",
+    "sourceType": "winget",
+    "source": "--id Microsoft.AzureCLI",
+    "installArgs": "",
+    "dependencies": [],
+    "detection": {
+      "files": [
+        {
+          "path": "C:\\Program Files\\Microsoft SDKs\\Azure\\CLI2\\wbin\\az.cmd"
+        }
+      ]
+    }
+  },
+  {
+    "id": "visual-studio-build-tools",
+    "name": "Visual Studio Build Tools",
+    "sourceType": "exe",
+    "source": "%DEPLOY_SHARE%\\Apps\\VS\\vs_buildtools.exe",
+    "_sourceFallback": ".\\Apps\\VS\\vs_buildtools.exe",
+    "installArgs": "--quiet --wait --norestart --nocache --add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64",
+    "dependencies": [],
+    "detection": {
+      "registry": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\VisualStudio\\SxS\\VS7",
+          "name": "17.0",
+          "value": null
+        }
+      ]
+    }
+  }
+]
+

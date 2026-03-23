@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>WindowsPowerSuite.Modules.BackupSuite</RootNamespace>
+    <AssemblyName>BackupSuite.Module</AssemblyName>
+    <Description>Backup and restore functionality module</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\WindowsPowerSuite.Core\WindowsPowerSuite.Core.csproj" />
+    <ProjectReference Include="..\..\Core\WindowsPowerSuite.PowerShell\WindowsPowerSuite.PowerShell.csproj" />
+    <ProjectReference Include="..\..\Core\WindowsPowerSuite.Data\WindowsPowerSuite.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Management.Automation" Version="7.4.0" />
+    <PackageReference Include="System.IO.Compression" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>

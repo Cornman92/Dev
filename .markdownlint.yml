@@ -1,0 +1,48 @@
+# Markdownlint configuration for GaymerPC Suite documentation
+
+# Default state for all rules
+default: true
+
+# Rule overrides
+MD013:
+  # Line length
+  line_length: 120
+  code_blocks: false
+  tables: false
+  headings: false
+
+MD024:
+  # Multiple headers with the same content
+  siblings_only: true
+
+MD029:
+  # Ordered list item prefix
+  style: ordered
+
+MD033:
+  # Allow HTML
+  allowed_elements:
+    - details
+    - summary
+    - br
+    - hr
+
+MD041:
+  # First line in file should be a top level header
+  level: 1
+
+MD046:
+  # Code block style
+  style: fenced
+
+MD048:
+  # Code fence style
+  style: backtick
+
+MD049:
+  # Emphasis style
+  style: asterisk
+
+MD050:
+  # Strong style
+  style: asterisk

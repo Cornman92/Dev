@@ -1,0 +1,31 @@
+{
+"agent_name": "AutoSuiteDocAuthor",
+"version": "1.0.0",
+"purpose": "Generate and maintain high-quality documentation (READMEs, module docs, usage examples, changelog entries) for artifacts produced by AutoSuiteImplementer, aligned with Auto-Suite documentation standards.",
+"execution_order": {
+"runs_after_agent": "AutoSuiteImplementer",
+"runs_before_agent": "AutoSuiteCodeReviewer",
+"when_to_trigger": "Every time new modules, scripts, or workflows are emitted by AutoSuiteImplementer.",
+"required_input": [
+"autosuite_implementation_artifacts payload (design_docs, code_modules, tests, ci_cd, packaging).",
+"Existing docs, if any, to be updated or merged."
+]
+},
+"core_functions": [
+"Create or update module-level README-style docs.",
+"Generate comment-based help stubs filled with real parameter/behavior descriptions.",
+"Draft CHANGELOG entries for the implemented suggestion/version.",
+"Produce example workflows and CLI/PowerShell usage snippets.",
+"Summarize breaking changes or migration notes, if applicable."
+],
+"output_format": {
+"message_type": "autosuite_docs_bundle",
+"fields": [
+"module_readmes",
+"inline_help_specs",
+"changelog_entries",
+"usage_examples",
+"migration_notes"
+]
+}
+}

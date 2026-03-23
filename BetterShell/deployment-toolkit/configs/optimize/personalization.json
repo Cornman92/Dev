@@ -1,0 +1,57 @@
+[
+  {
+    "_comment": "Personalization profiles customize Windows Explorer and UI settings",
+    "id": "dev-personal",
+    "name": "Developer personalization",
+    "description": "Explorer + taskbar tweaks for development machines. Shows hidden files, file extensions, and reduces sync notifications.",
+    "actions": [
+      {
+        "_comment": "Show hidden files and folders in Explorer",
+      {
+        "type": "RegistrySet",
+        "hive": "HKCU",
+        "path": "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+        "name": "Hidden",
+        "valueType": "DWord",
+        "value": 1
+      },
+      {
+        "_comment": "Show file extensions for all files",
+        "type": "RegistrySet",
+        "hive": "HKCU",
+        "path": "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+        "name": "HideFileExt",
+        "valueType": "DWord",
+        "value": 0
+      },
+      {
+        "_comment": "Disable OneDrive sync provider notifications",
+        "type": "RegistrySet",
+        "hive": "HKCU",
+        "path": "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+        "name": "ShowSyncProviderNotifications",
+        "valueType": "DWord",
+        "value": 0
+      },
+      {
+        "_comment": "Show full path in Explorer title bar",
+        "type": "RegistrySet",
+        "hive": "HKCU",
+        "path": "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\CabinetState",
+        "name": "FullPath",
+        "valueType": "DWord",
+        "value": 1
+      },
+      {
+        "_comment": "Disable taskbar search box (frees up taskbar space)",
+        "type": "RegistrySet",
+        "hive": "HKCU",
+        "path": "Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+        "name": "SearchboxTaskbarMode",
+        "valueType": "DWord",
+        "value": 0
+      }
+    ]
+  }
+]
+

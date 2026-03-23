@@ -1,0 +1,16 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylecop.analyzers": true,
+    "source.organizeImports": true
+  },
+  "csharp.format.enable": true,
+  "csharp.semanticHighlighting.enabled": true,
+  "powershell.codeFormatting.autoCorrectAliases": true,
+  "powershell.codeFormatting.preset": "Allman",
+  "files.exclude": {
+    "**/bin": true,
+    "**/obj": true,
+    "**/TestResults": true
+  }
+}

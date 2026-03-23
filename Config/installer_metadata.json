@@ -1,0 +1,16 @@
+[
+  {
+    "Name": "Valve.Steam",
+    "Path": "D:\\Installers\\SteamSetup.exe",
+    "SilentArgs": "/S",
+    "Vendor": "Valve",
+    "Sha256": "<fill-after-download>"
+  },
+  {
+    "Name": "TechPowerUp.GPU-Z",
+    "Path": "D:\\Installers\\GPU-Z.exe",
+    "SilentArgs": "/silent",
+    "Vendor": "TechPowerUp",
+    "Sha256": "<fill-after-download>"
+  }
+]

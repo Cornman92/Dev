@@ -1,0 +1,35 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.DotSettings.user
+TestResults/
+CoverageReport/
+artifacts/
+*.deps.json
+*.runtimeconfig.json
+input.json
+output.json
+*.csproj.nuget.dgspec.json
+project.assets.json
+
+## Node
+node_modules/
+dist/
+coverage/
+
+## PowerShell
+*.log
+powershell.config-*.json
+*_profile.ps1.bak.*
+
+## OS
+Thumbs.db
+.DS_Store
+
+## IDE
+.idea/
+.vscode/
+*.swp

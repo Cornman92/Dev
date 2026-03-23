@@ -1,0 +1,61 @@
+{
+  "mcpServers": {
+    "time-utils": {
+      "command": "node",
+      "args": ["D:\\Dev\\time-utils-mcp-server\\dist\\index.js"],
+      "env": {}
+    },
+    "code-analysis": {
+      "command": "node",
+      "args": ["D:\\Dev\\code-analysis-mcp-server\\dist\\index.js"],
+      "env": {}
+    },
+    "powershell": {
+      "command": "node",
+      "args": ["D:\\Dev\\powershell-mcp-server\\dist\\index.js"],
+      "env": {}
+    },
+    "system-info": {
+      "command": "node",
+      "args": ["D:\\Dev\\system-info-mcp-server\\dist\\index.js"],
+      "env": {}
+    },
+    "winget": {
+      "command": "node",
+      "args": ["D:\\Dev\\winget-mcp-server\\dist\\index.js"],
+      "env": {}
+    },
+    "dotnet-cli": {
+      "command": "node",
+      "args": ["D:\\Dev\\dotnet-cli-mcp-server\\dist\\index.js"],
+      "env": {}
+    },
+    "nuget": {
+      "command": "node",
+      "args": ["D:\\Dev\\nuget-mcp-server\\dist\\index.js"],
+      "env": {}
+    },
+    "windows-mcp": {
+      "command": "uvx",
+      "args": ["windows-mcp"],
+      "env": {}
+    },
+    "filesystem-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "D:\\Dev",
+        "C:\\Users\\C-Man\\Desktop",
+        "C:\\Users\\C-Man\\Documents",
+        "C:\\Users\\C-Man\\Downloads"
+      ],
+      "env": {}
+    },
+    "desktopcommander-mcp": {
+      "command": "npx",
+      "args": ["-y", "@wonderwhy-er/desktop-commander"],
+      "env": {}
+    }
+  }
+}

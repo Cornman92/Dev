@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "time-utils": {
+      "command": "node",
+      "args": ["<DEV_ROOT>\\time-utils-mcp-server\\dist\\index.js"],
+      "env": {}
+    },
+    "windows-mcp": {
+      "command": "uvx",
+      "args": ["windows-mcp"],
+      "env": {}
+    },
+    "filesystem-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "<DEV_ROOT>",
+        "<USER_HOME>\\Desktop",
+        "<USER_HOME>\\Documents",
+        "<USER_HOME>\\Downloads"
+      ],
+      "env": {}
+    },
+    "desktopcommander-mcp": {
+      "command": "npx",
+      "args": ["-y", "@wonderwhy-er/desktop-commander"],
+      "env": {}
+    }
+  }
+}

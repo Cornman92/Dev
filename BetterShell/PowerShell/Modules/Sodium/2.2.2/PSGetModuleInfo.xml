@@ -1,0 +1,123 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>System.Management.Automation.PSCustomObject</T>
+      <T>System.Object</T>
+    </TN>
+    <MS>
+      <S N="Name">Sodium</S>
+      <S N="Version">2.2.2</S>
+      <Obj N="Type" RefId="1">
+        <TN RefId="1">
+          <T>Microsoft.PowerShell.PSResourceGet.UtilClasses.ResourceType</T>
+          <T>System.Enum</T>
+          <T>System.ValueType</T>
+          <T>System.Object</T>
+        </TN>
+        <ToString>Module</ToString>
+        <I32>1</I32>
+      </Obj>
+      <S N="Description">A PowerShell module for handling Sodium encrypted secrets.</S>
+      <S N="Author">PSModule</S>
+      <S N="CompanyName">PSModule</S>
+      <S N="Copyright">(c) 2025 PSModule. All rights reserved.</S>
+      <DT N="PublishedDate">2025-08-29T10:18:45.05</DT>
+      <DT N="InstalledDate">2025-12-25T20:11:33.5533708-05:00</DT>
+      <B N="IsPrerelease">false</B>
+      <Nil N="UpdatedDate" />
+      <URI N="LicenseUri">https://github.com/PSModule/Sodium/blob/main/LICENSE</URI>
+      <URI N="ProjectUri">https://github.com/PSModule/Sodium</URI>
+      <URI N="IconUri">https://raw.githubusercontent.com/PSModule/Sodium/main/icon/icon.png</URI>
+      <Obj N="Tags" RefId="2">
+        <TN RefId="2">
+          <T>System.String[]</T>
+          <T>System.Array</T>
+          <T>System.Object</T>
+        </TN>
+        <LST>
+          <S>Linux</S>
+          <S>MacOS</S>
+          <S>PSEdition_Core</S>
+          <S>PSEdition_Desktop</S>
+          <S>Windows</S>
+          <S>PSModule</S>
+          <S>PSFunction_ConvertFrom-SodiumSealedBox</S>
+          <S>PSCommand_ConvertFrom-SodiumSealedBox</S>
+          <S>PSFunction_ConvertTo-SodiumSealedBox</S>
+          <S>PSCommand_ConvertTo-SodiumSealedBox</S>
+          <S>PSFunction_Get-SodiumPublicKey</S>
+          <S>PSCommand_Get-SodiumPublicKey</S>
+          <S>PSFunction_New-SodiumKeyPair</S>
+          <S>PSCommand_New-SodiumKeyPair</S>
+          <S>PSIncludes_Function</S>
+        </LST>
+      </Obj>
+      <Obj N="Includes" RefId="3">
+        <TN RefId="3">
+          <T>System.Collections.Hashtable</T>
+          <T>System.Object</T>
+        </TN>
+        <DCT>
+          <En>
+            <S N="Key">Cmdlet</S>
+            <Obj N="Value" RefId="4">
+              <TNRef RefId="2" />
+              <LST />
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">RoleCapability</S>
+            <Nil N="Value" />
+          </En>
+          <En>
+            <S N="Key">DscResource</S>
+            <Obj N="Value" RefId="5">
+              <TNRef RefId="2" />
+              <LST />
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">Workflow</S>
+            <Nil N="Value" />
+          </En>
+          <En>
+            <S N="Key">Command</S>
+            <Obj N="Value" RefId="6">
+              <TNRef RefId="2" />
+              <LST>
+                <S>ConvertFrom-SodiumSealedBox</S>
+                <S>ConvertTo-SodiumSealedBox</S>
+                <S>Get-SodiumPublicKey</S>
+                <S>New-SodiumKeyPair</S>
+              </LST>
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">Function</S>
+            <Nil N="Value" />
+          </En>
+        </DCT>
+      </Obj>
+      <S N="PowerShellGetFormatVersion"></S>
+      <S N="ReleaseNotes"></S>
+      <Obj N="Dependencies" RefId="7">
+        <TN RefId="4">
+          <T>Microsoft.PowerShell.PSResourceGet.UtilClasses.Dependency[]</T>
+          <T>System.Array</T>
+          <T>System.Object</T>
+        </TN>
+        <LST />
+      </Obj>
+      <S N="RepositorySourceLocation">https://www.powershellgallery.com/api/v2</S>
+      <S N="Repository">PSGallery</S>
+      <Obj N="AdditionalMetadata" RefId="8">
+        <TNRef RefId="0" />
+        <MS>
+          <S N="NormalizedVersion">2.2.2</S>
+          <S N="IsPrerelease">False</S>
+        </MS>
+      </Obj>
+      <S N="InstalledLocation">C:\Users\saymo\OneDrive\C-Man\Documents\PowerShell\Modules</S>
+    </MS>
+  </Obj>
+</Objs>

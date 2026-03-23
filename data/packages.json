@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2024-12-29",
+  "categories": [
+    {
+      "name": "Development",
+      "icon": "Code",
+      "description": "Tools for developers",
+      "packages": [
+        {
+          "wingetId": "Microsoft.VisualStudioCode",
+          "name": "Visual Studio Code",
+          "description": "Lightweight but powerful source code editor",
+          "publisher": "Microsoft",
+          "featured": true,
+          "tags": ["editor", "coding", "open-source"]
+        }
+      ]
+    }
+  ],
+  "featured": [
+    "Microsoft.VisualStudioCode"
+  ],
+  "notes": "This is a placeholder catalog. Full catalog with 150+ apps will be created in Week 6."
+}

@@ -1,0 +1,31 @@
+[
+  {
+    "_comment": "Minimal optimization profile - only essential tweaks for basic performance",
+    "id": "minimal",
+    "name": "Minimal optimization profile",
+    "description": "Lightweight optimizations with minimal system impact. Safe for all systems.",
+    "failOnError": false,
+    "actions": [
+      {
+        "_comment": "Set balanced power plan (default, safe for all systems)",
+        "type": "PowerPlanSet",
+        "scheme": "Balanced"
+      },
+      {
+        "_comment": "Disable telemetry service to reduce background activity",
+        "type": "ServiceConfig",
+        "serviceName": "DiagTrack",
+        "startType": "demand",
+        "ensureStopped": true
+      },
+      {
+        "_comment": "Disable Windows Search indexing (optional, can be re-enabled if needed)",
+        "type": "ServiceConfig",
+        "serviceName": "WSearch",
+        "startType": "manual",
+        "ensureStopped": true
+      }
+    ]
+  }
+]
+

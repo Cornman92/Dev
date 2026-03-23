@@ -1,0 +1,2 @@
+bcdedit /store D:\My-Win[PE][RE]\Combined\BCD /set {bootmgr} timeout 10
+bcdedit /store D:\My-Win[PE][RE]\Combined\BCD /set {bootmgr} displayorder {WinPE-GUID} {WinRE-GUID} {Hybrid-GUID}

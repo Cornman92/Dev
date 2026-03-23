@@ -1,0 +1,23 @@
+[
+  {
+    "id": "base-desktop",
+    "name": "Base desktop baseline",
+    "description": "Common utilities for all desktops",
+    "appIds": [
+      "7zip",
+      "google-chrome"
+    ]
+  },
+  {
+    "id": "dev-workstation",
+    "name": "Developer workstation",
+    "description": "Developer tools on top of base desktop",
+    "appIds": [
+      "7zip",
+      "google-chrome",
+      "vscode-winget",
+      "git-winget"
+    ]
+  }
+]
+

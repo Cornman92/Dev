@@ -1,0 +1,49 @@
+# Nightly full run (FEATURES-AND-AUTOMATIONS-PLAN 4.2.4)
+# Workspace report, MCP tests, migration what-if, dashboard tests; archive logs.
+name: Nightly
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # 2am UTC daily
+  workflow_dispatch:
+
+jobs:
+  nightly:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Workspace report
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File ./Generate-WorkspaceReport.ps1 -WorkspaceRoot $env:GITHUB_WORKSPACE -OutputPath ./workspace_report_generated.json
+
+      - name: Install MCP deps and run tests
+        run: |
+          $servers = @('time-utils-mcp-server','code-analysis-mcp-server','powershell-mcp-server','system-info-mcp-server','winget-mcp-server','dotnet-cli-mcp-server','nuget-mcp-server','project-scaffolder-mcp-server')
+          foreach ($s in $servers) { if (Test-Path $s) { Push-Location $s; npm ci 2>$null || npm install; Pop-Location } }
+          npm run test:mcp-all 2>&1 | Tee-Object -Variable mcpOut; echo $mcpOut | Out-File -FilePath mcp-tests.log -Encoding utf8
+
+      - name: Migration dry-run (what-if)
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File ./Invoke-MigrationDryRun.ps1 -LogDir $env:GITHUB_WORKSPACE 2>&1 | Out-File -FilePath migration-dryrun.log -Encoding utf8
+
+      - name: Dashboard install and test
+        run: |
+          cd dev-dashboard
+          npm ci 2>$null || npm install
+          npm test 2>$null || echo "No tests"
+          cd ..
+
+      - name: Upload nightly artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nightly-${{ github.run_id }}
+          path: |
+            workspace_report_generated.json
+            mcp-tests.log
+            migration-dryrun.log
+          if-no-files-found: ignore

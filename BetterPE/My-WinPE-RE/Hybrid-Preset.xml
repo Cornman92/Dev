@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NTLite>
+  <Settings>
+    <Preset Name="Hybrid-Ultimate-Environment" />
+  </Settings>
+
+  <ImageTasks>
+    <Mount ImageFile="D:\My-Win[PE][RE]\Hybrid\base\hybrid.wim" Index="1" />
+
+    <Features>
+      <Feature Name="WinPE-WMI" State="Enable" />
+      <Feature Name="WinPE-Scripting" State="Enable" />
+      <Feature Name="WinPE-PowerShell" State="Enable" />
+      <Feature Name="WinPE-HTA" State="Enable" />
+      <Feature Name="WinPE-NetFX" State="Enable" />
+      <Feature Name="WinPE-DismCmdlets" State="Enable" />
+      <Feature Name="WinPE-StorageWMI" State="Enable" />
+      <Feature Name="WinPE-SecureStartup" State="Enable" />
+      <Feature Name="WinPE-Setup" State="Enable" />
+      <Feature Name="WinPE-Setup-Client" State="Enable" />
+    </Features>
+
+    <Registry>
+      <Add>
+        <Key Path="HKLM\SYSTEM\Setup" Name="CmdLine" Value="X:\Tools\Launcher.cmd" Type="String" />
+        <Key Path="HKLM\SYSTEM\CurrentControlSet\Control\PEHybrid" Name="Environment" Value="Hybrid" Type="String" />
+      </Add>
+    </Registry>
+
+    <ExternalApps>
+      <Copy Source="D:\My-Win[PE][RE]\Hybrid\tools\*" Destination="Windows\System32\Tools\" />
+      <Copy Source="D:\My-Win[PE][RE]\Hybrid\scripts\*" Destination="Windows\System32\Scripts\" />
+      <Copy Source="D:\My-Win[PE][RE]\Hybrid\modules\*" Destination="Windows\System32\Modules\" />
+    </ExternalApps>
+
+    <Drivers>
+      <Add Folder="D:\My-Win[PE][RE]\Hybrid\drivers\NVMe" Recursive="True" />
+      <Add Folder="D:\My-Win[PE][RE]\Hybrid\drivers\USB" Recursive="True" />
+    </Drivers>
+
+    <Finalize />
+  </ImageTasks>
+</NTLite>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Better11. All rights reserved. -->
+<!-- Better11 System Enhancement Suite - DashboardPage.xaml -->
+<!-- Dense WinUtil-inspired dashboard with system status cards and quick actions -->
+<Page
+    x:Class="Better11.App.Views.DashboardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{StaticResource B11PrimaryBackgroundBrush}">
+
+    <Grid Padding="{StaticResource B11PageMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Page Header -->
+        <Grid Grid.Row="0" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                <FontIcon Glyph="&#xE80F;" FontSize="20" Foreground="{StaticResource B11AccentBrush}"/>
+                <TextBlock Text="{x:Bind ViewModel.PageTitle}"
+                           FontSize="{StaticResource B11FontSizeTitle}"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource B11TextPrimaryBrush}"/>
+            </StackPanel>
+
+            <Button Grid.Column="1" Content="Refresh"
+                    Style="{StaticResource B11AccentButtonStyle}"
+                    Command="{x:Bind ViewModel.RefreshCommand}"/>
+        </Grid>
+
+        <!-- Status Bar -->
+        <StackPanel Grid.Row="1" Spacing="4" Margin="0,0,0,8">
+            <ProgressBar IsIndeterminate="True"
+                         Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
+                         Height="2"/>
+            <InfoBar IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+                     Severity="Error" Title="Error"
+                     Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+                     IsClosable="True"/>
+            <InfoBar IsOpen="{x:Bind ViewModel.HasSuccess, Mode=OneWay}"
+                     Severity="Success" Title="Success"
+                     Message="{x:Bind ViewModel.SuccessMessage, Mode=OneWay}"
+                     IsClosable="True"/>
+        </StackPanel>
+
+        <!-- Dashboard Content -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="{StaticResource B11SectionSpacing}">
+
+                <!-- System Status Cards Row -->
+                <TextBlock Text="System Overview"
+                           Style="{StaticResource B11SectionHeaderStyle}"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- CPU Card -->
+                    <Border Grid.Column="0" Style="{StaticResource B11DenseCardStyle}" Margin="0,0,4,0">
+                        <StackPanel Spacing="2">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon Glyph="&#xE950;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="CPU" FontSize="{StaticResource B11FontSizeCaption}"
+                                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                            </StackPanel>
+                            <TextBlock Text="--%" FontSize="18" FontWeight="Bold"
+                                       Foreground="{StaticResource B11TextPrimaryBrush}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Memory Card -->
+                    <Border Grid.Column="1" Style="{StaticResource B11DenseCardStyle}" Margin="2,0,2,0">
+                        <StackPanel Spacing="2">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon Glyph="&#xEDA2;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="Memory" FontSize="{StaticResource B11FontSizeCaption}"
+                                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                            </StackPanel>
+                            <TextBlock Text="-- GB" FontSize="18" FontWeight="Bold"
+                                       Foreground="{StaticResource B11TextPrimaryBrush}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Disk Card -->
+                    <Border Grid.Column="2" Style="{StaticResource B11DenseCardStyle}" Margin="2,0,2,0">
+                        <StackPanel Spacing="2">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon Glyph="&#xEDA2;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="Disk" FontSize="{StaticResource B11FontSizeCaption}"
+                                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                            </StackPanel>
+                            <TextBlock Text="-- GB free" FontSize="18" FontWeight="Bold"
+                                       Foreground="{StaticResource B11TextPrimaryBrush}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- OS Card -->
+                    <Border Grid.Column="3" Style="{StaticResource B11DenseCardStyle}" Margin="4,0,0,0">
+                        <StackPanel Spacing="2">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon Glyph="&#xE770;" FontSize="14" Foreground="{StaticResource B11AccentBrush}"/>
+                                <TextBlock Text="OS" FontSize="{StaticResource B11FontSizeCaption}"
+                                           Foreground="{StaticResource B11TextSecondaryBrush}"/>
+                            </StackPanel>
+                            <TextBlock Text="Win 11" FontSize="18" FontWeight="Bold"
+                                       Foreground="{StaticResource B11TextPrimaryBrush}"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Quick Actions -->
+                <TextBlock Text="Quick Actions"
+                           Style="{StaticResource B11SectionHeaderStyle}"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" HorizontalAlignment="Stretch" Margin="0,0,4,0"
+                            Style="{StaticResource B11CompactButtonStyle}">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE9D5;" FontSize="14"/>
+                            <TextBlock Text="Run Optimization"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Grid.Column="1" HorizontalAlignment="Stretch" Margin="2,0,2,0"
+                            Style="{StaticResource B11CompactButtonStyle}">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE72E;" FontSize="14"/>
+                            <TextBlock Text="Privacy Scan"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Grid.Column="2" HorizontalAlignment="Stretch" Margin="4,0,0,0"
+                            Style="{StaticResource B11CompactButtonStyle}">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xEA99;" FontSize="14"/>
+                            <TextBlock Text="Disk Cleanup"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <!-- Recent Activity -->
+                <TextBlock Text="Recent Activity"
+                           Style="{StaticResource B11SectionHeaderStyle}"/>
+
+                <Border Style="{StaticResource B11DenseCardStyle}">
+                    <TextBlock Text="No recent activity"
+                               FontSize="{StaticResource B11FontSizeBody}"
+                               Foreground="{StaticResource B11TextTertiaryBrush}"
+                               HorizontalAlignment="Center"
+                               Margin="0,12,0,12"/>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

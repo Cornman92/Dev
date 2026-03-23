@@ -1,0 +1,126 @@
+{
+  "Drives": {
+    "OsDriveLetter": "C",
+    "FastStorageDriveLetter": "D",
+    "SlowStorageDriveLetter": "E",
+    "Layout": {
+      "DevRoot": "D:\\Dev",
+      "GamesRoot": "D:\\Games",
+      "ToolsRoot": "D:\\Tools",
+      "DataRoot": "E:\\Data",
+      "Backups": "E:\\Backups"
+    }
+  },
+  "Apps": {
+    "UseChocolatey": true,
+    "UseWinget": true,
+    "ChocolateyPackages": {
+      "Dev": [
+        "git",
+        "vscode",
+        "powershell-core",
+        "python",
+        "nodejs",
+        "7zip",
+        "visualstudio2022community",
+        "sysinternals",
+        "dotnet-6.0-sdk",
+        "dotnet-8.0-sdk",
+        "cmder",
+        "meld",
+        "postman",
+        "sql-server-management-studio"
+      ],
+      "Gaming": [
+        "steam",
+        "epicgameslauncher",
+        "goggalaxy",
+        "discord",
+        "obs-studio",
+        "msiafterburner",
+        "cpuz",
+        "gpuz",
+        "hwinfo",
+        "rtss"
+      ],
+      "Utilities": [
+        "googlechrome",
+        "firefox",
+        "vlc",
+        "everything",
+        "ccleaner",
+        "crystaldiskinfo",
+        "crystaldiskmark",
+        "winrar",
+        "treesizemini"
+      ]
+    },
+    "WingetPackages": {
+      "Dev": [
+        "Git.Git",
+        "Microsoft.VisualStudioCode",
+        "Microsoft.PowerShell",
+        "Python.Python.3.12",
+        "Microsoft.DotNet.SDK.8"
+      ],
+      "Gaming": [
+        "Valve.Steam",
+        "EpicGames.EpicGamesLauncher",
+        "GOG.Galaxy",
+        "Discord.Discord",
+        "OBSProject.OBSStudio"
+      ],
+      "Utilities": [
+        "VideoLAN.VLC",
+        "Google.Chrome",
+        "Mozilla.Firefox"
+      ]
+    }
+  },
+  "Drivers": {
+    "EnableInjection": true,
+    "OfflineImageMount": "C:\\Mount\\Install",
+    "DriverRoot": "D:\\GoldenImage\\Drivers"
+  },
+  "Backups": {
+    "EnableWbadmin": true,
+    "BackupTarget": "E:\\Backups",
+    "IncludeSystemState": true
+  },
+  "Sysprep": {
+    "Enable": true,
+    "UnattendPath": "C:\\Unattend.xml",
+    "PersistDeviceInstalls": true
+  },
+  "IsoUsb": {
+    "EnableIso": true,
+    "EnableUsb": false,
+    "UsbDriveLetter": "F",
+    "WindowsSource": "D:\\Win11Source",
+    "IsoOutputPath": "D:\\GoldenImage\\GoldenImage.iso",
+    "OscdimgPath": "C:\\Program Files (x86)\\Windows Kits\\10\\Assessment and Deployment Kit\\Deployment Tools\\amd64\\Oscdimg\\oscdimg.exe",
+    "Label": "GOLDEN_W11"
+  },
+  "Tweaks": {
+    "EnablePerformanceTweaks": true,
+    "EnablePrivacyTweaks": true,
+    "EnableGameTweaks": true
+  },
+  "DevEnv": {
+    "ConfigureVsCode": true,
+    "ConfigureTerminal": true,
+    "EnvVars": {
+      "DEV_ROOT": "D:\\Dev",
+      "GAMES_ROOT": "D:\\Games",
+      "TOOLS_ROOT": "D:\\Tools"
+    }
+  },
+  "PowerShellIntegration": {
+    "EnablePSProfileIntegration": true,
+    "BackupExistingProfile": true,
+    "SetupDevEnvironment": true,
+    "OptimizeModuleLoading": true,
+    "EnableOwnershipToolkit": true,
+    "ToolkitPath": "D:\\OneDrive\\Dev\\GaymerPC\\apps\\OwnershipToolkit\\OwnershipToolkit"
+  }
+}

@@ -1,0 +1,187 @@
+[
+  {
+    "_comment": "Driver catalog configuration. Paths support environment variable substitution:",
+    "_comment2": "  - %DEPLOY_SHARE% or ${DEPLOY_SHARE} for deployment share root",
+    "_comment3": "  - .\\Drivers\\... for paths relative to toolkit root",
+    "_comment4": "  - Absolute paths (e.g., D:\\Drivers\\...)",
+    "id": "dell-latitude-7490",
+    "description": "Dell Latitude 7490 model-specific driver pack",
+    "paths": [
+      "%DEPLOY_SHARE%\\Drivers\\Dell\\Latitude_7490",
+      ".\\Drivers\\Dell\\Latitude_7490"
+    ],
+    "targetHardware": {
+      "manufacturer": "Dell",
+      "model": "Latitude 7490",
+      "modelPatterns": [ "Latitude 7490" ],
+      "pnpIdPrefixes": [
+        "PCI\\VEN_8086&DEV_9D71",
+        "PCI\\VEN_10EC&DEV_8168"
+      ]
+    }
+  },
+  {
+    "id": "generic-intel-chipset",
+    "description": "Generic Intel chipset/storage/NIC pack",
+    "paths": [
+      "%DEPLOY_SHARE%\\Drivers\\Generic\\Intel_Chipset",
+      "%DEPLOY_SHARE%\\Drivers\\Generic\\Intel_Storage",
+      ".\\Drivers\\Generic\\Intel_Chipset",
+      ".\\Drivers\\Generic\\Intel_Storage"
+    ],
+    "targetHardware": {
+      "manufacturer": "Dell",
+      "modelPatterns": [ "Latitude", "OptiPlex" ],
+      "pnpIdPrefixes": [
+        "PCI\\VEN_8086"
+      ]
+    }
+  },
+  {
+    "id": "hp-prodesk-600",
+    "description": "HP ProDesk 600 G-series driver pack",
+    "paths": [
+      "%DEPLOY_SHARE%\\Drivers\\HP\\ProDesk_600",
+      ".\\Drivers\\HP\\ProDesk_600"
+    ],
+    "targetHardware": {
+      "manufacturer": "HP",
+      "modelPatterns": [ "ProDesk 600" ],
+      "pnpIdPrefixes": [
+        "PCI\\VEN_8086",
+        "PCI\\VEN_10EC"
+      ]
+    }
+  },
+  {
+    "id": "hp-optiplex",
+    "description": "HP OptiPlex series driver pack",
+    "paths": [
+      "%DEPLOY_SHARE%\\Drivers\\HP\\OptiPlex",
+      ".\\Drivers\\HP\\OptiPlex"
+    ],
+    "targetHardware": {
+      "manufacturer": "HP",
+      "modelPatterns": [ "OptiPlex" ],
+      "pnpIdPrefixes": [
+        "PCI\\VEN_8086"
+      ]
+    }
+  },
+  {
+    "id": "lenovo-thinkpad",
+    "description": "Lenovo ThinkPad series driver pack",
+    "paths": [
+      "%DEPLOY_SHARE%\\Drivers\\Lenovo\\ThinkPad",
+      ".\\Drivers\\Lenovo\\ThinkPad"
+    ],
+    "targetHardware": {
+      "manufacturer": "LENOVO",
+      "modelPatterns": [ "ThinkPad" ],
+      "pnpIdPrefixes": [
+        "PCI\\VEN_8086",
+        "PCI\\VEN_14E4"
+      ]
+    }
+  },
+  {
+    "id": "lenovo-thinkcentre",
+    "description": "Lenovo ThinkCentre series driver pack",
+    "paths": [
+      "%DEPLOY_SHARE%\\Drivers\\Lenovo\\ThinkCentre",
+      ".\\Drivers\\Lenovo\\ThinkCentre"
+    ],
+    "targetHardware": {
+      "manufacturer": "LENOVO",
+      "modelPatterns": [ "ThinkCentre" ],
+      "pnpIdPrefixes": [
+        "PCI\\VEN_8086"
+      ]
+    }
+  },
+  {
+    "id": "generic-amd-chipset",
+    "description": "Generic AMD chipset/storage drivers",
+    "paths": [
+      "%DEPLOY_SHARE%\\Drivers\\Generic\\AMD\\Chipset",
+      "%DEPLOY_SHARE%\\Drivers\\Generic\\AMD\\Storage",
+      ".\\Drivers\\Generic\\AMD\\Chipset",
+      ".\\Drivers\\Generic\\AMD\\Storage"
+    ],
+    "targetHardware": {
+      "pnpIdPrefixes": [
+        "PCI\\VEN_1022",
+        "PCI\\VEN_1002"
+      ]
+    }
+  },
+  {
+    "id": "generic-realtek-audio",
+    "description": "Generic Realtek audio drivers",
+    "paths": [
+      "%DEPLOY_SHARE%\\Drivers\\Generic\\Realtek\\Audio",
+      ".\\Drivers\\Generic\\Realtek\\Audio"
+    ],
+    "targetHardware": {
+      "pnpIdPrefixes": [
+        "HDAUDIO\\FUNC_01&VEN_10EC",
+        "HDAUDIO\\FUNC_01&VEN_10EC&DEV_"
+      ]
+    }
+  },
+  {
+    "id": "generic-intel-network",
+    "description": "Generic Intel network adapter drivers",
+    "paths": [
+      "%DEPLOY_SHARE%\\Drivers\\Generic\\Intel\\Network",
+      ".\\Drivers\\Generic\\Intel\\Network"
+    ],
+    "targetHardware": {
+      "pnpIdPrefixes": [
+        "PCI\\VEN_8086&DEV_15",
+        "PCI\\VEN_8086&DEV_10"
+      ]
+    }
+  },
+  {
+    "id": "generic-usb3",
+    "description": "Generic USB 3.0/3.1 drivers",
+    "paths": [
+      "%DEPLOY_SHARE%\\Drivers\\Generic\\USB\\USB3",
+      ".\\Drivers\\Generic\\USB\\USB3"
+    ],
+    "targetHardware": {
+      "pnpIdPrefixes": [
+        "PCI\\VEN_8086&DEV_1E31",
+        "PCI\\VEN_8086&DEV_8C31",
+        "PCI\\VEN_8086&DEV_9C31",
+        "PCI\\VEN_1022&DEV_7814"
+      ]
+    }
+  },
+  {
+    "id": "generic-nvme",
+    "description": "Generic NVMe storage drivers",
+    "paths": [
+      "%DEPLOY_SHARE%\\Drivers\\Generic\\NVMe",
+      ".\\Drivers\\Generic\\NVMe"
+    ],
+    "targetHardware": {
+      "pnpIdPrefixes": [
+        "PCI\\VEN_144D",
+        "PCI\\VEN_8086&DEV_0953",
+        "PCI\\VEN_1BB1"
+      ]
+    }
+  },
+  {
+    "id": "generic-all",
+    "description": "Catch-all generic driver library",
+    "paths": [
+      "%DEPLOY_SHARE%\\Drivers\\Generic\\All",
+      ".\\Drivers\\Generic\\All"
+    ],
+    "targetHardware": null
+  }
+]
+

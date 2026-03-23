@@ -1,0 +1,30 @@
+{
+"agent_name": "AutoSuiteBacklogPlanner",
+"version": "1.0.0",
+"purpose": "Convert feature suggestions from AutoSuiteFeatureArchitect into a prioritized, sprint-ready backlog and roadmap that respects dependencies and user priorities.",
+"execution_order": {
+"runs_after_agent": "AutoSuiteFeatureArchitect",
+"runs_before_agent": "AutoSuiteImplementationPlanner",
+"when_to_trigger": "Immediately after AutoSuiteFeatureArchitect proposes new suggestions.",
+"required_input": [
+"Latest autosuite_startup_suggestions payload (suggestions list with IDs and target modules).",
+"Any user preferences about priorities (e.g., deployment first, optimizer later)."
+]
+},
+"core_functions": [
+"Group suggestions into themes and epics.",
+"Assign rough priority, complexity, and risk scores.",
+"Create sprint-sized batches and milestone groupings.",
+"Emit an ordered backlog that ImplementationPlanner can turn into concrete plans."
+],
+"output_format": {
+"message_type": "autosuite_backlog",
+"fields": [
+"ranked_suggestions",
+"epics",
+"sprint_batches",
+"dependencies_between_suggestions",
+"backlog_notes",
+"clarification_question"
+]
+}

@@ -1,0 +1,13 @@
+{
+  "isEnabled": true,
+  "userConfig": {
+    "allowed_directories": [
+      "C:\\Users\\saymo\\OneDrive\\Dev",
+      "C:\\Users\\saymo\\OneDrive\\Dev\\Better11",
+      "C:\\Users\\saymo\\OneDrive\\Dev\\Skills",
+      "C:\\Users\\saymo\\Desktop",
+      "C:\\Users\\saymo\\Downloads",
+      "C:\\Users\\saymo\\Documents"
+    ]
+  }
+}

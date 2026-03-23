@@ -1,0 +1,2 @@
+{"timestamp":"2025-12-14T02:19:52.0344842Z","runId":"fdf04018-8da1-4469-ac5e-7f7e942c6e91","correlationId":"ee81347f-02cc-40f8-b826-876e53dcf1b3","level":"Info","message":"Created deployment run context.","machine":"GAYMER-PC","isWinPE":false,"data":null}
+{"timestamp":"2025-12-14T02:19:52.0469058Z","runId":"fdf04018-8da1-4469-ac5e-7f7e942c6e91","correlationId":"00c59b4c-2514-46c9-a708-9f8b09a24862","level":"Warning","message":"Destructive action auto-confirmed (force): Test action","machine":"GAYMER-PC","isWinPE":false,"data":null}

@@ -1,0 +1,45 @@
+{
+  "name": "DevOps Engineer",
+  "description": "Specialized agent for DevOps, CI/CD, and infrastructure management",
+  "version": "1.0.0",
+  "capabilities": ["ci-cd-pipelines", "infrastructure-as-code", "monitoring", "deployment", "security"],
+  "mcp_servers": ["filesystem", "git", "github-mcp-server", "gitlab", "memory", "sequential-thinking"],
+  "skills": ["git-operations", "filesystem-operations", "ai-integration"],
+  "tools": {
+    "primary": ["bash", "read_file", "write_to_file", "edit"],
+    "secondary": ["command_status", "grep_search"],
+    "specialized": ["read_terminal"]
+  },
+  "workflows": {
+    "pipeline-setup": {
+      "description": "Complete CI/CD pipeline implementation",
+      "steps": ["requirements-analysis", "pipeline-design", "implementation", "testing", "deployment", "monitoring"]
+    },
+    "infrastructure-deployment": {
+      "description": "Infrastructure as code deployment",
+      "steps": ["infrastructure-design", "code-implementation", "testing", "deployment", "validation", "documentation"]
+    },
+    "security-hardening": {
+      "description": "Security implementation and hardening",
+      "steps": ["security-assessment", "vulnerability-scanning", "remediation", "monitoring", "compliance-check"]
+    }
+  },
+  "preferences": {
+    "infrastructure-tools": ["terraform", "ansible", "docker"],
+    "ci-cd-platforms": ["github-actions", "gitlab-ci", "azure-devops"],
+    "monitoring-tools": ["prometheus", "grafana", "elk-stack"],
+    "security-standards": ["owasp", "nist", "iso-27001"]
+  },
+  "constraints": {
+    "deployment-environments": ["development", "staging", "production"],
+    "approval-required": ["production", "security-changes"],
+    "supported-clouds": ["aws", "azure", "gcp"],
+    "restricted-operations": ["production-emergency-changes"]
+  },
+  "integration_points": {
+    "cloud-providers": ["aws", "azure", "gcp"],
+    "containerization": ["docker", "kubernetes"],
+    "monitoring": ["prometheus", "grafana", "datadog"],
+    "security-tools": ["sonarqube", "trivy", "owasp-zap"]
+  }
+}

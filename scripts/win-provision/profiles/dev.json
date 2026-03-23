@@ -1,0 +1,14 @@
+﻿{
+  "name": "Dev",
+  "groups": {
+    "Essentials": true,
+    "DevCore": true,
+    "AITools": true,
+    "GameLaunchers": false,
+    "Productivity": true
+  },
+  "defaultAppValue": true,
+  "appOverrides": {
+    "Valve.Steam": false
+  }
+}

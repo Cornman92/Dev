@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NTLite>
+  <Settings>
+    <Preset Name="WinPE-Deployment" Mode="Create ISO" ImageMode="WIM" />
+  </Settings>
+
+  <ImageTasks>
+    <Mount ImageFile="D:\My-Win[PE][RE]\WinPE\base\boot.wim" Index="1" />
+
+    <Features>
+      <Feature Name="WinPE-WMI" State="Enable" />
+      <Feature Name="WinPE-Scripting" State="Enable" />
+      <Feature Name="WinPE-HTA" State="Enable" />
+      <Feature Name="WinPE-NetFX" State="Enable" />
+      <Feature Name="WinPE-PowerShell" State="Enable" />
+      <Feature Name="WinPE-StorageWMI" State="Enable" />
+      <Feature Name="WinPE-SecureStartup" State="Enable" />
+      <Feature Name="WinPE-DismCmdlets" State="Enable" />
+      <Feature Name="WinPE-Setup" State="Enable" />
+      <Feature Name="WinPE-Setup-Client" State="Enable" />
+    </Features>
+
+    <Registry>
+      <Add>
+        <Key Path="HKLM\SYSTEM\ControlSet001\Control\PEBootType" Value="2" Type="DWord" />
+        <Key Path="HKLM\SYSTEM\Setup" Name="CmdLine" Value="X:\Tools\Launcher.cmd" Type="String" />
+        <Key Path="HKLM\Software\Microsoft\Command Processor" Name="AutoRun" Value="prompt $P$G" Type="String"/>
+      </Add>
+    </Registry>
+
+    <ExternalApps>
+      <Copy Source="D:\My-Win[PE][RE]\WinPE\tools\*" Destination="Windows\System32\Tools\" />
+      <Copy Source="D:\My-Win[PE][RE]\WinPE\scripts\*" Destination="Windows\System32\Scripts\" />
+      <Copy Source="D:\My-Win[PE][RE]\WinPE\modules\*" Destination="Windows\System32\Modules\" />
+    </ExternalApps>
+
+    <Drivers>
+      <Add Folder="D:\My-Win[PE][RE]\WinPE\drivers\NVMe" Recursive="True" />
+      <Add Folder="D:\My-Win[PE][RE]\WinPE\drivers\USB" Recursive="True" />
+    </Drivers>
+
+    <Finalize />
+  </ImageTasks>
+</NTLite>

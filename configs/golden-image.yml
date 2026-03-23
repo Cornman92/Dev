@@ -1,0 +1,49 @@
+name: Golden Image Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      run_golden_image:
+        type: boolean
+        default: false
+        description: "Run Create-GoldenImage on self-hosted runner (dangerous)."
+
+jobs:
+  lint-and-test:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install PowerShell modules
+        shell: pwsh
+        run: |
+          Install-Module Pester -Force -Scope CurrentUser
+          Install-Module PSScriptAnalyzer -Force -Scope CurrentUser
+
+      - name: Run PSScriptAnalyzer
+        shell: pwsh
+        run: |
+          Invoke-ScriptAnalyzer -Path scripts/Create-GoldenImage.ps1 -Recurse -Severity Error
+
+      - name: Run Pester tests
+        shell: pwsh
+        run: |
+          Invoke-Pester -Path tests -Output Detailed
+
+  golden-image-build:
+    if: github.event_name == 'workflow_dispatch' && inputs.run_golden_image == true
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Create-GoldenImage (prepare-only)
+        shell: pwsh
+        run: |
+          $script = Join-Path $pwd 'scripts/Create-GoldenImage.ps1'
+          & $script -ConfigPath (Join-Path $pwd 'GoldenImageConfig.json') -PrepareOnly -SkipIsoUsb

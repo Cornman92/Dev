@@ -1,0 +1,74 @@
+name: Windows-Deployment-Toolkit CI
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'active-projects/Windows-Deployment-Toolkit/**'
+      - '.github/workflows/ci-windows-deployment-toolkit.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'active-projects/Windows-Deployment-Toolkit/**'
+
+env:
+  POWERSHELL_TELEMETRY_OPTOUT: 1
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PowerShell
+        uses: azure/powershell@v1
+        with:
+          azPSVersion: 'latest'
+
+      - name: Install Pester
+        run: Install-Module -Name Pester -Force -Scope CurrentUser -MinimumVersion 5.0
+
+      - name: Install PSScriptAnalyzer
+        run: Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
+
+      - name: Run PSScriptAnalyzer
+        working-directory: active-projects/Windows-Deployment-Toolkit
+        run: |
+          $results = Invoke-ScriptAnalyzer -Path ./src -Recurse -ExcludeRule @('PSUseDeclaredVarsMoreThanAssignments')
+          if ($results.Count -gt 0) {
+            Write-Host "ScriptAnalyzer found $($results.Count) issues:"
+            $results | Format-Table
+            exit 1
+          }
+
+      - name: Run unit tests
+        working-directory: active-projects/Windows-Deployment-Toolkit
+        run: |
+          $result = .\tests\Unit\Run-AllUnitTests.ps1 -CodeCoverage -OutputFormat NUnitXml -OutputFile test-results.xml
+          if ($result.FailedCount -gt 0) {
+            Write-Error "Tests failed: $($result.FailedCount) out of $($result.TotalCount)"
+            exit 1
+          }
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-wdt
+          path: active-projects/Windows-Deployment-Toolkit/test-results.xml
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-wdt
+          path: active-projects/Windows-Deployment-Toolkit/tests/Unit/CodeCoverage.xml
+
+      - name: Coverage comment
+        uses: py-cov-action/python-coverage-comment-action@v3
+        if: always()
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MINIMUM_GREEN: 80
+          MINIMUM_ORANGE: 60

@@ -1,0 +1,45 @@
+{
+  "name": "Automation Specialist",
+  "description": "Specialized agent for workflow automation and web scraping",
+  "version": "1.0.0",
+  "capabilities": ["web-automation", "workflow-automation", "api-integration", "scheduled-tasks", "monitoring"],
+  "mcp_servers": ["filesystem", "mcp-playwright", "puppeteer", "fetch", "memory", "sequential-thinking"],
+  "skills": ["web-automation", "filesystem-operations", "ai-integration"],
+  "tools": {
+    "primary": ["bash", "read_file", "write_to_file", "edit"],
+    "secondary": ["command_status", "read_terminal"],
+    "specialized": ["browser_preview"]
+  },
+  "workflows": {
+    "web-scraping": {
+      "description": "Automated data extraction from websites",
+      "steps": ["target-analysis", "selector-identification", "data-extraction", "data-cleaning", "storage-setup"]
+    },
+    "workflow-automation": {
+      "description": "End-to-end workflow automation",
+      "steps": ["process-mapping", "automation-design", "implementation", "testing", "deployment", "monitoring"]
+    },
+    "api-integration": {
+      "description": "API integration and data synchronization",
+      "steps": ["api-analysis", "authentication-setup", "data-mapping", "implementation", "error-handling", "testing"]
+    }
+  },
+  "preferences": {
+    "automation-framework": "playwright",
+    "scheduling": "cron-based",
+    "error-handling": "comprehensive",
+    "logging-level": "detailed"
+  },
+  "constraints": {
+    "max-concurrent-automations": 10,
+    "rate-limiting": "respectful",
+    "supported-browsers": ["chromium", "firefox", "webkit"],
+    "restricted-domains": ["banking", "sensitive-personal-data"]
+  },
+  "integration_points": {
+    "browsers": ["chromium", "firefox", "safari"],
+    "apis": ["rest", "graphql", "soap"],
+    "schedulers": ["cron", "windows-task-scheduler"],
+    "monitoring": ["logs", "alerts", "dashboards"]
+  }
+}

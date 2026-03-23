@@ -1,0 +1,128 @@
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{cs,csx}]
+# Namespace
+csharp_style_namespace_declarations = file_scoped:suggestion
+
+# Using directives
+dotnet_sort_system_directives_first = true
+csharp_using_directive_placement = outside_namespace:warning
+
+# StyleCop overrides for pragmatic development
+# SA1101: Prefix local calls with this
+dotnet_diagnostic.SA1101.severity = none
+# SA1200: Using directives should be placed correctly
+dotnet_diagnostic.SA1200.severity = none
+# SA1309: Field names should not begin with underscore
+dotnet_diagnostic.SA1309.severity = none
+# SA1600: Elements should be documented
+dotnet_diagnostic.SA1600.severity = none
+# SA1601: Partial elements should be documented
+dotnet_diagnostic.SA1601.severity = none
+# SA1602: Enumeration items should be documented
+dotnet_diagnostic.SA1602.severity = none
+# SA1633: File should have header
+dotnet_diagnostic.SA1633.severity = none
+# SA1634: File header should show copyright
+dotnet_diagnostic.SA1634.severity = none
+# SA1635: File header should have copyright text
+dotnet_diagnostic.SA1635.severity = none
+# SA1636: File header copyright text should match
+dotnet_diagnostic.SA1636.severity = none
+# SA1637: File header should contain file name
+dotnet_diagnostic.SA1637.severity = none
+# SA1638: File header file name documentation should match file name
+dotnet_diagnostic.SA1638.severity = none
+# SA1640: File header should have valid company text
+dotnet_diagnostic.SA1640.severity = none
+# SA1516: Elements should be separated by blank line
+dotnet_diagnostic.SA1516.severity = none
+# SA1503: Braces should not be omitted
+dotnet_diagnostic.SA1503.severity = none
+# SA1128: Put constructor initializers on their own line
+dotnet_diagnostic.SA1128.severity = none
+# SA1201: Elements should appear in the correct order
+dotnet_diagnostic.SA1201.severity = none
+# SA1402: File may only contain a single type (project uses multi-type files for DTOs/interfaces)
+dotnet_diagnostic.SA1402.severity = none
+# SA1649: File name should match first type name (multi-type files)
+dotnet_diagnostic.SA1649.severity = none
+# SA0001: XML comment analysis disabled
+dotnet_diagnostic.SA0001.severity = none
+# SA1204: Static members should appear before non-static members
+dotnet_diagnostic.SA1204.severity = none
+# SA1623: Property documentation summary text format
+dotnet_diagnostic.SA1623.severity = none
+# CA1000: Do not declare static members on generic types (Result<T> factory methods)
+dotnet_diagnostic.CA1000.severity = none
+
+# CA1707: Test methods use underscores by convention
+dotnet_diagnostic.CA1707.severity = none
+# CA1848: Use LoggerMessage delegates (too verbose for this project)
+dotnet_diagnostic.CA1848.severity = none
+# CA1873: Expensive logging arguments
+dotnet_diagnostic.CA1873.severity = none
+# CA1001: Disposable fields (services managed by DI)
+dotnet_diagnostic.CA1001.severity = none
+# CA1305: Locale-dependent formatting
+dotnet_diagnostic.CA1305.severity = none
+# SA1117: Parameters should be on same line or each on own line
+dotnet_diagnostic.SA1117.severity = none
+# SA1116: Split parameters should start on next line
+dotnet_diagnostic.SA1116.severity = none
+# SA1127: Generic constraints on own line
+dotnet_diagnostic.SA1127.severity = none
+# SA1202: Public members before private
+dotnet_diagnostic.SA1202.severity = none
+# SA1203: Constants before fields
+dotnet_diagnostic.SA1203.severity = none
+# SA1107: Code should not contain multiple statements on one line
+dotnet_diagnostic.SA1107.severity = none
+# SA1122: Use string.Empty for empty strings
+dotnet_diagnostic.SA1122.severity = none
+# SA1210: Using directives should be ordered alphabetically
+dotnet_diagnostic.SA1210.severity = none
+# SA1501: Statement should not be on a single line
+dotnet_diagnostic.SA1501.severity = none
+# SA1507: Code should not contain multiple blank lines
+dotnet_diagnostic.SA1507.severity = none
+# SA1512: Single-line comments should not be followed by blank line
+dotnet_diagnostic.SA1512.severity = none
+# SA1515: Single-line comment should be preceded by blank line
+dotnet_diagnostic.SA1515.severity = none
+# CA1822: Mark members as static
+dotnet_diagnostic.CA1822.severity = none
+# IDE0065: Using directive placement
+dotnet_diagnostic.IDE0065.severity = none
+# CS1573: Parameter has no matching param tag in XML comment
+dotnet_diagnostic.CS1573.severity = none
+# SA1611: Element parameters should be documented
+dotnet_diagnostic.SA1611.severity = none
+# SA1615: Element return value should be documented
+dotnet_diagnostic.SA1615.severity = none
+# SA1614: Element parameter documentation should have text
+dotnet_diagnostic.SA1614.severity = none
+# SA1618: Generic type parameter documentation
+dotnet_diagnostic.SA1618.severity = none
+
+# IDE rules
+dotnet_diagnostic.IDE0005.severity = warning
+dotnet_diagnostic.IDE0044.severity = warning
+dotnet_diagnostic.IDE0055.severity = warning
+
+[*.xaml]
+indent_size = 4
+
+[*.{json,xml,props,targets,csproj}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false

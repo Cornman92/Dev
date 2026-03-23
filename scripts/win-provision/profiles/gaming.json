@@ -1,0 +1,11 @@
+﻿{
+  "name": "Gaming",
+  "groups": {
+    "Essentials": true,
+    "DevCore": false,
+    "AITools": false,
+    "GameLaunchers": true,
+    "Productivity": true
+  },
+  "defaultAppValue": true
+}

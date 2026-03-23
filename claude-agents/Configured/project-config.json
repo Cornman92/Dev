@@ -1,0 +1,50 @@
+﻿{
+    "ProjectName": "Windows-Automation-Workspace",
+    "TestFramework": "Pester, pytest",
+    "PrimaryPlatform": "Windows 11",
+    "PrimaryLanguage": "PowerShell, Python",
+    "AgentFiles": [
+        "project-config.json",
+        "UniversalBacklogPlanner.JSON",
+        "UniversalCodeReviewer.JSON",
+        "UniversalContextBootstrapper.JSON",
+        "UniversalDocAuthor.JSON",
+        "UniversalFeatureArchitect.JSON",
+        "UniversalImplementationPlanner.JSON",
+        "UniversalImplementer.JSON",
+        "UniversalRefactorAdvisor.JSON",
+        "UniversalReleaseManager.JSON",
+        "UniversalTestDesigner.JSON"
+    ],
+    "ProjectPrefix": "WAS",
+    "WorkspaceRoot": "E:\\OneDrive\\Dev",
+    "KeyPaths": {
+        "GoldenImage": "Create-GoldenImage.ps1",
+        "GoldenImageConfig": "GoldenImageConfig.json",
+        "GoldenImageTests": "GoldenImage.Tests.ps1",
+        "PSProfile": "Install-PSProfile.ps1",
+        "WindowsAutomationStation": "Windows-Automation-Station",
+        "Workflows": "Windows-Automation-Station/workflows",
+        "Core": "Windows-Automation-Station/workflows/Core",
+        "Tests": "tests/Tests",
+        "Docs": "docs",
+        "Provenance": "provenance",
+        "MachineProfiles": "provenance/machine-profiles.json"
+    },
+    "TestPaths": {
+        "PowerShell": [
+            "GoldenImage.Tests.ps1",
+            "tests/Test-*.ps1"
+        ],
+        "Python": [
+            "tests/Tests/run_all_tests.py",
+            "tests/test-*.py"
+        ]
+    },
+    "DocumentationPaths": {
+        "Overview": "docs/Workspace-Overview.md",
+        "GoldenImage": "docs/GoldenImage-Pipeline-Analysis.md",
+        "PSProfile": "docs/PowerShell-Profile-Analysis.md",
+        "WAS": "docs/Windows-Automation-Station-Analysis.md"
+    }
+}

@@ -1,0 +1,6 @@
+{
+  "isEnabled": true,
+  "userConfig": {
+    "SOCKET_API_KEY": "<YOUR_SOCKET_API_KEY_HERE>"
+  }
+}

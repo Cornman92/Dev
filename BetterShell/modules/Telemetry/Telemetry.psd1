@@ -1,0 +1,1 @@
+@{ RootModule='Telemetry.psm1'; ModuleVersion='0.1.0'; GUID='22222222-2222-4222-8222-222222222222'; Author='Aurora'; PowerShellVersion='7.0'; FunctionsToExport=@('Get-AuroraTelemetryConfig','Write-AuroraTelemetryLocal','Send-AuroraTelemetryRemote') }

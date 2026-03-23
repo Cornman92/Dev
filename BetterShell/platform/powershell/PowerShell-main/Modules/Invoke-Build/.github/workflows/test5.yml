@@ -1,0 +1,20 @@
+name: test5
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test5:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: boot
+        shell: powershell
+        run: ./Invoke-Build.ps1 boot
+      - name: test
+        shell: powershell
+        run: ./Invoke-Build.ps1 . Tests/.build.ps1

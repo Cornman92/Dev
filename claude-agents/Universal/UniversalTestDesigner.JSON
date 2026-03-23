@@ -1,0 +1,32 @@
+﻿{
+"agent_name": "UniversalTestDesigner",
+"version": "1.0.0",
+"purpose": "Design detailed testing strategies and test file structures for each selected suggestion, ensuring {{TEST_FRAMEWORK}}-based coverage and clear unit/integration/smoke boundaries before code is written.",
+"execution_order": {
+"runs_after_agent": "UniversalImplementationPlanner",
+"runs_before_agent": "UniversalImplementer",
+"when_to_trigger": "After an Universal_implementation_plan is generated and before implementation starts.",
+"required_input": [
+"Universal_implementation_plan payload (phases, tasks, modules impacted).",
+"Any global testing targets (e.g., coverage thresholds, critical paths)."
+]
+},
+"core_functions": [
+"Identify key behaviors and edge cases from the plan.",
+"Map behaviors to specific test types (unit, integration, functional, smoke).",
+"Define {{TEST_FRAMEWORK}} test file layout and Describe/Context/It structure.",
+"Specify test data strategies and mocks/fakes for external dependencies.",
+"Emit a test blueprint that UniversalImplementer can directly turn into test files."
+],
+"output_format": {
+"message_type": "Universal_test_plan",
+"fields": [
+"suggestion_id",
+"test_objectives",
+"test_files",
+"coverage_focus_areas",
+"risk_based_tests",
+"ci_integration_notes"
+]
+}
+}

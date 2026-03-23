@@ -1,0 +1,579 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Better11.Services</name>
+    </assembly>
+    <members>
+        <member name="T:Better11.Services.Analytics.AnalyticsService">
+            <summary>
+            Implements basic analytics and telemetry logging for Better11.
+            Respects the user's telemetry opt-out setting; when disabled, no events are logged or sent.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.Analytics.AnalyticsService.#ctor(Microsoft.Extensions.Logging.ILogger{Better11.Services.Analytics.AnalyticsService},Better11.Core.Interfaces.ISettingsService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.Analytics.AnalyticsService"/> class.
+            </summary>
+            <param name="logger">The logger instance.</param>
+            <param name="settings">The settings service to read telemetry opt-in.</param>
+        </member>
+        <member name="P:Better11.Services.Analytics.AnalyticsService.IsTelemetryEnabled">
+            <summary>
+            Returns true if telemetry is enabled (user opt-in).
+            </summary>
+        </member>
+        <member name="M:Better11.Services.Analytics.AnalyticsService.TrackEventAsync(System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <summary>
+            Tracks an analytics event with optional properties.
+            </summary>
+            <param name="eventName">The name of the event to track.</param>
+            <param name="properties">Optional key-value pairs describing the event.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>A task representing the operation.</returns>
+        </member>
+        <member name="M:Better11.Services.Analytics.AnalyticsService.TrackExceptionAsync(System.Exception,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <summary>
+            Tracks an exception with optional properties.
+            </summary>
+            <param name="exception">The exception to track.</param>
+            <param name="properties">Optional key-value pairs describing the context.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>A task representing the operation.</returns>
+        </member>
+        <member name="M:Better11.Services.Analytics.AnalyticsService.TrackPageViewAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Tracks a page view.
+            </summary>
+            <param name="pageName">The name of the page being viewed.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>A task representing the operation.</returns>
+        </member>
+        <member name="T:Better11.Services.AppUpdate.AppUpdateService">
+            <summary>
+            Checks for, downloads, and installs application updates using a version manifest.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.AppUpdate.AppUpdateService.#ctor(Microsoft.Extensions.Logging.ILogger{Better11.Services.AppUpdate.AppUpdateService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.AppUpdate.AppUpdateService"/> class.
+            </summary>
+            <param name="logger">The logger instance.</param>
+        </member>
+        <member name="M:Better11.Services.AppUpdate.AppUpdateService.CheckForUpdatesAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.AppUpdate.AppUpdateService.DownloadUpdateAsync(Better11.Core.Interfaces.AppUpdateInfo,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.AppUpdate.AppUpdateService.InstallUpdateAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Services.BackupRestore.BackupRestoreService">
+            <summary>
+            Service for managing system restore points and registry/file backups via PowerShell.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.BackupRestore.BackupRestoreService.#ctor(Better11.Core.Interfaces.IPowerShellService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.BackupRestore.BackupRestoreService"/> class.
+            </summary>
+            <param name="ps">The PowerShell service instance.</param>
+        </member>
+        <member name="M:Better11.Services.BackupRestore.BackupRestoreService.GetRestorePointsAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.BackupRestore.BackupRestoreService.CreateRestorePointAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.BackupRestore.BackupRestoreService.DeleteRestorePointAsync(System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.BackupRestore.BackupRestoreService.GetRegistryBackupsAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.BackupRestore.BackupRestoreService.ExportRegistryKeyAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.BackupRestore.BackupRestoreService.ImportRegistryBackupAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.BackupRestore.BackupRestoreService.GetFileBackupsAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.BackupRestore.BackupRestoreService.CreateFileBackupAsync(System.String,System.String,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.BackupRestore.BackupRestoreService.RestoreFileBackupAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.BackupRestore.BackupRestoreService.GetSchedulesAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.BackupRestore.BackupRestoreService.CreateScheduleAsync(System.String,System.String,System.String,System.String,System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.BackupRestore.BackupRestoreService.DeleteScheduleAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Services.DiskCleanup.DiskCleanupService">
+            <summary>
+            Provides disk cleanup operations via the <c>B11.DiskCleanup</c> PowerShell module.
+            Implements <see cref="T:Better11.Core.Interfaces.IDiskCleanupService"/> with thread-safe clean operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.DiskCleanup.DiskCleanupService.#ctor(Better11.Core.Interfaces.IPowerShellService,Microsoft.Extensions.Logging.ILogger{Better11.Services.DiskCleanup.DiskCleanupService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.DiskCleanup.DiskCleanupService"/> class.
+            </summary>
+            <param name="ps">The PowerShell service used to invoke commands.</param>
+            <param name="logger">The logger instance.</param>
+        </member>
+        <member name="M:Better11.Services.DiskCleanup.DiskCleanupService.ScanAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.DiskCleanup.DiskCleanupService.CleanAsync(System.Collections.Generic.IReadOnlyList{System.String},System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.DiskCleanup.DiskCleanupService.GetDiskSpaceAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Services.Driver.DriverService">
+            <summary>
+            Provides driver management operations via the <c>B11.Drivers</c> PowerShell module.
+            Implements <see cref="T:Better11.Core.Interfaces.IDriverService"/> with thread-safe update, backup, and rollback operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.Driver.DriverService.#ctor(Better11.Core.Interfaces.IPowerShellService,Microsoft.Extensions.Logging.ILogger{Better11.Services.Driver.DriverService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.Driver.DriverService"/> class.
+            </summary>
+            <param name="ps">The PowerShell service used to invoke commands.</param>
+            <param name="logger">The logger instance.</param>
+        </member>
+        <member name="M:Better11.Services.Driver.DriverService.GetInstalledDriversAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Driver.DriverService.ScanForUpdatesAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Driver.DriverService.UpdateDriverAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Driver.DriverService.BackupDriverAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Driver.DriverService.RollbackDriverAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Services.Network.NetworkService">
+            <summary>
+            Provides network management operations via the <c>B11.Network</c> PowerShell module.
+            Implements <see cref="T:Better11.Core.Interfaces.INetworkService"/> with thread-safe DNS and cache operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.Network.NetworkService.#ctor(Better11.Core.Interfaces.IPowerShellService,Microsoft.Extensions.Logging.ILogger{Better11.Services.Network.NetworkService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.Network.NetworkService"/> class.
+            </summary>
+            <param name="ps">The PowerShell service used to invoke commands.</param>
+            <param name="logger">The logger instance.</param>
+        </member>
+        <member name="M:Better11.Services.Network.NetworkService.GetAdaptersAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Network.NetworkService.GetDnsConfigAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Network.NetworkService.SetDnsServersAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Network.NetworkService.FlushDnsCacheAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Network.NetworkService.RunDiagnosticsAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Services.Optimization.OptimizationService">
+            <summary>
+            Provides system optimization operations via the <c>B11.Optimization</c> PowerShell module.
+            Implements <see cref="T:Better11.Core.Interfaces.IOptimizationService"/> with thread-safe apply and restore operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.Optimization.OptimizationService.#ctor(Better11.Core.Interfaces.IPowerShellService,Microsoft.Extensions.Logging.ILogger{Better11.Services.Optimization.OptimizationService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.Optimization.OptimizationService"/> class.
+            </summary>
+            <param name="ps">The PowerShell service used to invoke commands.</param>
+            <param name="logger">The logger instance.</param>
+        </member>
+        <member name="M:Better11.Services.Optimization.OptimizationService.GetCategoriesAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Optimization.OptimizationService.ApplyOptimizationsAsync(System.Collections.Generic.IReadOnlyList{System.String},System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Optimization.OptimizationService.CreateRestorePointAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Services.Package.PackageService">
+            <summary>
+            Provides package management operations via the <c>B11.Packages</c> PowerShell module.
+            Implements <see cref="T:Better11.Core.Interfaces.IPackageService"/> with thread-safe install/uninstall/update operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.Package.PackageService.#ctor(Better11.Core.Interfaces.IPowerShellService,Microsoft.Extensions.Logging.ILogger{Better11.Services.Package.PackageService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.Package.PackageService"/> class.
+            </summary>
+            <param name="ps">The PowerShell service used to invoke commands.</param>
+            <param name="logger">The logger instance.</param>
+        </member>
+        <member name="M:Better11.Services.Package.PackageService.GetInstalledPackagesAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Package.PackageService.GetAvailableUpdatesAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Package.PackageService.InstallPackageAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Package.PackageService.UninstallPackageAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Package.PackageService.UpdatePackageAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Package.PackageService.SearchPackagesAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Services.PowerShell.PowerShellService">
+            <summary>
+            RunspacePool-based PowerShell service. Thread-safe, concurrent, cancellation-aware.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.PowerShell.PowerShellService.#ctor(Microsoft.Extensions.Logging.ILogger{Better11.Services.PowerShell.PowerShellService},System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.PowerShell.PowerShellService"/> class.
+            </summary>
+            <param name="logger">The logger instance.</param>
+            <param name="modulesPath">Path to PowerShell modules.</param>
+            <param name="minRunspaces">Minimum pool size.</param>
+            <param name="maxRunspaces">Maximum pool size.</param>
+            <param name="commandTimeoutSeconds">Default command timeout.</param>
+        </member>
+        <member name="M:Better11.Services.PowerShell.PowerShellService.InvokeCommandAsync``1(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.PowerShell.PowerShellService.InvokeCommandListAsync``1(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.PowerShell.PowerShellService.InvokeCommandVoidAsync(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.PowerShell.PowerShellService.ExecuteScriptAsync(System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.PowerShell.PowerShellService.ExecuteScriptWithRetryAsync(System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Executes PowerShell script with retry logic for transient failures.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.PowerShell.PowerShellService.IsTransientError(System.Exception)">
+            <summary>
+            Determines if an exception is transient and worth retrying.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.PowerShell.PowerShellService.TestModuleAvailableAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.PowerShell.PowerShellService.GetDiagnostics">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.PowerShell.PowerShellService.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.PowerShell.PowerShellService.DisposeAsync">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Services.Privacy.PrivacyService">
+            <summary>
+            Provides privacy management operations via the <c>B11.Privacy</c> PowerShell module.
+            Implements <see cref="T:Better11.Core.Interfaces.IPrivacyService"/> with thread-safe mutating operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.Privacy.PrivacyService.#ctor(Better11.Core.Interfaces.IPowerShellService,Microsoft.Extensions.Logging.ILogger{Better11.Services.Privacy.PrivacyService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.Privacy.PrivacyService"/> class.
+            </summary>
+            <param name="ps">The PowerShell service used to invoke commands.</param>
+            <param name="logger">The logger instance.</param>
+        </member>
+        <member name="M:Better11.Services.Privacy.PrivacyService.GetPrivacyAuditAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Privacy.PrivacyService.ApplyPrivacyProfileAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Privacy.PrivacyService.SetPrivacySettingAsync(System.String,System.Boolean,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Services.ScheduledTask.ScheduledTaskService">
+            <summary>
+            Provides scheduled task management via the <c>B11.Tasks</c> PowerShell module.
+            Implements <see cref="T:Better11.Core.Interfaces.IScheduledTaskService"/> with thread-safe mutating operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.ScheduledTask.ScheduledTaskService.#ctor(Better11.Core.Interfaces.IPowerShellService,Microsoft.Extensions.Logging.ILogger{Better11.Services.ScheduledTask.ScheduledTaskService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.ScheduledTask.ScheduledTaskService"/> class.
+            </summary>
+            <param name="ps">The PowerShell service used to invoke commands.</param>
+            <param name="logger">The logger instance.</param>
+        </member>
+        <member name="M:Better11.Services.ScheduledTask.ScheduledTaskService.GetScheduledTasksAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.ScheduledTask.ScheduledTaskService.EnableTaskAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.ScheduledTask.ScheduledTaskService.DisableTaskAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.ScheduledTask.ScheduledTaskService.RunTaskAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Services.Security.SecurityService">
+            <summary>
+            Provides security management operations via the <c>B11.Security</c> PowerShell module.
+            Implements <see cref="T:Better11.Core.Interfaces.ISecurityService"/> with thread-safe mutating operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.Security.SecurityService.#ctor(Better11.Core.Interfaces.IPowerShellService,Microsoft.Extensions.Logging.ILogger{Better11.Services.Security.SecurityService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.Security.SecurityService"/> class.
+            </summary>
+            <param name="ps">The PowerShell service used to invoke commands.</param>
+            <param name="logger">The logger instance.</param>
+        </member>
+        <member name="M:Better11.Services.Security.SecurityService.GetSecurityStatusAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Security.SecurityService.RunSecurityScanAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Security.SecurityService.ApplyHardeningAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Services.Settings.SettingsService">
+            <summary>
+            Persists application settings to a JSON file under LocalApplicationData.
+            Implements <see cref="T:Better11.Core.Interfaces.ISettingsService"/> with thread-safe get/set and lazy file I/O.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.Settings.SettingsService.#ctor(Microsoft.Extensions.Logging.ILogger{Better11.Services.Settings.SettingsService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.Settings.SettingsService"/> class.
+            </summary>
+            <param name="logger">The logger instance.</param>
+        </member>
+        <member name="M:Better11.Services.Settings.SettingsService.GetValue``1(System.String,``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Settings.SettingsService.SetValue``1(System.String,``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Settings.SettingsService.SaveAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Settings.SettingsService.LoadAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Services.Startup.StartupService">
+            <summary>
+            Provides startup item management via the <c>B11.Startup</c> PowerShell module.
+            Implements <see cref="T:Better11.Core.Interfaces.IStartupService"/> with thread-safe mutating operations.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.Startup.StartupService.#ctor(Better11.Core.Interfaces.IPowerShellService,Microsoft.Extensions.Logging.ILogger{Better11.Services.Startup.StartupService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.Startup.StartupService"/> class.
+            </summary>
+            <param name="ps">The PowerShell service used to invoke commands.</param>
+            <param name="logger">The logger instance.</param>
+        </member>
+        <member name="M:Better11.Services.Startup.StartupService.GetStartupItemsAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Startup.StartupService.EnableStartupItemAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Startup.StartupService.DisableStartupItemAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Startup.StartupService.RemoveStartupItemAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Services.SystemInfo.SystemInfoService">
+            <summary>
+            Provides system information retrieval via the <c>B11.SystemInfo</c> PowerShell module.
+            Implements <see cref="T:Better11.Core.Interfaces.ISystemInfoService"/> with short-lived caching for expensive queries.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.SystemInfo.SystemInfoService.#ctor(Better11.Core.Interfaces.IPowerShellService,Microsoft.Extensions.Logging.ILogger{Better11.Services.SystemInfo.SystemInfoService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.SystemInfo.SystemInfoService"/> class.
+            </summary>
+            <param name="ps">The PowerShell service used to invoke commands.</param>
+            <param name="logger">The logger instance.</param>
+        </member>
+        <member name="M:Better11.Services.SystemInfo.SystemInfoService.GetSystemInfoAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.SystemInfo.SystemInfoService.GetPerformanceMetricsAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Services.SystemTray.SystemTrayService">
+            <summary>
+            Windows Forms-based system tray service implementation for Better11.
+            Provides notification capabilities and context menu integration.
+            </summary>
+        </member>
+        <member name="P:Better11.Services.SystemTray.SystemTrayService.IsVisible">
+            <summary>Gets a value indicating whether the system tray is visible.</summary>
+        </member>
+        <member name="P:Better11.Services.SystemTray.SystemTrayService.Tooltip">
+            <summary>Gets the current tooltip text.</summary>
+        </member>
+        <member name="E:Better11.Services.SystemTray.SystemTrayService.DoubleClicked">
+            <summary>Event raised when the system tray icon is double-clicked.</summary>
+        </member>
+        <member name="E:Better11.Services.SystemTray.SystemTrayService.RightClicked">
+            <summary>Event raised when the system tray icon is right-clicked.</summary>
+        </member>
+        <member name="E:Better11.Services.SystemTray.SystemTrayService.Disposed">
+            <summary>Event raised when the system tray service is disposed.</summary>
+        </member>
+        <member name="M:Better11.Services.SystemTray.SystemTrayService.#ctor(Microsoft.Extensions.Logging.ILogger{Better11.Services.SystemTray.SystemTrayService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.SystemTray.SystemTrayService"/> class.
+            </summary>
+            <param name="logger">The logger instance.</param>
+        </member>
+        <member name="M:Better11.Services.SystemTray.SystemTrayService.ShowAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.SystemTray.SystemTrayService.HideAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.SystemTray.SystemTrayService.ShowNotificationAsync(System.String,System.String,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.SystemTray.SystemTrayService.AddContextMenuItemAsync(System.String,System.Windows.Input.ICommand)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.SystemTray.SystemTrayService.AddContextMenuSeparatorAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.SystemTray.SystemTrayService.AddContextMenuSubmenuAsync(System.String,System.ValueTuple{System.String,System.Windows.Input.ICommand}[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.SystemTray.SystemTrayService.UpdateTooltipAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.SystemTray.SystemTrayService.UpdateIconAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.SystemTray.SystemTrayService.ShowContextMenuAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.SystemTray.SystemTrayService.Dispose">
+            <summary>
+            Releases all resources used by the SystemTrayService.
+            </summary>
+        </member>
+        <member name="T:Better11.Services.Update.UpdateService">
+            <summary>
+            Provides Windows Update management operations via the <c>B11.Update</c> PowerShell module.
+            Implements <see cref="T:Better11.Core.Interfaces.IUpdateService"/> with thread-safe install operations and result caching.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.Update.UpdateService.#ctor(Better11.Core.Interfaces.IPowerShellService,Microsoft.Extensions.Logging.ILogger{Better11.Services.Update.UpdateService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.Update.UpdateService"/> class.
+            </summary>
+            <param name="ps">The PowerShell service used to invoke commands.</param>
+            <param name="logger">The logger instance.</param>
+        </member>
+        <member name="M:Better11.Services.Update.UpdateService.CheckForUpdatesAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Update.UpdateService.InstallUpdatesAsync(System.Collections.Generic.IReadOnlyList{System.String},System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.Update.UpdateService.GetUpdateHistoryAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Better11.Services.UserAccount.UserAccountService">
+            <summary>
+            Service for managing user accounts, groups, password policy, and autologin via PowerShell.
+            </summary>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.#ctor(Better11.Core.Interfaces.IPowerShellService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Better11.Services.UserAccount.UserAccountService"/> class.
+            </summary>
+            <param name="ps">The PowerShell service instance.</param>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.GetLocalAccountsAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.CreateAccountAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.DeleteAccountAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.SetAccountEnabledAsync(System.String,System.Boolean,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.GetLocalGroupsAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.GetGroupMembersAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.AddGroupMemberAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.RemoveGroupMemberAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.GetPasswordPolicyAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.SetPasswordPolicyAsync(System.Int32,System.Boolean,System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.GetAutoLoginAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.SetAutoLoginAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.DisableAutoLoginAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.GetUserProfilesAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.GetSecurityAuditAsync(System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.GetUserSessionsAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Better11.Services.UserAccount.UserAccountService.LogoffSessionAsync(System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>
